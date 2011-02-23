@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Resume: Ernie Wieczorek, Web Application Developer and Designer
+    </title>
+    <link rel="stylesheet" href="resume.css" />
+  </head>
+  <body>
+    <span style="font-family: Bebas">&nbsp;</span>
+
+    <canvas id="bg"> </canvas>
+    <canvas id="item"></canvas>
+    <canvas id="menu">
+      Sorry, your browser is not supported. Please try again with
+      the latest version of either Chrome/Chromium, Firefox, Opera, Safari, or
+      Internet Explorer 9.
+    </canvas>
+
+    <div id="content"></div>
+    <div id="footer">
+      ernie@corrupt.it
+    </div>
+
+    <script src="resume_min.js"></script>
+    <script>
+      window.addEventListener('load', function() {
+        var _menu = document.getElementById("menu")
+          , _item = document.getElementById("item")
+          , _bg = document.getElementById("bg")
+          , _switch
+          , _load
+          , _pdf
+
+        _switch = function(url) {
+          return function() {
+            Resume.subPage.switchTo(url, this.text)
+          }
+        }
+        _load = function(url) {
+          return function() {
+            Resume.sync
+              ( Resume.partial(Resume.subPage.load, url, this.text)
+              , Resume.mainPage.fadeOut
+              , Resume.subPage.fadeIn
+              )
+          }
+        }
+
+        _pdf = function() {
+          window.location = "resume.pdf"
+          return false
+        }
+
+        Resume.title = "Ernie Wieczorek"
+        Resume.createMainPage(
+          { menu:
+            { canvas: _menu
+            , itemTarget: 
+                { canvas: _item
+                , image: 'img/selector.png'
+                , targetWidth: 150
+                , targetHeight: 25
+                , targetX: 329
+                , targetY: 26
+                }
+            , items:
+              [ { text: 'About', handler: _load('pages/about.html') }
+              , { text: 'Education', handler: _load('pages/education.html') }
+              , { text: 'Technology', handler: _load('pages/technology.html') }
+              , { text: 'Employment', handler: _load('pages/employment.html') }
+              , { text: 'Download PDF', handler: _pdf }
+              ]
+            }
+          }
+        ).fadeIn()
+
+        Resume.createSubPage(
+          { placeHolder: document.getElementById("content")
+          , menu: 
+            { canvas: _menu
+            , itemSelector: { canvas: _item }
+            , items:
+              [ { text: 'Main Menu'
+                , handler: function() {
+                    Resume.subPage.fadeOut(Resume.mainPage.fadeIn)
+                  }
+                }
+              , { text: 'About', handler: _switch('pages/about.html') }
+              , { text: 'Education', handler: _switch('pages/education.html') }
+              , { text: 'Technology', handler: _switch('pages/technology.html') }
+              , { text: 'Employment', handler: _switch('pages/employment.html') }
+              , { text: 'Download PDF', handler: _pdf }
+              ]
+            }
+          }
+        )
+
+        Resume.createBackground({ canvas: _bg }).draw()
+      }, false)
+    </script>
+  </body>
+</html>
