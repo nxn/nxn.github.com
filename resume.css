@@ -49,6 +49,16 @@ body
   ; padding: 0px 10px 75px 10px
   ; position: relative
   }
+#content a
+  { text-decoration: none
+  ; color: #7a242e
+  ; font-weight: bold
+  }
+
+#content a:hover
+  { text-decoration: underline
+  }
+
 #content .dark
   { font-family: "Adelle Basic"
   ; font-weight: bold
