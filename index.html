@@ -13,9 +13,13 @@
     <canvas id="bg"> </canvas>
     <canvas id="item"></canvas>
     <canvas id="menu">
-      Sorry, your browser is not supported. Please try again with
-      the latest version of either Chrome/Chromium, Firefox, Opera, Safari, or
-      Internet Explorer 9.
+      <div style="text-align: center; width: 480px; margin: 0px auto;
+      padding-top: 75px;">
+        Sorry, your browser is not supported. Please try again with
+        the latest version of either Chrome/Chromium, Firefox, Opera, Safari,
+        Internet Explorer 9, or download the <a href="ewieczorek.pdf">PDF Version
+        instead.</a>.
+      </div>
     </canvas>
 
     <div id="content"></div>
@@ -25,80 +29,97 @@
 
     <script src="resume_min.js"></script>
     <script>
-      window.addEventListener('load', function() {
-        var _menu = document.getElementById("menu")
-          , _item = document.getElementById("item")
-          , _bg = document.getElementById("bg")
-          , _switch
-          , _load
-          , _pdf
+      var _init = function() {
+        /* EW (02/23/2011):
+         * Preload the images; it makes transitions between pages seem smoother.
+         * */
+        new Image().src = "img/bg_hb_dark.png"
+        new Image().src = "img/bg_hb_light.png"
+        new Image().src = "img/bg_ht_dark.png"
+        new Image().src = "img/bg_ht_light.png"
+        new Image().src = "img/bg_v.png"
+        new Image().src = "img/lambda.png"
+        new Image().src = "img/temple.png"
 
-        _switch = function(url) {
-          return function() {
-            Resume.subPage.switchTo(url, this.text)
-          }
-        }
-        _load = function(url) {
-          return function() {
-            Resume.sync
-              ( Resume.partial(Resume.subPage.load, url, this.text)
-              , Resume.mainPage.fadeOut
-              , Resume.subPage.fadeIn
-              )
-          }
-        }
+        window.addEventListener('load', function() {
 
-        _pdf = function() {
-          window.location = "resume.pdf"
-          return false
-        }
+          var _menu = document.getElementById("menu")
+            , _item = document.getElementById("item")
+            , _bg = document.getElementById("bg")
+            , _switch
+            , _load
+            , _pdf
 
-        Resume.title = "Ernie Wieczorek"
-        Resume.createMainPage(
-          { menu:
-            { canvas: _menu
-            , itemTarget: 
-                { canvas: _item
-                , image: 'img/selector.png'
-                , targetWidth: 150
-                , targetHeight: 25
-                , targetX: 329
-                , targetY: 26
-                }
-            , items:
-              [ { text: 'About', handler: _load('pages/about.html') }
-              , { text: 'Education', handler: _load('pages/education.html') }
-              , { text: 'Technology', handler: _load('pages/technology.html') }
-              , { text: 'Employment', handler: _load('pages/employment.html') }
-              , { text: 'Download PDF', handler: _pdf }
-              ]
+          _switch = function(url) {
+            return function() {
+              Resume.subPage.switchTo(url, this.text)
             }
           }
-        ).fadeIn()
+          _load = function(url) {
+            return function() {
+              Resume.sync
+                ( Resume.partial(Resume.subPage.load, url, this.text)
+                , Resume.mainPage.fadeOut
+                , Resume.subPage.fadeIn
+                )
+            }
+          }
 
-        Resume.createSubPage(
-          { placeHolder: document.getElementById("content")
-          , menu: 
-            { canvas: _menu
-            , itemSelector: { canvas: _item }
-            , items:
-              [ { text: 'Main Menu'
-                , handler: function() {
-                    Resume.subPage.fadeOut(Resume.mainPage.fadeIn)
+          _pdf = function() {
+            window.location = "ewieczorek.pdf"
+            return false
+          }
+
+          Resume.title = "Ernie Wieczorek"
+          Resume.createMainPage(
+            { menu:
+              { canvas: _menu
+              , itemTarget: 
+                  { canvas: _item
+                  , image: 'img/selector.png'
+                  , targetWidth: 150
+                  , targetHeight: 25
+                  , targetX: 329
+                  , targetY: 26
                   }
-                }
-              , { text: 'About', handler: _switch('pages/about.html') }
-              , { text: 'Education', handler: _switch('pages/education.html') }
-              , { text: 'Technology', handler: _switch('pages/technology.html') }
-              , { text: 'Employment', handler: _switch('pages/employment.html') }
-              , { text: 'Download PDF', handler: _pdf }
-              ]
+              , items:
+                [ { text: 'About', handler: _load('pages/about.html') }
+                , { text: 'Education', handler: _load('pages/education.html') }
+                , { text: 'Technology', handler: _load('pages/technology.html') }
+                , { text: 'Employment', handler: _load('pages/employment.html') }
+                , { text: 'Download PDF', handler: _pdf }
+                ]
+              }
             }
-          }
-        )
+          ).fadeIn()
 
-        Resume.createBackground({ canvas: _bg }).draw()
-      }, false)
+          Resume.createSubPage(
+            { placeHolder: document.getElementById("content")
+            , menu: 
+              { canvas: _menu
+              , itemSelector: { canvas: _item }
+              , items:
+                [ { text: 'Main Menu'
+                  , handler: function() {
+                      Resume.subPage.fadeOut(Resume.mainPage.fadeIn)
+                    }
+                  }
+                , { text: 'About', handler: _switch('pages/about.html') }
+                , { text: 'Education', handler: _switch('pages/education.html') }
+                , { text: 'Technology', handler: _switch('pages/technology.html') }
+                , { text: 'Employment', handler: _switch('pages/employment.html') }
+                , { text: 'Download PDF', handler: _pdf }
+                ]
+              }
+            }
+          )
+
+          Resume.createBackground({ canvas: _bg }).draw()
+        }, false)
+      }
+
+      if (document.createElement('canvas').getContext) _init()
+
     </script>
   </body>
 </html>
