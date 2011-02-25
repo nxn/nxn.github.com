@@ -309,7 +309,12 @@
 
 
 
-
+  /* EW (02/24/2011):
+   * The SubMenu provides navigation on the SubPage layout. It's a somewhat more
+   * traditional approach to navigtaion when compared to the MainMenu since its
+   * position is stationary. In this case it is the ItemSelector (counterpart of
+   * the ItemTarget) that moves about over the items.
+   * */
   this.createSubMenu = function(config) {
     var SubMenu = {}
       , _canvas = config.canvas
