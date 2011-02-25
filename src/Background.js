@@ -1,11 +1,11 @@
-/* EW (02/24/2011):
- * Draws a nice gradient onto the entire area of some given canvas. Meant to be
- * used in its own canvas element that is positioned behind one or more other
- * canvas elements. Doing it this way means there is no need for redrawing it
- * again -- unless of course the dimentions of the window (and therefore the
- * canvas since it is assumed the canvas spans the entire window area) change.
- * */
 ; (function() {
+  /* EW (02/24/2011):
+   * Draws a nice gradient onto the entire area of some given canvas. Meant to be
+   * used in its own canvas element that is positioned behind one or more other
+   * canvas elements. Doing it this way means there is no need for redrawing it
+   * again -- unless of course the dimentions of the window (and therefore the
+   * canvas since it is assumed the canvas spans the entire window area) change.
+   * */
   this.createBackground = function(config) {
     var Background = {}
       , _width = document.documentElement.clientWidth
