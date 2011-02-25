@@ -1,5 +1,9 @@
 ; (function() {
   var _namespace = this
+    /* EW (02/24/2011):
+     * Helper function for the button themes. Creates a path with perfectly
+     * circular ends.
+     * */
     , _drawOutline = function(ctx,x,y,w,h) {
         var r = h/2
           , bottom = Math.PI/2
@@ -10,6 +14,14 @@
         ctx.closePath()
       }
 
+  /* EW (02/24/2011):
+   * Function for creating imageData in the "sub" menu style. Receives a button
+   * and uses its canvas context to give it an getImageData and
+   * getImageDataSelected function. Also sets the width and heigh properties
+   * so that the button can be used with the generic CanvasEffects functions.
+   *
+   * (The x and y are set from the SubMenu object)
+   * */
   var _applySubTheme = function(btn) {
     var _txtFillStyle = "rgba(46, 52, 54, 0.75)"
       , _txtFillStyleSelected = "#2e3436"
@@ -24,6 +36,10 @@
     btn.height = 32
 
     btn.getImageData = function() {
+      /* EW (02/24/2011):
+       * To avoid doing needless work, return the _imageData reference if we
+       * already computed the _imageData before.
+       * */
       if (_imageData) return _imageData
 
       _context.save()
@@ -51,6 +67,10 @@
     }
 
     btn.getImageDataSelected = function() {
+      /* EW (02/24/2011):
+       * To avoid doing needless work, return the _imageData reference if we
+       * already computed the _imageData before.
+       * */
       if (_imageDataSelected) return _imageDataSelected
 
       _context.save()
@@ -74,6 +94,14 @@
     }
   }
 
+  /* EW (02/24/2011):
+   * Function for creating imageData in the "main" menu style. Receives a button
+   * and uses its canvas context to give it an getImageData and
+   * getImageDataSelected function. Also sets the width and heigh properties
+   * so that the button can be used with the generic CanvasEffects functions.
+   *
+   * (The x and y are set from the MainMenu object)
+   * */
   var _applyMainTheme = function(btn) {
     var _context = btn.context
       , _imageData
@@ -109,6 +137,10 @@
   
 
     btn.getImageData = function() {
+      /* EW (02/24/2011):
+       * To avoid doing needless work, return the _imageData reference if we
+       * already computed the _imageData before.
+       * */
       if (_imageData) return _imageData
 
       _context.save()
@@ -148,6 +180,10 @@
     }
   
     btn.getImageDataSelected = function() {
+      /* EW (02/24/2011):
+       * To avoid doing needless work, return the _imageData reference if we
+       * already computed the _imageData before.
+       * */
       if (_imageDataSelected) return _imageDataSelected
 
       _context.save()
@@ -203,6 +239,10 @@
   
     Button.handler = config.handler
 
+    /* EW (02/25/2011):
+     * Depending on which menu the button will be in determines how it should
+     * look. So apply the theme based on the config value that was given to us.
+     * */
     if (config.theme == "main") _applyMainTheme(Button)
     else _applySubTheme(Button)
 

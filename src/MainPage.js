@@ -1,6 +1,11 @@
 ; (function() {
   var _namespace = this
 
+  /* EW (02/24/2011):
+   * The MainPage object simply wraps the menu object. It mainly exists to be
+   * a counter part of the SubPage object that has more necessary reasons for
+   * existing.
+   * */
   this.createMainPage = function(config) {
     /* EW (02/16/2011):
      * Meant to be a singleton, so return the current main page if one already

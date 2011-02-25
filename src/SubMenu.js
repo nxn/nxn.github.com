@@ -2,9 +2,10 @@
   var _namespace = this
 
   /* EW (02/06/2011):
-   * ItemSelector is a subcomponent of the SubMenu, used for providing the menu
-   * with a method of selecting items. It has its own canvas * to keep the 
-   * drawing mechanism as simple as possible.
+   * ItemSelector is a subcomponent of the SubMenu (hence the private
+   * constructor), used for providing the menu with a method of
+   * selecting items. It has its own canvas to keep the drawing mechanism
+   * as simple as possible.
    * */
   var _createItemSelector = function(config) {
     var ItemSelector = {}
@@ -29,6 +30,12 @@
     ItemSelector.menu = _menu = config.menu
     _items = _menu.items
 
+    /* EW (02/24/2011):
+     * Based on circumstances, such as whether we are fading content in or out
+     * at some exact point in time, it may be advantageous to prevent click
+     * events temporarily. These functions aim to give that functionality to
+     * other components
+     * */
     ItemSelector.disableClick = function() {
       _disableClick = true
     }
@@ -37,25 +44,35 @@
     }
 
     ItemSelector.fadeIn = function(callback) {
+      /* EW (02/25/2011):
+       * Find the button that corresponds to the currently loaded page. This is
+       * sort of a lame way of doing that as it works by comparing the button's
+       * text with the page's title. A less "stringly typed" method could do
+       * some good here.
+       * */
       var _title = _namespace.currentPage.title
         , _i
       for (_i = 0; _btn = _items[_i]; _i++) {
         if (_btn.text === _title) break 
       }
 
-      /* EW (02/13/2010):
-       * Current: the button that represents the currently loaded page
-       * */
       ItemSelector.current = _btn
       ItemSelector.index = _i
   
+      /* EW (02/24/2011):
+       * Position the itemselector exactly over the button for this page, and
+       * also set its width and height accordingly so that we can use
+       * CanvasEffects functions on the selector.
+       * */
       ItemSelector.x = _btn.x
       ItemSelector.y = _btn.y
       ItemSelector.width = _btn.width
       ItemSelector.height = _btn.height
 
-      _target = _btn
-
+      /* EW (02/24/2011):
+       * When the selector is faded in, attach the handlers for click and move
+       * events, along with allowing the selector to move
+       * */
       _namespace.CanvasEffects.fadeIn.call
         ( ItemSelector
         , function() {
@@ -68,6 +85,10 @@
         )
     }
 
+    /* EW (02/24/2011):
+     * When this component isn't being shown, disable the handlers to not waste
+     * CPU cycles, disable the selector from moving, and then fade it out.
+     * */
     ItemSelector.fadeOut = function(callback) {
       window.removeEventListener('click', _clickHandler, false)
       window.removeEventListener('mousemove', _moveHandler, false)
@@ -76,14 +97,17 @@
     }
 
     _moveHandler = function(e) {
-      /* EW (02/13/2010):
+      /* EW (02/13/2011):
        * Try and get an item at the current mouse position
        * */
       var _newItem = ItemSelector.getItemAt(e.clientX, e.clientY)
 
-      /* EW (02/13/2010):
+      /* EW (02/13/2011):
        * If no such item exists at the current position, the selection needs to
-       * return to item that represents the current page (_this.current)
+       * return to item that represents the current page (ItemSelector.current).
+       * When it gets there, the moving flag can be set to false so that the
+       * selector can be moved again. The cursor should go back to the default
+       * one as well, and then we can exit out of this function.
        * */
       if (!_newItem) {
         document.body.style.cursor = "auto"
@@ -92,16 +116,21 @@
         _moving = true
         return
       }
+
+      /* EW (02/24/2011):
+       * If we do have a selected item, make the cursor "point" to it
+       * */
       document.body.style.cursor = "pointer"
 
-      /* EW (02/13/2010):
-       * If the item at the location is already the selected item, just return
-       * early since nothing needs to be done
+      /* EW (02/13/2011):
+       * If the new item is actually the same as the target item we had before,
+       * we don't have to do anything since everything has already been set for
+       * us by now.
        * */
       if (_newItem === _target) return
 
-      /* EW (02/13/2010):
-       * If neither of the above is true, then we need to move the selection to
+      /* EW (02/13/2011):
+       * If the new item is different, then we need to move the selection to
        * the new item and mark it as the selected item when the move is complete
        * */
       _target = _newItem
@@ -110,6 +139,11 @@
     }
 
     ItemSelector.move = function(callback) {
+      /* EW (02/24/2011):
+       * There should only be ONE move handler execution at a time, so if the
+       * flag says one is executing already, we don't need to do anything as it
+       * will adapt to whatever the _target reference is.
+       * */
       if (_moving) return
 
       /* EW (02/20/2011):
@@ -129,7 +163,8 @@
         /* EW (02/20/2011):
          * If either the selector is exactly at the new position, or the
          * _stopAnimation flag has been triggered by the fadeOut functions, we
-         * want to clearn the interval, and execute the callback if there
+         * want to clearn the interval, and execute the callback if one was
+         * given to us.
          * */
         if (_targetX === _itemSelectorX || _stopMoving ) {
           clearInterval(_interval)
@@ -144,6 +179,12 @@
           , ItemSelector.height
           )
 
+        /* EW (02/24/2011):
+         * If at this interval we are within one step's away (left or right)
+         * from the final position, just set the selector to it so the previous
+         * if statement will catch it during the next interval and finish the
+         * move.
+         * */
         if (Math.abs(_itemSelectorX - _targetX) < _step)
           _itemSelectorX = _targetX
         else
@@ -163,34 +204,47 @@
     }
 
     _clickHandler = function(e) {
-      /* EW (02/13/2010):
+      /* EW (02/24/2011):
+       * Ensure we are supposed to handle click events at this point in time
+       * */
+      if (_disableClick) return
+
+      /* EW (02/13/2011):
        * NOTE: Instead of launching the handler for _this.selected when a click
        * occurs, we explicitly get the item at mouse X,Y to avoid problems if
        * the user clicks before the animation is complete.
        * */
       var _newItem = ItemSelector.getItemAt(e.clientX, e.clientY)
 
-      if (_disableClick) return
-
       if (!_newItem || _newItem === ItemSelector.current) return
 
       /* EW (02/20/2011):
-       * Only set the current item if the handler doesn't return false
+       * Only set the current item if the handler doesn't return false.
        * */
       if (_newItem.handler() !== false)
         ItemSelector.current = _newItem
     }
 
+    /* EW (02/24/2011):
+     * Given coordinates x,y try to retrieve a reference to an item at that
+     * position. If there is no such item return null
+     * */
     ItemSelector.getItemAt = function(x,y) {
       var _i = 0
         , _menuX = _menu.menuX
         , _menuY = _menu.menuY
         , _btn
 
+      /* EW (02/24/2011):
+       * There may be scrollbars on the page, and we have to take into account
+       * how much the window is scrolled down or right when calculating whether
+       * there is a selection or not. (ie the menu and button coordinates are
+       * relative to the top of the page and the mouse coordinates are not).
+       * */
       x += window.pageXOffset
       y += window.pageYOffset
 
-      /* EW (02/13/2010):
+      /* EW (02/13/2011):
        * Make sure the mouse coordinates are within the menu bounds, otherwise
        * just return null
        * */
@@ -200,30 +254,43 @@
          || x > _menuX + _menu.menuWidth
          ) return null
 
-      /* EW (02/13/2010):
+      /* EW (02/13/2011):
        * Since the items can be any length, we have to look through them to see
-       * which one the mouse is over. When found we return it
+       * which one the mouse is over. When/if found we return it.
        * */
       for (_i = 0; _btn = _items[_i]; _i++)
         if (x >= _btn.x && x < _btn.x + _btn.width)
           return _btn
 
-      /* EW (02/13/2010):
-       * In the event the mouse is within bounds of the menu, but not over any
-       * item, return null.
+      /* EW (02/13/2011):
+       * Returning null at this point isn't necessary since the function would
+       * return undefined and that's a falsey value. Also we probably never
+       * even get to this point since the buttons span the whole menu area and
+       * for this to occur we'd have to be in that area but not over a button.
+       *
+       * Either way, just returning for sanity's sake.
        * */
       return null
     }
 
+    /* EW (02/25/2011):
+     * Since this whole resume rellies on having full window sized canvas
+     * elements, we have to keep the canvas size in sync with the window size.
+     * */
     window.addEventListener('resize', function() {
-      if (_namespace.currentPage !== _namespace.subPage) return
-    
       /* EW (02/21/2011):
        * Only ever reset the width and height of the canvas object if it is
-       * being used to display items from this object, because doing so clears
-       * everything on it.
+       * being CURRENTLY used to display the sub page. Otherwise we'd be
+       * resetting, and subsequently CLEARING, the canvas for components
+       * unrelated to this one.
        * */
+      if (_namespace.currentPage !== _namespace.subPage) return
+
       _canvas.width = document.documentElement.clientWidth
+      /* EW (02/21/2011):
+       * _canvasHeight isn't ever being used for anything in here, but might as
+       * well keep it up to date in case it ever does get used for something.
+       * */
       _canvas.height = document.documentElement.clientHeight
 
       ItemSelector.x = ItemSelector.current.x
@@ -272,8 +339,18 @@
     SubMenu.x = config.x || Math.floor(_canvasWidth/2 - SubMenu.width/2 - SubMenu.padding)
     SubMenu.y = config.y || Math.floor(25 - SubMenu.padding)
 
+    /* EW (02/24/2011):
+     * Since the menuY coordinate is pretty much constant, we can set it now.
+     * The menuY coordinate will have to be based on the length of the title
+     * that is displayed to the left of the actual menu area -- so we avoid
+     * setting it just yet
+     * */
     SubMenu.menuY = SubMenu.y + SubMenu.padding
 
+    /* EW (02/24/2011):
+     * Go through button configs and create button instances for the MainMenu
+     * canvas element
+     * */
     for (_i = 0; _btnCfg = config.items[_i]; _i++) {
       _btnCfg.canvas = _canvas
       _btn = _namespace.createButton(_btnCfg)
@@ -281,8 +358,7 @@
       /* EW (02/20/2011):
        * Prefetch the image data while the canvas is empty. Otherwise I noticed
        * that if the canvas is not big enough, the getImageData functions might
-       * clip the already rendered title text.
-       *
+       * clip the rendered title text (when there already).
        * */
       _btn.getImageDataSelected()
 
@@ -295,6 +371,10 @@
         , _btn
         , _offsetX
         , _widthOfLabel
+
+      /* EW (02/24/2011):
+       * Ensure we only do this once.
+       * */
       if (_imageData) return _imageData
 
       _context.save()
@@ -304,7 +384,7 @@
       _context.fillStyle = _txtCurrentFillStyle
 
 
-      /* EW (02/13/2010):
+      /* EW (02/13/2011):
        * Figure out how much space we need to give to the label; include 15 pixels
        * of padding on the right for aesthetic reasons
        * */
@@ -313,13 +393,15 @@
       _offsetX = SubMenu.padding + SubMenu.x + _widthOfLabel
 
       /* EW (02/20/2011):
-       * The actual x, y coordinates of the menu portion of the SubMenu
+       * Set the menuX property to the x coordinate where the actual menu
+       * starts.
        * */
       SubMenu.menuX = _offsetX
 
       for (_i = 0; _btn = _items[_i]; _i++) {
-        /* EW (02/13/2010):
-         * Set the coordinates of the button to where we will be drawing it.
+        /* EW (02/13/2011):
+         * Set the coordinates of the button to where we will want it to appear
+         * when it gets fadedIn.
          * */
         _btn.x = _offsetX
         _btn.y = SubMenu.menuY
@@ -330,10 +412,23 @@
           , _btn.y
           )
 
+        /* EW (02/24/2011):
+         * Increment the offset to this button's width, so the next button isn't
+         * placed over this one
+         * */
         _offsetX += _btn.width
       }
 
+      /* EW (02/24/2011):
+       * _offsetX now contains the right most x coordinate of the button area,
+       * so set that to the menu width.
+       * */
       SubMenu.menuWidth = _offsetX
+
+      /* EW (02/24/2011):
+       * Lame way of setting the menu height, because it assumes all buttons are
+       * equal height.
+       * */
       SubMenu.menuHeight = _items[0].height
 
       /* EW (02/20/2011):
@@ -351,7 +446,6 @@
         , SubMenu.width + (SubMenu.padding * 2)
         , SubMenu.height + (SubMenu.padding * 2)
         )
-
       _context.clearRect
         ( SubMenu.x
         , SubMenu.y
@@ -363,6 +457,11 @@
       return _imageData
     }
 
+    /* EW (02/24/2011):
+     * This menu contains everything needed by the itemSelector to be initiated
+     * now. Primarily the items array and also the coordinates of menuX, menuY,
+     * menuWidth, and menuHeight.
+     * */
     SubMenu.itemSelector = _itemSelector = _createItemSelector(
       { menu: SubMenu
       , canvas: config.itemSelector.canvas
@@ -381,10 +480,14 @@
       })
     }
 
+    /* EW (02/24/2011):
+     * Since this whole resume rellies on having full window sized canvas
+     * elements, we have to keep the canvas size in sync with the window size.
+     * */
     window.addEventListener('resize', function() {
       /* EW (02/21/2011):
-       * _canvasHeight isn't ever being used for anything, but might as well
-       * keep it up to date in case it ever does get used for something.
+       * _canvasHeight isn't ever being used for anything inhere, but might as
+       * well keep it up to date in case it ever does get used for something.
        * */
       _canvasWidth = document.documentElement.clientWidth
       _canvasHeight = document.documentElement.clientHeight
@@ -398,13 +501,13 @@
        * */
       _imageData = null
 
-      if (_namespace.currentPage !== _namespace.subPage) return
-
       /* EW (02/21/2011):
        * Only ever reset the width and height of the canvas object if it is
-       * being used to display items from this menu, because doing so clears
-       * everything on it
+       * being CURRENTLY used to display the sub page. Otherwise we'd be
+       * resetting, and subsequently CLEARING, the canvas for components
+       * unrelated to this one.
        * */
+      if (_namespace.currentPage !== _namespace.subPage) return
       _canvas.width = _canvasWidth
       _canvas.height = _canvasHeight
 
