@@ -232,7 +232,7 @@
       _btnCfg.theme = _btnCfg.theme || 'main'
       _btn = _namespace.createButton(_btnCfg)
   
-      _width = (_width > _btn.width) ?
+      _width = (_width >= (_btn.width + _btn.padding)) ?
         _width : _btn.width + _btn.padding
   
       _height += _btn.height + _btn.padding
