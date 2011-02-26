@@ -17,7 +17,7 @@
   /* EW (02/24/2011):
    * Function for creating imageData in the "sub" menu style. Receives a button
    * and uses its canvas context to give it an getImageData and
-   * getImageDataSelected function. Also sets the width and heigh properties
+   * getImageDataSelected function. Also sets the width and height properties
    * so that the button can be used with the generic CanvasEffects functions.
    *
    * (The x and y are set from the SubMenu object)

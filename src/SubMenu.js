@@ -438,7 +438,7 @@
 
       /* EW (02/20/2011):
        * Due to cross browser compatibility problems I gave up on trying to
-       * position the fonts in any type of clean way. So 64 it is.
+       * position the fonts in any type of clean way. So 54 it is.
        * */
       _context.fillText
         ( _namespace.title
