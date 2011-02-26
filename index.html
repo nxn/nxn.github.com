@@ -8,8 +8,12 @@
     <link rel="stylesheet" href="resume.css" />
   </head>
   <body>
-    <span style="font-family: Bebas">&nbsp;</span>
-
+    <span style="font-family: Bebas;">&nbsp;</span>
+    <span style="font-family: Adelle Basic; font-weight: bold;">&nbsp;</span>
+    <span style="font-family: Adelle Basic; font-weight: bold; font-style:
+    italic">
+      &nbsp;
+    </span>
     <canvas id="bg"> </canvas>
     <canvas id="item"></canvas>
     <canvas id="menu">
@@ -29,7 +33,9 @@
 
     <script src="resume_min.js"></script>
     <script>
-      var _init = function() {
+      (function() {
+        if (!document.createElement('canvas').getContext) return
+
         /* EW (02/23/2011):
          * Preload the images; it makes transitions between pages seem smoother.
          * */
@@ -116,10 +122,7 @@
 
           Resume.createBackground({ canvas: _bg }).draw()
         }, false)
-      }
-
-      if (document.createElement('canvas').getContext) _init()
-
+      })()
     </script>
   </body>
 </html>

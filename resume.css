@@ -1,18 +1,15 @@
 @font-face
   { font-family: "Bebas"
-  ; src: local("Bebas")
-  , url('fonts/bebas.ttf')
+  ; src: local("Bebas"), url('fonts/bebas.ttf')
   }
 @font-face
   { font-family: "Adelle Basic"
-  ; src: local("Adelle Basic Bold")
-  , url('fonts/AdelleBasic_Bold.otf')
+  ; src: local("Adelle Basic Bold"), url('fonts/AdelleBasic_Bold.otf')
   ; font-weight: bold
   }
 @font-face
   { font-family: "Adelle Basic"
-  ; src: local("Adelle Basic Bold Italic")
-  , url('fonts/AdelleBasic_BoldItalic.otf')
+  ; src: local("Adelle Basic Bold Italic"), url('fonts/AdelleBasic_BoldItalic.otf')
   ; font-weight: bold
   ; font-style: italic
   }
@@ -31,12 +28,12 @@ body
   ; font-size: 10pt
   ; height: 100%
   ; width: 100%
-  ; position: relative
   }
 #menu, #bg, #item
   { margin: 0px auto
   ; display: block
   ; position: absolute
+  ; top: 0px;
   ; width: 100%
   ; height: 100%
   ; top: 0px
