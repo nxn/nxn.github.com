@@ -5,24 +5,15 @@ body {
     line-height: 1.5em;
 }
 
-@media print {
-    body {
-        /* need some margin to have left hand side list-item bullets show when printing */
-        margin: 0 1.5em;
-        font-size: 10pt;
-    }
-}
-
 .name, .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     column-gap: 3em;
 }
 .name {
-    grid-template-columns: 2fr 1fr;
+    row-gap: 1em;
 }
+
 .columns {
-    columns: 2;
     column-gap: 3em;
 }
 
@@ -75,11 +66,8 @@ article header {
 }
 
 #contact li {
-    text-align: right;
+    text-align: left;
     line-height: 1.5em;
-    background-size: contain;
-    background-position: right center;
-    background-repeat: no-repeat;
 }
 
 #contact li .icon {
@@ -88,18 +76,7 @@ article header {
     width: 1.5em;
     vertical-align: middle;
     fill: #222;
-    margin-left: 0.5em;
-}
-
-@media screen {
-    #contact li.doc .web {
-        display: none;
-    }
-}
-@media print {
-    #contact li.doc .pdf {
-        display: none;
-    }
+    margin-right: 0.5em;
 }
 
 a {
@@ -112,6 +89,7 @@ a:hover {
 a:hover .icon {
     fill: #C90014 !important;
 }
+
 ul.items li {
     display: inline-block;
     line-height: 1.75em;
@@ -136,7 +114,7 @@ ul.bullet-list li {
 .date { font-weight: normal }
 
 #summary p {
-    margin: 1.5em 0;
+    margin-top: 1.5em;
 }
 #experience article header,
 #education article header {
@@ -149,4 +127,36 @@ ul.bullet-list li {
             #ccc, 
             rgba(255, 255, 255, 0)
         ) 100% 1;
+}
+
+@media only all and (min-width: 630px) {
+    .name {
+        grid-template-columns: 1fr auto;
+    }
+}
+/* 768 = 2 col on ipad in portrait, 769 = 1 col on ipad in portrait */
+@media only all and (min-width: 800px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .columns {
+        columns: 2;
+    }
+}
+
+@media not print {
+    #contact li.doc .web {
+        display: none;
+    }
+}
+@media print {
+    #contact li.doc .pdf {
+        display: none;
+    }
+
+    body {
+        /* need some margin to have left hand side list-item bullets show when printing */
+        margin: 0 1.5em;
+        font-size: 10pt;
+    }
 }
