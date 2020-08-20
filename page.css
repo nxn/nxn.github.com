@@ -1,0 +1,156 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12pt;
+    margin: 10%;
+    line-height: 1.5em;
+}
+
+@media print {
+    body {
+        /* need some margin to have left hand side list-item bullets show when printing */
+        margin: 0 1.5em;
+        font-size: 10pt;
+    }
+}
+
+.name, .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 3em;
+}
+.name {
+    grid-template-columns: 2fr 1fr;
+}
+.two-column {
+    columns: 2;
+    column-gap: 3em;
+}
+
+header .sub-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.25em;
+    line-height: 2em;
+}
+
+h1, h2, h3, h4, h5, .title {
+    color: #222
+}
+h1, h3 {
+    font-family: 'Oswald', sans-serif;
+}
+h2, h4, h5, .title {
+    font-family: 'Roboto Slab', serif;
+}
+h5, .title {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 3em;
+    line-height: 1.0em;
+}
+h2 {
+    font-size: 2em;
+    margin-top: 2em;
+}
+h2 .icon {
+    display: inline-block;
+    height: 1.0em;
+    width: 1.0em;
+    vertical-align: middle;
+    fill: #222;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-top: 1.0em;
+}
+
+article p {
+    margin-bottom: 1.5em;
+}
+
+article header {
+    margin-bottom: 0.5em;
+}
+
+#contact li {
+    text-align: right;
+    line-height: 1.5em;
+    background-size: contain;
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+
+#contact li .icon {
+    display: inline-block;
+    height: 1.5em;
+    width: 1.5em;
+    vertical-align: middle;
+    fill: #222;
+    margin-left: 0.5em;
+}
+
+@media screen {
+    #contact li.doc .web {
+        display: none;
+    }
+}
+@media print {
+    #contact li.doc .pdf {
+        display: none;
+    }
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+a:hover {
+    color: #C90014;
+}
+a:hover .icon {
+    fill: #C90014 !important;
+}
+ul.items li {
+    display: inline-block;
+    line-height: 1.75em;
+    color: #000;
+    background-color: #e0e0e0;
+    padding: 0 0.6em;
+    margin-bottom: 0.4em;
+    margin-right: 0.2em;
+    border-radius: 0.3em;
+}
+
+@media print {
+    ul.items li {
+        border: 1px solid #e0e0e0;
+    }
+}
+
+ul.bullet-list {
+    list-style-image: url('img/chevron-forward.svg');
+}
+
+ul.bullet-list li {
+    padding-bottom: 0.5em;
+}
+
+.date { font-weight: normal }
+
+#summary p {
+    margin: 1.5em 0;
+}
+#experience article header,
+#education article header {
+    padding-bottom: 0.5em;
+    border-bottom-width: 0.3em;
+    border-style: solid;
+    border-image: 
+        linear-gradient(
+            to right,
+            #ccc, 
+            rgba(255, 255, 255, 0)
+        ) 100% 1;
+}
