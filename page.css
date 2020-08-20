@@ -21,7 +21,7 @@ body {
 .name {
     grid-template-columns: 2fr 1fr;
 }
-.two-column {
+.columns {
     columns: 2;
     column-gap: 3em;
 }
@@ -116,17 +116,13 @@ ul.items li {
     display: inline-block;
     line-height: 1.75em;
     color: #000;
+    border: 0.1em solid #e0e0e0;
     background-color: #e0e0e0;
+    box-sizing: border-box;
     padding: 0 0.6em;
     margin-bottom: 0.4em;
     margin-right: 0.2em;
     border-radius: 0.3em;
-}
-
-@media print {
-    ul.items li {
-        border: 1px solid #e0e0e0;
-    }
 }
 
 ul.bullet-list {
