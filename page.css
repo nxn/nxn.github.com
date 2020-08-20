@@ -144,7 +144,6 @@ ul.bullet-list li {
         columns: 2;
     }
 }
-
 @media not print {
     #contact li.doc .web {
         display: none;
@@ -157,7 +156,10 @@ ul.bullet-list li {
 
     body {
         /* need some margin to have left hand side list-item bullets show when printing */
-        margin: 0 1.5em;
+        margin: 0 0 0 1.5em;
         font-size: 10pt;
+    }
+    h2 {
+        margin-top: 1.0em;
     }
 }
