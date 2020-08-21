@@ -1,5 +1,6 @@
 body {
     font-family: 'Open Sans', sans-serif;
+    background-color: #f7f7f7;
     font-size: 12pt;
     margin: 10%;
     line-height: 1.5em;
@@ -84,10 +85,10 @@ a {
     text-decoration: none;
 }
 a:hover {
-    color: #C90014;
+    color: #006aba;
 }
 a:hover .icon {
-    fill: #C90014 !important;
+    fill: #006aba !important;
 }
 
 ul.items li {
@@ -153,11 +154,11 @@ ul.bullet-list li {
     #contact li.doc .pdf {
         display: none;
     }
-
     body {
         /* need some margin to have left hand side list-item bullets show when printing */
         margin: 0 0 0 1.5em;
         font-size: 10pt;
+        background-color: #ffffff;
     }
     h2 {
         margin-top: 1.0em;
