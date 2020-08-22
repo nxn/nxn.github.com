@@ -2,8 +2,13 @@ body {
     font-family: 'Open Sans', sans-serif;
     background-color: #f7f7f7;
     font-size: 12pt;
-    margin: 10%;
     line-height: 1.5em;
+    padding: 2.0em 2.5em;
+}
+
+#content {
+    max-width: 64em;
+    margin: 0 auto;
 }
 
 .name, .grid {
@@ -19,7 +24,7 @@ body {
 }
 
 header .sub-title {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto Slab', serif;
     font-size: 1.25em;
     line-height: 2em;
 }
@@ -43,23 +48,27 @@ h1 {
 }
 h2 {
     font-size: 2em;
-    margin-top: 2em;
+    text-align: center;
 }
 h2 .icon {
-    display: inline-block;
-    height: 1.0em;
-    width: 1.0em;
-    vertical-align: middle;
-    fill: #222;
+    display: block;
+    height: 2.0em;
+    width: 2.5em;
+    opacity: 0.2;
+    margin: 1.0em auto;
+    margin-bottom: 0.5em;
 }
 h3 {
     font-size: 1.5em;
     line-height: 1.5em;
     margin-top: 1.0em;
 }
+h5 {
+    margin-bottom: 0.5em;
+}
 
 article p {
-    margin-bottom: 1.5em;
+    margin-bottom: 1.0em;
 }
 
 article header {
@@ -76,7 +85,7 @@ article header {
     height: 1.5em;
     width: 1.5em;
     vertical-align: middle;
-    fill: #222;
+    fill: #c6c6c6;
     margin-right: 0.5em;
 }
 
@@ -95,13 +104,12 @@ ul.items li {
     display: inline-block;
     line-height: 1.75em;
     color: #000;
-    border: 0.1em solid #e0e0e0;
-    background-color: #e0e0e0;
-    box-sizing: border-box;
+    border: 0.1em solid #c6c6c6;
+    /*background-color: #e0e0e0;*/
     padding: 0 0.6em;
     margin-bottom: 0.4em;
     margin-right: 0.2em;
-    border-radius: 0.3em;
+    border-radius: 0.2em;
 }
 
 ul.bullet-list {
@@ -127,7 +135,7 @@ ul.bullet-list li {
         linear-gradient(
             to right,
             #ccc, 
-            rgba(255, 255, 255, 0)
+            rgba(247, 247, 247, 0)
         ) 100% 1;
 }
 
@@ -155,12 +163,9 @@ ul.bullet-list li {
         display: none;
     }
     body {
-        /* need some margin to have left hand side list-item bullets show when printing */
-        margin: 0 0 0 1.5em;
         font-size: 10pt;
         background-color: #ffffff;
-    }
-    h2 {
-        margin-top: 1.0em;
+        /* need some margin to have left hand side list-item bullets show when printing */
+        padding: 0 0 0 1.5em;
     }
 }
