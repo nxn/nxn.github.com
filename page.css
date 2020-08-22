@@ -43,7 +43,7 @@ h2, h4, h5, .title {
     font-family: 'Roboto Slab', serif;
 }
 h5, .title {
-    font-weight: bold;
+    font-weight: 700;
 }
 
 h1 {
@@ -126,7 +126,7 @@ ul.bullet-list li {
     break-inside: avoid;
 }
 
-.date { font-weight: normal }
+.date { font-weight: 400 }
 
 #summary p {
     margin-top: 1.5em;
