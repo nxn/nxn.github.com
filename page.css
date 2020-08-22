@@ -84,7 +84,7 @@ article header {
     display: inline-block;
     height: 1.5em;
     width: 1.5em;
-    vertical-align: middle;
+    vertical-align: top;
     fill: #c6c6c6;
     margin-right: 0.5em;
 }
