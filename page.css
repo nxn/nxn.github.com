@@ -56,8 +56,7 @@ h2 {
 }
 h2 .icon {
     display: block;
-    height: 2.0em;
-    width: 2.5em;
+    height: 1.5em;
     opacity: 0.2;
     margin: 1.0em auto;
     margin-bottom: 0.5em;
@@ -118,7 +117,8 @@ ul.items li {
 }
 
 ul.bullet-list {
-    list-style-image: url('img/chevron-forward.svg');
+    list-style-type: disc;
+    list-style-image: url('img/chevron.svg');
 }
 
 ul.bullet-list li {
