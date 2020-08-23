@@ -117,7 +117,7 @@ ul.items li {
 }
 
 ul.bullet-list {
-    list-style-image: url('img/chevron-forward.svg');
+    list-style-image: url('img/chevron.svg');
 }
 
 ul.bullet-list li {
