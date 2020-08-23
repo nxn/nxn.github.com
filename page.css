@@ -143,6 +143,12 @@ ul.bullet-list li {
             rgba(247, 247, 247, 0)
         ) 100% 1;
 }
+#copyright {
+    color: #999999;
+    font-size: 0.9em;
+    text-align: left;
+    padding: 1em 0 0 0;
+}
 
 @media screen and (min-width: 630px) {
     .name {
@@ -178,6 +184,9 @@ ul.bullet-list li {
         columns: 2;
     }
     #contact li.doc .pdf {
+        display: none;
+    }
+    #copyright {
         display: none;
     }
 }
