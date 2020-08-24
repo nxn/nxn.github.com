@@ -8,8 +8,8 @@
         <meta name="dcterms.rightsHolder" content="Ernie Wieczorek">
 
         <title>nxn</title>
-        <link rel="stylesheet" type="text/css" href="css/reset.css" media="all">
-        <link rel="stylesheet" type="text/css" href="css/page.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/css/reset.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/css/page.css" media="all">
         <link rel="stylesheet" 
             href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&family=Roboto+Slab:wght@400;700&display=swap">
 
@@ -23,6 +23,22 @@
     </head>
     <body>
         <svg xmlns="http://www.w3.org/2000/svg" display="none">
+            <symbol viewBox="0 0 706.7 578" id="logo-no-text">
+                <style type="text/css">
+                    .st0{fill:#FFFFFF;}
+                    .st1{fill:#006ABA;}
+                </style>
+                <g>
+                    <polygon id="Inner_Fill" class="st0" points="323.9,357 29.5,527 29.5,51 588.9,374 588.9,204 471.1,272 382.8,221 677.3,51 
+                        677.3,527 117.8,204 117.8,374 235.6,306 	"/>
+                    <g id="Stripe_1_">
+                        <polygon class="st1" points="117.8,408 117.8,442 294.5,340 265,323 		"/>
+                        <polygon class="st1" points="588.9,136 412.3,238 441.7,255 588.9,170 		"/>
+                    </g>
+                    <path id="Outline" d="M147.2,323v-68l58.9,34L147.2,323z M29.5,527V51L589,374V204l-117.8,68l-88.3-51L677.3,51v476L117.8,204v170
+                        l117.8-68l88.3,51L29.5,527z M353.4,374l353.3,204V0L353.4,204L0,0v578L353.4,374z M559.5,255v68l-58.9-34L559.5,255z"/>
+                </g>
+            </symbol>
             <symbol viewBox="0 0 706.7 748.8" id="logo">
                 <style type="text/css">
                     .st0{fill:#FFFFFF;}
@@ -54,10 +70,48 @@
                 </g>
             </symbol>
         </svg>
-        <div id="content">
-            <svg class="logo"><use xlink:href="#logo" /></svg>
 
+        <div id="content">
+            <svg class="logo"><use xlink:href="#logo-no-text" /></svg>
+            <section id="projects">
+                <article>
+                    <h3>Waffle-Iron: Rust Sudoku Generator &amp; Solver</h3>
+                    <!-- <p>
+                    Vivamus dignissim nulla diam, sit amet interdum orci congue ut. Mauris imperdiet urna quis augue tincidunt semper. Praesent id faucibus urna. Nunc lacinia facilisis varius. Nunc sed ligula blandit, semper nisl gravida, vestibulum enim. Quisque ac porttitor tortor. Integer tempor dignissim turpis vitae suscipit. Phasellus accumsan ac massa id placerat. Vestibulum hendrerit felis lacus, nec dignissim neque mattis sit amet. Praesent eget ligula diam. Phasellus luctus viverra velit vitae commodo. Donec vel nisl a orci pharetra dapibus vitae nec metus. Ut et metus venenatis libero convallis dapibus a eu eros.
+                    </p> -->
+                    <div class="img" style="background-image: url('/img/waffle-iron.png');"></div>
+                    <!-- <img src="/img/waffle-iron.png" alt="Waffle-Iron" /> -->
+                </article>
+
+                <article>
+                    <h3>YAWS: Yet Another Web Sudoku</h3>
+                    <!-- <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dignissim, felis eu vestibulum interdum, dui lectus sodales tortor, non fermentum nulla felis sed nisl. Cras consequat lobortis vulputate. Aenean volutpat consequat posuere. Donec id mollis augue. Nam bibendum tincidunt arcu ac vestibulum. Maecenas eget ex scelerisque, mollis ante sed, laoreet eros. Nullam nec dignissim massa, fringilla venenatis elit. Etiam ac leo nibh. Aliquam placerat porttitor vestibulum. Ut vel rhoncus nisi, id blandit odio. Aenean eu fermentum felis. Phasellus quis eleifend lorem. Sed quis interdum felis, non rutrum ex. 
+                    </p> -->
+                    <div class="img" style="background-image: url('/img/yaws.png');"></div>
+                    <!-- <img src="/img/yaws.png" alt="YAWS" /> -->
+                </article>
+                
+                <article>
+                    <h3>Resume</h3>
+                    <div class="img"></div>
+                    <!-- <p>
+                    Integer et nulla efficitur, convallis arcu quis, ullamcorper tortor. Nunc varius risus erat. Sed vitae congue orci, porttitor pharetra neque. Ut eu blandit quam. Morbi malesuada tempus quam a faucibus. Quisque varius metus vitae elit rhoncus auctor. Sed vitae porttitor dolor. Mauris sed aliquet sapien. Sed nec elit vel mi fringilla consectetur at nec odio. Duis sit amet nisl tincidunt mi sollicitudin congue non non ligula. Suspendisse eget libero facilisis odio euismod auctor. Donec volutpat molestie tincidunt. Etiam egestas iaculis velit, at tempor risus malesuada eget. Aliquam tincidunt ante id placerat imperdiet. Proin rutrum elit finibus tortor sagittis, vitae maximus magna porta. Curabitur vel aliquet mauris. 
+                    </p> -->
+                </article>
+            </section>
             <div id="copyright">&#169; 2020 Ernie Wieczorek</div>
         </div>
+        <script>
+            (function randomRotate() {
+                document.querySelectorAll('.img')
+                    .forEach(function(e) {
+                        e.classList.add('notransition');
+                        e.style.setProperty('transform', 'rotate(' + ((Math.random() * 30) - 15 | 0) + 'deg)'); 
+                        e.offsetHeight;
+                        e.classList.remove('notransition');
+                    });
+            })();
+        </script>
     </body>
 </html>
