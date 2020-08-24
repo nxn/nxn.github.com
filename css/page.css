@@ -11,6 +11,13 @@ body {
     margin: 0 auto;
 }
 
+.logo {
+    height: 15em;
+    margin: 0px auto;
+    padding-top: 3em;
+    display: block;
+}
+
 .name, .grid {
     display: grid;
     column-gap: 3em;

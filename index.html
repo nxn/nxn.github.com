@@ -7,9 +7,9 @@
         <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
         <meta name="dcterms.rightsHolder" content="Ernie Wieczorek">
 
-        <title>Ernie Wieczorek</title>
-        <link rel="stylesheet" type="text/css" href="/css/reset.css" media="all">
-        <link rel="stylesheet" type="text/css" href="/css/page.css" media="all">
+        <title>nxn</title>
+        <link rel="stylesheet" type="text/css" href="css/reset.css" media="all">
+        <link rel="stylesheet" type="text/css" href="css/page.css" media="all">
         <link rel="stylesheet" 
             href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&family=Roboto+Slab:wght@400;700&display=swap">
 
@@ -23,249 +23,40 @@
     </head>
     <body>
         <svg xmlns="http://www.w3.org/2000/svg" display="none">
-            <symbol viewBox="0 0 24 24" id="mail">
-                <path d="M18.6,4H5.4C3.5,4,2,5.5,2,7.4v9.2C2,18.5,3.5,20,5.4,20h13.2c1.9,0,3.4-1.5,3.4-3.4V7.4C22,5.5,20.5,4,18.6,4z M5.4,6h13.2
-                    c0.5,0,0.9,0.2,1.2,0.6l-7.2,4.8c-0.3,0.2-0.8,0.2-1.1,0L4.2,6.6C4.5,6.2,4.9,6,5.4,6z M18.6,18H5.4C4.6,18,4,17.4,4,16.6V8.9
-                    l6.3,4.2c0.5,0.3,1.1,0.5,1.7,0.5s1.2-0.2,1.7-0.5L20,8.9v7.7C20,17.4,19.4,18,18.6,18z"/>
-            </symbol>
-            <symbol viewBox="0 0 24 24" id="geo">
-                <path d="M11.9,2.1c-4,0-8,3-8,8c0,6,8,12,8,12s8-6,8-12C19.9,5.2,15.9,2.1,11.9,2.1z M11.9,16.1c-3.3,0-6-2.7-6-6c0-3.3,2.7-6,6-6
-                    s6,2.7,6,6C17.9,13.4,15.2,16.1,11.9,16.1z"/>
-                <circle cx="11.9" cy="10.1" r="2"/>
-            </symbol>
-            <symbol viewBox="0 0 24 24" id="doc">
-                <path d="M15.4,10.2c-2,0-3.6-1.6-3.6-3.6V2.1H7c-1.7,0-3.1,1.4-3.1,3.1V19c0,1.7,1.4,3.1,3.1,3.1h9.8c1.7,0,3.1-1.4,3.1-3.1v-8.8
-                    H15.4z M17.9,19c0,0.6-0.5,1.1-1.1,1.1H7c-0.6,0-1.1-0.5-1.1-1.1V5.2c0-0.6,0.5-1.1,1.1-1.1h2.8v2.5c0,3.1,2.5,5.6,5.6,5.6h2.5V19z"/>
-                <path d="M15.2,8.4h4.5l-6.1-6.1v4.5C13.5,7.7,14.3,8.4,15.2,8.4z"/>
-            </symbol>
-            <symbol viewBox="0 0 24 24" id="web">
-                <path d="M12.8,17.8c-0.7,0-1.5-0.1-2.3-0.4l-0.1,0l-0.8,0.8c-0.5,0.5-1.2,0.8-2,0.8s-1.5-0.3-2-0.8c-0.5-0.5-0.8-1.2-0.8-2
-                    c0-0.8,0.3-1.5,0.8-2.1l2.8-2.8c0.4-0.4,0.9-0.6,1.5-0.7c0.7-0.1,1.3,0,1.9,0.3l0,0c0.2,0.1,0.5,0.2,0.6,0.4
-                    c0.2,0.2,0.3,0.4,0.5,0.7l0,0.1l0.1,0c0.2-0.1,0.4-0.1,0.5-0.3l1.2-1.2l-0.1-0.1c-0.2-0.3-0.4-0.6-0.6-0.8c-0.2-0.2-0.5-0.5-0.8-0.6
-                    c-0.6-0.4-1.3-0.7-2.1-0.8l0,0c-0.2,0-0.5-0.1-0.7-0.1C9.7,8.1,9,8.3,8.2,8.6c-0.6,0.3-1,0.6-1.4,1L4,12.5c-1,1-1.5,2.2-1.5,3.6
-                    c0,1.4,0.5,2.7,1.5,3.6c0.9,0.9,2.2,1.4,3.6,1.4c0,0,0,0,0,0c1.4,0,2.7-0.5,3.6-1.4l2-1.9L12.8,17.8C12.9,17.8,12.8,17.8,12.8,17.8z
-                    "/>
-                <path d="M19.2,4.4L19.2,4.4c-1-1-2.3-1.5-3.6-1.5C14.2,3,13,3.5,12,4.4l-1.9,1.9l0.3,0c0,0,0,0,0.1,0c0.8,0,1.5,0.1,2.3,0.4l0.1,0
-                    L13.6,6c0.5-0.5,1.3-0.8,2-0.8c0,0,0,0,0,0c0.8,0,1.5,0.3,2,0.8c0.5,0.5,0.8,1.3,0.8,2s-0.3,1.5-0.8,2l-2.8,2.8
-                    c-0.4,0.4-0.8,0.6-1.5,0.7c-0.1,0-0.1,0-0.2,0c-0.1,0-0.2,0.1-0.4,0.1c-0.4,0-0.9-0.1-1.3-0.4l0,0c-0.2-0.1-0.5-0.3-0.7-0.4
-                    c-0.2-0.2-0.3-0.4-0.4-0.6l-0.1-0.1l-0.1,0c-0.2,0.1-0.4,0.2-0.5,0.3l-1.2,1.2l0.1,0.1c0.2,0.3,0.4,0.6,0.7,0.8
-                    c0.2,0.2,0.5,0.5,0.8,0.6c0.6,0.4,1.3,0.6,2.2,0.7c0.2,0,0.4,0,0.7,0c0.8,0,1.5-0.2,2.2-0.5c0.6-0.3,1-0.6,1.4-1l2.8-2.8
-                    C21.2,9.7,21.2,6.4,19.2,4.4z"/>
-            </symbol>
-            <symbol viewBox="0 0 706.7 578" id="logo">
-                <path d="M147.2,323l0-68l58.9,34L147.2,323z M29.4,527l0-476l559.5,323l0-170l-117.8,68l-29.4-17l147.2-85l0-34
-	                L412.2,238l-29.4-17L677.2,51l0,476L117.8,204l0,170l117.8-68l29.4,17l-147.2,85l0,34l176.7-102l29.4,17L29.4,527z M353.3,374
-	                l353.3,204l0-578L353.3,204L0,0l0,578L353.3,374z M559.5,255l0,68l-58.9-34L559.5,255z"/>
+            <symbol viewBox="0 0 706.7 748.8" id="logo">
+                <style type="text/css">
+                    .st0{fill:#FFFFFF;}
+                    .st1{fill:#006ABA;}
+                    .st2{enable-background:new    ;}
+                    .st3{fill:#222222;}
+                </style>
+                <g>
+                    <polygon id="Inner_Fill" class="st0" points="323.9,357 29.5,527 29.5,51 588.9,374 588.9,204 471.1,272 382.8,221 677.3,51 
+                        677.3,527 117.8,204 117.8,374 235.6,306 	"/>
+                    <g id="Stripe_1_">
+                        <polygon class="st1" points="117.8,408 117.8,442 294.5,340 265,323 		"/>
+                        <polygon class="st1" points="588.9,136 412.3,238 441.7,255 588.9,170 		"/>
+                    </g>
+                    <path id="Outline" d="M147.2,323v-68l58.9,34L147.2,323z M29.5,527V51L589,374V204l-117.8,68l-88.3-51L677.3,51v476L117.8,204v170
+                        l117.8-68l88.3,51L29.5,527z M353.4,374l353.3,204V0L353.4,204L0,0v578L353.4,374z M559.5,255v68l-58.9-34L559.5,255z"/>
+                </g>
+                <g class="st2">
+                    <path class="st3" d="M117.8,748.8V600.5c0-14.5,10.1-25.6,30.3-33.4c10.9-4.2,23.2-6.3,37-6.3c13.7,0,26,2.1,37,6.3
+                        c20.2,7.8,30.3,18.9,30.3,33.4v133.7l-30.8,14.6H220V606.2c0-5.4-3.4-9.5-10.1-12.2c-6.8-2.7-15-4.1-24.7-4.1
+                        c-9.7,0-18,1.4-24.7,4.1c-6.8,2.7-10.1,6.8-10.1,12.2v128.1l-30.8,14.6H117.8z"/>
+                
+                    <path class="st3" d="M314,748.8h-1.6l-27.9-13.3l50.3-82.4L284.5,571l28.3-13.5h1.6l39.3,64.4l39.3-64.4h1.6l28.2,13.4l-50.2,82
+                        l50.4,82.6l-28.2,13.3h-1.6l-39.6-64.8L314,748.8z"/>
+                
+                    <path class="st3" d="M588.3,748.8l-30.8-14.6V606.2c0-5.4-3.4-9.5-10.1-12.2c-6.8-2.7-15-4.1-24.7-4.1s-18,1.4-24.7,4.1
+                        c-6.8,2.7-10.1,6.8-10.1,12.2v142.7h-1.6l-30.8-14.6V600.5c0-14.5,10.1-25.6,30.3-33.4c10.9-4.2,23.2-6.3,37-6.3
+                        c13.7,0,26,2.1,37,6.3c20.2,7.8,30.3,18.9,30.3,33.4v148.3H588.3z"/>
+                </g>
             </symbol>
         </svg>
         <div id="content">
-            <header class="name">
-                <div>
-                    <h1>Ernie Wieczorek</h1>
-                    <span class="sub-title">Computer Software Developer</span>
-                </div>
-                <ul id="contact">
-                    <li class="doc">
-                        <span class="web">
-                            <svg class="icon">
-                                <use xlink:href="#web" />
-                            </svg>
-                            <span class="gray">www.</span>nxn.io
-                        </span>
-                        <a class="pdf" href="ewieczorek.pdf">
-                            <svg class="icon">
-                                <use xlink:href="#doc" />
-                            </svg>
-                            Download PDF
-                        </a>
-                    </li>
-                    <li class="email">
-                        <svg class="icon">
-                            <use xlink:href="#mail" />
-                        </svg>
-                        ernie&#64;nxn.io
-                    </li>
-                    <li class="location">
-                        <svg class="icon">
-                            <use xlink:href="#geo" />
-                        </svg>
-                        Philadelphia, PA
-                    </li>
-                </ul>
-            </header>
+            <svg class="logo"><use xlink:href="#logo" /></svg>
 
-            <section id="summary">
-                <h2 style="display: none;">
-                    <svg class="icon">
-                        <use xlink:href="#logo" />
-                    </svg>
-                    Summary
-                </h2>
-                <p>
-                    Ernie Wieczorek is an experienced software developer with a focus on web application development. He
-                    is capable of creating both client-side and server-side software, along with designing intuitive and 
-                    functional user interfaces.
-                </p>
-
-                <div class="grid">
-                    <article>
-                        <header>
-                            <h3>Specialties</h3>
-                        </header>
-                        <ul class="bullet-list">
-                            <li>Data storage mechanisms, such as relational and non-relational databases.</li>
-                            <li>Front-end development of modern, interactive, and cross-browser compliant user interfaces.</li>
-                            <li>Ensuring that high levels of security are met at each layer.</li>
-                        </ul>
-                    </article>
-
-                    <article>
-                        <header>
-                            <h3>Languages &amp; Technologies</h3>
-                        </header>
-
-                        <ul class="items">
-                            <li>C#</li>
-                            <li>JavaScript</li>
-                            <li>TypeScript</li>
-                            <li>Rust</li>
-                            <li>.NET</li>
-                            <li>Asp.NET</li>
-                            <li>ServiceStack</li>
-                            <li>SQL Server</li>
-                            <li>PostgresSQL</li>
-                            <li>MongoDB</li>
-                            <li>Redis</li>
-                            <li>Node.js</li>
-                            <li>D3.js</li>
-                            <li>HTML5</li>
-                            <li>CSS</li>
-                            <li>Web Assembly</li>
-                            <li>Webpack</li>
-                        </ul>
-                    </article>
-                </div>
-            </section>
-
-            <section id="experience">
-                <h2>
-                    <svg class="icon">
-                        <use xlink:href="#logo" />
-                    </svg>
-                    Experience
-                </h2>
-                <article>
-                    <header>
-                        <h3>Intertrust Group</h3>
-                        <h4>Developer <span class="date">(Apr 2011 – Oct 2014)</span></h4>
-                    </header>
-                    <p>
-                        Responsible for the development and maintenance of Intertrust's online Client Portal — specifically:
-                        making the site operate as efficiently as possible, ensuring reliable integration with internal 
-                        systems, designing flexible solutions for jurisdiction dependent requirements, and consistently 
-                        implementing new features that help both clients and administrators alike.
-                    </p>
-
-                    <h5>Accomplishments</h5>
-                    <ul class="bullet-list columns">
-                        <li>
-                            Created a fully automated build, packaging, and deployment system using MSBuild and TeamCity. 
-                            The system was also capable of digitally signing generated packages to ensure that they could 
-                            only be extracted and installed in environments for which they were intended.
-                        </li>
-                        <li>
-                            Constructed RESTful web services to allow independent document management systems to maintain 
-                            control of documents on the portal.
-                        </li>
-                        <li>
-                            Leveraged D3.js to create an interactive diagram for visualizing relationships between entities
-                            and individuals.
-                        </li>
-                        <li>
-                            Implemented a new Membership-Provider to improve security by enforcing stricter authentication 
-                            procedures. The Membership-Provider also added safer lock-out logic to prevent denial of service
-                            attacks and upgraded the mechanism used for securely storing sensitive client information.
-                        </li>
-                        <li>
-                            Improved site performance by optimizing code and incorporating tools such as non-relational
-                            databases.
-                        </li>
-                        <li>
-                            Helped re-style the website to match Intertrust's theme while also improving the site visually.
-                        </li>
-                    </ul>
-                </article>
-
-                <article>
-                    <header>
-                        <h3>Sabre Systems, Inc</h3>
-                        <h4>Software Developer / .NET Programmer <span class="date">(Jun 2008 – Feb 2011)</span></h4>
-                    </header>
-                    <p>
-                        Implemented and maintained internal software solutions in accordance with project goals and changing
-                        business needs. Other responsibilities included providing user support and troubleshooting errors.
-                    </p>
-
-                    <h5>Accomplishments</h5>
-                    <ul class="bullet-list columns">
-                        <li>
-                            Worked in both individual and group environments to design, implement, and maintain multiple 
-                            AJAX based applications for Sabre's corporate intranet website.
-                        </li>
-                        <li>
-                            Helped redesign Sabre's internal website to accommodate hosting richer and more dynamic web
-                            based applications.
-                        </li>
-                        <li>
-                            Integrated ASP.NET MVC and Ext.Direct frameworks into Sabre's intranet website for the purpose 
-                            of more effective and streamlined client and server communication.
-                        </li>
-                    </ul>
-                </article>
-            </section>
-
-            <section id="education">
-                <h2>
-                    <svg class="icon">
-                        <use xlink:href="#logo" />
-                    </svg>
-                    Education
-                </h2>
-                <article>
-                    <header>
-                        <h3>Temple University</h3>
-                        <h4>Bachelor of Science in Information Science & Technology <span class="date">(2005 – 2009)</span></h4>
-                    </header>
-                    <ul class="bullet-list columns">
-                        <li>
-                            <span class="title">Magna Cum Laude</span> – Graduated within top 5% of class (3.84 GPA overall;
-                            4.0 GPA within major).
-                        </li>
-                        <li>
-                            <span class="title">CIS Outstanding Achievement Award</span> – Annual award given to the graduating 
-                            senior with the highest overall grade point average in Information Science and Technology.
-                        </li>
-                        <li>
-                            <span class="title">CIS Junior Scholarship Award</span> – Annual scholarship awarded to one junior 
-                            for excellence within the School of Computer and Information Sciences.
-                        </li>
-                        <li>
-                            <span class="title">Dean's List at Temple University</span> – Maintained GPA within the top 16% 
-                            of the School of Computer and Information Sciences throughout entire college career.
-                        </li>
-                    </ul>
-                </article>
-
-                <article>
-                    <header>
-                        <h3>Stanford Online</h3>
-                        <h4>Cryptography I <span class="date">(2013)</span></h4>
-                    </header>
-                    <ul class="bullet-list">
-                        <li>Completed Dan Boneh's online Cryptography course with distinction.</li>
-                    </ul>
-                </article>
-            </section>
             <div id="copyright">&#169; 2020 Ernie Wieczorek</div>
         </div>
     </body>
