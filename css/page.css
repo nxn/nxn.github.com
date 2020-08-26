@@ -225,6 +225,7 @@ body, #top-bar
 ; object-position: top
 ; margin-right: 1em
 ; margin-top: 1em
+; border: 0.1em solid var(--border-color)
 }
 @media (min-width: 640px) {
     #menu-btn 
