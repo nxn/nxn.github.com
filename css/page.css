@@ -1,105 +1,267 @@
-body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #222;
-    font-size: 12pt;
-    line-height: 1.5em;
-    padding: 2.0em 2.5em;
+:root 
+{ --main-bg-color:      #120b0f
+; --break-bg-color:     #120b0f
+; --banner-bg-color:    #110b12
+; --box-bg-color:       #291d20
+; --main-text-color:    #C2C2A8
+; --box-text-color:     #DBDAC1
+; --accent-color:       #94B1A3
+; --border-color:       #7A9388
+; --logo-color:         #9DA69E
+; --subtle-text-color:  #67575e
+; --banner-link-color:  #544147
+; --link-color:         #CD546C
+; --link-hover-color:   #EF545F
+;}
+
+body 
+{ color: var(--main-text-color)
+; background-color: var(--main-bg-color)
+; font-family: 'Open Sans', sans-serif
+; font-size: 12pt
+; line-height: 1.5em
 }
 
-.logo {
-    height: 7.5em;
-    margin: 0px auto;
-    padding: 2em;
-    padding-bottom: 4em;
-    display: block;
+body, #top-bar
+{ min-width: 20em
 }
 
-#projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 0.1em;
-    grid-auto-flow: dense;
-    overflow: hidden;
+#top-bar 
+{ color: var(--subtle-text-color)
+; background-color: var(--break-bg-color)
+; border-bottom: 0.1em solid var(--border-color)
+; position: fixed
+; z-index: 999
+; width: 100%
+; display: grid
+; grid-template-columns: 7.5em 1fr/*logo 5em + 2em left pad + 0.5 right pad*/
+; grid-auto-flow: dense
+; justify-items: end
+; align-items: center
 }
-      
-/* Extra-wide grid-posts */
-/*#projects article:nth-child(31n + 1) {
-    grid-column: 1 / -1;
-}
-#projects article:nth-child(16n + 2) {
-    grid-column: -3 / -1;
-}
-#projects article:nth-child(16n + 10) {
-    grid-column: 1 / -2;
-}*/
-      
-      /* Single column display for phones */
-@media (max-width: 459px) {
-    .projects {
-        display: flex;
-        flex-direction: column;
+    #site-link 
+    { display: flex
+    ; justify-content: left
+    ; align-items: center
+    ; padding: 0.5em 0.5em 0.5em 2em
     }
+        #site-name 
+        { height: 3em
+        ; width: 5em
+        ; fill: var(--box-text-color)
+        }
+    #menu-btn 
+    { display: flex
+    ; justify-content: right
+    ; align-items: center
+    ; margin: 0em 2em
+    }
+        #menu-btn .icon 
+        { height: 1.5em
+        ; width: 2em
+        ; fill: var(--main-text-color)
+        }
+    #links 
+    { color: var(--subtle-text-color)
+    ; background-color: var(--break-bg-color)
+    ; grid-column: span 2
+    ; padding-bottom: 1em
+    ; width: 100%
+    ; display: flex
+    ; justify-content: space-evenly
+    ; align-items: center
+    }
+        #links li 
+        { text-align: left
+        ; line-height: 2em
+        ; margin: 0 1em
+        }
+            #links a 
+            { width: 100%
+            ; height: 100%
+            ; color: var(--subtle-text-color)
+            ; text-decoration: none
+            }
+            #links a:hover 
+            { color: var(--accent-color)
+            }
+            #links a:hover .icon 
+            { fill: var(--accent-color) !important;
+            }
+                #links .icon 
+                { display: inline-block
+                ; height: 1.5em
+                ; width: 1.5em
+                ; vertical-align: middle
+                ; fill: var(--subtle-text-color)
+                ; margin-right: 0.5em
+                }
+        #links .location 
+        { display: none
+        }
+
+#banner 
+{ background-color: var(--banner-bg-color)
+; color: var(--main-text-color)
+; padding-top: 4em
+; border: 0.1em solid var(--border-color)
+; border-left: none
+; border-right: none
+; text-align: center
+; vertical-align: middle
 }
+    #logo 
+    { width: 10em
+    ; padding: 2em 5em
+    ; fill: var(--logo-color)
+    }
+    #banner-text 
+    { padding: 2em
+    ; padding-top: 0
+    ; text-align: left
+    }
+        #banner-text h2 
+        { font-family: 'Roboto Slab', serif
+        ; font-size: 2em
+        }
+        #banner-text .text 
+        { max-width: 41.25em
+        ; margin-top: 2em
+        }
 
-#projects article {
-    overflow: hidden;
-    position: relative;
-    background-color: #000;
-    min-height: 15em;
-    border: 0.1em solid black;
-
-    margin: 0.5em;
-    box-shadow: 0.5em 0.5em rgba(0, 0, 0, 0.2);
+#content 
+{ display: flex
+; flex-direction: column
 }
+    #content .box 
+    { background-color: var(--box-bg-color)
+    ; border-bottom: 0.1em solid var(--border-color)
+    }
+    #content .box:nth-child(even) 
+    { background-color: var(--main-bg-color)
+    }
+        #content .box header 
+        { min-height: 12em
+        ; position: relative
+        ; overflow: hidden
+        }
+            #content .box header h3 
+            { font-family: 'Oswald', sans-serif
+            ; font-size: 1.2em
+            ; color: var(--accent-color)
+            ; padding: 0.5em 1em
+            ; width: calc(100% - 2em)
+            ; position: absolute
+            ; top: 0px
+            ; left: 0px
+            ; display: flex
+            ; justify-content: left
+            ; align-items: flex-end
+            ; z-index: 1
+            ; background: var(--main-bg-color)
+            ; opacity: 0.9
+            }
+            #content .box header .img 
+            { width: 200%
+            ; height: 200%
+            ; top: -50%
+            ; left: -50%
+            ; position: absolute
+            ; z-index: 0
+            ; background-position: center
+            ; object-fit: cover
+            }
+        #content .box .description 
+        { color: var(--box-text-color)
+        ; margin: 1em
+        }
+            #content .box a 
+            { color: var(--link-color)
+            ; text-decoration: none
+            }
+            #content .box a:hover 
+            { color: var(--link-hover-color)
+            }
 
-#projects article p {
-    padding: 0.5em 1em;
+#footer 
+{ text-align: center
+; padding: 1em
+; background-color: var(--banner-bg-color)
 }
-.notransition {
-    transition: none !important;
+    #footer .copyright 
+    { color: var(--subtle-text-color)
+    ; font-size: 0.9em
+    }
+
+.center 
+{ display: flex
+; justify-content: center
+; align-items: center
 }
-#projects article .img {
-    width: 200%;
-    height: 200%;
-    top: -50%;
-    left: -50%;
-    position: absolute;
-    z-index: 0;
-    background-position: center;
-    transform: rotate(5deg);
-    transition: transform 0.25s ease;
+.hidden { display: none !important }
+.no-transition { transition: none !important }
+.accent { color: #A5AF86 }
+
+.break, .break-bottom, .break-top, .break-both 
+{ background-color: var(--break-bg-color)
+; border-top: 0.1em solid var(--border-color)
+; border-bottom: 0.1em solid var(--border-color)
+; height: 2em
 }
-#projects article:hover .img {
-    transform: rotate(0deg) !important;
-    transition: transform 0.25s ease;
+.break-bottom   { border-top: none }
+.break-top      { border-bottom: none }
+
+.grid-full-row      { grid-column: 1 / -1 }
+.grid-middle        { grid-column: 2 / -2 }
+.grid-right-large   { grid-column: 2 / -1 }
+.grid-left-large    { grid-column: 1 / -2 }
+.grid-right-small   { grid-column: -3 / -1 }
+.grid-left-small    { grid-column: 1 / 3 }
+
+.thumbnail 
+{ object-fit: cover
+; width: 16em
+; height: 12em
+; object-position: top
+; margin-right: 1em
+; margin-top: 1em
 }
+@media (min-width: 640px) {
+    #menu-btn 
+    { display: none
+    }
 
-#projects article h3 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.4em;
-    color: #fff;
+    #links 
+    { grid-column: span 1
+    ; padding-bottom: 0
+    ; justify-content: end
+    ; display: flex !important
+    }
+        #links .location 
+        { display: inline-block
+        ; margin-right: 2em
+        }
 
-    padding: 0.5em 1em;
-    height: calc(100% - 1em);
-    width: calc(100% - 2em);
+    #banner 
+    { display: flex
+    ; align-items: center
+    ; justify-content: center
+    }
+        #banner-text
+        { padding-left: 0
+        ; padding-top: 2em
+        }
 
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
+    #content 
+    { display: grid
+    ; grid-template-columns: repeat(auto-fit, minmax(16.875em, 1fr))
+    /* Note: adjusting the grid gap can break the responsive design if the
+    max-width media query isn't adjusted to compensate for the extra gap */
+    ; gap: 0.0em
+    ; grid-auto-flow: dense
+    }
 
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    
-    z-index: 1;
-    /*background: linear-gradient(rgba(0,0,0,0), 25%, #000);*/
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 15%, rgba(0,0,0,0));
-}
-
-
-#copyright {
-    color: #999999;
-    font-size: 0.9em;
-    text-align: left;
-    padding: 1em 0 0 0;
+    #footer 
+    { text-align: right
+    }
 }
