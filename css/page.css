@@ -1,5 +1,5 @@
 :root 
-{ --main-bg-color:      #0b070d
+{ --main-bg-color:      #05070b
 ; --banner-bg-color:    #100711
 ; --box-bg-color:       #291d20
 ; --box-bg-color-alt:   #120b0f
@@ -28,6 +28,7 @@ body
 ; max-width: 120rem
 ; margin: 0 auto
 ; position: relative
+; background-color: var(--banner-bg-color)
 }
 
 #top-bar 
@@ -105,7 +106,6 @@ body
 #banner 
 { background-color: var(--banner-bg-color)
 ; color: var(--main-text-color)
-; border-bottom: 0.1rem solid var(--border-color)
 ; text-align: center
 ; vertical-align: middle
 ; padding-top: 4rem
@@ -126,7 +126,7 @@ body
         ; font-size: 2rem
         }
         #banner-text .text 
-        { max-width: 41.25rem
+        { max-width: 48rem
         ; margin-top: 2rem
         }
 
@@ -262,10 +262,14 @@ body
     max-width media query isn't adjusted to compensate for the extra gap */
     ; gap: 0.0rem
     ; grid-auto-flow: dense
+    ; margin: 0 4rem 4rem 4rem
+    ; border: 0.1rem solid var(--border-color)
+    ; border-bottom: 0
     }
 
     #footer 
     { text-align: right
+    ; border-top: 0.1rem solid var(--border-color)
     }
 }
 @media (min-width: 120.15rem) {
