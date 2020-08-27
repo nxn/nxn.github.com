@@ -1,15 +1,16 @@
 :root 
-{ --main-bg-color:      #120b0f
-; --break-bg-color:     #120b0f
+{ --main-bg-color:      #0b070d
 ; --banner-bg-color:    #110b12
 ; --box-bg-color:       #291d20
+; --box-bg-color-alt:   #120b0f
 ; --main-text-color:    #C2C2A8
 ; --box-text-color:     #DBDAC1
 ; --accent-color:       #94B1A3
 ; --border-color:       #7A9388
 ; --logo-color:         #9DA69E
+; --site-name-color:    #29302d
 ; --subtle-text-color:  #67575e
-; --banner-link-color:  #544147
+; --menubar-link-color:  #767D75
 ; --link-color:         #CD546C
 ; --link-hover-color:   #EF545F
 ;}
@@ -27,34 +28,33 @@ body, #top-bar
 }
 
 #top-bar 
-{ color: var(--subtle-text-color)
-; background-color: var(--break-bg-color)
+{ background-color: var(--main-bg-color)
 ; border-bottom: 0.1em solid var(--border-color)
 ; position: fixed
 ; z-index: 999
 ; width: 100%
 ; display: grid
-; grid-template-columns: 7.5em 1fr/*logo 5em + 2em left pad + 0.5 right pad*/
+; grid-template-columns: 7em 1fr/*logo 5em + 1em left pad + 1em right pad*/
 ; grid-auto-flow: dense
 ; justify-items: end
 ; align-items: center
 }
     #site-link 
     { display: flex
-    ; justify-content: left
+    ; justify-content: flex-start
     ; align-items: center
-    ; padding: 0.5em 0.5em 0.5em 2em
+    ; padding: 0.5em 1em
     }
         #site-name 
         { height: 3em
         ; width: 5em
-        ; fill: var(--box-text-color)
+        ; fill: var(--site-name-color)
         }
     #menu-btn 
     { display: flex
-    ; justify-content: right
+    ; justify-content: flex-end
     ; align-items: center
-    ; margin: 0em 2em
+    ; margin: 0em 1em
     }
         #menu-btn .icon 
         { height: 1.5em
@@ -62,9 +62,7 @@ body, #top-bar
         ; fill: var(--main-text-color)
         }
     #links 
-    { color: var(--subtle-text-color)
-    ; background-color: var(--break-bg-color)
-    ; grid-column: span 2
+    { grid-column: span 2
     ; padding-bottom: 1em
     ; width: 100%
     ; display: flex
@@ -79,25 +77,27 @@ body, #top-bar
             #links a 
             { width: 100%
             ; height: 100%
-            ; color: var(--subtle-text-color)
+            ; color: var(--menubar-link-color)
             ; text-decoration: none
             }
             #links a:hover 
             { color: var(--accent-color)
-            }
-            #links a:hover .icon 
-            { fill: var(--accent-color) !important;
             }
                 #links .icon 
                 { display: inline-block
                 ; height: 1.5em
                 ; width: 1.5em
                 ; vertical-align: middle
-                ; fill: var(--subtle-text-color)
+                ; fill: var(--menubar-link-color)
                 ; margin-right: 0.5em
                 }
+                #links a:hover .icon 
+                { fill: var(--accent-color) !important;
+                }
+
         #links .location 
         { display: none
+        ; color: var(--menubar-link-color)
         }
 
 #banner 
@@ -138,7 +138,7 @@ body, #top-bar
     ; border-bottom: 0.1em solid var(--border-color)
     }
     #content .box:nth-child(even) 
-    { background-color: var(--main-bg-color)
+    { background-color: var(--box-bg-color-alt)
     }
         #content .box header 
         { min-height: 12em
@@ -155,10 +155,10 @@ body, #top-bar
             ; top: 0px
             ; left: 0px
             ; display: flex
-            ; justify-content: left
+            ; justify-content: flex-start
             ; align-items: flex-end
             ; z-index: 1
-            ; background: var(--main-bg-color)
+            ; background: var(--box-bg-color-alt)
             ; opacity: 0.9
             }
             #content .box header .img 
@@ -186,7 +186,7 @@ body, #top-bar
 #footer 
 { text-align: center
 ; padding: 1em
-; background-color: var(--banner-bg-color)
+; background-color: var(--main-bg-color)
 }
     #footer .copyright 
     { color: var(--subtle-text-color)
@@ -235,7 +235,7 @@ body, #top-bar
     #links 
     { grid-column: span 1
     ; padding-bottom: 0
-    ; justify-content: end
+    ; justify-content: flex-end
     ; display: flex !important
     }
         #links .location 
