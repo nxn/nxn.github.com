@@ -19,22 +19,21 @@ body
 { color: var(--main-text-color)
 ; background-color: var(--main-bg-color)
 ; font-family: 'Open Sans', sans-serif
-; font-size: 12pt
-; line-height: 1.5em
+; font-size: 1rem
+; line-height: 1.5rem
 }
 
-body, #top-bar
-{ min-width: 20em
+#page
+{ min-width: 20rem
+; max-width: 120rem
+; margin: 0 auto
 }
 
 #top-bar 
 { background-color: var(--main-bg-color)
-; border-bottom: 0.1em solid var(--border-color)
-; position: fixed
-; z-index: 999
-; width: 100%
+; border-bottom: 0.1rem solid var(--border-color)
 ; display: grid
-; grid-template-columns: 7em 1fr/*logo 5em + 1em left pad + 1em right pad*/
+; grid-template-columns: 7rem 1fr/*logo 5rem + 1rem left pad + 1rem right pad*/
 ; grid-auto-flow: dense
 ; justify-items: end
 ; align-items: center
@@ -43,27 +42,27 @@ body, #top-bar
     { display: flex
     ; justify-content: flex-start
     ; align-items: center
-    ; padding: 0.5em 1em
+    ; padding: 0.5rem 1rem
     }
         #site-name 
-        { height: 3em
-        ; width: 5em
+        { height: 3rem
+        ; width: 5rem
         ; fill: var(--site-name-color)
         }
     #menu-btn 
     { display: flex
     ; justify-content: flex-end
     ; align-items: center
-    ; margin: 0em 1em
+    ; margin: 0rem 1rem
     }
         #menu-btn .icon 
-        { height: 1.5em
-        ; width: 2em
+        { height: 1.5rem
+        ; width: 2rem
         ; fill: var(--main-text-color)
         }
     #links 
     { grid-column: span 2
-    ; padding-bottom: 1em
+    ; padding-bottom: 1rem
     ; width: 100%
     ; display: flex
     ; justify-content: space-evenly
@@ -71,8 +70,8 @@ body, #top-bar
     }
         #links li 
         { text-align: left
-        ; line-height: 2em
-        ; margin: 0 1em
+        ; line-height: 1.5rem
+        ; margin: 0 1rem
         }
             #links a 
             { width: 100%
@@ -85,11 +84,11 @@ body, #top-bar
             }
                 #links .icon 
                 { display: inline-block
-                ; height: 1.5em
-                ; width: 1.5em
-                ; vertical-align: middle
+                ; height: 1.5rem
+                ; width: 1.5rem
+                ; vertical-align: top
                 ; fill: var(--menubar-link-color)
-                ; margin-right: 0.5em
+                ; margin-right: 0.5rem
                 }
                 #links a:hover .icon 
                 { fill: var(--accent-color) !important;
@@ -103,30 +102,27 @@ body, #top-bar
 #banner 
 { background-color: var(--banner-bg-color)
 ; color: var(--main-text-color)
-; padding-top: 4em
-; border: 0.1em solid var(--border-color)
-; border-left: none
-; border-right: none
+; border-bottom: 0.1rem solid var(--border-color)
 ; text-align: center
 ; vertical-align: middle
 }
     #logo 
-    { width: 10em
-    ; padding: 2em 5em
+    { width: 10rem
+    ; padding: 2rem 5rem
     ; fill: var(--logo-color)
     }
     #banner-text 
-    { padding: 2em
+    { padding: 2rem
     ; padding-top: 0
     ; text-align: left
     }
         #banner-text h2 
         { font-family: 'Roboto Slab', serif
-        ; font-size: 2em
+        ; font-size: 2rem
         }
         #banner-text .text 
-        { max-width: 41.25em
-        ; margin-top: 2em
+        { max-width: 41.25rem
+        ; margin-top: 2rem
         }
 
 #content 
@@ -135,25 +131,25 @@ body, #top-bar
 }
     #content .box 
     { background-color: var(--box-bg-color)
-    ; border-bottom: 0.1em solid var(--border-color)
+    ; border-bottom: 0.1rem solid var(--border-color)
     }
     #content .box:nth-child(even) 
     { background-color: var(--box-bg-color-alt)
     }
         #content .box header 
-        { min-height: 12em
+        { min-height: 12rem
         ; position: relative
         ; overflow: hidden
         }
             #content .box header h3 
             { font-family: 'Oswald', sans-serif
-            ; font-size: 1.2em
+            ; font-size: 1.2rem
             ; color: var(--accent-color)
-            ; padding: 0.5em 1em
-            ; width: calc(100% - 2em)
+            ; padding: 0.5rem 1rem
+            ; width: calc(100% - 2rem)
             ; position: absolute
-            ; top: 0px
-            ; left: 0px
+            ; top: 0
+            ; left: 0
             ; display: flex
             ; justify-content: flex-start
             ; align-items: flex-end
@@ -173,7 +169,7 @@ body, #top-bar
             }
         #content .box .description 
         { color: var(--box-text-color)
-        ; margin: 1em
+        ; margin: 1rem
         }
             #content .box a 
             { color: var(--link-color)
@@ -185,12 +181,12 @@ body, #top-bar
 
 #footer 
 { text-align: center
-; padding: 1em
+; padding: 1rem
 ; background-color: var(--main-bg-color)
 }
     #footer .copyright 
     { color: var(--subtle-text-color)
-    ; font-size: 0.9em
+    ; font-size: 0.9rem
     }
 
 .center 
@@ -204,9 +200,9 @@ body, #top-bar
 
 .break, .break-bottom, .break-top, .break-both 
 { background-color: var(--break-bg-color)
-; border-top: 0.1em solid var(--border-color)
-; border-bottom: 0.1em solid var(--border-color)
-; height: 2em
+; border-top: 0.1rem solid var(--border-color)
+; border-bottom: 0.1rem solid var(--border-color)
+; height: 2rem
 }
 .break-bottom   { border-top: none }
 .break-top      { border-bottom: none }
@@ -220,14 +216,15 @@ body, #top-bar
 
 .thumbnail 
 { object-fit: cover
-; width: 16em
-; height: 12em
+; width: 16rem
+; height: 12rem
 ; object-position: top
-; margin-right: 1em
-; margin-top: 1em
-; border: 0.1em solid var(--border-color)
+; margin-right: 1rem
+; margin-top: 1rem
+; border: 0.1rem solid var(--border-color)
 }
-@media (min-width: 640px) {
+
+@media (min-width: 40rem) {
     #menu-btn 
     { display: none
     }
@@ -240,7 +237,7 @@ body, #top-bar
     }
         #links .location 
         { display: inline-block
-        ; margin-right: 2em
+        ; margin-right: 2rem
         }
 
     #banner 
@@ -250,19 +247,25 @@ body, #top-bar
     }
         #banner-text
         { padding-left: 0
-        ; padding-top: 2em
+        ; padding-top: 2rem
         }
 
     #content 
     { display: grid
-    ; grid-template-columns: repeat(auto-fit, minmax(16.875em, 1fr))
+    ; grid-template-columns: repeat(auto-fit, minmax(16.875rem, 1fr))
     /* Note: adjusting the grid gap can break the responsive design if the
     max-width media query isn't adjusted to compensate for the extra gap */
-    ; gap: 0.0em
+    ; gap: 0.0rem
     ; grid-auto-flow: dense
     }
 
     #footer 
     { text-align: right
+    }
+}
+@media (min-width: 120.15rem) {
+    body { background-color: black }
+    #page 
+    { border: 0.1rem solid var(--border-color)
     }
 }

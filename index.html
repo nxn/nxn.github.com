@@ -74,94 +74,96 @@
             </symbol>
         </svg>
 
-        <section id="top-bar">
-            <a id="site-link" href="/">
-                <svg id="site-name"><use xlink:href="#nxn-text" /></svg>
-            </a>
+        <div id="page">
+            <section id="top-bar">
+                <a id="site-link" href="/">
+                    <svg id="site-name"><use xlink:href="#nxn-text" /></svg>
+                </a>
 
-            <a id="menu-btn" href="#menu-btn">
-                <svg class="icon"><use xlink:href="#menu" /></svg>
-            </a>
+                <a id="menu-btn" href="#menu-btn">
+                    <svg class="icon"><use xlink:href="#menu" /></svg>
+                </a>
 
-            <ul id="links" class="hidden">
-                <li class="doc">
-                    <a class="pdf" href="/resume/">
-                        <svg class="icon"><use xlink:href="#doc" /></svg>
-                        Resume
-                    </a>
-                </li>
+                <ul id="links" class="hidden">
+                    <li class="doc">
+                        <a class="pdf" href="/resume/">
+                            <svg class="icon"><use xlink:href="#doc" /></svg>
+                            Resume
+                        </a>
+                    </li>
 
-                <li class="email">
-                    <noscript></noscript>
-                </li>
+                    <li class="email">
+                        <noscript></noscript>
+                    </li>
 
-                <li class="location">
-                    <svg class="icon"><use xlink:href="#geo" /></svg>
-                    Philadelphia, PA
-                </li>
-            </ul> 
-        </section>
+                    <li class="location">
+                        <svg class="icon"><use xlink:href="#geo" /></svg>
+                        Philadelphia, PA
+                    </li>
+                </ul> 
+            </section>
 
-        <section id="banner">
-            <div id="banner-logo" class="banner">
-                <svg id="logo"><use xlink:href="#logo-no-outline" /></svg>
-            </div>
-            
-            <article id="banner-text" class="banner">
-                <h2>Hello, I'm <span class="accent">Ernie</span>.</h2>
-    
-                <p class="text">
-                    I am a Philadelphia based software developer who specializes in full stack web application 
-                    development. You can find a few samples of my recent personal projects below.
-                </p>
-            </article>
-        </section>
+            <section id="banner">
+                <div id="banner-logo" class="banner">
+                    <svg id="logo"><use xlink:href="#logo-no-outline" /></svg>
+                </div>
+                
+                <article id="banner-text" class="banner">
+                    <h2>Hello, I'm <span class="accent">Ernie</span>.</h2>
         
-        <section id="content">
-            <article class="box">
-                <header>
-                    <h3>YAWS: Yet Another Web Sudoku</h3>
-                    <div class="img" style="background-image: url('/img/yaws.png');"></div>
-                </header>
-                <section class="description">
-                    <p>The aim of this project is to create a modern, fully client-side, sudoku game with robust features
-                    such as customizable keyboard controls, saving and sharing game states, hints, and more. YAWS is 
-                    currently in an early stage of development.</p>
-                    <br>
-                    <p>Demo: <a href="https://yaws.nxn.io/">yaws.nxn.io</a></p>
-                    <p>Project Repository: <a href="https://github.com/nxn/waffle-iron">Github</a></p>
-                </section>
-            </article>
+                    <p class="text">
+                        I am a Philadelphia based software developer who specializes in full stack web application 
+                        development. You can find a few samples of my recent personal projects below.
+                    </p>
+                </article>
+            </section>
+            
+            <section id="content">
+                <article class="box">
+                    <header>
+                        <h3>YAWS: Yet Another Web Sudoku</h3>
+                        <div class="img" style="background-image: url('/img/yaws.png');"></div>
+                    </header>
+                    <section class="description">
+                        <p>The aim of this project is to create a modern, fully client-side, sudoku game with robust features
+                        such as customizable keyboard controls, saving and sharing game states, hints, and more. YAWS is 
+                        currently in an early stage of development.</p>
+                        <br>
+                        <p>Demo: <a href="https://yaws.nxn.io/">yaws.nxn.io</a></p>
+                        <p>Project Repository: <a href="https://github.com/nxn/waffle-iron">Github</a></p>
+                    </section>
+                </article>
 
-            <article class="box">
-                <header>
-                    <h3>Waffle-Iron: Rust Sudoku Generator &amp; Solver</h3>
-                    <div class="img" style="background-image: url('/img/waffle-iron.png');"></div>
-                </header>
-                <section class="description">
-                    <p>Waffle-Iron is a sudoku puzzle generator and solver written in Rust. It's capable of being 
-                    compiled into WebAssembly and executed from within a browser, where it offers consistant and 
-                    improved performance in comparison to similar JavaScript implementations.</p>
-                    <br>
-                    <p>Project Repository: <a href="https://github.com/nxn/waffle-iron">Github</a></p>
-                </section>
-            </article>
+                <article class="box">
+                    <header>
+                        <h3>Waffle-Iron: Rust Sudoku Generator &amp; Solver</h3>
+                        <div class="img" style="background-image: url('/img/waffle-iron.png');"></div>
+                    </header>
+                    <section class="description">
+                        <p>Waffle-Iron is a sudoku puzzle generator and solver written in Rust. It's capable of being 
+                        compiled into WebAssembly and executed from within a browser, where it offers consistant and 
+                        improved performance in comparison to similar JavaScript implementations.</p>
+                        <br>
+                        <p>Project Repository: <a href="https://github.com/nxn/waffle-iron">Github</a></p>
+                    </section>
+                </article>
 
-            <article class="box" style="grid-column: span 2">
-                <header>
-                    <h3>3D Gear Model</h3>
-                    <div class="img" style="background-image: url('/img/render1_preview.jpg');"></div>
-                </header>
-                <section class="description">
-                    <p>Results of my first sertious attempt at learning 3D modelling; created using Blender.</p>
-                    <a href="/img/render1.jpg"><img class="thumbnail" src="/img/render1_thumb.jpg" alt="Render 1" /></a>
-                    <a href="/img/render2.jpg"><img class="thumbnail" src="/img/render2_thumb.jpg" alt="Render 2" /></a>
-                </section>
-            </article>
-        </section>
+                <article class="box" style="grid-column: span 2">
+                    <header>
+                        <h3>3D Gear Model</h3>
+                        <div class="img" style="background-image: url('/img/render1_preview.jpg');"></div>
+                    </header>
+                    <section class="description">
+                        <p>Results of my first sertious attempt at learning 3D modelling; created using Blender.</p>
+                        <a href="/img/render1.jpg"><img class="thumbnail" src="/img/render1_thumb.jpg" alt="Render 1" /></a>
+                        <a href="/img/render2.jpg"><img class="thumbnail" src="/img/render2_thumb.jpg" alt="Render 2" /></a>
+                    </section>
+                </article>
+            </section>
 
-        <section id="footer">
-            <span class="copyright">&#169; 2020 Ernie Wieczorek</span>
-        </section> 
+            <section id="footer">
+                <span class="copyright">&#169; 2020 Ernie Wieczorek</span>
+            </section>
+        </div>
     </body>
 </html>
