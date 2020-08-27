@@ -1,12 +1,13 @@
 :root 
 { --main-bg-color:      #05070b
-; --banner-bg-color:    #100711
+; --page-bg-color:    #100711
 ; --box-bg-color:       #291d20
 ; --box-bg-color-alt:   #120b0f
 ; --main-text-color:    #C2C2A8
 ; --box-text-color:     #DBDAC1
 ; --accent-color:       #94B1A3
-; --border-color:       #7A9388
+; --page-border-color:  #7A9388
+; --content-border-color: #886976
 ; --logo-color:         #9DA69E
 ; --site-name-color:    #29302d
 ; --subtle-text-color:  #67575e
@@ -17,7 +18,7 @@
 
 body 
 { color: var(--main-text-color)
-; background-color: var(--main-bg-color)
+; background-color: var(--page-bg-color)
 ; font-family: 'Open Sans', sans-serif
 ; font-size: 1rem
 ; line-height: 1.5rem
@@ -27,13 +28,14 @@ body
 { min-width: 20rem
 ; max-width: 120rem
 ; margin: 0 auto
+; padding-bottom: 5rem
 ; position: relative
-; background-color: var(--banner-bg-color)
+; background-color: var(--page-bg-color)
 }
 
 #top-bar 
 { background-color: var(--main-bg-color)
-; border-bottom: 0.1rem solid var(--border-color)
+; border-bottom: 0.1rem solid var(--page-border-color)
 ; display: grid
 ; grid-template-columns: 7rem 1fr/*logo 5rem + 1rem left pad + 1rem right pad*/
 ; grid-auto-flow: dense
@@ -104,7 +106,7 @@ body
         }
 
 #banner 
-{ background-color: var(--banner-bg-color)
+{ background-color: var(--page-bg-color)
 ; color: var(--main-text-color)
 ; text-align: center
 ; vertical-align: middle
@@ -136,7 +138,7 @@ body
 }
     #content .box 
     { background-color: var(--box-bg-color)
-    ; border-bottom: 0.1rem solid var(--border-color)
+    ; border-bottom: 0.1rem solid var(--page-border-color)
     }
     #content .box:nth-child(even) 
     { background-color: var(--box-bg-color-alt)
@@ -205,8 +207,8 @@ body
 
 .break, .break-bottom, .break-top, .break-both 
 { background-color: var(--break-bg-color)
-; border-top: 0.1rem solid var(--border-color)
-; border-bottom: 0.1rem solid var(--border-color)
+; border-top: 0.1rem solid var(--page-border-color)
+; border-bottom: 0.1rem solid var(--page-border-color)
 ; height: 2rem
 }
 .break-bottom   { border-top: none }
@@ -226,7 +228,7 @@ body
 ; object-position: top
 ; margin-right: 1rem
 ; margin-top: 1rem
-; border: 0.1rem solid var(--border-color)
+; border: 0.1rem solid var(--page-border-color)
 }
 
 @media (min-width: 40rem) {
@@ -262,19 +264,19 @@ body
     max-width media query isn't adjusted to compensate for the extra gap */
     ; gap: 0.0rem
     ; grid-auto-flow: dense
-    ; margin: 0 4rem 4rem 4rem
-    ; border: 0.1rem solid var(--border-color)
+    ; margin: 0 5rem
+    ; border: 0.1rem solid var(--content-border-color)
     ; border-bottom: 0
     }
 
     #footer 
     { text-align: right
-    ; border-top: 0.1rem solid var(--border-color)
+    ; border-top: 0.1rem solid var(--page-border-color)
     }
 }
 @media (min-width: 120.15rem) {
     body { background-color: black }
     #page 
-    { border: 0.1rem solid var(--border-color)
+    { border: 0.1rem solid var(--page-border-color)
     }
 }
