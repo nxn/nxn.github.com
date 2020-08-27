@@ -1,6 +1,6 @@
 :root 
 { --main-bg-color:      #0b070d
-; --banner-bg-color:    #110b12
+; --banner-bg-color:    #100711
 ; --box-bg-color:       #291d20
 ; --box-bg-color-alt:   #120b0f
 ; --main-text-color:    #C2C2A8
@@ -27,6 +27,7 @@ body
 { min-width: 20rem
 ; max-width: 120rem
 ; margin: 0 auto
+; position: relative
 }
 
 #top-bar 
@@ -37,6 +38,8 @@ body
 ; grid-auto-flow: dense
 ; justify-items: end
 ; align-items: center
+; position: absolute
+; width: 100%
 }
     #site-link 
     { display: flex
@@ -105,9 +108,11 @@ body
 ; border-bottom: 0.1rem solid var(--border-color)
 ; text-align: center
 ; vertical-align: middle
+; padding-top: 4rem
 }
     #logo 
     { width: 10rem
+    ; height: 15rem
     ; padding: 2rem 5rem
     ; fill: var(--logo-color)
     }
@@ -185,7 +190,7 @@ body
 ; background-color: var(--main-bg-color)
 }
     #footer .copyright 
-    { color: var(--subtle-text-color)
+    { color: var(--site-name-color)
     ; font-size: 0.9rem
     }
 
