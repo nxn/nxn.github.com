@@ -9,6 +9,12 @@ export function writeEmail(selector) {
     document.querySelector(selector).innerHTML = '<a href="mailto:'+cfg.email+'">'+i+' '+cfg.email+'</a>';
 }
 
+export function attach(event, selector, callback) {
+    document.querySelectorAll(selector).forEach(function(e) {
+        e.addEventListener(event, callback)
+    });
+}
+
 export function randomRotate(selector, maxDegrees) {
     let max = typeof maxDegrees === "number" ? maxDegrees : 15.0;
 
@@ -18,17 +24,6 @@ export function randomRotate(selector, maxDegrees) {
         e.offsetHeight;
         e.classList.remove('no-transition');
     });
-}
-
-export function attach(event, selector, callback) {
-    document.querySelectorAll(selector).forEach(function(e) {
-        e.addEventListener(event, callback)
-    });
-}
-
-export function toggleClass(element, className) {
-    console.log(className, element);
-    // toggle class
 }
 
 export function randomColor() {

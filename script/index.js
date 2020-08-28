@@ -9,7 +9,7 @@ function showMenu(e) {
 function init() {
     page.writeEmail('#links .email');
     page.attach('click', '#menu-btn', showMenu);
-    page.randomRotate('.img', 20);
+    //page.randomRotate('.img', 20);
     
     /*document.querySelectorAll('.color-box').forEach(function(e) {
         e.style.backgroundColor = page.randomColor();
