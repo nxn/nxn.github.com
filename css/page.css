@@ -1,7 +1,7 @@
 :root 
 { --main-bg-color:      #05070b
 ; --page-bg-color:      #130c17
-; --box-bg-color:       #262d35
+; --box-bg-color:       #1b1a22
 ; --box-bg-color-alt:   #05070b
 ; --main-text-color:    #C2C2A8
 ; --box-text-color:     #DBDAC1
@@ -111,7 +111,6 @@ body
 #banner 
 { background-color: var(--page-bg-color)
 ; color: var(--main-text-color)
-; border-bottom: 0.0625rem solid var(--page-border-color)
 ; text-align: center
 ; vertical-align: middle
 ; padding-top: 4rem
@@ -142,12 +141,18 @@ body
 }
     #content .box 
     { background-color: var(--box-bg-color)
-    ; border-bottom: 0.0625rem solid var(--page-border-color)
+    ; border: 0.0625rem solid var(--page-border-color)
+    ; border-left: none
+    ; border-right: none
+    ; margin-bottom: 2rem
     ; display: flex
     ; flex-direction: column
     }
     #content .box:nth-child(even) 
     { background-color: var(--box-bg-color-alt)
+    }
+    #content .box:last-child
+    { margin-bottom: 0
     }
         #content .box header 
         { min-height: 12rem
@@ -254,7 +259,6 @@ body
 }*/
 
 @media (min-width: 40rem) {
-    #page {  }
 
     #menu-btn 
     { display: none
@@ -275,7 +279,6 @@ body
     { display: flex
     ; align-items: center
     ; justify-content: center
-    ; border-bottom: none
     ; margin: 0 var(--content-margin)
     }
         #banner-text
@@ -295,6 +298,7 @@ body
     }
         #content .box
         { border: 0.0625rem solid var(--content-border-color)
+        ; margin-bottom: 0
         }
 
     #footer 
