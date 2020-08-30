@@ -1,34 +1,174 @@
 import * as page from './page.js';
 
-function showMenu(e) {
+OpenSeadragon.setString("Tooltips.ZoomIn",  "Zoom In");
+OpenSeadragon.setString("Tooltips.ZoomOut", "Zoom Out");
+OpenSeadragon.setString("Tooltips.Home",    "Fit to Screen");
+OpenSeadragon.setString("Tooltips.FullPage","Full Screen");
+
+let viewer = OpenSeadragon({
+    id:                     "viewer",
+    prefixUrl:              "/script/openseadragon-bin-2.4.2/images/",
+    zoomPerScroll:          2.0,
+    gestureSettingsMouse:   { clickToZoom: false, dblClickToZoom: true },
+    zoomInButton:           "zoom-in",
+    zoomOutButton:          "zoom-out",
+    homeButton:             "reset",
+    fullPageButton:         "full-page"
+}), isViewerUIVisible = false, lastInput = Date.now(), hideInterval = 0;
+
+function showViewer(e) {
     e.preventDefault();
-    document.querySelector('#links').classList.toggle('hidden');
+    let link = e.target.closest('a');
+
+    let image = link.dataset.image;
+    let title = "";
+
+    if (!image) {
+        window.location = link.href;
+        return false;
+    }
+
+    if (link.dataset.title) {
+        title = link.dataset.title;
+    }
+    else {
+        let filename = link.href.match(/([^\/\s]+\.\S+)$/);
+        if (filename && filename.length === 2) {
+            title = filename[1];
+        }
+    }
+
+    document.querySelector('#viewer').classList.remove('hidden');
+    document.querySelector("#viewer-title").innerHTML = title;
+    document.body.classList.add('no-scroll');
+
+    viewer.open(image);
+    startAutohide();
+
     return false;
+}
+
+function closeViewer(e) {
+    e.preventDefault();
+
+    if (viewer.isFullPage()) {
+        //viewer.setFullPage(false);
+        viewer.setFullScreen(false);
+    }
+    
+    document.querySelector('#viewer').classList.add('hidden');
+    document.querySelector("#viewer-title").innerHTML = "";
+    document.body.classList.remove('no-scroll');
+
+    viewer.close();
+    stopAutohide();
+
+    return false;
+}
+
+function startAutohide() {
+    if (!hideInterval) {
+        lastInput = Date.now();
+        hideInterval = setInterval(hideViewerUI, 500);
+    }
+}
+
+function stopAutohide() {
+    if (hideInterval) {
+        clearInterval(hideInterval);
+        hideInterval = 0;
+    }
+}
+
+function showViewerUI(e) {
+    lastInput = Date.now();
+    if (isViewerUIVisible) { return; }
+
+    document.querySelectorAll("#viewer-titlebar, #viewer-controls").forEach(function(e) {
+        e.style.opacity = 1;
+        e.style.visibility = "visible";
+    });
+    
+    isViewerUIVisible = true;
+    startAutohide();
+}
+
+function hideViewerUI(e) {
+    if (Date.now() - lastInput < 3000) { return; }
+
+    document.querySelectorAll("#viewer-titlebar, #viewer-controls").forEach(function(e) {
+        const timeFormatRegex = /^(\d+(?:\.\d+)?)(m?s)$/; // Ex: 1.5s, 250ms, etc
+        const defaultDuration = 10;
+        let duration = defaultDuration;
+
+        /* Respect any CSS transitions that should be allowed to execute before setting the element's visibility to "hidden" */
+        let transition = getComputedStyle(e).getPropertyValue("transition-duration");
+        let match = transition.match(timeFormatRegex);
+        if (match && match.length === 3) {
+            duration = parseFloat(match[1]);
+            if (Number.isNaN(duration)) {
+                duration = defaultDuration;
+            }
+            /* Valid durations are specified in either seconds ('s') or milliseconds ('ms'), the former should be converted */
+            else if (match[2] === "s") {
+                duration = duration * 1000;
+            }
+        }
+        
+        e.style.opacity = 0;
+        setTimeout(function() {
+            e.style.visibility = "hidden";
+        }, Math.max(defaultDuration, duration));
+    });
+
+    isViewerUIVisible = false;
+    stopAutohide(); // Hidden now, so no need to poll
 }
 
 function init() {
     page.writeEmail('#links .email');
-    page.attach('click', '#menu-btn', showMenu);
-    //page.randomRotate('.img', 20);
-    
-    /*document.querySelectorAll('.color-box').forEach(function(e) {
-        e.style.backgroundColor = page.randomColor();
-    });
 
-    /*page.attach('click', '.box', function(e) {
-        let box = e.target.closest('.box');
-        let desc = box.querySelector('.description');
+    page.attach('click', 'a.viewer', showViewer);
+    page.attach('click', '#viewer-close', closeViewer);
 
-        if (desc) {
-            document.querySelectorAll('.box').forEach(function(e) {
-                if (e !== box) {
-                    e.classList.toggle('hidden');
-                }
-            });
-            box.classList.toggle('grid-full-row');
-            desc.classList.toggle('hidden');
+    /* Openseadragon doesn't seem to let events bubble out, so registering handlers with their API is necessary
+     * to show or keep the UI alive.
+     * */
+    viewer.addHandler('canvas-press', showViewerUI);
+
+    /* Their documentation, however, doesn't make it clear how buttons should be accessed through their object model.
+     * Since the markup for those isn't being generated by OSD anymore it should be safe to just add standard DOM
+     * handlers.
+     * */
+    page.attach(
+        'touchstart', 
+        '#viewer-titlebar, #viewer-controls, #zoom-in, #zoom-out, #reset, #full-page', 
+        showViewerUI
+    );
+
+    /* For devices with a mouse it's best to use pointer events since they enable pausing polling when the pointer 
+     * is within the UI elements. Note: the 'mouseenter' and 'mouseleave' events still trigger on touch inputs so 
+     * those shouldn't be used.
+     * */
+    page.attach('pointermove', '#viewer', showViewerUI);
+    page.attach(
+        'pointerenter', 
+        '#viewer-titlebar, #viewer-controls', 
+        function(e) { 
+            if (e.pointerType === "mouse") {
+                stopAutohide(); 
+            }
         }
-    });*/
+    );
+    page.attach(
+        'pointerleave', 
+        '#viewer-titlebar, #viewer-controls', 
+        function(e) { 
+            if (e.pointerType === "mouse") {
+                startAutohide();
+            }
+        }
+    );
 }
 
 if (document.readyState === "complete" || document.readyState === "interactive") {

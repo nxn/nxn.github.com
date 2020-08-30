@@ -1,25 +1,27 @@
 :root 
-{ --main-bg-color:      #05070b
-; --page-bg-color:      #130c17
-; --box-bg-color:       #1b1a22
-; --box-bg-color-alt:   #05070b
-; --main-text-color:    #C2C2A8
-; --box-text-color:     #DBDAC1
-; --accent-color:       #94B1A3
-; --page-border-color:  #7A9388
-; --content-border-color: #2e343e
-; --logo-color:         #9DA69E
-; --site-name-color:    #29302d
-; --subtle-text-color:  #67575e
-; --menubar-link-color: #767D75
-; --link-color:         #CD546C
-; --link-hover-color:   #EF545F
-/*  calc((100vw - 40rem) / 2):              represents the total amount of remaining viewport space left before the 40rem breakport is hit
+{ --main-bg-color:          #05070b
+; --page-bg-color:          #130c17
+; --overlay-bg-color:       #05070bee
+; --box-bg-color:           #1b1a22
+; --box-bg-color-alt:       #05070b
+; --main-text-color:        #C2C2A8
+; --box-text-color:         #DBDAC1
+; --accent-color:           #94B1A3
+; --page-border-color:      #7A9388
+; --content-border-color:   #2e343e
+; --logo-color:             #9DA69E
+; --site-name-color:        #29302d
+; --subtle-text-color:      #67575e
+; --menubar-link-color:     #767D75
+; --link-color:             #CD546C
+; --link-hover-color:       #EF545F
+/*
+calc((100vw - 40rem) / 2):                  represents the total amount of remaining viewport space left before the 40rem breakport is hit
 calc(((100vw - 40rem) / 2) + 2rem):         this will leave a minimum margin of 2rem on either side of the grid
 calc(((100vw - 40rem) / 2 * 0.15) + 2rem):  15% of the remaining space will be used by the margins in addition to the 2rem minimum
 */
 ; --content-margin: calc(((100vw - 40rem) / 2 * 0.15) + 2rem)
-;}
+}
 
 body 
 { color: var(--main-text-color)
@@ -36,11 +38,87 @@ body
 ; background-color: var(--page-bg-color)
 }
 
+#viewer
+{ position: fixed
+; top: 0
+; left: 0
+; width: 100vw
+; height: 100vh
+; z-index: 1000
+; background-color: var(--overlay-bg-color)
+}
+    #viewer .icon
+    { fill: var(--main-text-color)
+    ; width: 1.5rem
+    ; height: 1.5rem
+    ; line-height: 3rem
+    ; vertical-align: middle
+    }
+    #viewer-titlebar, #viewer-controls
+    { position: absolute
+    ; left: 0
+    ; z-index: 1001
+    ; opacity: 1
+    ; visibility: visible
+    ; transition: opacity 0.1s linear
+    }
+
+    #viewer-titlebar
+    { top: 0
+    ; width: 100vw
+    ; height: 3rem
+    ; background-color: rgba(0,0,0,0.5)
+    ; overflow: hidden
+    ; display: flex
+    ; justify-content: space-between
+    ; align-items: center
+    }
+        #viewer-title
+        { margin-left: 1rem
+        }
+        #viewer-close
+        { height: 3rem
+        ; width: 3rem
+        ; cursor: pointer
+        ; text-align: center
+        ; vertical-align: middle
+        ; line-height: 3rem
+        }
+            #viewer-close:hover .icon 
+            { fill: var(--link-hover-color)
+            }
+    #viewer-controls
+    { bottom: 0
+    ; width: calc(100vw - 2rem)
+    ; margin: 1rem
+    }
+        #viewer-controls .panel
+        { background-color: rgba(0,0,0,0.75)
+        ; margin: 0 auto
+        ; height: 3rem
+        ; max-width: 20rem
+        ; border-radius: 0.3rem
+        ; display: flex
+        ; align-items: center
+        ; justify-content: space-evenly
+        }
+            #viewer-controls .panel > *
+            { width: 3rem
+            ; height: 3rem
+            ; text-align: center
+            ; line-height: 3rem
+            ; cursor: pointer
+            }
+                #viewer-controls .panel > *:hover .icon
+                { fill: var(--accent-color)
+                }
+
 #top-bar 
 { background-color: var(--main-bg-color)
 ; border-bottom: 0.0625rem solid var(--page-border-color)
 ; display: grid
-; grid-template-columns: 7rem 1fr/*logo 5rem + 1rem left pad + 1rem right pad*/
+/*logo 5rem + 1rem left pad + 1rem right pad*/
+; grid-template-columns: 7rem 1fr
 ; grid-auto-flow: dense
 ; justify-items: end
 ; align-items: center
@@ -49,9 +127,10 @@ body
 }
     #site-link 
     { display: flex
-    ; justify-content: flex-start
+    ; justify-content: center
     ; align-items: center
-    ; padding: 0.5rem 1rem
+    ; height: 4rem
+    ; width: 7rem
     }
         #site-name 
         { height: 3rem
@@ -60,20 +139,25 @@ body
         }
     #menu-btn 
     { display: flex
-    ; justify-content: flex-end
+    ; justify-content: center
     ; align-items: center
-    ; margin: 0rem 1rem
+    ; cursor: pointer
+    ; height: 4rem
+    ; width: 4rem
     }
         #menu-btn .icon 
         { height: 1.5rem
         ; width: 2rem
         ; fill: var(--main-text-color)
         }
+    #menu-toggle:checked + #links 
+    { display: flex
+    }
     #links 
     { grid-column: span 2
     ; padding-bottom: 1rem
     ; width: 100%
-    ; display: flex
+    ; display: none
     ; justify-content: space-evenly
     ; align-items: center
     }
@@ -105,6 +189,13 @@ body
         #links .location 
         { display: none
         ; color: var(--menubar-link-color)
+        }
+        #links .email .address
+        { height: 0.85rem
+        ; width: 6.4rem
+        ; margin-top: -0.0625rem
+        ; vertical-align: middle
+        ; fill: var(--menubar-link-color)
         }
 
 #banner 
@@ -172,7 +263,6 @@ body
             ; position: absolute
             ; top: 0
             ; left: 0
-            ; z-index: 1
             ; background: var(--box-bg-color-alt)
             ; opacity: 0.9
             ; white-space: nowrap
@@ -226,6 +316,7 @@ body
 }
 .hidden { display: none !important }
 .no-transition { transition: none !important }
+.no-scroll { overflow: hidden; }
 .accent { color: #A5AF86 }
 
 .break, .break-bottom, .break-top, .break-both 
@@ -291,7 +382,8 @@ img.right   { object-position: right center }
         }
 
     #footer 
-    { margin: calc(var(--content-margin) / 2 - 0.5rem)
-    ; padding: 0
+    { padding: calc(var(--content-margin) / 2)
+    ; padding-left: 0
+    ; padding-right: 0
     }
 }
