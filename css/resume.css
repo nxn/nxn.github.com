@@ -55,7 +55,7 @@ h2 .icon
 { display: block
 ; height: 2rem
 ; opacity: 0.2
-; margin: 1rem auto
+; margin: 2rem auto
 ; margin-bottom: 0.5rem
 }
 h3 
@@ -166,5 +166,8 @@ ul.bullet-list li
     .name { grid-template-columns: 1fr auto }
     .grid { grid-template-columns: 1fr 1fr; }
     .columns { columns: 2 }
+    h2 .icon 
+    { margin-top: 1.5rem
+    }
     #copyright, #contact li.doc .pdf { display: none }
 }
