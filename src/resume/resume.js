@@ -1,7 +1,6 @@
 import '@shared/styles/reset.css';
 import '@shared/fonts/fonts.css';
 import './resume.css';
-import pdf from './ewieczorek.pdf';
 
 import { config as cfg } from '../config';
 import { page } from '@shared/scripts/utils';

@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin       = require('html-webpack-plugin');
 const { CleanWebpackPlugin }  = require('clean-webpack-plugin');
 
+const downloads = /downloads\/[\S]+\.[\S]+$/;
+
 module.exports = {
     entry:
         { 'nxn.io': './src/nxn.io/nxn.io.js'
@@ -30,16 +32,17 @@ module.exports = {
                 , 'html-loader'
                 ]
             },
-            // Document loader (file)
-            { test: /\.(pdf|otf)$/
+            // Downloads (file)
+            { test: downloads
             , loader: 'file-loader'
             , options:
-                { outputPath: 'assets/documents'
+                { outputPath: 'assets/downloads'
                 , name: '[name].[ext]'
                 }
             },
             // Image loader (file)
             { test: /\.(png|svg|jpg|webp)$/
+            , exclude: [ downloads ]
             , loader: 'file-loader'
             , options: 
                 { outputPath: 'assets/images'
@@ -47,6 +50,7 @@ module.exports = {
             },
             // Font loader(file)
             { test: /\.(woff|woff2|eot|ttf|otf)$/
+            , exclude: [ downloads ]
             , loader: 'file-loader'
             , options: 
                 { outputPath: 'assets/fonts'
