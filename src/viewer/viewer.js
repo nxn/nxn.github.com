@@ -1,4 +1,8 @@
-import * as page from './page.js';
+import '@shared/styles/reset.css';
+import './viewer.css';
+
+import { OpenSeadragon } from 'openseadragon';
+import { page } from '@shared/scripts/utils';
 
 OpenSeadragon.setString("Tooltips.ZoomIn",  "Zoom In");
 OpenSeadragon.setString("Tooltips.ZoomOut", "Zoom Out");
@@ -125,9 +129,7 @@ function hideViewerUI(e) {
     stopAutohide(); // Hidden now, so no need to poll
 }
 
-function init() {
-    page.writeEmail('#links .email');
-
+export function init() {
     page.attach('click', 'a.viewer', showViewer);
     page.attach('click', '#viewer-close', closeViewer);
 
@@ -169,10 +171,4 @@ function init() {
             }
         }
     );
-}
-
-if (document.readyState === "complete" || document.readyState === "interactive") {
-    setTimeout(init, 1);
-} else {
-    document.addEventListener("DOMContentLoaded", init);
 }

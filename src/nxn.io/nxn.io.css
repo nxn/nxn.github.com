@@ -1,7 +1,6 @@
 :root 
 { --main-bg-color:          #05070b
 ; --page-bg-color:          #130c17
-; --overlay-bg-color:       #05070bee
 ; --box-bg-color:           #1b1a22
 ; --box-bg-color-alt:       #05070b
 ; --main-text-color:        #C2C2A8
@@ -37,81 +36,6 @@ body
 ; position: relative
 ; background-color: var(--page-bg-color)
 }
-
-#viewer
-{ position: fixed
-; top: 0
-; left: 0
-; width: 100vw
-; height: 100vh
-; z-index: 1000
-; background-color: var(--overlay-bg-color)
-}
-    #viewer .icon
-    { fill: var(--main-text-color)
-    ; width: 1.5rem
-    ; height: 1.5rem
-    ; line-height: 3rem
-    ; vertical-align: middle
-    }
-    #viewer-titlebar, #viewer-controls
-    { position: absolute
-    ; left: 0
-    ; z-index: 1001
-    ; opacity: 1
-    ; visibility: visible
-    ; transition: opacity 0.1s linear
-    }
-
-    #viewer-titlebar
-    { top: 0
-    ; width: 100vw
-    ; height: 3rem
-    ; background-color: rgba(0,0,0,0.5)
-    ; overflow: hidden
-    ; display: flex
-    ; justify-content: space-between
-    ; align-items: center
-    }
-        #viewer-title
-        { margin-left: 1rem
-        }
-        #viewer-close
-        { height: 3rem
-        ; width: 3rem
-        ; cursor: pointer
-        ; text-align: center
-        ; vertical-align: middle
-        ; line-height: 3rem
-        }
-            #viewer-close:hover .icon 
-            { fill: var(--link-hover-color)
-            }
-    #viewer-controls
-    { bottom: 0
-    ; width: calc(100vw - 2rem)
-    ; margin: 1rem
-    }
-        #viewer-controls .panel
-        { background-color: rgba(0,0,0,0.75)
-        ; margin: 0 auto
-        ; height: 3rem
-        ; max-width: 20rem
-        ; border-radius: 0.3rem
-        ; display: flex
-        ; align-items: center
-        ; justify-content: space-evenly
-        }
-            #viewer-controls .panel > *
-            { width: 3rem
-            ; height: 3rem
-            ; text-align: center
-            ; line-height: 3rem
-            ; cursor: pointer
-            }
-                #viewer-controls .panel > *:hover .icon
-                { fill: var(--accent-color)
-                }
 
 #top-bar 
 { background-color: var(--main-bg-color)
@@ -316,7 +240,6 @@ body
 }
 .hidden { display: none !important }
 .no-transition { transition: none !important }
-.no-scroll { overflow: hidden; }
 .accent { color: #A5AF86 }
 
 .break, .break-bottom, .break-top, .break-both 

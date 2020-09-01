@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <title>nxn.io</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="Author" content="Ernie Wieczorek">
+        <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+        <meta name="dcterms.rightsHolder" content="Ernie Wieczorek">
+
+    </head>
+    <body>
+        <%= require('html-loader!../viewer/viewer.html') %>
+
+        <div id="page">
+            <div id="top-bar">
+                <a id="site-link" href="/">
+                    <svg id="site-name"><use href="../shared/images/graphics-sheet.svg#nxn-text" /></svg>
+                </a>
+
+                <label id="menu-btn" for="menu-toggle">
+                    <svg class="icon"><use href="../shared/images/graphics-sheet.svg#icon-menu" /></svg>
+                </label>
+                <input id="menu-toggle" type="checkbox" class="hidden">
+                <ul id="links">
+                    <li class="doc">
+                        <a class="pdf" href="/resume/">
+                            <svg class="icon"><use href="../shared/images/graphics-sheet.svg#icon-doc" /></svg>
+                            Resume
+                        </a>
+                    </li>
+
+                    <li class="email">
+                        <svg class="icon"><use href="../shared/images/graphics-sheet.svg#icon-mail" /></svg>
+                        <svg class="address"><use href="../shared/images/graphics-sheet.svg#mail-address" /></svg>
+                    </li>
+
+                    <li class="location">
+                        <svg class="icon"><use href="../shared/images/graphics-sheet.svg#icon-geo" /></svg>
+                        Philadelphia, PA
+                    </li>
+                </ul> 
+            </div>
+
+            <div id="banner">
+                <div id="banner-logo" class="banner">
+                    <svg id="logo"><use href="../shared/images/graphics-sheet.svg#logo-no-outline" /></svg>
+                </div>
+                
+                <article id="banner-text" class="banner">
+                    <h2>Hello, I'm <span class="accent">Ernie</span>.</h2>
+        
+                    <p class="text">
+                        I am a Philadelphia based software developer who specializes in full stack web application 
+                        development. You can find a few samples of my recent personal projects below.
+                    </p>
+                </article>
+            </div>
+            
+            <div id="content">
+                <article class="box">
+                    <header>
+                        <h3>YAWS: Yet Another Web Sudoku</h3>
+                        <picture>
+                            <source type="image/webp"
+                                srcset="images/headers/yaws_1col_640x192.webp,
+                                        images/headers/yaws_1col_960x288.webp 1.5x,
+                                        images/headers/yaws_1col_1280x384.webp 2x">
+
+                            <source type="image/png"
+                                srcset="images/headers/yaws_1col_640x192.png,
+                                        images/headers/yaws_1col_960x288.png 1.5x,
+                                        images/headers/yaws_1col_1280x384.png 2x">
+
+                            <img src="images/headers/yaws_1col_640x192.png" alt="Yet Another Web Sudoku">
+                        </picture>
+                    </header>
+                    <div class="description">
+                        <p>The aim of this project is to create a modern, fully client-side, sudoku game with robust 
+                        features such as customizable keyboard controls, saving and sharing game states, hints, and 
+                        more. YAWS is currently in an early stage of development.</p>
+                        <br>
+                        <!-- <p>Demo: <a href="https://yaws.nxn.io/">yaws.nxn.io</a></p> -->
+                        <p>Project Repository: <a href="https://github.com/nxn/waffle-iron">Github</a></p>
+                    </div>
+                </article>
+
+                <article class="box">
+                    <header>
+                        <h3>Waffle-Iron: Sudoku Solver &amp; Generator</h3>
+                        <picture>
+                            <source type="image/webp"
+                                srcset="images/headers/waffle-iron_1col_640x192.webp,
+                                        images/headers/waffle-iron_1col_960x288.webp 1.5x,
+                                        images/headers/waffle-iron_1col_1280x384.webp 2x">
+
+                            <source type="image/png"
+                                srcset="images/headers/waffle-iron_1col_640x192.png,
+                                        images/headers/waffle-iron_1col_960x288.png 1.5x,
+                                        images/headers/waffle-iron_1col_1280x384.png 2x">
+
+                            <img class="left" src="images/headers/waffle-iron_1col_640x192.png" alt="Waffle-Iron">
+                        </picture>
+                    </header>
+                    <div class="description">
+                        <p>Waffle-Iron is a sudoku puzzle solver and generator written in Rust. It's capable of being 
+                        compiled into WebAssembly and executed from within a browser, where it offers consistant and 
+                        improved performance in comparison to similar JavaScript implementations.</p>
+                        <br>
+                        <p>Project Repository: <a href="https://github.com/nxn/waffle-iron">Github</a></p>
+                    </div>
+                </article>
+
+                <article class="box" style="grid-column: span 2">
+                    <header>
+                        <h3>3D Gear Model</h3>
+                        <picture>
+                            <source type="image/webp" media="(max-width: 640px)"
+                                srcset="images/headers/gear_1col_640x192.webp,
+                                        images/headers/gear_1col_960x288.webp 1.5x,
+                                        images/headers/gear_1col_1280x384.webp 2x">
+
+                            <source type="image/jpeg" media="(max-width: 640px)"
+                                srcset="images/headers/gear_1col_640x192.jpg,
+                                        images/headers/gear_1col_960x288.jpg 1.5x,
+                                        images/headers/gear_1col_1280x384.jpg 2x">
+
+                            <source type="image/webp"
+                                srcset="images/headers/gear_2col_1280x192.webp,
+                                        images/headers/gear_2col_1920x288.webp 1.5x,
+                                        images/headers/gear_2col_2560x384.webp 2x">
+
+                            <source type="image/jpeg"
+                                srcset="images/headers/gear_2col_1280x192.jpg,
+                                        images/headers/gear_2col_1920x288.jpg 1.5x,
+                                        images/headers/gear_2col_2560x384.jpg 2x">
+
+                            <img src="images/headers/gear_2col_1280x192.jpg" alt="3D Gear Model">
+                        </picture>
+                    </header>
+
+                    <div class="description">
+                        <p>Results of my first sertious attempt at learning 3D modelling; created using Blender.</p>
+                    </div>
+
+                    <div class="images">
+                        <a class="viewer" data-title="Gear Render 1 of 2" data-image="/img/gear_render2.dzi" 
+                            href="<%= require('./images/content/gear_render2.jpg').default %>">
+                            <picture>
+                                <source type="image/webp"
+                                    srcset="images/content/gear_render2_preview_640x240.webp,
+                                            images/content/gear_render2_preview_960x360.webp 1.5x,
+                                            images/content/gear_render2_preview_1280x480.webp 2x">
+    
+                                <source type="image/jpeg"
+                                    srcset="images/content/gear_render2_preview_640x240.jpg,
+                                            images/content/gear_render2_preview_960x360.jpg 1.5x,
+                                            images/content/gear_render2_preview_1280x480.jpg 2x">
+    
+                                <img src="images/content/gear_render2_preview_640x240.jpg" alt="Gear Render 2">
+                            </picture>
+                        </a>
+                        <a class="viewer" data-title="Gear Render 2 of 2" data-image="/img/gear_render1.dzi" 
+                            href="<%= require('./images/content/gear_render1.jpg').default %>">
+                            <picture>
+                                <source type="image/webp"
+                                    srcset="images/content/gear_render1_preview_640x240.webp,
+                                            images/content/gear_render1_preview_960x360.webp 1.5x,
+                                            images/content/gear_render1_preview_1280x480.webp 2x">
+    
+                                <source type="image/jpeg"
+                                    srcset="images/content/gear_render1_preview_640x240.jpg,
+                                            images/content/gear_render1_preview_960x360.jpg 1.5x,
+                                            images/content/gear_render1_preview_1280x480.jpg 2x">
+    
+                                <img style="object-position: 75% center;" 
+                                    src="images/content/gear_render1_preview_640x240.jpg" alt="Gear Render 1">
+                            </picture>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <div id="footer">
+                <span class="copyright">&#169; 2020 Ernie Wieczorek</span>
+            </div>
+        </div>
+    </body>
+</html>

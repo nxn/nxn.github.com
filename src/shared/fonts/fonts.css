@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url('OpenSans/OpenSans-Bold.woff2') format('woff2'),
+        url('OpenSans/OpenSans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url('OpenSans/OpenSans-Regular.woff2') format('woff2'),
+        url('OpenSans/OpenSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('Oswald/Oswald-Regular.woff2') format('woff2'),
+        url('Oswald/Oswald-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('RobotoSlab/RobotoSlab-Regular.woff2') format('woff2'),
+        url('RobotoSlab/RobotoSlab-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('RobotoSlab/RobotoSlab-Bold.woff2') format('woff2'),
+        url('RobotoSlab/RobotoSlab-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}

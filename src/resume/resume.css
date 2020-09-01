@@ -122,7 +122,7 @@ ul.items li
 
 ul.bullet-list 
 { list-style-type: disc
-; list-style-image: url('/img/chevron.svg');
+; list-style-image: url('./chevron.svg');
 }
 
 ul.bullet-list li 
