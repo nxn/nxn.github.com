@@ -3,6 +3,7 @@ const HtmlWebpackPlugin       = require('html-webpack-plugin');
 const { CleanWebpackPlugin }  = require('clean-webpack-plugin');
 
 const downloads = /downloads\/[\S]+\.[\S]+$/;
+const favicon = /favicon\/[\S]+\.(png|svg|ico|xml|webmanifest)$/;
 
 module.exports = {
     entry:
@@ -32,7 +33,23 @@ module.exports = {
                 , 'html-loader'
                 ]
             },
-            // Downloads (file)
+            // Images (file-loader)
+            { test: /\.(png|svg|jpg|webp)$/
+            , exclude: [ downloads, favicon ]
+            , loader: 'file-loader'
+            , options: 
+                { outputPath: 'assets/images'
+                }
+            },
+            // Fonts (file-loader)
+            { test: /\.(woff|woff2|eot|ttf|otf)$/
+            , exclude: [ downloads, favicon ]
+            , loader: 'file-loader'
+            , options: 
+                { outputPath: 'assets/fonts'
+                }
+            },
+            // Downloads (file-loader)
             { test: downloads
             , loader: 'file-loader'
             , options:
@@ -40,20 +57,12 @@ module.exports = {
                 , name: '[name].[ext]'
                 }
             },
-            // Image loader (file)
-            { test: /\.(png|svg|jpg|webp)$/
-            , exclude: [ downloads ]
+            // Favicon (file-loader)
+            { test: favicon
             , loader: 'file-loader'
-            , options: 
-                { outputPath: 'assets/images'
-                }
-            },
-            // Font loader(file)
-            { test: /\.(woff|woff2|eot|ttf|otf)$/
-            , exclude: [ downloads ]
-            , loader: 'file-loader'
-            , options: 
-                { outputPath: 'assets/fonts'
+            , options:
+                { outputPath: '/'
+                , name: '[name].[ext]'
                 }
             }
         ]

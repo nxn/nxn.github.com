@@ -1,9 +1,6 @@
-import '@shared/styles/reset.css';
-import '@shared/fonts/fonts.css';
-import './resume.css';
-
-import { config as cfg } from '../config';
+import { config as cfg } from '@shared/base.js';
 import { page } from '@shared/scripts/utils';
+import './resume.css';
 
 export function init() {
     const i = '<svg class="icon"><use xlink:href="#icon-mail" /></svg>';

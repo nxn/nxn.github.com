@@ -2,13 +2,8 @@
 <html lang="en">
     <head>
         <title>nxn.io</title>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="Author" content="Ernie Wieczorek">
-        <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
-        <meta name="dcterms.rightsHolder" content="Ernie Wieczorek">
-
+        <%= require('html-loader!@shared/html/meta.html') %>
+        <%= require('html-loader!@shared/html/favicon.html') %>
     </head>
     <body>
         <%= require('html-loader!../viewer/viewer.html') %>
@@ -16,28 +11,28 @@
         <div id="page">
             <div id="top-bar">
                 <a id="site-link" href="/">
-                    <svg id="site-name"><use href="../shared/images/graphics-sheet.svg#nxn-text" /></svg>
+                    <svg id="site-name"><use href="../shared/images/graphics.svg#nxn-text" /></svg>
                 </a>
 
                 <label id="menu-btn" for="menu-toggle">
-                    <svg class="icon"><use href="../shared/images/graphics-sheet.svg#icon-menu" /></svg>
+                    <svg class="icon"><use href="../shared/images/graphics.svg#icon-menu" /></svg>
                 </label>
                 <input id="menu-toggle" type="checkbox" class="hidden">
                 <ul id="links">
                     <li class="doc">
                         <a class="pdf" href="/resume/">
-                            <svg class="icon"><use href="../shared/images/graphics-sheet.svg#icon-doc" /></svg>
+                            <svg class="icon"><use href="../shared/images/graphics.svg#icon-doc" /></svg>
                             Resume
                         </a>
                     </li>
 
                     <li class="email">
-                        <svg class="icon"><use href="../shared/images/graphics-sheet.svg#icon-mail" /></svg>
-                        <svg class="address"><use href="../shared/images/graphics-sheet.svg#mail-address" /></svg>
+                        <svg class="icon"><use href="../shared/images/graphics.svg#icon-mail" /></svg>
+                        <svg class="address"><use href="../shared/images/graphics.svg#mail-address" /></svg>
                     </li>
 
                     <li class="location">
-                        <svg class="icon"><use href="../shared/images/graphics-sheet.svg#icon-geo" /></svg>
+                        <svg class="icon"><use href="../shared/images/graphics.svg#icon-geo" /></svg>
                         Philadelphia, PA
                     </li>
                 </ul> 
@@ -45,7 +40,7 @@
 
             <div id="banner">
                 <div id="banner-logo" class="banner">
-                    <svg id="logo"><use href="../shared/images/graphics-sheet.svg#logo-no-outline" /></svg>
+                    <svg id="logo"><use href="../shared/images/graphics.svg#logo-no-outline" /></svg>
                 </div>
                 
                 <article id="banner-text" class="banner">

@@ -2,16 +2,10 @@
 <html lang="en">
     <head>
         <title>Ernie Wieczorek</title>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="Author" content="Ernie Wieczorek">
-        <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
-        <meta name="dcterms.rightsHolder" content="Ernie Wieczorek">
-
+        <%= require('html-loader!@shared/html/meta.html') %>
+        <%= require('html-loader!@shared/html/favicon.html') %>
     </head>
     <body>
-
         <div id="content">
             <header class="name">
                 <div>
@@ -22,26 +16,26 @@
                     <li class="doc">
                         <a class="pdf" href="<%= require('./downloads/ewieczorek.pdf').default %>" target="_blank">
                             <svg class="icon">
-                                <use href="../shared/images/graphics-sheet.svg#icon-doc" />
+                                <use href="../shared/images/graphics.svg#icon-doc" />
                             </svg>
                             Download PDF
                         </a>
                     </li>
                     <li class="email">
-                        <svg class="icon"><use href="../shared/images/graphics-sheet.svg#icon-mail" /></svg>
-                        <svg class="address"><use href="../shared/images/graphics-sheet.svg#mail-address" /></svg>
+                        <svg class="icon"><use href="../shared/images/graphics.svg#icon-mail" /></svg>
+                        <svg class="address"><use href="../shared/images/graphics.svg#mail-address" /></svg>
                     </li>
                     <li class="web">
                         <a href="/">
                             <svg class="icon">
-                                <use href="../shared/images/graphics-sheet.svg#icon-web" />
+                                <use href="../shared/images/graphics.svg#icon-web" />
                             </svg>
                             www.nxn.io
                         </a>
                     </li>
                     <li class="location">
                         <svg class="icon">
-                            <use href="../shared/images/graphics-sheet.svg#icon-geo" />
+                            <use href="../shared/images/graphics.svg#icon-geo" />
                         </svg>
                         Philadelphia, PA
                     </li>
@@ -51,7 +45,7 @@
             <section id="summary">
                 <h2 style="display: none;">
                     <svg class="icon">
-                        <use href="../shared/images/graphics-sheet.svg#icon-logo" />
+                        <use href="../shared/images/graphics.svg#icon-logo" />
                     </svg>
                     Summary
                 </h2>
@@ -104,7 +98,7 @@
             <section id="experience">
                 <h2>
                     <svg class="icon">
-                        <use href="../shared/images/graphics-sheet.svg#icon-logo" />
+                        <use href="../shared/images/graphics.svg#icon-logo" />
                     </svg>
                     Experience
                 </h2>
@@ -181,7 +175,7 @@
             <section id="education">
                 <h2>
                     <svg class="icon">
-                        <use href="../shared/images/graphics-sheet.svg#icon-logo" />
+                        <use href="../shared/images/graphics.svg#icon-logo" />
                     </svg>
                     Education
                 </h2>
