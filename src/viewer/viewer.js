@@ -51,7 +51,7 @@ function closeViewer(e) {
     }
     
     document.querySelector('#viewer').classList.add('hidden');
-    document.querySelector("#viewer-title").innerHTML = "";
+    document.querySelector("#viewer-title").innerHTML = config.domain;
     document.body.classList.remove('no-scroll');
 
     viewer.close();
