@@ -89,6 +89,9 @@ module.exports = {
                 },
                 { from: 'src/favicon'
                 , to: outputPath
+                },
+                { from: 'CNAME'
+                , to: outputPath
                 }
             ]})
         , new MiniCssExtractPlugin(
