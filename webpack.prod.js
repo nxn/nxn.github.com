@@ -8,8 +8,8 @@ const OptimizeCssAssetsPlugin   = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin              = require('terser-webpack-plugin');
 
 const outputPath = path.resolve(__dirname, 'dist');
-const downloads = /downloads\/[\S]+\.[\S]+$/i;
-const favicon = /favicon\/[\S]+\.(png|svg|ico|xml|webmanifest)$/i;
+const downloads = /downloads[\/\\][\S]+\.[\S]+$/i;
+const favicon = /favicon[\/\\][\S]+\.(png|svg|ico|xml|webmanifest)$/i;
 
 module.exports = {
     entry:
