@@ -1,7 +1,7 @@
 {
   "name": "nxn.github.com",
-  "version": "2.1.0",
-  "description": "http://nxn.io/",
+  "version": "2.1.1",
+  "description": "Personal Portfolio",
   "private": "true",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js --mode development",
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/nxn/nxn.github.com/issues"
   },
-  "homepage": "https://github.com/nxn/nxn.github.com#readme",
+  "homepage": "https://nxn.io/",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.1.0",
