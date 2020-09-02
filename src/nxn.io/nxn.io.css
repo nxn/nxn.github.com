@@ -140,7 +140,7 @@ body
     ; padding-top: 0
     ; text-align: left
     }
-        #banner-text h2 
+        #banner-text h1
         { font-family: 'Roboto Slab', serif
         ; font-size: 2rem
         }
@@ -178,7 +178,7 @@ body
         ; position: relative
         ; overflow: hidden
         }
-            #content .box header h3 
+            #content .box header h2
             { font-family: 'Oswald', sans-serif
             ; font-size: 1.2rem
             ; color: var(--accent-color)
