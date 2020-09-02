@@ -105,6 +105,12 @@ module.exports = {
             , chunks: ['nxn.io']
             })
         , new HtmlWebpackPlugin(
+            { template: 'src/nxn.io/404.ejs'
+            , filename: '404.html'
+            , inject: "head"
+            , chunks: ['nxn.io']
+            })
+        , new HtmlWebpackPlugin(
             { template: 'src/resume/index.ejs'
             , filename: 'resume/index.html'
             , inject: "head"

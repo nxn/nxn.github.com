@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <%= require('html-loader!@shared/html/meta.html') %>
+        <title>Personal Portfolio: Ernie Wieczorek - nxn.io</title>
+        <%= require('html-loader!@shared/html/favicon.html') %>
+    </head>
+    <body>
+        <div id="page" class="error">
+            <div id="top-bar">
+                <a id="site-link" href="/">
+                    <svg id="site-name"><use href="../shared/images/graphics.svg#nxn-text" /></svg>
+                </a>
+
+                <label id="menu-btn" for="menu-toggle">
+                    <svg class="icon"><use href="../shared/images/graphics.svg#icon-menu" /></svg>
+                </label>
+                <input id="menu-toggle" type="checkbox" class="hidden">
+                <ul id="links">
+                    <li class="doc">
+                        <a class="pdf" href="/resume/">
+                            <svg class="icon"><use href="../shared/images/graphics.svg#icon-doc" /></svg>
+                            Resume
+                        </a>
+                    </li>
+
+                    <li class="email">
+                        <svg class="icon"><use href="../shared/images/graphics.svg#icon-mail" /></svg>
+                        <svg class="address"><use href="../shared/images/graphics.svg#mail-address" /></svg>
+                    </li>
+
+                    <li class="location">
+                        <svg class="icon"><use href="../shared/images/graphics.svg#icon-geo" /></svg>
+                        Philadelphia, PA
+                    </li>
+                </ul> 
+            </div>
+
+            <div id="banner">
+                <div id="banner-logo" class="banner">
+                    <svg id="logo"><use href="../shared/images/graphics.svg#logo-no-outline" /></svg>
+                </div>
+                
+                <article id="banner-text" class="banner">
+                    <h1>Page not found <span class="accent">404</span></h1>
+                    <p class="text">
+                        Sorry, there are no documents located at this URL. Check that you typed the address correctly,
+                        go back to your previous page, or <a href="/">follow this link to return to the main page</a>.
+                        <br><br>
+                        <span class="copyright">&#169; 2020 Ernie Wieczorek</span>
+                    </p>
+                </article>
+            </div>
+        </div>
+    </body>
+</html>
