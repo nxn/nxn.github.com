@@ -11,7 +11,9 @@ function writeEmail() {
 
 function init() {
     writeEmail();
-    viewerInit();
+    if (document.querySelector('a.viewer')) {
+        viewerInit();
+    }
 }
 
 page.ready(init);
