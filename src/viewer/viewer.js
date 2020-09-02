@@ -1,31 +1,21 @@
-import '@shared/styles/reset.css';
+import { page, config } from '@shared/base';
 import './viewer.css';
 
-import { OpenSeadragon } from 'openseadragon';
-import { page } from '@shared/scripts/utils';
+import OpenSeadragon from 'openseadragon';
 
 OpenSeadragon.setString("Tooltips.ZoomIn",  "Zoom In");
 OpenSeadragon.setString("Tooltips.ZoomOut", "Zoom Out");
 OpenSeadragon.setString("Tooltips.Home",    "Fit to Screen");
 OpenSeadragon.setString("Tooltips.FullPage","Full Screen");
 
-let viewer = OpenSeadragon({
-    id:                     "viewer",
-    prefixUrl:              "/script/openseadragon-bin-2.4.2/images/",
-    zoomPerScroll:          2.0,
-    gestureSettingsMouse:   { clickToZoom: false, dblClickToZoom: true },
-    zoomInButton:           "zoom-in",
-    zoomOutButton:          "zoom-out",
-    homeButton:             "reset",
-    fullPageButton:         "full-page"
-}), isViewerUIVisible = false, lastInput = Date.now(), hideInterval = 0;
+let viewer = null, isViewerUIVisible = false, lastInput = Date.now(), hideInterval = 0;
 
 function showViewer(e) {
     e.preventDefault();
     let link = e.target.closest('a');
 
     let image = link.dataset.image;
-    let title = "";
+    let title = config.domain;
 
     if (!image) {
         window.location = link.href;
@@ -130,6 +120,16 @@ function hideViewerUI(e) {
 }
 
 export function init() {
+    viewer = OpenSeadragon({
+        id:                     "viewer",
+        zoomPerScroll:          2.0,
+        gestureSettingsMouse:   { clickToZoom: false, dblClickToZoom: true },
+        zoomInButton:           "zoom-in",
+        zoomOutButton:          "zoom-out",
+        homeButton:             "reset",
+        fullPageButton:         "full-page"
+    });
+
     page.attach('click', 'a.viewer', showViewer);
     page.attach('click', '#viewer-close', closeViewer);
 

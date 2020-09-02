@@ -1,5 +1,5 @@
 export const config = {
     domain: 'nxn.io',
     user: (!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(!![]+[])[!+[]+!+[]+!+[]],
-    get email() { return cfg.user + '&#64;' + cfg.domain }
+    get email() { return config.user + '&#64;' + config.domain }
 }

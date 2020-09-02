@@ -1,6 +1,8 @@
 const path = require('path');
-const HtmlWebpackPlugin       = require('html-webpack-plugin');
-const { CleanWebpackPlugin }  = require('clean-webpack-plugin');
+
+const HtmlWebpackPlugin     = require('html-webpack-plugin');
+const {CleanWebpackPlugin}  = require('clean-webpack-plugin');
+const CopyPlugin            = require('copy-webpack-plugin');
 
 const downloads = /downloads\/[\S]+\.[\S]+$/;
 const favicon = /favicon\/[\S]+\.(png|svg|ico|xml|webmanifest)$/;
@@ -76,6 +78,13 @@ module.exports = {
 
     plugins: 
         [ new CleanWebpackPlugin()
+        , new CopyPlugin(
+            { patterns: [ 
+                { from: 'src/dzi-data'
+                , to: 'assets/dzi-data' 
+                },
+                { from: 'src/favicon' }
+            ]})
         , new HtmlWebpackPlugin(
             { template: 'src/nxn.io/index.ejs'
             , filename: 'index.html'

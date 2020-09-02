@@ -1,8 +1,10 @@
-import { config as cfg } from '@shared/base.js';
-import { page } from '@shared/scripts/utils';
+import { page, config } from '@shared/base.js';
+import graphics from '@shared/images/graphics.svg';
 import './resume.css';
 
-export function init() {
-    const i = '<svg class="icon"><use xlink:href="#icon-mail" /></svg>';
-    page.write('<a href="mailto:'+cfg.email+'">'+i+' '+cfg.email+'</a>', '#contact .email');
+function init() {
+    const i = '<svg class="icon"><use href="' + graphics + '#icon-mail" /></svg>';
+    page.write('<a href="mailto:' + config.email + '">' + i + ' ' + config.email+'</a>', '#contact .email');
 }
+
+page.ready(init);
