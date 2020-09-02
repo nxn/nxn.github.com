@@ -6,8 +6,6 @@
         <%= require('html-loader!@shared/html/favicon.html') %>
     </head>
     <body>
-        <%= require('html-loader!../viewer/viewer.html') %>
-
         <div id="page">
             <div id="top-bar">
                 <a id="site-link" href="/">
@@ -182,5 +180,7 @@
                 <span class="copyright">&#169; 2020 Ernie Wieczorek</span>
             </div>
         </div>
+        
+        <%= require('html-loader!../viewer/viewer.html') %>
     </body>
 </html>
