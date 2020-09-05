@@ -5,10 +5,14 @@
         <title>Ernie Wieczorek: Software Developer · Resume</title>
         <%= require('html-loader!@shared/html/favicon.html') %>
 
-        <link rel="preload" href="<%= require('@shared/fonts/OpenSans/OpenSans-Regular.woff2').default %>" as="font">
-        <link rel="preload" href="<%= require('@shared/fonts/Oswald/Oswald-Regular.woff2').default %>" as="font">
-        <link rel="preload" href="<%= require('@shared/fonts/RobotoSlab/RobotoSlab-Regular.woff2').default %>" as="font">
-        <link rel="preload" href="<%= require('@shared/fonts/RobotoSlab/RobotoSlab-Bold.woff2').default %>" as="font">
+        <link rel="preload" href="<%= require('@shared/fonts/OpenSans/OpenSans-Regular.woff2').default %>" as="font"
+            type="font/woff2" crossorigin>
+        <link rel="preload" href="<%= require('@shared/fonts/Oswald/Oswald-Regular.woff2').default %>" as="font"
+            type="font/woff2" crossorigin>
+        <link rel="preload" href="<%= require('@shared/fonts/RobotoSlab/RobotoSlab-Regular.woff2').default %>" 
+            as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="<%= require('@shared/fonts/RobotoSlab/RobotoSlab-Bold.woff2').default %>" as="font"
+            type="font/woff2" crossorigin>
     </head>
     <body>
         <div id="content">
