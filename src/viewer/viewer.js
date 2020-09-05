@@ -145,7 +145,8 @@ export function init() {
     page.attach(
         'touchstart', 
         '#viewer-titlebar, #viewer-controls, #zoom-in, #zoom-out, #reset, #full-page', 
-        showViewerUI
+        showViewerUI,
+        { passive: true }
     );
 
     /* For devices with a mouse it's best to use pointer events since they enable pausing polling when the pointer 

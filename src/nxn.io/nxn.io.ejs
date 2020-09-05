@@ -4,12 +4,19 @@
         <%= require('html-loader!@shared/html/meta.html') %>
         <title>Personal Portfolio: Ernie Wieczorek · nxn.io</title>
         <%= require('html-loader!@shared/html/favicon.html') %>
+
+        <link rel="preload" href="<%= require('@shared/fonts/OpenSans/OpenSans-Regular.woff2').default %>" as="font">
+        <link rel="preload" href="<%= require('@shared/fonts/Oswald/Oswald-Regular.woff2').default %>" as="font">
+        <link rel="preload" href="<%= require('@shared/fonts/RobotoSlab/RobotoSlab-Regular.woff2').default %>" as="font">
     </head>
     <body>
         <div id="page">
             <div id="top-bar">
                 <a id="site-link" href="/">
-                    <svg id="site-name"><use href="../shared/images/graphics.svg#nxn-text" /></svg>
+                    <svg id="site-name">
+                        <title>nxn.io</title>
+                        <use href="../shared/images/graphics.svg#nxn-text" />
+                    </svg>
                 </a>
 
                 <label id="menu-btn" for="menu-toggle">
@@ -73,8 +80,11 @@
                         features such as customizable keyboard controls, saving and sharing game states, hints, and 
                         more. YAWS is currently in an early stage of development.</p>
                         <br>
-                        <p>Demo: <a href="https://yaws.nxn.io/" target="_blank">yaws.nxn.io</a></p>
-                        <p>Project Repository: <a href="https://github.com/nxn/yaws" target="_blank">Github</a></p>
+                        <p>Demo: <a href="https://yaws.nxn.io/" target="_blank" rel="noreferrer">yaws.nxn.io</a></p>
+                        <p>
+                            Project Repository: <a href="https://github.com/nxn/yaws" target="_blank" rel="noreferrer">
+                            Github</a>
+                        </p>
                     </div>
                 </article>
 
@@ -100,7 +110,10 @@
                         compiled into WebAssembly and executed from within a browser, where it offers consistant and 
                         improved performance in comparison to similar JavaScript implementations.</p>
                         <br>
-                        <p>Project Repository: <a href="https://github.com/nxn/waffle-iron" target="_blank">Github</a></p>
+                        <p>
+                            Project Repository: <a href="https://github.com/nxn/waffle-iron" target="_blank" 
+                            rel="noreferrer">Github</a>
+                        </p>
                     </div>
                 </article>
 
