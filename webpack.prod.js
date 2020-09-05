@@ -99,7 +99,7 @@ module.exports = {
             , chunkFilename: "[id].[contenthash].css"
             })
         , new HtmlWebpackPlugin(
-            { template: 'src/nxn.io/index.ejs'
+            { template: 'src/nxn.io/nxn.io.ejs'
             , filename: 'index.html'
             , inject: "head"
             , chunks: ['nxn.io']
@@ -111,7 +111,7 @@ module.exports = {
             , chunks: ['nxn.io']
             })
         , new HtmlWebpackPlugin(
-            { template: 'src/resume/index.ejs'
+            { template: 'src/resume/resume.ejs'
             , filename: 'resume/index.html'
             , inject: "head"
             , chunks: ['resume/resume']
