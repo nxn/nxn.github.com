@@ -3,11 +3,11 @@
 ; --page-bg-color:          #130c17
 ; --box-bg-color:           #1b1a22
 ; --box-bg-color-alt:       #05070b
+; --box-border-color:       #2e343e
 ; --main-text-color:        #C2C2A8
 ; --box-text-color:         #DBDAC1
 ; --accent-color:           #94B1A3
-; --page-border-color:      #7A9388
-; --content-border-color:   #2e343e
+; --border-color:           #7A9388
 ; --logo-color:             #9DA69E
 ; --site-name-color:        #29302d
 ; --subtle-text-color:      #67575e
@@ -47,7 +47,7 @@ body
 
 #top-bar 
 { background-color: var(--main-bg-color)
-; border-bottom: 0.0625rem solid var(--page-border-color)
+; border-bottom: 0.0625rem solid var(--border-color)
 ; display: grid
 /*logo 5rem + 1rem left pad + 1rem right pad*/
 ; grid-template-columns: 7rem 1fr
@@ -173,10 +173,8 @@ body
 }
     #content .box 
     { background-color: var(--box-bg-color)
-    ; border: 0.0625rem solid var(--page-border-color)
-    ; border-left: none
-    ; border-right: none
-    ; margin-bottom: 2rem
+    ; border: 0.0625rem solid var(--box-border-color)
+    ; margin: 0.75rem 1rem
     ; display: flex
     ; flex-direction: column
     }
@@ -255,8 +253,8 @@ body
 
 .break, .break-bottom, .break-top, .break-both 
 { background-color: var(--break-bg-color)
-; border-top: 0.0625rem solid var(--page-border-color)
-; border-bottom: 0.0625rem solid var(--page-border-color)
+; border-top: 0.0625rem solid var(--border-color)
+; border-bottom: 0.0625rem solid var(--border-color)
 ; height: 2rem
 }
 .break-bottom   { border-top: none }
@@ -313,8 +311,7 @@ img.right   { object-position: right center }
     ; margin: 0 var(--content-margin)
     }
         #content .box
-        { border: 0.0625rem solid var(--content-border-color)
-        ; margin-bottom: 0
+        { margin: 0
         }
 
     #footer 
