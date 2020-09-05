@@ -11,37 +11,7 @@
     </head>
     <body>
         <div id="page">
-            <div id="top-bar">
-                <a id="site-link" href="/">
-                    <svg id="site-name">
-                        <title>nxn.io</title>
-                        <use href="../shared/images/graphics.svg#nxn-text" />
-                    </svg>
-                </a>
-
-                <label id="menu-btn" for="menu-toggle">
-                    <svg class="icon"><use href="../shared/images/graphics.svg#icon-menu" /></svg>
-                </label>
-                <input id="menu-toggle" type="checkbox" class="hidden">
-                <ul id="links">
-                    <li class="doc">
-                        <a class="pdf" href="/resume/">
-                            <svg class="icon"><use href="../shared/images/graphics.svg#icon-doc" /></svg>
-                            Resume
-                        </a>
-                    </li>
-
-                    <li class="email">
-                        <svg class="icon"><use href="../shared/images/graphics.svg#icon-mail" /></svg>
-                        <svg class="address"><use href="../shared/images/graphics.svg#mail-address" /></svg>
-                    </li>
-
-                    <li class="location">
-                        <svg class="icon"><use href="../shared/images/graphics.svg#icon-geo" /></svg>
-                        Philadelphia, PA
-                    </li>
-                </ul> 
-            </div>
+            <%= require('html-loader!@shared/html/top-bar.html') %>
 
             <div id="banner">
                 <div id="banner-logo" class="banner">
