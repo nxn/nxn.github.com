@@ -6,7 +6,7 @@
 ; --subtle-color:       #c6c6c6
 ; --main-text-color:    #000000
 ; --header-text-color:  #222222
-; --gray:               #999999
+; --gray:               #666666
 ; --white:              #ffffff
 ;}
 
@@ -24,18 +24,17 @@ body
 ; margin: 0 auto
 }
 
-.name, .grid 
+.grid 
 { display: grid
 ; column-gap: 3rem
 }
-.name { row-gap: 1rem }
 .columns { column-gap: 3rem }
 .gray { color: var(--gray) }
 
 header .sub-title 
 { font-family: 'Roboto Slab', serif
 ; font-size: 1.25rem
-; line-height: 2em
+; line-height: 2rem
 }
 
 h1, h2, h3, h4, h5, .title  { color: var(--header-text-color) }
@@ -79,14 +78,31 @@ article header
 ; break-inside: avoid
 }
 
-#contact li 
+#contact 
+{ display: flex
+; flex-direction: column
+; margin: 1rem 0
+; padding: 0.5rem 0
+; border-width: 0.25rem
+; border-style: solid
+; border-image: linear-gradient(to right, var(--subtle-color), rgba(247, 247, 247, 0)) 100% 1;
+; border-left: 0
+; border-right: 0
+}
+
+#contact li
 { text-align: left
-; line-height: 1.5em
+; line-height: 2.5rem
+}
+
+#contact li a
+{ display: inline-block
+; padding-right: 1rem
 }
 
 #contact li .icon 
 { display: inline-block
-; height: 1.5rem
+; height: 2.5rem
 ; width: 1.5rem
 ; vertical-align: top
 ; fill: var(--subtle-color)
@@ -108,15 +124,19 @@ a
 a:hover { color: var(--link-hover-color) }
 a:hover .icon { fill: var(--icon-hover-color) !important }
 
+ul.items
+{ display: flex
+; flex-flow: row wrap
+}
+
 ul.items li 
-{ display: inline-block
-; line-height: 1.75em
+{ line-height: 1.75em
 ; color: var(--main-text-color)
 ; border: 0.1rem solid var(--subtle-color)
 ; background-color: var(--item-bg-color)
 ; padding: 0 0.6rem
 ; margin-bottom: 0.4rem
-; margin-right: 0.2rem
+; margin-right: 0.4rem
 ; border-radius: 0.2rem
 }
 
@@ -132,7 +152,8 @@ ul.bullet-list li
 
 .date { font-weight: 400 }
 
-#summary p { margin-top: 1.0rem }
+#summary p { margin-top: 1.5rem }
+
 #experience article header,
 #education article header 
 { padding-bottom: 0.5rem
@@ -147,13 +168,14 @@ ul.bullet-list li
 ; padding: 1rem 0 0 0
 }
 
-@media screen and (min-width: 630px) {
-    .name { grid-template-columns: 1fr auto }
-}
 /* 768 = 2 col on ipad in portrait, 769 = 1 col on ipad in portrait */
 @media screen and (min-width: 800px) {
-    .grid { grid-template-columns: 1fr 1fr }
     .columns { columns: 2 }
+    .grid { grid-template-columns: 1fr 1fr }
+    #contact
+    { flex-direction: row
+    ; justify-content: space-between
+    }
 }
 @media print {
     body 
@@ -162,12 +184,31 @@ ul.bullet-list li
     /* need some margin to have left hand side list-item bullets show when printing */
     ; padding: 0 0 0 1rem
     }
+
+    #resume-heading 
+    { display: grid
+    ; grid-template-columns: 1fr auto 
+    }
+
+    #contact
+    { border: 0
+    ; padding: 0
+    ; margin: 0
+    }
+    #contact li, #contact li .icon 
+    { line-height: 1.5rem
+    ; height: 1.5rem
+    }
+
+    #summary p { margin-top: 1rem }
+
     #content { max-width: none }
-    .name { grid-template-columns: 1fr auto }
+
     .grid { grid-template-columns: 1fr 1fr; }
     .columns { columns: 2 }
+    
     h2 .icon 
     { margin-top: 1.5rem
     }
-    #copyright, #contact li.doc .pdf { display: none }
+    #copyright, #contact li.doc { display: none }
 }
