@@ -177,6 +177,7 @@ ul.bullet-list li
     ; justify-content: space-between
     }
 }
+
 @media print {
     body 
     { font-size: 11pt
@@ -196,8 +197,8 @@ ul.bullet-list li
     ; margin: 0
     }
     #contact li, #contact li .icon 
-    { line-height: 1.5rem
-    ; height: 1.5rem
+    { line-height: 1.66rem
+    ; height: 1.66rem
     }
 
     #summary p { margin-top: 1rem }
