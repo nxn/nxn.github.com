@@ -16,7 +16,7 @@ body
 ; font-family: 'Open Sans', sans-serif
 ; font-size: 1rem
 ; line-height: 1.5em
-; padding: 2.0rem 2.5rem
+; padding: 1rem
 }
 
 #content 
@@ -168,8 +168,8 @@ ul.bullet-list li
 ; padding: 1rem 0 0 0
 }
 
-/* 768 = 2 col on ipad in portrait, 769 = 1 col on ipad in portrait */
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 48rem) {
+    body { padding: 2.0rem 2.5rem }
     .columns { columns: 2 }
     .grid { grid-template-columns: 1fr 1fr }
     #contact
