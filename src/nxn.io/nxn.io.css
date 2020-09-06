@@ -100,7 +100,7 @@ body
         }
             #links a 
             { color: var(--menubar-text-color)
-            ; display: block
+            ; display: inline-block
             ; padding-right: 1rem
             }
             #links a:hover 
