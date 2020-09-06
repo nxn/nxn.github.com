@@ -99,7 +99,7 @@ article header
 }
 
 #contact li a
-{ display: inline-block
+{ display: block
 ; padding-right: 1rem
 }
 
