@@ -16,12 +16,12 @@ body
 ; font-family: 'Open Sans', sans-serif
 ; font-size: 1rem
 ; line-height: 1.5em
-; padding: 6.5%
+; padding: 6.5% /* ~20px on 320px screen */
 }
 
 #content 
 { max-width: 64rem
-; min-width: 17.5rem
+; min-width: 17.5rem /* ~280px with 20px of padding on each side */
 ; margin: 0 auto
 }
 
@@ -170,7 +170,7 @@ ul.bullet-list li
 }
 
 @media screen and (min-width: 48rem) {
-    body { padding: 3.125rem }
+    body { padding: 3.125rem } /* ~50px which is what 6.5% padding expanded to by 48rem */
     .columns { columns: 2 }
     .grid { grid-template-columns: 1fr 1fr }
     #contact
