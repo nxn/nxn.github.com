@@ -49,19 +49,21 @@ h1
 }
 h2 
 { font-size: 2rem
-; text-align: center
+; margin: 2rem 0 2rem 0
+; display: flex
+; align-items: center
+; justify-content: center
 }
 h2 .icon 
-{ display: block
-; height: 2rem
+{ height: 1.6375rem
+; width: 2.0rem
 ; opacity: 0.2
-; margin: 2rem auto
-; margin-bottom: 0.5rem
+; margin: 0.1rem 1rem 0 -2rem
 }
 h3 
 { font-size: 1.5rem
 ; line-height: 1.5em
-; margin-top: 1.0rem
+; margin-top: 1.5rem
 }
 h4
 { font-weight: 700
@@ -162,6 +164,7 @@ ul.bullet-list li
 ; border-style: solid
 ; border-image: linear-gradient(to right, var(--subtle-color), rgba(247, 247, 247, 0)) 100% 1;
 }
+
 #copyright 
 { color: var(--gray)
 ; font-size: 0.9rem
@@ -181,7 +184,8 @@ ul.bullet-list li
 
 @media print {
     body 
-    { font-size: 11pt
+    { color: #000 !important
+    ; font-size: 11pt
     ; background-color: var(--white)
     /* need some margin to have left hand side list-item bullets show when printing */
     ; padding: 0 0 0 1rem
@@ -202,15 +206,10 @@ ul.bullet-list li
     ; height: 1.66rem
     }
 
-    #summary p { margin-top: 1rem }
-
     #content { max-width: none }
 
     .grid { grid-template-columns: 1fr 1fr; }
     .columns { columns: 2 }
     
-    h2 .icon 
-    { margin-top: 1.5rem
-    }
     #copyright, #contact li.doc { display: none }
 }
