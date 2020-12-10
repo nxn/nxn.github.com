@@ -15,6 +15,6 @@
     ],
     "theme_color": "#f7f7f7",
     "background_color": "#f7f7f7",
-    "start_url": "http://nxn.io/",
+    "start_url": "https://nxn.io/",
     "display": "standalone"
 }

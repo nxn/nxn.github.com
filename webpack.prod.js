@@ -9,7 +9,6 @@ const TerserPlugin              = require('terser-webpack-plugin');
 
 const outputPath = path.resolve(__dirname, 'dist');
 const downloads = /downloads[\/\\][\S]+\.[\S]+$/i;
-const favicon = /favicon[\/\\][\S]+\.(png|svg|ico|xml|webmanifest)$/i;
 
 module.exports = {
     entry:
@@ -41,7 +40,7 @@ module.exports = {
             },
             // Images (file-loader)
             { test: /\.(png|svg|jpg|webp)$/i
-            , exclude: [ downloads, favicon ]
+            , exclude: [ downloads ]
             , loader: 'file-loader'
             , options: 
                 { outputPath: 'assets/images'
@@ -49,7 +48,7 @@ module.exports = {
             },
             // Fonts (file-loader)
             { test: /\.(woff|woff2|eot|ttf|otf)$/i
-            , exclude: [ downloads, favicon ]
+            , exclude: [ downloads ]
             , loader: 'file-loader'
             , options: 
                 { outputPath: 'assets/fonts'
@@ -60,14 +59,6 @@ module.exports = {
             , loader: 'file-loader'
             , options:
                 { outputPath: 'downloads'
-                , name: '[name].[ext]'
-                }
-            },
-            // Favicon (file-loader)
-            { test: favicon
-            , loader: 'file-loader'
-            , options:
-                { outputPath: '/'
                 , name: '[name].[ext]'
                 }
             }
@@ -83,15 +74,12 @@ module.exports = {
     plugins: 
         [ new CleanWebpackPlugin()
         , new CopyPlugin(
-            { patterns: [ 
+            { patterns: [
+                { from: 'src/site-root'
+                , to: outputPath
+                },
                 { from: 'src/dzi-data'
                 , to: 'assets/dzi-data' 
-                },
-                { from: 'src/favicon'
-                , to: outputPath
-                },
-                { from: 'CNAME'
-                , to: outputPath
                 }
             ]})
         , new MiniCssExtractPlugin(
@@ -99,15 +87,21 @@ module.exports = {
             , chunkFilename: "[id].[contenthash].css"
             })
         , new HtmlWebpackPlugin(
-            { template: 'src/nxn.io/index.ejs'
+            { template: 'src/nxn.io/nxn.io.ejs'
             , filename: 'index.html'
-            , inject: "head"
+            , inject: true
             , chunks: ['nxn.io']
             })
         , new HtmlWebpackPlugin(
-            { template: 'src/resume/index.ejs'
+            { template: 'src/nxn.io/404.ejs'
+            , filename: '404.html'
+            , inject: true
+            , chunks: ['nxn.io']
+            })
+        , new HtmlWebpackPlugin(
+            { template: 'src/resume/resume.ejs'
             , filename: 'resume/index.html'
-            , inject: "head"
+            , inject: true
             , chunks: ['resume/resume']
             })
         ],

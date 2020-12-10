@@ -2,15 +2,24 @@
 <html lang="en">
     <head>
         <%= require('html-loader!@shared/html/meta.html') %>
-        <title>Ernie Wieczorek: Software Developer - Resume</title>
+        <title>Ernie Wieczorek: Software Developer · Resume</title>
         <%= require('html-loader!@shared/html/favicon.html') %>
+
+        <link rel="preload" href="<%= require('@shared/fonts/OpenSans/OpenSans-Regular.woff2').default %>" as="font"
+            type="font/woff2" crossorigin>
+        <link rel="preload" href="<%= require('@shared/fonts/Oswald/Oswald-Regular.woff2').default %>" as="font"
+            type="font/woff2" crossorigin>
+        <link rel="preload" href="<%= require('@shared/fonts/RobotoSlab/RobotoSlab-Regular.woff2').default %>" 
+            as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="<%= require('@shared/fonts/RobotoSlab/RobotoSlab-Bold.woff2').default %>" as="font"
+            type="font/woff2" crossorigin>
     </head>
     <body>
         <div id="content">
-            <header class="name">
+            <header id="resume-heading">
                 <div>
                     <h1>Ernie Wieczorek</h1>
-                    <span class="sub-title">Computer Software Developer</span>
+                    <div class="sub-title">Computer Software Developer</div>
                 </div>
                 <ul id="contact">
                     <li class="doc">
@@ -86,9 +95,10 @@
                             <li>Redis</li>
                             <li>Node.js</li>
                             <li>D3.js</li>
+                            <li>React</li>
+                            <li>Material UI</li>
                             <li>HTML5</li>
                             <li>CSS</li>
-                            <li>Web Assembly</li>
                             <li>Webpack</li>
                         </ul>
                     </article>
@@ -104,31 +114,94 @@
                 </h2>
                 <article>
                     <header>
-                        <h3>Intertrust Group</h3>
-                        <h4>Developer <span class="date">(Apr 2011 – Oct 2014)</span></h4>
+                        <h3>YAWS</h3>
+                        <h4>Project Owner &amp; Developer <span class="date">(May 2020 – present)</span></h4>
                     </header>
                     <p>
-                        Responsible for the development and maintenance of Intertrust's online Client Portal — specifically:
-                        making the site operate as efficiently as possible, ensuring reliable integration with internal 
-                        systems, designing flexible solutions for jurisdiction dependent requirements, and consistently 
-                        implementing new features that help both clients and administrators alike.
+                        Developed a progressive web application for generating and solving sudoku puzzles through the
+                        use of TypeScript, Rust, React, and HTML5 APIs such as Web Assembly, Web Workers, and Local
+                        Storage. The application is capable of running completely within any modern browser environment 
+                        and does not require a server side connection after the initial load.
                     </p>
 
                     <h5>Accomplishments</h5>
                     <ul class="bullet-list columns">
                         <li>
-                            Created a fully automated build, packaging, and deployment system using MSBuild and TeamCity. 
-                            The system was also capable of digitally signing generated packages to ensure that they could 
-                            only be extracted and installed in environments for which they were intended.
+                            Developed core logic using the Rust programming language for consistent and improved
+                            performance in comparison to similar JavaScript implementations.
                         </li>
                         <li>
-                            Constructed RESTful web services to allow independent document management systems to maintain 
+                            Integrated with Webpack to leverage asset and dependency management, code splitting, content
+                            hashing, and build automation.
+                        </li>
+                        <li>
+                            Used TypeScript along with React and Material UI to create a responsive user interface that has 
+                            the ability to fluidly scale between low resolution and UHD displays. The user interface also 
+                            fully supports both desktop and mobile environments.
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <header>
+                        <h3>AnyAxis</h3>
+                        <h4>Project Owner &amp; Developer <span class="date">(Jan 2015 – present)</span></h4>
+                    </header>
+                    <p>
+                        AnyAxis is a cross-platform device driver that enables various Inertial Measurement Unit devices
+                        to be used as an alternative input method when interacting with desktop applications. Its goal 
+                        is to provide an improved user experience in areas such as accessibility, customization, and 
+                        3d interaction.
+                    </p>
+
+                    <h5>Accomplishments</h5>
+                    <ul class="bullet-list columns">
+                        <li>
+                            Used Rust, along with principles of data-oriented design, to create a generic device model 
+                            capable of representing various input mechanisms, such as: physical buttons, analog inputs, 
+                            touchpads, touchscreens, gyroscopes, and accelerometers.
+                        </li>
+                        <li>
+                            Designed and implemented a data agnostic architecture that enables device support across
+                            various protocols such as USB, HID, and Bluetooth.
+                        </li>
+                        <li>
+                            Utilized asynchronous IO to create a stream based input processing pipeline. The pipeline
+                            enables devices to be multiplexed, re-mapped, and output as other device types, without
+                            incurring any overhead from multithreading.
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <header>
+                        <h3>Intertrust Group</h3>
+                        <h4>Developer <span class="date">(Apr 2011 – Oct 2014)</span></h4>
+                    </header>
+                    <p>
+                        Responsible for the development and maintenance of Intertrust's Client Portal — a C# ASP.NET website
+                        encompassing tools for helping clients manage their corporate structure. Primary duties included: making
+                        the site operate as efficiently as possible, ensuring reliable integration with internal systems, 
+                        designing flexible solutions for jurisdiction dependent requirements, and implementing features to help 
+                        both Intertrust’s clients and administrators alike.
+                    </p>
+
+                    <h5>Accomplishments</h5>
+                    <ul class="bullet-list columns">
+                        <li>
+                            Created a fully automated build, packaging, and deployment system using C#, MSBuild and TeamCity. 
+                            The system was also capable of digitally signing generated packages to ensure that they could only be 
+                            extracted and installed in environments for which they were intended.
+                        </li>
+                        <li>
+                            Constructed ASP.NET RESTful web services to allow independent document management systems to maintain
                             control of documents on the portal.
                         </li>
                         <li>
-                            Implemented a new Membership-Provider to improve security by enforcing stricter authentication 
-                            procedures. The Membership-Provider also added safer lock-out logic to prevent denial of service
-                            attacks and upgraded the mechanism used for securely storing sensitive client information.
+                            Helped re-style the website to match Intertrust's theme while also improving the site visually.
+                        </li>
+                        <li>
+                            Implemented a new .NET Membership-Provider to improve security by enforcing stricter authentication 
+                            procedures. The Membership-Provider also added safer lock-out logic to prevent denial of service attacks
+                            and upgraded the mechanism used for securely storing sensitive client information.
                         </li>
                         <li>
                             Leveraged D3.js to create an interactive diagram for visualizing relationships between entities
@@ -137,9 +210,6 @@
                         <li>
                             Improved site performance by optimizing code and incorporating tools such as non-relational
                             databases.
-                        </li>
-                        <li>
-                            Helped re-style the website to match Intertrust's theme while also improving the site visually.
                         </li>
                     </ul>
                 </article>
@@ -150,8 +220,9 @@
                         <h4>Software Developer / .NET Programmer <span class="date">(Jun 2008 – Feb 2011)</span></h4>
                     </header>
                     <p>
-                        Implemented and maintained internal software solutions in accordance with project goals and changing
-                        business needs. Other responsibilities included providing user support and troubleshooting errors.
+                        Implemented and maintained internal C# and ASP.NET software solutions in accordance with project goals 
+                        and changing business needs. Other responsibilities included providing user support and troubleshooting 
+                        errors.
                     </p>
 
                     <h5>Accomplishments</h5>

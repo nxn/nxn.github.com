@@ -1,7 +1,7 @@
 export const page = {
-    attach: function(event, selector, callback) {
+    attach: function(event, selector, callback, options) {
         document.querySelectorAll(selector).forEach(function(e) {
-            e.addEventListener(event, callback)
+            e.addEventListener(event, callback, options)
         })
     },
     write: function(text, selector) {

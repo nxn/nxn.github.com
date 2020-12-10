@@ -2,41 +2,19 @@
 <html lang="en">
     <head>
         <%= require('html-loader!@shared/html/meta.html') %>
-        <title>Personal Portfolio: Ernie Wieczorek - nxn.io</title>
+        <title>Personal Portfolio: Ernie Wieczorek · nxn.io</title>
         <%= require('html-loader!@shared/html/favicon.html') %>
+
+        <link rel="preload" href="<%= require('@shared/fonts/OpenSans/OpenSans-Regular.woff2').default %>" as="font"
+            type="font/woff2" crossorigin>
+        <link rel="preload" href="<%= require('@shared/fonts/Oswald/Oswald-Regular.woff2').default %>" as="font"
+            type="font/woff2" crossorigin>
+        <link rel="preload" href="<%= require('@shared/fonts/RobotoSlab/RobotoSlab-Regular.woff2').default %>" 
+            as="font" type="font/woff2" crossorigin>
     </head>
     <body>
-        <%= require('html-loader!../viewer/viewer.html') %>
-
         <div id="page">
-            <div id="top-bar">
-                <a id="site-link" href="/">
-                    <svg id="site-name"><use href="../shared/images/graphics.svg#nxn-text" /></svg>
-                </a>
-
-                <label id="menu-btn" for="menu-toggle">
-                    <svg class="icon"><use href="../shared/images/graphics.svg#icon-menu" /></svg>
-                </label>
-                <input id="menu-toggle" type="checkbox" class="hidden">
-                <ul id="links">
-                    <li class="doc">
-                        <a class="pdf" href="/resume/">
-                            <svg class="icon"><use href="../shared/images/graphics.svg#icon-doc" /></svg>
-                            Resume
-                        </a>
-                    </li>
-
-                    <li class="email">
-                        <svg class="icon"><use href="../shared/images/graphics.svg#icon-mail" /></svg>
-                        <svg class="address"><use href="../shared/images/graphics.svg#mail-address" /></svg>
-                    </li>
-
-                    <li class="location">
-                        <svg class="icon"><use href="../shared/images/graphics.svg#icon-geo" /></svg>
-                        Philadelphia, PA
-                    </li>
-                </ul> 
-            </div>
+            <%= require('html-loader!@shared/html/top-bar.html') %>
 
             <div id="banner">
                 <div id="banner-logo" class="banner">
@@ -71,12 +49,18 @@
                         </picture>
                     </header>
                     <div class="description">
-                        <p>The aim of this project is to create a modern, fully client-side, sudoku game with robust 
-                        features such as customizable keyboard controls, saving and sharing game states, hints, and 
-                        more. YAWS is currently in an early stage of development.</p>
+                        <p><a href="https://sudoku.nxn.io/" target="_blank" rel="noreferrer">YAWS</a> is a progressive 
+                        Sudoku puzzle app that hopes to create a unified user experience across multiple device types. 
+                        It is able to generate and solve challenging puzzles in a consistant manner via the use of 
+                        <a href="https://webassembly.org/" target="_blank" rel="noreferrer">Web Assembly</a> for its 
+                        core code.</p>
+                        <br />
+                        <p>The project is currently in an early stage of development with the goal of incorporating 
+                        robust features such as customizable keyboard controls, saving and sharing game states, hints, 
+                        and more.</p>
                         <br>
-                        <!-- <p>Demo: <a href="https://yaws.nxn.io/" target="_blank">yaws.nxn.io</a></p> -->
-                        <p>Project Repository: <a href="https://github.com/nxn/waffle-iron" target="_blank">Github</a></p>
+                        <p>A prototype build is available for viewing at: <a href="https://sudoku.nxn.io/" 
+                        target="_blank" rel="noreferrer">sudoku.nxn.io</a></p>
                     </div>
                 </article>
 
@@ -102,7 +86,10 @@
                         compiled into WebAssembly and executed from within a browser, where it offers consistant and 
                         improved performance in comparison to similar JavaScript implementations.</p>
                         <br>
-                        <p>Project Repository: <a href="https://github.com/nxn/waffle-iron" target="_blank">Github</a></p>
+                        <p>
+                            Project Repository: <a href="https://github.com/nxn/waffle-iron" target="_blank" 
+                            rel="noreferrer">Github</a>
+                        </p>
                     </div>
                 </article>
 
@@ -135,7 +122,7 @@
                     </header>
 
                     <div class="description">
-                        <p>Results of my first sertious attempt at learning 3D modelling; created using Blender.</p>
+                        <p>Results of my first serious attempt at learning 3D modelling; created using Blender.</p>
                     </div>
 
                     <div class="images">
@@ -182,5 +169,7 @@
                 <span class="copyright">&#169; 2020 Ernie Wieczorek</span>
             </div>
         </div>
+        
+        <%= require('html-loader!../viewer/viewer.html') %>
     </body>
 </html>
