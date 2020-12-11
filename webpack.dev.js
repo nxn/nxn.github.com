@@ -1,9 +1,9 @@
 const path = require('path');
 
 const { CleanWebpackPlugin }    = require('clean-webpack-plugin');
+const CopyPlugin                = require('copy-webpack-plugin');
 const HtmlWebpackPlugin         = require('html-webpack-plugin');
 const MiniCssExtractPlugin      = require('mini-css-extract-plugin');
-const CopyPlugin                = require('copy-webpack-plugin');
 
 
 
@@ -11,15 +11,19 @@ const outputPath = path.resolve(__dirname, 'dist');
 const downloads = /downloads[\/\\][\S]+\.[\S]+$/i;
 
 module.exports = {
+    mode: 'development',
+    devtool: 'inline-source-map',
+    devServer: { contentBase: outputPath },
+
     entry:
         { 'nxn.io': './src/nxn.io/nxn.io.js'
         , 'resume/resume': './src/resume/resume.js'
         },
-    mode: 'development',
+
     target: 'web',
 
     output: 
-        { filename: '[name].[hash:20].js'
+        { filename: '[name].[contenthash].js'
         , path: outputPath
         , publicPath: '/'
         },

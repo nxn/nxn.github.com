@@ -115,7 +115,7 @@ function hideViewerUI(e) {
 export function init() {
     if (!document.querySelector('a.viewer')) { return; }
 
-    import(/* webpackChunkName: "osd" */ 'openseadragon').then(OpenSeadragon => {
+    import(/* webpackChunkName: "osd" */'openseadragon').then(({ default: OpenSeadragon }) => {
         OpenSeadragon.setString("Tooltips.ZoomIn",  "Zoom In");
         OpenSeadragon.setString("Tooltips.ZoomOut", "Zoom Out");
         OpenSeadragon.setString("Tooltips.Home",    "Fit to Screen");

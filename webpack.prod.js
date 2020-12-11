@@ -1,25 +1,29 @@
 const path = require('path');
 
 const { CleanWebpackPlugin }    = require('clean-webpack-plugin');
+const CopyPlugin                = require('copy-webpack-plugin');
 const HtmlWebpackPlugin         = require('html-webpack-plugin');
 const MiniCssExtractPlugin      = require('mini-css-extract-plugin');
-const CopyPlugin                = require('copy-webpack-plugin');
-const OptimizeCssAssetsPlugin   = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin        = require('css-minimizer-webpack-plugin');
 const TerserPlugin              = require('terser-webpack-plugin');
 
 const outputPath = path.resolve(__dirname, 'dist');
 const downloads = /downloads[\/\\][\S]+\.[\S]+$/i;
 
 module.exports = {
+    mode: 'production',
+
+
+
     entry:
         { 'nxn.io': './src/nxn.io/nxn.io.js'
         , 'resume/resume': './src/resume/resume.js'
         },
-    mode: 'production',
+    
     target: 'web',
 
     output: 
-        { filename: '[name].[hash:20].js'
+        { filename: '[name].[contenthash].js'
         , path: outputPath
         , publicPath: '/'
         },
@@ -110,11 +114,9 @@ module.exports = {
         minimize: true,
         minimizer: [
             new TerserPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: true
+                parallel: true
             }),
-            new OptimizeCssAssetsPlugin({})
+            new CssMinimizerPlugin()
         ]
     }
 };
