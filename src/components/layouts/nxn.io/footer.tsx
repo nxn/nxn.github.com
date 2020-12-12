@@ -1,13 +1,22 @@
 import React from "react";
+import styled from "@emotion/styled";
+
+import { palette } from "./theme";
 
 type FooterProps = {
-
+    className?: string
 }
 
-export default function Footer(props: FooterProps) {
+export function FooterUnstyled(props: FooterProps) {
     return (
-        <footer>
-            <span className="copyright">&#169; 2020 Ernie Wieczorek</span>
+        <footer className={ props.className }>
+            <span id="copyright">&#169; 2020 Ernie Wieczorek</span>
         </footer>
     );
 }
+
+export const Footer = styled(FooterUnstyled)({
+
+});
+
+export default Footer;

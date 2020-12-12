@@ -10,7 +10,7 @@ type FooterProps = {
 export function FooterUnstyled(props: FooterProps) {
     return (
         <footer className={ props.className }>
-            <div id="copyright">&#169; 2020 Ernie Wieczorek</div>
+            <span id="copyright">&#169; 2020 Ernie Wieczorek</span>
         </footer>
     );
 }
