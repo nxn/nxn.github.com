@@ -5,7 +5,8 @@ import clsx from "clsx";
 import Header from "./header";
 import Footer from "./footer";
 
-import { palette, withGlobal } from './theme';
+import { palette } from "./theme";
+import { withGlobal } from "../../util";
 
 import '../../../styles/reset.css';
 import '../../../styles/fonts.css';

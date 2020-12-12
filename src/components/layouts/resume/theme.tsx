@@ -1,11 +1,14 @@
-
 export const palette = {
     page: {
         text: '#000',
         background: '#fcfcfc'
     },
     header: {
-        text: '#222'
+        text: '#222',
+        link: {
+            text: '#000',
+            hover: '#CD546C'
+        },
     },
     item: {
         background: '#fff'
@@ -14,10 +17,7 @@ export const palette = {
         fill: '#c6c6c6',
         hover: '#EF545F'
     },
-    link: {
-        text: '#000',
-        hover: '#CD546C'
-    },
+    
     accent: {
         subtle: '#c6c6c6'
     },

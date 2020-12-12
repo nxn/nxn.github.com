@@ -1,6 +1,3 @@
-import React from "react";
-import { Global, Interpolation, Theme } from "@emotion/react";
-
 export const palette = {
     page: { 
         text:           '#C2C2A8',
@@ -40,9 +37,3 @@ export const palette = {
 export const breakpoints = [41.5];
 export const mediaQueries = breakpoints.map(bp => `@media (min-width: ${bp}rem)`);
 
-export function withGlobal<P>(Component: React.ComponentType<P>, styles: Interpolation<Theme>) {
-    return (props: P) => <>
-        <Global styles={ styles } />
-        <Component { ... props } />
-    </>;
-}

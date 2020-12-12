@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
+import { palette } from "./theme";
 import graphics from "../../../images/graphics.svg";
 
 type HeaderProps = {
@@ -47,7 +48,59 @@ export function HeaderUnstyled(props: HeaderProps) {
 };
 
 export const Header = styled(HeaderUnstyled)({
+    '& .sub-title': {
+        fontFamily: '"Roboto Slab", serif',
+        fontSize:   '1.25rem',
+        lineHeight: '2rem'
+    },
 
+    '& #contact': {
+        display:        'flex',
+        flexDirection:  'column',
+        margin:         '1rem 0',
+        padding:        '0.5rem 0',
+        borderWidth:    '0.25rem',
+        borderStyle:    'solid',
+        borderImage:    `linear-gradient(to right, ${ palette.accent.subtle }, rgba(247, 247, 247, 0)) 100% 1`,
+        borderLeft:     0,
+        borderRight:    0,
+
+        '& li': {
+            textAlign: 'left',
+            lineHeight: '2.5rem',
+
+            '& .icon': {
+                display: 'inline-block',
+                height: '2.5rem',
+                width: '1.5rem',
+                verticalAlign: 'top',
+                fill: palette.icon.fill,
+                marginRight: '0.5rem'
+            },
+
+            '& a': {
+                color: palette.header.link.text,
+                textDecoration: 'none',
+                display: 'inline-block', /* inline to not stretch in mobile mode */
+                paddingRight: '1rem'
+            },
+
+            '& a:hover': {
+                color: palette.header.link.hover,
+                '& .icon': {
+                    fill: palette.icon.hover
+                }
+            }
+        },
+
+        '& .email .address': {
+            height:         '0.85rem',
+            width:          '6.4rem',
+            marginTop:      '-0.0625rem',
+            verticalAlign:  'middle',
+            fill:           palette.page.text
+        }
+    }
 });
 
 export default Header;
