@@ -6,8 +6,8 @@ type FooterProps = {
 
 export default function Footer(props: FooterProps) {
     return (
-        <div id="footer">
+        <footer>
             <span className="copyright">&#169; 2020 Ernie Wieczorek</span>
-        </div>
+        </footer>
     );
 }

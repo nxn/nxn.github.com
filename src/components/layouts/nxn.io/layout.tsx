@@ -2,8 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import clsx from "clsx";
 
-import Header from "./header";
-import Footer from "./footer";
+import Header   from "./header";
+import Content  from "./content";
+import Footer   from "./footer";
 
 import { palette } from "./theme";
 import { withGlobal } from "../../util";
@@ -25,11 +26,9 @@ export function LayoutUnstyled(props: LayoutProps) {
 
             { props.banner }
 
-            { React.Children.count(props.children) > 0 &&
-                <div id="content">
-                    { props.children }
-                </div>
-            }
+            <Content>
+                { props.children }
+            </Content>
 
             <Footer />
         </div>

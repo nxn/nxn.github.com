@@ -10,7 +10,7 @@ type HeaderProps = {
 
 export function HeaderUnstyled(props: HeaderProps) {
     return (
-        <div id="header" className={ props.className }>
+        <header className={ props.className }>
             <a id="site-link" href="/">
                 <svg id="site-name">
                     <title>nxn.io</title>
@@ -42,7 +42,7 @@ export function HeaderUnstyled(props: HeaderProps) {
                     Philadelphia, PA
                 </li>
             </ul> 
-        </div>
+        </header>
     );
 }
 

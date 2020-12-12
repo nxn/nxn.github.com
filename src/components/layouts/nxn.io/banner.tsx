@@ -14,14 +14,14 @@ type BannerProps = {
 
 export function BannerUnstyled(props: BannerProps) {
     return (
-        <div id="banner" className={ props.className }>
+        <div className={ props.className }>
             { props.logo &&
-                <div id="banner-logo" className="banner">
+                <div id="banner-logo">
                     <svg id="logo"><use href={ `${ graphics }#logo-no-outline` } /></svg>
                 </div>
             }
             
-            <article id="banner-text" className="banner">
+            <article id="banner-text">
                 { props.children }
             </article>
         </div>
