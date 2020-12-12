@@ -38,7 +38,18 @@ const globalStyles = {
         fontFamily:         '"Open Sans", sans-serif',
         fontSize:           '1rem',
         lineHeight:         '1.5rem',
-        padding:            '6.5%'
+        padding:            '6.5%',
+
+        '@media print': {
+            color:              palette.black,
+            fontSize:           '11pt',
+            backgroundColor:    palette.white,
+            padding:            '0 0 0 1rem'
+        },
+
+        '@media screen and (min-width: 48rem)': {
+            padding: '3.125rem'
+        }
     },
 
     'h1, h2, h3, h4, h5, .title':   { color:        palette.header.text },
@@ -47,7 +58,7 @@ const globalStyles = {
     'h5, .title':                   { fontWeight:   700 },
 
     h1: { 
-        fontSize: '3rem',
+        fontSize:   '3rem',
         lineHeight: '1.0em'
     },
     h2: {

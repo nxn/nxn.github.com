@@ -10,7 +10,7 @@ type HeaderProps = {
 
 export function HeaderUnstyled(props: HeaderProps) {
     return (
-        <header id="resume-header" className={ props.className }>
+        <header className={ props.className }>
             <div>
                 <h1>Ernie Wieczorek</h1>
                 <div className="sub-title">Computer Software Developer</div>
@@ -48,6 +48,11 @@ export function HeaderUnstyled(props: HeaderProps) {
 };
 
 export const Header = styled(HeaderUnstyled)({
+    '@media print': {
+        display:                'grid',
+        gridTemplateColumns:    '1fr auto'
+    },
+
     '& .sub-title': {
         fontFamily: '"Roboto Slab", serif',
         fontSize:   '1.25rem',
@@ -65,9 +70,29 @@ export const Header = styled(HeaderUnstyled)({
         borderLeft:     0,
         borderRight:    0,
 
+        '@media screen and (min-width: 48rem)': {
+            flexDirection:  'row',
+            justifyContent: 'space-between'
+        },
+
+        '@media print': {
+            border:     0,
+            padding:    0,
+            margin:     0,
+
+            '& li.doc': {
+                display: 'none'
+            }
+        },
+
         '& li': {
             textAlign: 'left',
             lineHeight: '2.5rem',
+
+            '@media print': {
+                lineHeight: '1.66rem',
+                height: '1.66rem'
+            },
 
             '& .icon': {
                 display: 'inline-block',
@@ -75,7 +100,12 @@ export const Header = styled(HeaderUnstyled)({
                 width: '1.5rem',
                 verticalAlign: 'top',
                 fill: palette.icon.fill,
-                marginRight: '0.5rem'
+                marginRight: '0.5rem',
+
+                '@media print': {
+                    lineHeight: '1.66rem',
+                    height: '1.66rem'
+                },
             },
 
             '& a': {

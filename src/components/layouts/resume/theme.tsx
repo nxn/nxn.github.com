@@ -21,6 +21,7 @@ export const palette = {
     accent: {
         subtle: '#c6c6c6'
     },
-    gray:   '#666666',
-    white:  '#ffffff'
+    gray:   '#666',
+    white:  '#fff',
+    black:  '#000'
 }
