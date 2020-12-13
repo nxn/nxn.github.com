@@ -46,7 +46,7 @@ const globalStyles = {
     },
     body: {
         color: palette.page.text,
-        backgroundColor: palette.page.background,
+        backgroundColor: palette.body.background,
         fontFamily: '"Open Sans", sans-serif',
         fontSize: '1rem',
         lineHeight: '1.5rem'

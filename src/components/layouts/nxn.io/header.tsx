@@ -48,7 +48,7 @@ export function HeaderUnstyled(props: HeaderProps) {
 
 const Header = styled(HeaderUnstyled)({
     backgroundColor:        palette.header.background,
-    borderBottom:           `0.0625rem solid ${ palette.header.border }`,
+    borderBottom:           `0.0625rem solid ${ palette.page.border }`,
     display:                'grid',
     //logo 5rem + 1rem left pad + 1rem right pad
     gridTemplateColumns:    '7rem 1fr',

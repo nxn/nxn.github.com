@@ -1,7 +1,12 @@
 export const palette = {
+    body: {
+        text:           '#767D75',
+        background:     '#0c1317',
+    },
     page: { 
         text:           '#C2C2A8',
         background:     '#130c17',
+        border:         '#7A9388',
         link: {
             text:       '#ea7d93',
             hover:      '#EF545F'
@@ -10,8 +15,15 @@ export const palette = {
     header: {
         text:           '#767D75',
         background:     '#05070b',
-        border:         '#7A9388',
         siteName:       '#29302d',
+        link: {
+            text:       '#767D75',
+            hover:      '#94B1A3'
+        }
+    },
+    footer: {
+        text:           '#767D75',
+        background:     '#0c1317',
         link: {
             text:       '#767D75',
             hover:      '#94B1A3'

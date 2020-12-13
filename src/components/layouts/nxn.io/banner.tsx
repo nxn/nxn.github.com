@@ -4,6 +4,7 @@ import { Interpolation, Theme } from "@emotion/react";
 
 import { palette } from "./theme";
 import graphics from "../../../images/graphics.svg";
+import { LinkButton, ButtonGroup } from "../../button";
 
 
 type BannerProps = {
@@ -21,7 +22,7 @@ export function BannerUnstyled(props: BannerProps) {
                 </div>
             }
             
-            <article id="banner-text">
+            <article id="banner-content">
                 { props.children }
             </article>
         </div>
@@ -45,9 +46,12 @@ export function Error404BannerUnstyled(props: BannerProps) {
         <BannerUnstyled logo { ...props }>
             <h1>Page not found <span className="accent">404</span></h1>
             <p className="text">
-                Sorry, there are no documents located at this URL. Check that you typed the address correctly,
-                go back to your previous page, or <a href="/">follow this link to return to the main page</a>.
+                Sorry, the page you're looking for doesn't exist. Check that you typed the address correctly, return to the home page, or go back to your previous page.
             </p>
+            <ButtonGroup className="nav-buttons">
+                <LinkButton className="primary" href="/">Go Home</LinkButton>
+                <LinkButton className="primary" href="/">Go Back</LinkButton>
+            </ButtonGroup>
         </BannerUnstyled>
     )
 }
@@ -81,7 +85,7 @@ const bannerStyles: Interpolation<Theme> = {
         padding: '2rem 3rem'
     },
 
-    '& #banner-text': {
+    '& #banner-content': {
         padding: '2rem',
         paddingTop: 0,
         textAlign: 'left',
@@ -100,10 +104,10 @@ const bannerStyles: Interpolation<Theme> = {
 
         '& .text': {
             maxWidth:     '48rem',
-            marginTop:    '1.5rem'
+            margin:    '1.5rem 0'
         },
             
-        '#page.error & h1, #page.error & .text': {
+        '#page.error & *': {
             textAlign: 'center',
             '@media (min-width: 41.5rem)': {
                 textAlign: 'left'
