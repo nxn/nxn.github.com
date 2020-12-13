@@ -43,6 +43,25 @@ export const palette = {
         alt:            '#94B1A3',
         subtle:         '#917f86',
         error:          '#da2840'
+    },
+
+    button: {
+        primary: {
+            text:       '#D7D0C7',
+            background: '#28192b',
+            hover: {
+                text:       '#F0E5DF',
+                background: '#312437'
+            }
+        },
+        secondary: {
+            text: '#94B1A3',
+            background: '#141b22',
+            hover: {
+                text: '#B0D0C1',
+                background: '#18252d'
+            }
+        }
     }
 }
 

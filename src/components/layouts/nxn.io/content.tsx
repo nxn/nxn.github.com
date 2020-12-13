@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { palette } from "./theme";
+import { palette } from "../../theme";
 
 type ContentProps = {
     children?: React.ReactNode,

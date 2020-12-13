@@ -2,7 +2,7 @@ import React from "react";
 import { PageProps } from "gatsby";
 
 
-import { WelcomeBanner } from "../components/layouts/nxn.io/banner";
+import { WelcomeBanner } from "../components/banner";
 import Layout from "../components/layouts/nxn.io/layout";
 
 

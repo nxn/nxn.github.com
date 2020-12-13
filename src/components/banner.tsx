@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import { Interpolation, Theme } from "@emotion/react";
 
 import { palette } from "./theme";
-import graphics from "../../../images/graphics.svg";
-import { LinkButton, ButtonGroup } from "../../button";
+import graphics from "../images/graphics.svg";
+import { Button, LinkButton, ButtonGroup } from "./button";
 
 
 type BannerProps = {
@@ -41,16 +41,21 @@ export function WelcomeBannerUnstyled(props: BannerProps) {
     )
 }
 
+function wonderland() { }
+
 export function Error404BannerUnstyled(props: BannerProps) {
     return (
         <BannerUnstyled logo { ...props }>
             <h1>Page not found <span className="accent">404</span></h1>
             <p className="text">
-                Sorry, the page you're looking for doesn't exist. Check that you typed the address correctly, return to the home page, or go back to your previous page.
+                This is your last chance. After this, there is no turning back. You take the blue pill—the story ends, 
+                you wake up in your bed and believe whatever you want to believe. You take the red pill—you stay in 
+                Wonderland, and I show you how deep the rabbit hole goes. Remember: all I'm offering is the truth. 
+                Nothing more.
             </p>
-            <ButtonGroup className="nav-buttons">
-                <LinkButton className="primary" href="/">Go Home</LinkButton>
-                <LinkButton className="primary" href="/">Go Back</LinkButton>
+            <ButtonGroup id="the-choice">
+                <LinkButton color="secondary"   href="/">Home</LinkButton>
+                <Button     color="primary"     onClick={ wonderland }>???</Button>
             </ButtonGroup>
         </BannerUnstyled>
     )
@@ -69,9 +74,17 @@ const bannerStyles: Interpolation<Theme> = {
         justifyContent: 'center',
         margin:         '0 var(--content-margin)',
     },
-    
+
     '#page.error & .accent': {
         color: palette.accent.error
+    },
+
+    '#page.error & #logo': {
+        padding: '2rem 3rem'
+    },
+
+    '& #the-choice .button': {
+        width: '5.5rem'
     },
 
     '& #logo': {
@@ -79,10 +92,6 @@ const bannerStyles: Interpolation<Theme> = {
         height:     '15rem',
         padding:    '2rem 5rem',
         fill:       palette.banner.logo
-    },
-
-    '#page.error & #logo': {
-        padding: '2rem 3rem'
     },
 
     '& #banner-content': {

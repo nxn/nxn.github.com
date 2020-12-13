@@ -1,69 +1,82 @@
 import React from "react";
+import { Theme, Interpolation } from "@emotion/react";
 import styled from "@emotion/styled";
+import clsx from "clsx";
+
+import { palette } from "./theme";
+
+// Wrapper Components for HTML elements that can serve as buttons; doing this allows them to be used as inputs to HOCs.
+// Though doing it this way is a bit silly -- might be a better idea to use a render prop instead.
+const HTMLButton = (p: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => <button { ... p } />;
+const HTMLAnchor = (p: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) => <a { ...p } />;
 
 type ButtonProps = {
-    children: React.ReactNode,
-    className?: string
+    color?: "primary" | "secondary",
+    className?: string,
 }
 
-export function ButtonUnstyled(props: ButtonProps) {
-    return (
-        <button className={ props.className } >
-            { props.children }
-        </button>
-    );
+function asButton<P>(Component: React.ComponentType<P>) {
+    return (props: ButtonProps & P) => {
+        const { className, color, ...remaining } = props;
+        return <Component className={ clsx(className, "button", color || "primary") } { ...remaining as P } />
+    }
 }
 
-export const LinkButton = styled('a')({
-    fontSize: '0.8rem',
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    lineHeight: '2.5rem',
-    display: 'inline-block',
-    padding: '0rem 1.5rem',
-    borderRadius: '2.5rem',
+const buttonStyle: Interpolation<Theme> = {
+    fontFamily:     '"Open Sans", sans-serif',
+    fontSize:       '0.8rem',
+    fontWeight:     'bold',
+    textTransform:  'uppercase',
+    textAlign:      'center !important' as 'center',
+    lineHeight:     '2.5rem',
+    display:        'inline-block',
+    padding:        '0rem 1.5rem',
+    border:         0,
+    borderRadius:   '2.5rem',
+    boxSizing:      'border-box',
+    cursor:         'pointer',
 
     '&.primary': {
-        color: '#D7D0C7',
-        backgroundColor: '#28192b',
+        color:                  palette.button.primary.text,
+        backgroundColor:        palette.button.primary.background,
         '&:hover': {
-            color: '#F0E5DF',
-            backgroundColor: '#312437'
+            color:              palette.button.primary.hover.text,
+            backgroundColor:    palette.button.primary.hover.background
         }
     },
 
     '&.secondary': {
-        color: '#94B1A3',
-        backgroundColor: '#05070b'
+        color:                  palette.button.secondary.text,
+        backgroundColor:        palette.button.secondary.background,
+        '&:hover': {
+            color:              palette.button.secondary.hover.text,
+            backgroundColor:    palette.button.secondary.hover.background
+        }
     }
-});
+}
+
+export const Button     = styled(asButton(HTMLButton))(buttonStyle);
+export const LinkButton = styled(asButton(HTMLAnchor))(buttonStyle);
+export default Button;
 
 type ButtonGroupProps = {
     className?: string,
     children?: React.ReactNode
 }
 
-export function ButtonGroupUnstyled(props: ButtonGroupProps) {
-    return (
-        <div className={ props.className }>
-            { props.children }
-        </div>
-    )
+export function ButtonGroupUnstyled(props: ButtonGroupProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
+    return <div { ...props } />;
 }
 
 export const ButtonGroup = styled(ButtonGroupUnstyled)({
-    '& > .primary, & > .secondary': {
-        borderRadius: 0,
-        marginRight: '0.0625rem'
+    // Hacks because emotion css doesn't allow 'first-child' selectors
+    '& > .button + .button': {
+        borderTopLeftRadius:        0,
+        borderBottomLeftRadius:     0
     },
-    '& :first-of-type': {
-        borderTopLeftRadius: '2.5rem',
-        borderBottomLeftRadius: '2.5rem'
+    '& > .button:not(:last-child)': {
+        marginRight:                '0.0625rem',
+        borderTopRightRadius:       0,
+        borderBottomRightRadius:    0
     },
-    '& :last-child': {
-        borderTopRightRadius: '2.5rem',
-        borderBottomRightRadius: '2.5rem'
-    }
 });
-
-export default LinkButton;

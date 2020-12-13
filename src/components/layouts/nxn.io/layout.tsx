@@ -6,7 +6,7 @@ import Header   from "./header";
 import Content  from "./content";
 import Footer   from "./footer";
 
-import { palette } from "./theme";
+import { palette } from "../../theme";
 import { withGlobal } from "../../util";
 
 import '../../../styles/reset.css';
