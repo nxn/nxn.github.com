@@ -38,7 +38,7 @@ export function HeaderUnstyled(props: HeaderProps) {
 
                 <li className="location">
                     <svg className="icon"><use href={ `${ graphics }#icon-geo` } /></svg>
-                    Philadelphia, PA
+                    Philadelphia
                 </li>
             </ul> 
         </header>

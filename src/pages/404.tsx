@@ -6,7 +6,8 @@ import Layout from "../components/layouts/nxn.io/layout";
 import { Button, LinkButton, ButtonGroup } from "../components/button";
 import styled from "@emotion/styled";
 
-import morpheus from "../images/morpheus.png";
+import morpheus_png from "../images/morpheus.png";
+import morpheus_webp from "../images/morpheus.webp";
 
 
 function wonderland() { }
@@ -48,7 +49,7 @@ export default styled(Error404Page)({
     flexFlow:       'column nowrap',
     alignItems:     'center',
 
-    backgroundImage:    `url("${ morpheus }")`,
+    backgroundImage:    `url("${ morpheus_webp }")`,
     backgroundSize:     'contain',
     backgroundRepeat:   'no-repeat',
     backgroundPosition: 'bottom center',
