@@ -1,7 +1,2 @@
-import React from 'react';
-import { ThemeProvider } from "@emotion/react";
-import { theme } from "./src/components/theme";
-
-export const wrapRootElement = ({ element }) => (
-  <ThemeProvider theme={ theme }>{element}</ThemeProvider>
-);
+import providerWrap from "./src/components/providers";
+export const wrapRootElement = providerWrap;

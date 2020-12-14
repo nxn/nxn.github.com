@@ -1,4 +1,8 @@
 module.exports = {
+  siteMetadata: {
+    title: "Personal Portfolio: Ernie Wieczorek · nxn.io",
+    siteUrl: "https://nxn.io/"
+  },
   plugins: [
     "gatsby-plugin-emotion",
     "gatsby-plugin-image",
