@@ -9,49 +9,49 @@ export const theme: Theme = {
         mediaQueries:   mediaQueries,
         palette: {
             body: {
-                text:           '#767D75',
-                background:     '#0c1317',
+                text:               '#767D75',
+                background:         '#0c1317',
             },
-            page: { 
-                text:           '#C2C2A8',
-                background:     '#130c17',
-                border:         '#7A9388',
-                link: {
-                    text:       '#ea7d93',
-                    hover:      '#EF545F'
+            page: {
+                text:               '#C2C2A8',
+                background:         '#130c17',
+                border:             '#7A9388',
+                link: { 
+                    text:           '#ea7d93',
+                    hover:          '#EF545F'
                 }
             },
             header: {
-                text:           '#767D75',
-                background:     '#05070b',
-                siteName:       '#29302d',
-                link: {
-                    text:       '#767D75',
-                    hover:      '#94B1A3'
+                text:               '#767D75',
+                background:         '#05070b',
+                siteName:           '#29302d',
+                link: { 
+                    text:           '#767D75',
+                    hover:          '#94B1A3'
                 }
             },
             footer: {
-                text:           '#767D75',
-                background:     '#0c1317',
+                text:               '#767D75',
+                background:         '#0c1317',
                 link: {
-                    text:       '#767D75',
-                    hover:      '#94B1A3'
+                    text:           '#767D75',
+                    hover:          '#94B1A3'
                 }
             },
             banner: {
-                logo:           '#9DA69E'
+                logo:               '#9DA69E'
             },
             article: {
-                text:           '#DBDAC1',
-                background:     '#1b1a22',
-                backgroundAlt:  '#05070b',
-                border:         '#2e343e'
+                text:               '#DBDAC1',
+                background:         '#1b1a22',
+                backgroundAlt:      '#05070b',
+                border:             '#2e343e'
             },
             accent: {
-                standard:       '#A5AF86',
-                alt:            '#94B1A3',
-                subtle:         '#917f86',
-                error:          '#da2840'
+                standard:           '#A5AF86',
+                alt:                '#94B1A3',
+                subtle:             '#917f86',
+                error:              '#da2840'
             },
             button: {
                 primary: {
@@ -76,30 +76,30 @@ export const theme: Theme = {
     resume: {
         palette: {
             page: {
-                text: '#000',
-                background: '#fcfcfc'
+                text:               '#000',
+                background:         '#fcfcfc'
             },
             header: {
-                text: '#222',
+                text:               '#222',
                 link: {
-                    text: '#000',
-                    hover: '#CD546C'
+                    text:           '#000',
+                    hover:          '#CD546C'
                 },
             },
             item: {
-                background: '#fff'
+                background:         '#fff'
             },
             icon: {
-                fill: '#c6c6c6',
-                hover: '#EF545F'
+                fill:               '#c6c6c6',
+                hover:              '#EF545F'
             },
             
             accent: {
-                subtle: '#c6c6c6'
+                subtle:             '#c6c6c6'
             },
-            gray:   '#666',
-            white:  '#fff',
-            black:  '#000'
+            gray:                   '#666',
+            white:                  '#fff',
+            black:                  '#000'
         }
     }
 }
