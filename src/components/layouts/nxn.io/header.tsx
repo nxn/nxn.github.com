@@ -55,7 +55,7 @@ const Header = styled(HeaderUnstyled)({
     gridAutoFlow:           'dense',
     justifyItems:           'end',
     alignItems:             'center',
-    position:               'absolute',
+    position:               'sticky',
     width:                  '100%',
 
     '& #site-link': {

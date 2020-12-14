@@ -59,6 +59,12 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))({
     position:           'relative',
     backgroundColor:    palette.page.background,
 
+    '& h1': {
+        fontFamily: '"Roboto Slab", serif',
+        fontSize:   '2rem',
+        lineHeight: '1.2em'
+    },
+
     '& a': {
         color: palette.page.link.text,
         textDecoration: 'none'
@@ -69,7 +75,11 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))({
     },
 
     '& .hidden': { display: 'none !important' },
-    '& .accent': { color: palette.accent.standard }
+    '& .accent': { color: palette.accent.standard },
+
+    '&.error .accent': {
+        color: palette.accent.error
+    },
 });
 
 export default Layout;
