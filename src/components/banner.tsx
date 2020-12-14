@@ -2,9 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Interpolation, Theme } from "@emotion/react";
 
-import { palette } from "./theme";
 import graphics from "../images/graphics.svg";
-import { Button, LinkButton, ButtonGroup } from "./button";
 
 
 type BannerProps = {
@@ -41,11 +39,11 @@ export function WelcomeBannerUnstyled(props: BannerProps) {
     )
 }
 
-const bannerStyles: Interpolation<Theme> = {
-    backgroundColor: palette.page.background,
-    color:          palette.page.text,
-    textAlign:      'center',
-    verticalAlign:  'middle',
+const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme: { main: theme }}) => ({
+    backgroundColor:    theme.palette.page.background,
+    color:              theme.palette.page.text,
+    textAlign:          'center',
+    verticalAlign:      'middle',
 
     '@media (min-width: 41.5rem)': {
         display:        'flex',
@@ -58,7 +56,7 @@ const bannerStyles: Interpolation<Theme> = {
         width:      '10rem',
         height:     '15rem',
         padding:    '2rem 5rem',
-        fill:       palette.banner.logo
+        fill:       theme.palette.banner.logo
     },
 
     '& #banner-content': {
@@ -77,7 +75,7 @@ const bannerStyles: Interpolation<Theme> = {
             margin:     '1.5rem 0'
         }
     }
-};
+});
 
 export const Banner         = styled(BannerUnstyled)(bannerStyles);
 export const WelcomeBanner  = styled(WelcomeBannerUnstyled)(bannerStyles);

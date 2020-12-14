@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { palette } from "./theme";
 import graphics from "../../../images/graphics.svg";
 
 type HeaderProps = {
@@ -47,7 +46,7 @@ export function HeaderUnstyled(props: HeaderProps) {
     );
 };
 
-export const Header = styled(HeaderUnstyled)({
+export const Header = styled(HeaderUnstyled)(({theme: { resume: theme }}) => ({
     '@media print': {
         display:                'grid',
         gridTemplateColumns:    '1fr auto'
@@ -66,7 +65,7 @@ export const Header = styled(HeaderUnstyled)({
         padding:        '0.5rem 0',
         borderWidth:    '0.25rem',
         borderStyle:    'solid',
-        borderImage:    `linear-gradient(to right, ${ palette.accent.subtle }, rgba(247, 247, 247, 0)) 100% 1`,
+        borderImage:    `linear-gradient(to right, ${ theme.palette.accent.subtle }, rgba(247, 247, 247, 0)) 100% 1`,
         borderLeft:     0,
         borderRight:    0,
 
@@ -99,7 +98,7 @@ export const Header = styled(HeaderUnstyled)({
                 height: '2.5rem',
                 width: '1.5rem',
                 verticalAlign: 'top',
-                fill: palette.icon.fill,
+                fill: theme.palette.icon.fill,
                 marginRight: '0.5rem',
 
                 '@media print': {
@@ -109,16 +108,16 @@ export const Header = styled(HeaderUnstyled)({
             },
 
             '& a': {
-                color: palette.header.link.text,
+                color: theme.palette.header.link.text,
                 textDecoration: 'none',
                 display: 'inline-block', /* inline to not stretch in mobile mode */
                 paddingRight: '1rem'
             },
 
             '& a:hover': {
-                color: palette.header.link.hover,
+                color: theme.palette.header.link.hover,
                 '& .icon': {
-                    fill: palette.icon.hover
+                    fill: theme.palette.icon.hover
                 }
             }
         },
@@ -128,9 +127,9 @@ export const Header = styled(HeaderUnstyled)({
             width:          '6.4rem',
             marginTop:      '-0.0625rem',
             verticalAlign:  'middle',
-            fill:           palette.page.text
+            fill:           theme.palette.page.text
         }
     }
-});
+}));
 
 export default Header;

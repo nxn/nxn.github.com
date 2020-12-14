@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { ThemeProvider } from "@emotion/react";
 
 import Header   from "./header";
 import Content  from "./content";
 import Footer   from "./footer";
 
-import { palette } from "./theme";
+import theme from "../../theme";
 import { withGlobal } from "../../util";
 
 import '../../../styles/reset.css';
@@ -18,29 +19,31 @@ type LayoutProps = {
 
 export function LayoutUnstyled(props: LayoutProps) {
     return (
-        <div id="page" className={ props.className }>
-            <Header />
-            <Content>
-                { props.children }
-            </Content>
-            <Footer />
-        </div>
+        <ThemeProvider theme={ theme }>
+            <div id="page" className={ props.className }>
+                <Header />
+                <Content>
+                    { props.children }
+                </Content>
+                <Footer />
+            </div>
+        </ThemeProvider>
     );
 }
 
 const globalStyles = {
     body: {
-        color:              palette.page.text,
-        backgroundColor:    palette.page.background,
+        color:              theme.resume.palette.page.text,
+        backgroundColor:    theme.resume.palette.page.background,
         fontFamily:         '"Open Sans", sans-serif',
         fontSize:           '1rem',
         lineHeight:         '1.5rem',
         padding:            '6.5%',
 
         '@media print': {
-            color:              palette.black,
+            color:              theme.resume.palette.black,
             fontSize:           '11pt',
-            backgroundColor:    palette.white,
+            backgroundColor:    theme.resume.palette.white,
             padding:            '0 0 0 1rem'
         },
 
@@ -49,7 +52,7 @@ const globalStyles = {
         }
     },
 
-    'h1, h2, h3, h4, h5, .title':   { color:        palette.header.text },
+    'h1, h2, h3, h4, h5, .title':   { color:        theme.resume.palette.header.text },
     'h1, h3':                       { fontFamily:   '"Oswald", sans-serif' },
     'h2, h4, h5, .title':           { fontFamily:   '"Roboto Slab", serif' },
     'h5, .title':                   { fontWeight:   700 },

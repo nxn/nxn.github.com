@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { ThemeProvider } from "@emotion/react";
+import theme from "../../theme";
 import clsx from "clsx";
 
 import Header   from "./header";
 import Content  from "./content";
 import Footer   from "./footer";
 
-import { palette } from "../../theme";
 import { withGlobal } from "../../util";
 
 import '../../../styles/reset.css';
@@ -21,17 +22,19 @@ type LayoutProps = {
 
 export function LayoutUnstyled(props: LayoutProps) {
     return (
-        <div id="page" className={ clsx(props.className, props.variant) }>
-            <Header />
+        <ThemeProvider theme={ theme }>
+            <div id="page" className={ clsx(props.className, props.variant) }>
+                <Header />
 
-            { props.banner }
+                { props.banner }
 
-            <Content>
-                { props.children }
-            </Content>
+                <Content>
+                    { props.children }
+                </Content>
 
-            <Footer />
-        </div>
+                <Footer />
+            </div>
+        </ThemeProvider>
     );
 }
 
@@ -45,8 +48,8 @@ const globalStyles = {
         '--content-margin': 'calc(((100vw - 41.5rem) / 2 * 0.15) + 2rem)'
     },
     body: {
-        color: palette.page.text,
-        backgroundColor: palette.body.background,
+        color: theme.main.palette.page.text,
+        backgroundColor: theme.main.palette.body.background,
         fontFamily: '"Open Sans", sans-serif',
         fontSize: '1rem',
         lineHeight: '1.5rem'
@@ -57,7 +60,7 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))({
     minWidth:           '20rem',
     margin:             '0 auto',
     position:           'relative',
-    backgroundColor:    palette.page.background,
+    backgroundColor:    theme.main.palette.page.background,
 
     '& h1': {
         fontFamily: '"Roboto Slab", serif',
@@ -66,19 +69,19 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))({
     },
 
     '& a': {
-        color: palette.page.link.text,
+        color: theme.main.palette.page.link.text,
         textDecoration: 'none'
     },
 
     '& a:hover': {
-        color: palette.page.link.hover
+        color: theme.main.palette.page.link.hover
     },
 
     '& .hidden': { display: 'none !important' },
-    '& .accent': { color: palette.accent.standard },
+    '& .accent': { color: theme.main.palette.accent.standard },
 
     '&.error .accent': {
-        color: palette.accent.error
+        color: theme.main.palette.accent.error
     },
 });
 

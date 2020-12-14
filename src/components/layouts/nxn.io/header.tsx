@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { palette } from "../../theme";
 import graphics from "../../../images/graphics.svg";
 
 type HeaderProps = {
@@ -46,9 +45,9 @@ export function HeaderUnstyled(props: HeaderProps) {
     );
 }
 
-const Header = styled(HeaderUnstyled)({
-    backgroundColor:        palette.header.background,
-    borderBottom:           `0.0625rem solid ${ palette.page.border }`,
+const Header = styled(HeaderUnstyled)(({theme: { main: theme }}) => ({
+    backgroundColor:        theme.palette.header.background,
+    borderBottom:           `0.0625rem solid ${ theme.palette.page.border }`,
     display:                'grid',
     //logo 5rem + 1rem left pad + 1rem right pad
     gridTemplateColumns:    '7rem 1fr',
@@ -68,7 +67,7 @@ const Header = styled(HeaderUnstyled)({
         '& #site-name': {
             height: '3rem',
             width:  '5rem',
-            fill:   palette.header.siteName
+            fill:   theme.palette.header.siteName
         }
     },
                 
@@ -87,7 +86,7 @@ const Header = styled(HeaderUnstyled)({
         '& .icon': {
             height: '1.5rem',
             width:  '2rem',
-            fill:   palette.page.text
+            fill:   theme.palette.page.text
         }
     },
             
@@ -120,28 +119,28 @@ const Header = styled(HeaderUnstyled)({
                 height:         '2.5rem',
                 width:          '1.5rem',
                 verticalAlign:  'top',
-                fill:           palette.header.link.text,
+                fill:           theme.palette.header.link.text,
                 marginRight:    '0.5rem'
             },
 
             '& a': {
-                color:          palette.header.link.text,
+                color:          theme.palette.header.link.text,
                 display:        'inline-block',
                 paddingRight:   '1rem',
             },
 
             '& a:hover': {
-                color: palette.header.link.hover,
+                color: theme.palette.header.link.hover,
             },
 
             '& a:hover .icon': {
-                fill: `${ palette.header.link.hover } !important`
+                fill: `${ theme.palette.header.link.hover } !important`
             }
         },
 
         '& .location': {
             display:    'none',
-            color:      palette.header.text,
+            color:      theme.palette.header.text,
             '@media (min-width: 41.5rem)': {
                 display: 'inline-block',
                 marginRight: '2rem'
@@ -153,9 +152,9 @@ const Header = styled(HeaderUnstyled)({
             width:          '6.4rem',
             marginTop:      '-0.0625rem',
             verticalAlign:  'middle',
-            fill:           palette.header.text
+            fill:           theme.palette.header.text
         }
     }
-});
+}));
 
 export default Header;

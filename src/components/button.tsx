@@ -3,8 +3,6 @@ import { Theme, Interpolation } from "@emotion/react";
 import styled from "@emotion/styled";
 import clsx from "clsx";
 
-import { palette } from "./theme";
-
 // Wrapper Components for HTML elements that can serve as buttons; doing this allows them to be used as inputs to HOCs.
 // Though doing it this way is a bit silly -- might be a better idea to use a render prop instead.
 const HTMLButton = (p: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => <button { ... p } />;
@@ -22,7 +20,7 @@ function asButton<P>(Component: React.ComponentType<P>) {
     }
 }
 
-const buttonStyle: Interpolation<Theme> = {
+const buttonStyle: Interpolation<ButtonProps & { theme: Theme }> = ({theme: { main: theme }}) => ({
     fontFamily:     '"Open Sans", sans-serif',
     fontSize:       '0.8rem',
     fontWeight:     'bold',
@@ -37,23 +35,23 @@ const buttonStyle: Interpolation<Theme> = {
     cursor:         'pointer',
 
     '&.primary': {
-        color:                  palette.button.primary.text,
-        backgroundColor:        palette.button.primary.background,
+        color:                  theme.palette.button.primary.text,
+        backgroundColor:        theme.palette.button.primary.background,
         '&:hover': {
-            color:              palette.button.primary.hover.text,
-            backgroundColor:    palette.button.primary.hover.background
+            color:              theme.palette.button.primary.hover.text,
+            backgroundColor:    theme.palette.button.primary.hover.background
         }
     },
 
     '&.secondary': {
-        color:                  palette.button.secondary.text,
-        backgroundColor:        palette.button.secondary.background,
+        color:                  theme.palette.button.secondary.text,
+        backgroundColor:        theme.palette.button.secondary.background,
         '&:hover': {
-            color:              palette.button.secondary.hover.text,
-            backgroundColor:    palette.button.secondary.hover.background
+            color:              theme.palette.button.secondary.hover.text,
+            backgroundColor:    theme.palette.button.secondary.hover.background
         }
     }
-}
+});
 
 export const Button     = styled(asButton(HTMLButton))(buttonStyle);
 export const LinkButton = styled(asButton(HTMLAnchor))(buttonStyle);

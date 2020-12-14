@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { palette } from "../../theme";
 import graphics from "../../../images/graphics.svg";
 
 type FooterProps = {
@@ -55,11 +54,11 @@ export function FooterUnstyled(props: FooterProps) {
     );
 }
 
-export const Footer = styled(FooterUnstyled)({
+export const Footer = styled(FooterUnstyled)(({theme: { main: theme }}) => ({
     padding:            '2rem',
-    borderTop:          `0.0625rem solid ${ palette.page.border }`,
-    color:              palette.footer.text,
-    backgroundColor:    palette.footer.background,
+    borderTop:          `0.0625rem solid ${ theme.palette.page.border }`,
+    color:              theme.palette.footer.text,
+    backgroundColor:    theme.palette.footer.background,
     fontSize:           '0.9rem',
     display:            'grid',
     gap:                '1rem',
@@ -91,7 +90,7 @@ export const Footer = styled(FooterUnstyled)({
             width:          '3rem',
             height:         '2.25rem',
             marginRight:    '1.5rem',
-            fill:           palette.footer.text
+            fill:           theme.palette.footer.text
         }
     },
 
@@ -110,7 +109,7 @@ export const Footer = styled(FooterUnstyled)({
         flexFlow:   'column nowrap',
         minWidth:   '8rem',
         '& .item': {
-            color:          palette.footer.link.text,
+            color:          theme.palette.footer.link.text,
             display:        'inline-block',
             lineHeight:     '2.5rem',
             paddingRight: '1rem'
@@ -121,7 +120,7 @@ export const Footer = styled(FooterUnstyled)({
             width:          "1.25rem",
             marginRight:    "0.75rem",
             verticalAlign:  "top",
-            fill:           palette.footer.text
+            fill:           theme.palette.footer.text
         },
 
         '& .address': {
@@ -130,12 +129,12 @@ export const Footer = styled(FooterUnstyled)({
         },
     
         '& a:hover': {
-            color: palette.footer.link.hover,
+            color: theme.palette.footer.link.hover,
             '& .icon': {
-                fill: palette.footer.link.hover
+                fill: theme.palette.footer.link.hover
             }
         }
     }
-});
+}));
 
 export default Footer;
