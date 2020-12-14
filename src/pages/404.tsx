@@ -22,7 +22,7 @@ function Error404Page(props: PageProps & Error404PageProps) {
                 <div id="matrix">
                     <h1>Page not found <span className="accent">404</span></h1>
                     <span id="quote-intro">
-                        <span>This is your last chance.<br /> After this, there is no turning back. </span>
+                        <span>This is your last chance. <br />After this, there is no turning back. </span>
                     </span>
                     <span id="quote-blue">
                         <span>You take the blue pill—the story ends, you wake up in your bed and believe whatever you want to believe. </span>
@@ -31,7 +31,7 @@ function Error404Page(props: PageProps & Error404PageProps) {
                         <span>You take the red pill—you stay in Wonderland, and I show you how deep the rabbit hole goes. </span>
                     </span>
                     <span id="quote-outro">
-                        <span>Remember: all I'm offering is the truth.<br /> Nothing more. </span>
+                        <span>Remember: all I'm offering is the truth. <br />Nothing more. </span>
                     </span>
                 </div>
                 <ButtonGroup id="choice">
@@ -77,20 +77,19 @@ export default styled(Error404Page)({
     '@media (min-width: 41.5rem)': {
         padding: '0 var(--content-margin)',
 
-        '& #choice': {
-            paddingBottom: '2rem'
-        },
+        '& #choice': { paddingBottom: '2rem' },
 
         '& #matrix': {
-            backgroundColor:        'initial',
             display:                'grid',
             gap:                    '2rem',
-            padding:                0,
+            
             justifyContent:         'space-between',
             alignItems:             'center',
             gridTemplateColumns:    '1fr 1fr',
+            padding:                0,
             borderRadius:           0,
             marginBottom:           '2rem',
+            backgroundColor:        'initial',
 
             '& #quote-intro > span, & #quote-outro > span, & #quote-red > span, & #quote-blue > span': {
                 display:            'inline-block',
