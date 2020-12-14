@@ -59,9 +59,10 @@ const globalStyles = {
 export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))({
     minWidth:           '20rem',
     margin:             '0 auto',
-    position:           'relative',
     backgroundColor:    theme.main.palette.page.background,
-
+    position:           'relative',
+    paddingTop:         '4rem',
+    
     '& h1': {
         fontFamily: '"Roboto Slab", serif',
         fontSize:   '2rem',
