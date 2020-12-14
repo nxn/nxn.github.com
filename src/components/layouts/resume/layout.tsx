@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { ThemeProvider } from "@emotion/react";
 
 import Header   from "./header";
 import Content  from "./content";
@@ -19,15 +18,13 @@ type LayoutProps = {
 
 export function LayoutUnstyled(props: LayoutProps) {
     return (
-        <ThemeProvider theme={ theme }>
-            <div id="page" className={ props.className }>
-                <Header />
-                <Content>
-                    { props.children }
-                </Content>
-                <Footer />
-            </div>
-        </ThemeProvider>
+        <div id="page" className={ props.className }>
+            <Header />
+            <Content>
+                { props.children }
+            </Content>
+            <Footer />
+        </div>
     );
 }
 

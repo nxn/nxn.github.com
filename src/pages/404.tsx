@@ -44,7 +44,7 @@ function Error404Page(props: PageProps & Error404PageProps) {
     );
 }
 
-export default styled(Error404Page)({
+export default styled(Error404Page)(({theme: { main: theme }}) => ({
     display:        'flex',
     flexFlow:       'column nowrap',
     alignItems:     'center',
@@ -58,6 +58,7 @@ export default styled(Error404Page)({
     padding:            '0 2rem',
 
     '& #matrix': {
+        color:              theme.palette.article.text,
         maxWidth:           '48rem',
         padding:            '0.5rem 1rem',
         margin:             '0 -1rem',
@@ -65,7 +66,7 @@ export default styled(Error404Page)({
         borderRadius:       '0.5rem',
         backgroundColor:    'rgba(5,7,11,0.8)',
 
-        '& h1': { paddingBottom:    '1rem' },
+        '& h1': { paddingBottom:    '1rem', color: theme.palette.page.text },
         '& br': { display:          'none' },
     },
 
@@ -110,16 +111,18 @@ export default styled(Error404Page)({
 
             '& br': { display: 'initial' },
 
-            '& #quote-intro': { 
+            '& #quote-intro': {
                 gridArea:       'quote-intro',
+                fontSize:       '0.9rem',
                 justifySelf:    'flex-end'
             },
-            '& #quote-outro': { 
+            '& #quote-outro': {
                 gridArea:       'quote-outro',
+                fontSize:       '0.9rem',
                 justifySelf:    'center'
             },
-            '& #quote-red':     { gridArea: 'quote-red' },
-            '& #quote-blue':    { gridArea: 'quote-blue' },
+            '& #quote-red':     { gridArea: 'quote-red', color: '#CD7860' },
+            '& #quote-blue':    { gridArea: 'quote-blue', color: '#94B1A3' },
 
             gridTemplateAreas: `
                 "heading        heading"
@@ -129,4 +132,4 @@ export default styled(Error404Page)({
             `,
         }
     }
-});
+}));

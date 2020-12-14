@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { ThemeProvider } from "@emotion/react";
 import theme from "../../theme";
 import clsx from "clsx";
 
@@ -22,19 +21,17 @@ type LayoutProps = {
 
 export function LayoutUnstyled(props: LayoutProps) {
     return (
-        <ThemeProvider theme={ theme }>
-            <div id="page" className={ clsx(props.className, props.variant) }>
-                <Header />
+        <div id="page" className={ clsx(props.className, props.variant) }>
+            <Header />
 
-                { props.banner }
+            { props.banner }
 
-                <Content>
-                    { props.children }
-                </Content>
+            <Content>
+                { props.children }
+            </Content>
 
-                <Footer />
-            </div>
-        </ThemeProvider>
+            <Footer />
+        </div>
     );
 }
 
@@ -62,7 +59,7 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))({
     backgroundColor:    theme.main.palette.page.background,
     position:           'relative',
     paddingTop:         '4rem',
-    
+
     '& h1': {
         fontFamily: '"Roboto Slab", serif',
         fontSize:   '2rem',
