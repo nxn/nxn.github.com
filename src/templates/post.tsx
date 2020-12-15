@@ -20,7 +20,7 @@ export default function PostPage(props: PostPageProps & PageProps<PostPageData>)
     const post = props.data.markdownRemark;
     return (
         <Layout>
-            <div id="post" dangerouslySetInnerHTML={{ __html: post.html }} />
+            <article id="post" dangerouslySetInnerHTML={{ __html: post.html }} />
         </Layout>
     );
 }

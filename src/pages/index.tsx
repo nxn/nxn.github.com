@@ -1,8 +1,10 @@
 import React from "react";
 import { PageProps, graphql } from "gatsby";
 
-import { WelcomeBanner } from "../components/banner";
 import Layout from "../components/layouts/nxn.io/layout";
+import { WelcomeBanner } from "../components/banner";
+import Blurb from "../components/blurb";
+
 
 type IndexPageProps = {
     className?: string
@@ -29,16 +31,14 @@ type IndexPageData = {
 export default function IndexPage(props: IndexPageProps & PageProps<IndexPageData>) {
     return (
         <Layout banner={ <WelcomeBanner /> }>
-            { props.data.allMarkdownRemark.edges.map(({ node }) => (
-                <article key={ node.id }>
-                    <header>
-                        <h2>{ node.frontmatter.title }</h2>
-                    </header>
-                    <div className="description">
-                        { node.frontmatter.desc }
-                    </div>
-                    <a href={ node.fields.slug }>Read more...</a>
-                </article>
+            { props.data.allMarkdownRemark.edges.map(({ node }, index) => (
+                <Blurb 
+                    key     = { node.id } 
+                    title   = { node.frontmatter.title } 
+                    image   = { null } 
+                    summary = { node.frontmatter.desc } 
+                    slug    = { node.fields.slug } 
+                    alt     = { !(index % 2) } />
             )) }
         </Layout> 
     );
