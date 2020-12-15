@@ -1,6 +1,7 @@
 import React from "react";
 import { PageProps, graphql } from "gatsby";
 import styled from "@emotion/styled";
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layouts/nxn.io/layout";
 import { WelcomeBanner } from "../components/banner";
@@ -12,18 +13,16 @@ type IndexPageProps = {
 };
 
 type IndexPageData = {
-    allMarkdownRemark: {
-        edges: {
-            node: {
+    allFile: {
+        nodes: {
+            childMdx: {
                 id: string,
                 frontmatter: {
                     title: string,
                     date: string,
-                    desc: string
+                    priority: number
                 },
-                fields: {
-                    slug: string
-                }
+                body: string
             }
         }[]
     }
@@ -33,15 +32,17 @@ export function IndexPageUnstyled(props: IndexPageProps & PageProps<IndexPageDat
     return (
         <Layout>
             <div className={ props.className }>
-                <WelcomeBanner />
-                { props.data.allMarkdownRemark.edges.map(({ node }, index) => (
+                <WelcomeBanner id="welcome-banner" />
+                { props.data.allFile.nodes.map(({ childMdx: mdx }, index) => (
                     <Blurb 
-                        key     = { node.id } 
-                        title   = { node.frontmatter.title } 
-                        image   = { null } 
-                        summary = { node.frontmatter.desc } 
-                        slug    = { node.fields.slug } 
-                        alt     = { !(index % 2) } />
+                        key     = { mdx.id } 
+                        title   = { mdx.frontmatter.title }
+                        date    = { mdx.frontmatter.date }>
+
+                        <MDXRenderer>
+                            { mdx.body }
+                        </MDXRenderer>
+                    </Blurb>
                 )) }
             </div>
         </Layout> 
@@ -49,28 +50,39 @@ export function IndexPageUnstyled(props: IndexPageProps & PageProps<IndexPageDat
 }
 
 export const IndexPage = styled(IndexPageUnstyled)(({theme: { main: theme }}) => ({
-    padding: '2rem',
+    padding: '1rem',
+    '& #welcome-banner': {
+        padding: '0rem 1rem'
+    },
     '@media (min-width: 41.5rem)': {
-        padding: '2rem var(--content-margin)',
+        padding: '1rem var(--content-margin)',
+        '& #welcome-banner': { padding: 0 }
     },
 }));
 
 export default IndexPage;
 
 export const query = graphql`
-    query MyQuery {
-        allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-            edges {
-                node {
+    query {
+        allFile(
+            filter: {sourceInstanceName: {eq: "blurbs"}}, 
+            sort: {
+                fields: [
+                    childMdx___frontmatter___priority, 
+                    childMdx___frontmatter___date
+                ],
+                order: [DESC, DESC]
+            }
+        ) {
+            nodes {
+                childMdx {
                     id
                     frontmatter {
-                        date
                         title
-                        desc
+                        date
+                        priority
                     }
-                    fields {
-                        slug
-                    }
+                    body
                 }
             }
         }

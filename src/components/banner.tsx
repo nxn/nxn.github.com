@@ -11,23 +11,24 @@ type BannerProps = {
     logo?: boolean
 };
 
-export function BannerUnstyled(props: BannerProps) {
+export function BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
+    const { children, logo, ...remaining } = props;
     return (
-        <div className={ props.className }>
-            { props.logo &&
+        <div { ...remaining }>
+            { logo &&
                 <div id="banner-logo">
                     <svg id="logo"><use href={ `${ graphics }#logo-no-outline` } /></svg>
                 </div>
             }
             
             <article id="banner-content">
-                { props.children }
+                { children }
             </article>
         </div>
     );
 }
 
-export function WelcomeBannerUnstyled(props: BannerProps) {
+export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     return (
         <BannerUnstyled logo { ...props }>
             <h1>Hello, I'm <span className="accent">Ernie</span>.</h1>
