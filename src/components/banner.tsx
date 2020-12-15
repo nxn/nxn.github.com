@@ -49,7 +49,6 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme: { m
         display:        'flex',
         alignItems:     'center',
         justifyContent: 'center',
-        margin:         '0 var(--content-margin)',
     },
 
     '& #logo': {
@@ -60,15 +59,7 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme: { m
     },
 
     '& #banner-content': {
-        padding: '2rem',
-        paddingTop: 0,
         textAlign: 'left',
-
-        '@media (min-width: 41.5rem)': {
-            paddingLeft: 0,
-            paddingRight: 0,
-            paddingTop: '2rem'
-        },
 
         '& .text': {
             maxWidth:   '48rem',

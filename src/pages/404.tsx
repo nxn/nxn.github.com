@@ -16,7 +16,7 @@ type Error404PageProps = {
     className?: string
 }
 
-function Error404Page(props: Error404PageProps & PageProps) {
+export function Error404PageUnstyled(props: Error404PageProps & PageProps) {
     return (
         <Layout variant="error">
             <div className={ props.className }>
@@ -44,7 +44,7 @@ function Error404Page(props: Error404PageProps & PageProps) {
     );
 }
 
-export default styled(Error404Page)(({theme: { main: theme }}) => ({
+export const Error404Page = styled(Error404PageUnstyled)(({theme: { main: theme }}) => ({
     display:        'flex',
     flexFlow:       'column nowrap',
     alignItems:     'center',
@@ -136,3 +136,5 @@ export default styled(Error404Page)(({theme: { main: theme }}) => ({
         }
     }
 }));
+
+export default Error404Page;

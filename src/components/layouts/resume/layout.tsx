@@ -2,7 +2,6 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import Header   from "./header";
-import Content  from "./content";
 import Footer   from "./footer";
 
 import theme from "../../theme";
@@ -20,9 +19,7 @@ export function LayoutUnstyled(props: LayoutProps) {
     return (
         <div id="page" className={ props.className }>
             <Header />
-            <Content>
-                { props.children }
-            </Content>
+            { props.children }
             <Footer />
         </div>
     );

@@ -4,7 +4,6 @@ import theme from "../../theme";
 import clsx from "clsx";
 
 import Header   from "./header";
-import Content  from "./content";
 import Footer   from "./footer";
 
 import { withGlobal } from "../../util";
@@ -13,7 +12,6 @@ import '../../../styles/reset.css';
 import '../../../styles/fonts.css';
 
 type LayoutProps = {
-    banner?: React.ReactNode;
     variant?: "standard" | "error"
     children?: React.ReactNode;
     className?: string
@@ -23,13 +21,7 @@ export function LayoutUnstyled(props: LayoutProps) {
     return (
         <div id="page" className={ clsx(props.className, props.variant) }>
             <Header />
-
-            { props.banner }
-
-            <Content>
-                { props.children }
-            </Content>
-
+            { props.children }
             <Footer />
         </div>
     );
@@ -75,9 +67,8 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))({
         color: theme.main.palette.page.link.hover
     },
 
-    '& .hidden': { display: 'none !important' },
-    '& .accent': { color: theme.main.palette.accent.standard },
-
+    '& .hidden':    { display: 'none !important' },
+    '& .accent':    { color: theme.main.palette.accent.standard },
     '&.error .accent': {
         color: theme.main.palette.accent.error
     },

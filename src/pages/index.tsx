@@ -1,5 +1,6 @@
 import React from "react";
 import { PageProps, graphql } from "gatsby";
+import styled from "@emotion/styled";
 
 import Layout from "../components/layouts/nxn.io/layout";
 import { WelcomeBanner } from "../components/banner";
@@ -28,21 +29,33 @@ type IndexPageData = {
     }
 };
 
-export default function IndexPage(props: IndexPageProps & PageProps<IndexPageData>) {
+export function IndexPageUnstyled(props: IndexPageProps & PageProps<IndexPageData>) {
     return (
-        <Layout banner={ <WelcomeBanner /> }>
-            { props.data.allMarkdownRemark.edges.map(({ node }, index) => (
-                <Blurb 
-                    key     = { node.id } 
-                    title   = { node.frontmatter.title } 
-                    image   = { null } 
-                    summary = { node.frontmatter.desc } 
-                    slug    = { node.fields.slug } 
-                    alt     = { !(index % 2) } />
-            )) }
+        <Layout>
+            <div className={ props.className }>
+                <WelcomeBanner />
+                { props.data.allMarkdownRemark.edges.map(({ node }, index) => (
+                    <Blurb 
+                        key     = { node.id } 
+                        title   = { node.frontmatter.title } 
+                        image   = { null } 
+                        summary = { node.frontmatter.desc } 
+                        slug    = { node.fields.slug } 
+                        alt     = { !(index % 2) } />
+                )) }
+            </div>
         </Layout> 
     );
 }
+
+export const IndexPage = styled(IndexPageUnstyled)(({theme: { main: theme }}) => ({
+    padding: '2rem',
+    '@media (min-width: 41.5rem)': {
+        padding: '2rem var(--content-margin)',
+    },
+}));
+
+export default IndexPage;
 
 export const query = graphql`
     query MyQuery {
