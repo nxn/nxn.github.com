@@ -53,20 +53,29 @@ const globalStyles = {
         lineHeight: '1.0em'
     },
     h2: {
-        fontSize:   '2rem',
-        margin:     '2rem 0 2rem 0',
-        display:    'block'
+        fontSize:       '2rem',
+        margin:         '2rem 0 2rem 0',
+        display:        'block',
+        breakInside:    'avoid' as 'avoid',
+        breakAfter:     'avoid' as 'avoid',
     },
     h3: {
-        fontSize:   '1.5rem',
-        lineHeight: '1.5em',
-        marginTop:  '1.5rem'
+        fontSize:       '1.5rem',
+        lineHeight:     '1.5em',
+        marginTop:      '1.5rem',
+        breakInside:    'avoid' as 'avoid',
+        breakAfter:     'avoid' as 'avoid',
     },
     h4: {
-        fontWeight: 700
+        fontWeight:     700,
+        breakBefore:    'avoid' as 'avoid',
+        breakInside:    'avoid' as 'avoid',
+        breakAfter:     'avoid' as 'avoid',
     },
     h5: {
-        marginBottom: '0.5rem'
+        marginBottom:   '0.5rem',
+        breakInside:    'avoid' as 'avoid',
+        breakAfter:     'avoid' as 'avoid',
     },
     h6: {
         fontSize:   '1.25rem',
@@ -89,6 +98,9 @@ const globalStyles = {
     },
 
     hr: {
+        breakBefore:        'avoid' as 'avoid',
+        breakInside:        'avoid' as 'avoid',
+        breakAfter:         'avoid' as 'avoid',
         margin:             '0.5rem 0',
         borderStyle:        'solid',
         borderBottomWidth:  '0.25rem',
@@ -138,10 +150,13 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))(({theme: 
     '& footer': {
         color:      theme.palette.gray,
         fontSize:   '0.9rem',
-        paddingTop: '1rem'
+        paddingTop: '1rem',
+        '& p': {
+            marginBottom: 0
+        }
     },
 
-    '@media screen and (min-width: 48rem)': {
+    '@media (min-width: 48rem)': {
         '& section ul': {
             columns:    2,
             columnGap: '3rem'
@@ -151,25 +166,46 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))(({theme: 
             gridTemplateColumns: '1fr 1fr',
             columnGap: '3rem',
             gridTemplateAreas: `
-                "paragraph   paragraph"
+                "statement   statement"
                 "specialties tech-tags"
             `,
             '& p': {
-                gridArea: 'paragraph'
-            },
-            '& h3': {
-                marginTop: '0.5rem'
+                gridArea: 'statement'
             },
             '& #specialties': {
                 gridArea: 'specialties'
             },
             '& tech-tags': {
                 gridArea: 'tech-tags'
-            }
+            },
+            '& h3': {
+                marginTop: '0.5rem'
+            },
         }
     },
 
     '@media print': {
+        '& header': {
+            display: 'grid',
+            gridTemplateColumns: '1fr auto',
+            gridTemplateRows: 'auto 1fr',
+            gridTemplateAreas: `
+                "name   links"
+                "title  links"
+            `,
+            '& h1': {
+                gridArea: "name",
+            },
+            '& h6': {
+                gridArea: "title",
+            },
+            '& ul': {
+                gridArea: "links"
+            },
+            '& hr': {
+                display: 'none'
+            }
+        },
         '& footer': {
             display: 'none'
         }
