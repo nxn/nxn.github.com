@@ -41,7 +41,7 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         defaultLayouts: {
-          pages: require.resolve("./src/components/layouts/nxn.io/layout.tsx"),
+          pages: require.resolve("./src/components/layout.tsx"),
           //default: require.resolve("./src/components/default-page-layout.js"),
         },
       },

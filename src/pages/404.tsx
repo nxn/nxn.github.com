@@ -2,7 +2,7 @@ import React from "react";
 import { PageProps } from "gatsby";
 
 
-import Layout from "../components/layouts/nxn.io/layout";
+import Layout from "../components/layout";
 import { Button, LinkButton, ButtonGroup } from "../components/button";
 import styled from "@emotion/styled";
 

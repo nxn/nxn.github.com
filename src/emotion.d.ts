@@ -86,6 +86,7 @@ declare module '@emotion/react' {
                     };
                 };
                 item: {
+                    text:       string;
                     background: string;
                 };
                 icon: {

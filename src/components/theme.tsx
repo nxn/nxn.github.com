@@ -77,7 +77,7 @@ export const theme: Theme = {
         palette: {
             page: {
                 text:               '#000',
-                background:         '#fcfcfc'
+                background:         '#f7f7f7'
             },
             header: {
                 text:               '#222',
@@ -87,6 +87,7 @@ export const theme: Theme = {
                 },
             },
             item: {
+                text:               '#222',
                 background:         '#fff'
             },
             icon: {

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import graphics from "../../../images/graphics.svg";
+import graphics from "../images/graphics.svg";
 
 type HeaderProps = {
     className?: string

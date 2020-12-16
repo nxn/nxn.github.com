@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "@emotion/styled";
-import theme from "../../theme";
+import theme from "./theme";
 import clsx from "clsx";
 
 import Header   from "./header";
 import Footer   from "./footer";
 
-import { withGlobal } from "../../util";
+import { withGlobal } from "./util";
 
-import '../../../styles/reset.css';
-import '../../../styles/fonts.css';
+import '../styles/reset.css';
+import '../styles/fonts.css';
 
 type LayoutProps = {
     variant?: "standard" | "error"

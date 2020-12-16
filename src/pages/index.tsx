@@ -3,7 +3,7 @@ import { PageProps, graphql } from "gatsby";
 import styled from "@emotion/styled";
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-import Layout from "../components/layouts/nxn.io/layout";
+import Layout from "../components/layout";
 import { WelcomeBanner } from "../components/banner";
 import Blurb from "../components/blurb";
 

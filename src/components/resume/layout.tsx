@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import theme from "../../theme";
-import { withGlobal } from "../../util";
+import theme from "../theme";
+import { withGlobal } from "../util";
 
-import '../../../styles/reset.css';
-import '../../../styles/fonts.css';
+import '../../styles/reset.css';
+import '../../styles/fonts.css';
 
-import chevron from '../../../images/chevron.svg';
+import chevron from '../../images/chevron.svg';
 
 type LayoutProps = {
     children?: React.ReactNode;
@@ -33,8 +33,8 @@ const globalStyles = {
 
         '@media print': {
             color:              theme.resume.palette.black,
-            fontSize:           '11pt',
             backgroundColor:    theme.resume.palette.white,
+            // Padding needed otherwise list bullets (chevrons) not printed
             padding:            '0 0 0 1rem'
         },
 
@@ -54,28 +54,19 @@ const globalStyles = {
     },
     h2: {
         fontSize:       '2rem',
-        margin:         '2rem 0 2rem 0',
-        display:        'block',
-        breakInside:    'avoid' as 'avoid',
-        breakAfter:     'avoid' as 'avoid',
+        marginTop:      '2rem',
+        textAlign:      'center' as 'center'
     },
     h3: {
         fontSize:       '1.5rem',
         lineHeight:     '1.5em',
         marginTop:      '1.5rem',
-        breakInside:    'avoid' as 'avoid',
-        breakAfter:     'avoid' as 'avoid',
     },
     h4: {
         fontWeight:     700,
-        breakBefore:    'avoid' as 'avoid',
-        breakInside:    'avoid' as 'avoid',
-        breakAfter:     'avoid' as 'avoid',
     },
     h5: {
         marginBottom:   '0.5rem',
-        breakInside:    'avoid' as 'avoid',
-        breakAfter:     'avoid' as 'avoid',
     },
     h6: {
         fontSize:   '1.25rem',
@@ -83,14 +74,14 @@ const globalStyles = {
     },
 
     p: {
-        marginBottom: '1.0rem'
+        marginBottom:   '1.0rem'
     },
 
     em: { fontWeight: 400 },
 
     ul: {
         listStyleType:  'disc',
-        listStyleImage: `url("${ chevron }")`
+        listStyleImage: `url("${ chevron }")`,
     },
     li: {
         paddingBottom:  '0.5rem',
@@ -98,9 +89,6 @@ const globalStyles = {
     },
 
     hr: {
-        breakBefore:        'avoid' as 'avoid',
-        breakInside:        'avoid' as 'avoid',
-        breakAfter:         'avoid' as 'avoid',
         margin:             '0.5rem 0',
         borderStyle:        'solid',
         borderBottomWidth:  '0.25rem',
@@ -117,21 +105,16 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))(({theme: 
     minWidth:   '17.5rem', /* ~280px with 20px of padding on each side */
     margin:     '0 auto',
 
-    '& #tech-tags ul': {
-        display:    'flex',
-        flexFlow:   'row wrap',
-
-        '& li': {
-            lineHeight:         '1.75em',
-            color:              theme.palette.page.text,
-            border:             `0.0625rem solid ${ theme.palette.accent.subtle }`,
-            backgroundColor:    theme.palette.item.background,
-            padding:            '0 0.6rem',
-            marginBottom:       '0.4rem',
-            marginRight:        '0.4rem',
-            borderRadius:       '0.2rem',
-            listStyle:          'none'
-        }
+    '& #tech-tags li': {
+        color:              theme.palette.item.text,
+        display:            'inline-block',
+        border:             `0.0625rem solid ${ theme.palette.accent.subtle }`,
+        backgroundColor:    theme.palette.item.background,
+        padding:            '0.15rem 0.5rem',
+        marginBottom:       '0.4rem',
+        marginRight:        '0.4rem',
+        borderRadius:       '0.25rem',
+        listStyle:          'none'
     },
 
     '& header h6': {
@@ -156,39 +139,35 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))(({theme: 
         }
     },
 
-    '@media (min-width: 48rem)': {
+    // Set lists and summary to 2 Columns when printing or on larger screens
+    '@media print, (min-width: 48rem)': {
         '& section ul': {
             columns:    2,
-            columnGap: '3rem'
+            columnGap: '2rem'
         },
         '& #summary': {
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            columnGap: '3rem',
+            display:                'grid',
+            gridTemplateColumns:    '1fr 1fr',
+            columnGap:              '2rem',
             gridTemplateAreas: `
                 "statement   statement"
                 "specialties tech-tags"
             `,
-            '& p': {
-                gridArea: 'statement'
-            },
-            '& #specialties': {
-                gridArea: 'specialties'
-            },
-            '& tech-tags': {
-                gridArea: 'tech-tags'
-            },
-            '& h3': {
-                marginTop: '0.5rem'
-            },
+            '& p':              { gridArea: 'statement' },
+            '& #specialties':   { gridArea: 'specialties' },
+            '& tech-tags':      { gridArea: 'tech-tags' },
+            '& h3':             { marginTop: '0.5rem' },
         }
     },
 
+
     '@media print': {
+        maxWidth: 'none',
+        // Moves links to top right when printing
         '& header': {
             display: 'grid',
-            gridTemplateColumns: '1fr auto',
-            gridTemplateRows: 'auto 1fr',
+            gridTemplateColumns:    '1fr auto',
+            gridTemplateRows:       'auto 1fr',
             gridTemplateAreas: `
                 "name   links"
                 "title  links"
@@ -198,6 +177,7 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))(({theme: 
             },
             '& h6': {
                 gridArea: "title",
+                marginBottom: 0
             },
             '& ul': {
                 gridArea: "links"
