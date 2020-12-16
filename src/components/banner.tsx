@@ -11,6 +11,7 @@ type BannerProps = {
     logo?: boolean
 };
 
+// Should probably do this via ref instead
 export function BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     const { children, logo, ...remaining } = props;
     return (
