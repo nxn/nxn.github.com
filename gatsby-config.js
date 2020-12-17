@@ -32,10 +32,10 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "blurbs",
-        path: "./src/blurbs/",
+        name: "data",
+        path: "./src/data/",
       },
-      __key: "blurbs",
+      __key: "data",
     },
     {
       resolve: `gatsby-plugin-mdx`,

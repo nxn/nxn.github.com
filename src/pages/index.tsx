@@ -33,15 +33,13 @@ export function IndexPageUnstyled(props: IndexPageProps & PageProps<IndexPageDat
         <Layout variant={ Variant.Unpadded }>
             <div className={ props.className }>
                 <WelcomeBanner id="welcome-banner" />
-                { props.data.allFile.nodes.map(({ childMdx: mdx }, index) => (
+                { props.data.allFile.nodes.map(({ childMdx: mdx }) => (
                     <Blurb 
                         key     = { mdx.id } 
                         title   = { mdx.frontmatter.title }
                         date    = { mdx.frontmatter.date }>
 
-                        <MDXRenderer>
-                            { mdx.body }
-                        </MDXRenderer>
+                        <MDXRenderer>{ mdx.body }</MDXRenderer>
                     </Blurb>
                 )) }
             </div>
@@ -65,7 +63,7 @@ export default IndexPage;
 export const query = graphql`
     query {
         allFile(
-            filter: {sourceInstanceName: {eq: "blurbs"}}, 
+            filter: {sourceInstanceName: {eq: "data"}, relativeDirectory: {eq: "blurbs"}}, 
             sort: {
                 fields: [
                     childMdx___frontmatter___priority, 

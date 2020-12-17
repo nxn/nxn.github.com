@@ -24,7 +24,7 @@ export function BlurbUnstyled(props: BlurbProps) {
 export const Blurb = styled(BlurbUnstyled)(({theme: { main: theme }}) => ({
     border:             `0.0625rem solid ${ theme.palette.box.border }`,
     backgroundColor:    theme.palette.box.background,
-    '&:nth-child(odd)': {
+    '&:nth-of-type(odd)': {
         backgroundColor: theme.palette.box.backgroundAlt
     },
 

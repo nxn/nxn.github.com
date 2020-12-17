@@ -27,6 +27,7 @@ type LayoutProps = {
 export function LayoutUnstyled(props: LayoutProps) {
     const variant = props.variant || 0;
     const unpadded = !!(variant & Variant.Unpadded);
+
     return (
         <div id="page" className={ clsx(props.className, props.variant) }>
             <link rel="preconnect" href="https://fonts.gstatic.com" />
