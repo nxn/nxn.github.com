@@ -4,6 +4,7 @@ import theme from "./theme";
 import clsx from "clsx";
 
 import Header   from "./header";
+import Content  from "./content";
 import Footer   from "./footer";
 
 import { withGlobal } from "./util";
@@ -11,17 +12,33 @@ import { withGlobal } from "./util";
 import '../styles/reset.css';
 import '../styles/fonts.css';
 
+export enum Variant {
+    Standard    = 0,
+    Minimal     = 1 << 0,
+    Unpadded    = 1 << 1
+}
+
 type LayoutProps = {
-    variant?: "standard" | "error"
-    children?: React.ReactNode;
+    variant?:   Variant,
+    children?:  React.ReactNode;
     className?: string
 }
 
 export function LayoutUnstyled(props: LayoutProps) {
+    const variant = props.variant || 0;
+    const unpadded = !!(variant & Variant.Unpadded);
     return (
         <div id="page" className={ clsx(props.className, props.variant) }>
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet" /> 
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+            </style>  
+
             <Header />
-            { props.children }
+            <Content unpadded={ unpadded }>
+                { props.children }
+            </Content>
             <Footer />
         </div>
     );
@@ -37,11 +54,11 @@ const globalStyles = {
         '--content-margin': 'calc(((100vw - 41.5rem) / 2 * 0.15) + 2rem)'
     },
     body: {
-        color: theme.main.palette.page.text,
-        backgroundColor: theme.main.palette.body.background,
-        fontFamily: '"Open Sans", sans-serif',
-        fontSize: '1rem',
-        lineHeight: '1.5rem'
+        color:              theme.main.palette.page.text,
+        backgroundColor:    theme.main.palette.body.background,
+        fontFamily:         '"Open Sans", sans-serif',
+        fontSize:           '1rem',
+        lineHeight:         '1.75rem'
     }
 }
 
@@ -51,27 +68,6 @@ export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))({
     backgroundColor:    theme.main.palette.page.background,
     position:           'relative',
     paddingTop:         '4rem',
-
-    '& h1': {
-        fontFamily: '"Roboto Slab", serif',
-        fontSize:   '2rem',
-        lineHeight: '1.2em'
-    },
-
-    '& a': {
-        color: theme.main.palette.page.link.text,
-        textDecoration: 'none'
-    },
-
-    '& a:hover': {
-        color: theme.main.palette.page.link.hover
-    },
-
-    '& .hidden':    { display: 'none !important' },
-    '& .accent':    { color: theme.main.palette.accent.standard },
-    '&.error .accent': {
-        color: theme.main.palette.accent.error
-    },
 });
 
 export default Layout;

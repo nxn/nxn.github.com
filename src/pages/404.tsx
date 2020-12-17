@@ -2,7 +2,7 @@ import React from "react";
 import { PageProps } from "gatsby";
 
 
-import Layout from "../components/layout";
+import { Layout, Variant } from "../components/layout";
 import { Button, LinkButton, ButtonGroup } from "../components/button";
 import styled from "@emotion/styled";
 
@@ -18,7 +18,7 @@ type Error404PageProps = {
 
 export function Error404PageUnstyled(props: Error404PageProps & PageProps) {
     return (
-        <Layout variant="error">
+        <Layout variant={ Variant.Unpadded }>
             <div className={ props.className }>
                 <div id="matrix">
                     <h1>Page not found <span className="accent">404</span></h1>
@@ -57,8 +57,12 @@ export const Error404Page = styled(Error404PageUnstyled)(({theme: { main: theme 
     marginTop:          '1rem',
     padding:            '0 2rem',
 
+    '& .accent': {
+        color: theme.palette.accent.error
+    },
+
     '& #matrix': {
-        color:              theme.palette.article.text,
+        color:              theme.palette.box.text,
         maxWidth:           '48rem',
         padding:            '0.5rem 1rem',
         margin:             '0 -1rem',

@@ -41,7 +41,7 @@ export const theme: Theme = {
             banner: {
                 logo:               '#9DA69E'
             },
-            article: {
+            box: {
                 text:               '#DBDAC1',
                 background:         '#1b1a22',
                 backgroundAlt:      '#05070b',

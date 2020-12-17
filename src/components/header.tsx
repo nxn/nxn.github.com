@@ -59,6 +59,10 @@ const Header = styled(HeaderUnstyled)(({theme: { main: theme }}) => ({
     left:                   0,
     width:                  '100%',
 
+    '& .hidden': {
+        display: 'none !important'
+    },
+
     '& #site-link': {
         display:        'flex',
         justifyContent: 'center',
@@ -127,6 +131,7 @@ const Header = styled(HeaderUnstyled)(({theme: { main: theme }}) => ({
 
             '& a': {
                 color:          theme.palette.header.link.text,
+                textDecoration: 'none',
                 display:        'inline-block',
                 paddingRight:   '1rem',
             },

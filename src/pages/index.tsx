@@ -3,7 +3,7 @@ import { PageProps, graphql } from "gatsby";
 import styled from "@emotion/styled";
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-import Layout from "../components/layout";
+import { Layout, Variant } from "../components/layout";
 import { WelcomeBanner } from "../components/banner";
 import Blurb from "../components/blurb";
 
@@ -30,7 +30,7 @@ type IndexPageData = {
 
 export function IndexPageUnstyled(props: IndexPageProps & PageProps<IndexPageData>) {
     return (
-        <Layout>
+        <Layout variant={ Variant.Unpadded }>
             <div className={ props.className }>
                 <WelcomeBanner id="welcome-banner" />
                 { props.data.allFile.nodes.map(({ childMdx: mdx }, index) => (

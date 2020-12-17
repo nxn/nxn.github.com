@@ -48,7 +48,7 @@ export function FooterUnstyled(props: FooterProps) {
             </div>
 
             <div id="footer-copyright">
-                &#169; 2020 <span className="bold">Ernie Wieczorek</span>
+                &#169; 2020 <strong>Ernie Wieczorek</strong>
             </div>
         </footer>
     );
@@ -80,7 +80,7 @@ export const Footer = styled(FooterUnstyled)(({theme: { main: theme }}) => ({
         `
     },
 
-    '& .bold': {
+    '& strong': {
         fontWeight: 'bold',
     },
 
@@ -101,6 +101,7 @@ export const Footer = styled(FooterUnstyled)(({theme: { main: theme }}) => ({
     '& #footer-info': {
         gridArea:   'info',
         maxWidth:   '48rem',
+        lineHeight: '1.5rem'
     },
 
     '& #footer-list': {
@@ -128,12 +129,16 @@ export const Footer = styled(FooterUnstyled)(({theme: { main: theme }}) => ({
             marginRight: 0
         },
     
-        '& a:hover': {
-            color: theme.palette.footer.link.hover,
-            '& .icon': {
-                fill: theme.palette.footer.link.hover
+        '& a': {
+            textDecoration: 'none',
+            '&:hover': {
+                color: theme.palette.footer.link.hover,
+                '& .icon': {
+                    fill: theme.palette.footer.link.hover
+                }
             }
         }
+
     }
 }));
 

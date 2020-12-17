@@ -39,7 +39,7 @@ declare module '@emotion/react' {
                 banner: {
                     logo: string;
                 },
-                article: {
+                box: {
                     text: string;
                     background: string;
                     backgroundAlt: string;

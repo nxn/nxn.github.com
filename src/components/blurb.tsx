@@ -22,10 +22,10 @@ export function BlurbUnstyled(props: BlurbProps) {
 }
 
 export const Blurb = styled(BlurbUnstyled)(({theme: { main: theme }}) => ({
-    border:             `0.0625rem solid ${ theme.palette.article.border }`,
-    backgroundColor:    theme.palette.article.background,
+    border:             `0.0625rem solid ${ theme.palette.box.border }`,
+    backgroundColor:    theme.palette.box.background,
     '&:nth-child(odd)': {
-        backgroundColor: theme.palette.article.backgroundAlt
+        backgroundColor: theme.palette.box.backgroundAlt
     },
 
     '& header': {
@@ -33,7 +33,7 @@ export const Blurb = styled(BlurbUnstyled)(({theme: { main: theme }}) => ({
         position:   'relative',
         overflow:   'hidden',
 
-        'h2': {
+        '& h2': {
             fontFamily:         '"Oswald", sans-serif',
             fontSize:           '1.2rem',
             color:              theme.palette.accent.standard,
@@ -42,7 +42,7 @@ export const Blurb = styled(BlurbUnstyled)(({theme: { main: theme }}) => ({
             position:           'absolute',
             top:                0,
             left:               0,
-            backgroundColor:    theme.palette.article.backgroundAlt,
+            backgroundColor:    theme.palette.box.backgroundAlt,
             opacity:            '0.9',
             whiteSpace:         'nowrap',
             overflow:           'hidden',
@@ -51,13 +51,9 @@ export const Blurb = styled(BlurbUnstyled)(({theme: { main: theme }}) => ({
     },
 
     '& .description': {
-        color: theme.palette.article.text,
+        color: theme.palette.box.text,
         margin: '1rem'
     },
-
-    '& .slug': {
-        margin: '1rem'
-    }
 }));
 
 export default Blurb;

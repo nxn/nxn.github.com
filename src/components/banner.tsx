@@ -33,10 +33,10 @@ export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLPro
     return (
         <BannerUnstyled logo { ...props }>
             <h1>Hello, I'm <span className="accent">Ernie</span>.</h1>
-            <p className="text">
+            <div className="intro">
                 I am a Philadelphia based software developer who specializes in full stack web application 
                 development. You can find a few samples of my recent personal projects below.
-            </p>
+            </div>
         </BannerUnstyled>
     )
 }
@@ -46,6 +46,10 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme: { m
     color:              theme.palette.page.text,
     textAlign:          'center',
     verticalAlign:      'middle',
+
+    '& .accent': {
+        color: theme.palette.accent.standard
+    },
 
     '@media (min-width: 41.5rem)': {
         display:        'flex',
@@ -63,7 +67,7 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme: { m
     '& #banner-content': {
         textAlign: 'left',
 
-        '& .text': {
+        '& .intro': {
             maxWidth:   '48rem',
             margin:     '1.5rem 0'
         }
