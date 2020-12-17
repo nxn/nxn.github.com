@@ -16,21 +16,21 @@ The first things we want to do is setup OpenSSH on Windows, generate keys for th
 will be using it remotely, and glue it all together.
 
 1.  Install **OpenSSH Client** & **OpenSSH Server**
-    - Settings > Apps & Features > Optional Features
-    - Search for "OpenSSH"
-    - Ensure Client and Server are installed
+    -   Settings > Apps & Features > Optional Features
+    -   Search for "OpenSSH"
+    -   Ensure Client and Server are installed
 
 2.  SSHD Configuration requirements: open `%programdata%/ssh/sshd_config` and ensure the following are configured as
     follows:
-    - `PasswordAuthentication no` (can be left enabled, but doing so reduces the security benefit of using pubkey
-    authentication)
-    - `PubkeyAuthentication yes` (default)
-    - `AllowAgentForwarding yes` (default)
-    - `AuthorizedKeysFile .ssh/authorized_keys` (default)
-    - If any of the accounts you will be using when connecting to the Windows Host have administrative priveleges you
-      will either need to comment out the following setting, or be required to designate remote access for those users
-      through the global `administrators_authorized_keys` file. With the default configuration, user owned
-      `authorized_keys` files are ignored for administrators.
+    -   `PasswordAuthentication no` (can be left enabled, but doing so reduces the security benefit of using pubkey
+        authentication)
+    -   `PubkeyAuthentication yes` (default)
+    -   `AllowAgentForwarding yes` (default)
+    -   `AuthorizedKeysFile .ssh/authorized_keys` (default)
+    -   If any of the accounts you will be using when connecting to the Windows Host have administrative priveleges you
+        will either need to comment out the following setting, or be required to designate remote access for those users
+        through the global `administrators_authorized_keys` file. With the default configuration, user owned
+        `authorized_keys` files are ignored for administrators.
         ``` bash
         #Match Group administrators
         #       AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
@@ -57,16 +57,16 @@ will be using it remotely, and glue it all together.
     ```
 
 5.  Restrict security permissions for the created `id_ed25519` private keys:
-    - Windows Host and/or Clients: 
-        - Right click > Properties > Security Tab > Advanced
-        - Click `Disable Inheritance`
-        - Select `Convert inherited permissions into explicit permissions on this object.`
-        - Remove any entries that are not `SYSTEM`, the `Administrators` group, or **your own user account**
-        - See following for more details:
-          https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#user-private-key-files.
+    -   Windows Host and/or Clients: 
+        -   Right click > Properties > Security Tab > Advanced
+        -   Click `Disable Inheritance`
+        -   Select `Convert inherited permissions into explicit permissions on this object.`
+        -   Remove any entries that are not `SYSTEM`, the `Administrators` group, or **your own user account**
+        -   See following for more details:
+            https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#user-private-key-files.
           
-    - POSIX Clients: Ensure ownership is restricted to your own account and the file permissions are set to **0600**, to
-    change either you can use something like the following:
+    -   POSIX Clients: Ensure ownership is restricted to your own account and the file permissions are set to **0600**, to
+        change either you can use something like the following:
         ``` bash
         # Set 'username' as owner
         $ chown username:username ~/.ssh/id_ed25519
@@ -115,7 +115,7 @@ will be using it remotely, and glue it all together.
     the host account you'll be using is designated as an admin and you want to keep the default configuration scheme).
     The following import scripts are copied from https://code.visualstudio.com/docs/remote/troubleshooting and will only
     work for modifying the user owned `~/.ssh/authorized_keys`.
-    - Remote Unix-like client:
+    -   Remote Unix-like client:
         ``` bash
         $ export USER_AT_HOST="your-user-name-on-host@hostname"
         $ export PUBKEYPATH="$HOME/.ssh/id_rsa.pub"
@@ -125,7 +125,7 @@ will be using it remotely, and glue it all together.
         **Note:** The above did not work as expected in my case -- the generated `authorized_keys` contained malformed
         characters. I suggest double checking the file after it is created or simply performing this step manually.
 
-    - Remote Windows client:
+    -   Remote Windows client:
         ``` PowerShell
         PS> $USER_AT_HOST="your-user-name-on-host@hostname"
         PS> $PUBKEYPATH="$HOME\.ssh\id_rsa.pub"
@@ -133,18 +133,19 @@ will be using it remotely, and glue it all together.
         PS> Get-Content "$PUBKEYPATH" | Out-String | ssh $USER_AT_HOST "powershell `"New-Item -Force -ItemType Directory -Path `"`$HOME\.ssh`"; Add-Content -Force -Path `"`$HOME\.ssh\authorized_keys`" `""
         ```
 
-    - Alternatively, either use `ssh-id-copy` or manually insert the public key into `~/.ssh/authorized_keys` yourself:
+    -   Alternatively, either use `ssh-id-copy` or manually insert the public key into `~/.ssh/authorized_keys` 
+        yourself:
         ``` bash
         ssh-copy-id -i ~/.ssh/client_public_key.pub your-user-name-on-host@hostname
         ```
 
 11. Restrict security permissions for `authorized_keys`:
-    - Right click > Properties > Security Tab > Advanced
-    - Click `Disable Inheritance`
-    - Select `Convert inherited permissions into explicit permissions on this object.`
-    - Remove any entries that are not `SYSTEM`, the `Administrators` group, or **your own user account**
-    - See following for more details:
-      https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#authorized_keys.
+    -   Right click > Properties > Security Tab > Advanced
+    -   Click `Disable Inheritance`
+    -   Select `Convert inherited permissions into explicit permissions on this object.`
+    -   Remove any entries that are not `SYSTEM`, the `Administrators` group, or **your own user account**
+    -   See following for more details:
+        https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#authorized_keys.
     
     If using the `administrators_authorized_keys` file, its permissions should only allow access by `SYSTEM` and the
     `Administrators` group; inheritance should be disabled. See:
@@ -218,10 +219,10 @@ specific environment you want to connect to for remote development.
     ```
 
 2.  Ensure proper permissions are applied to `~/.ssh/config`:
-    - For Windows: similar to before, disable permission inheritance and restrict access to only allow `SYSTEM`, the
-    `Administrators` group, and **your own user account**, see: 
-    https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#ssh_config.
-    - For POSIX: ensure ownership is restricted to your own account and the file permissions are set to 0600:
+    -   For Windows: similar to before, disable permission inheritance and restrict access to only allow `SYSTEM`, the
+        `Administrators` group, and **your own user account**, see: 
+        https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#ssh_config.
+    -   For POSIX: ensure ownership is restricted to your own account and the file permissions are set to 0600:
         ``` bash
         # Set 'username' as owner
         $ chown username:username ~/.ssh/config

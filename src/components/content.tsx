@@ -43,6 +43,10 @@ export default styled(ContentUnstyled)(({unpadded, theme: { main: theme }}) => (
         fontWeight: 'bold'
     },
 
+    '& em': {
+        fontStyle: 'italic'
+    },
+
     '& p': {
         margin: '1rem 0rem'
     },
