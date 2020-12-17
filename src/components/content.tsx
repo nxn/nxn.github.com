@@ -108,17 +108,22 @@ export default styled(ContentUnstyled)(({unpadded, theme: { main: theme }}) => (
 
     '& pre': {
         margin: '1rem 0',
-        backgroundColor: theme.palette.box.backgroundAlt,
+        color: theme.palette.footer.link.hover,
+        // TODO: Figure out how to theme prism and undo the importants
+        backgroundColor: `${ theme.palette.box.backgroundAlt } !important`,
+        fontSize: '0.9rem',
+        fontFamily: '"JetBrains Mono", monospace',
+        padding: '0.5rem 0.75rem',
         border: `0.0625rem solid ${ theme.palette.box.border }`,
         borderRadius: '0.25rem',
-        padding: '0.5rem 0.75rem',
         overflowX: 'auto',
-        '& code': {
-            color: theme.palette.footer.link.hover,
-            border: 'none',
-            background: 'none',
-            padding: 0
-        }
+        
+        // '& code': {
+        //     color: theme.palette.footer.link.hover,
+        //     border: 'none',
+        //     background: 'none',
+        //     padding: 0
+        // }
     },
 
 
