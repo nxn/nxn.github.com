@@ -44,6 +44,12 @@ module.exports = {
           pages: require.resolve("./src/components/layout.tsx"),
           //default: require.resolve("./src/components/default-page-layout.js"),
         },
+        gatsbyRemarkPlugins: [{
+          resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              isIconAfterHeader: true,
+            },
+        }]
       },
     },
   ],

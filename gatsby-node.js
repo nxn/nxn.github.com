@@ -18,7 +18,7 @@ exports.createPages = async ({ graphql, actions }) => {
     result.data.allFile.nodes.forEach(({ childMdx: node }) => {
         createPage({
             path:       node.slug,
-            component:  path.resolve('./src/templates/post.tsx'),
+            component:  path.resolve('./src/templates/mdxpage.tsx'),
             context:    { slug: node.slug },
         })
     });

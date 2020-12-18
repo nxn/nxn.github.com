@@ -5,6 +5,7 @@ declare module '@emotion/react' {
         main: {
             breakpoints: number[];
             mediaQueries: string[];
+            tocWidth: string,
             palette: {
                 body: {
                     text: string;

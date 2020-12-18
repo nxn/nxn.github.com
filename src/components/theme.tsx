@@ -7,6 +7,7 @@ export const theme: Theme = {
     main: {
         breakpoints:    breakpoints,
         mediaQueries:   mediaQueries,
+        tocWidth:       '16rem',
         palette: {
             body: {
                 text:               '#767D75',
