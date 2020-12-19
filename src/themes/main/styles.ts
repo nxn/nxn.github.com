@@ -116,16 +116,15 @@ export const styles: Styles = {
             margin:         '2.5rem 0'
         },
         pre: {
-            margin:         '1rem 0',
-            color:          palette.text.alternate.light,
-            // TODO: Figure out how to theme prism and undo the importants
-            backgroundColor: `${ palette.bgs.standard.dark } !important`,
-            fontSize:       '0.9rem',
-            fontFamily:     '"JetBrains Mono", monospace',
-            padding:        '0.5rem 0.75rem',
-            border:         `0.0625rem solid ${ palette.bgs.standard.light }`,
-            borderRadius:   '0.25rem',
-            overflowX:      'auto',
+            margin:             '1rem 0',
+            color:              palette.text.alternate.light,
+            backgroundColor:    palette.bgs.standard.dark,
+            fontSize:           '0.9rem',
+            fontFamily:         '"JetBrains Mono", monospace',
+            padding:            '0.5rem 0.75rem',
+            border:             `0.0625rem solid ${ palette.bgs.standard.light }`,
+            borderRadius:       '0.25rem',
+            overflowX:          'auto',
         },
         button: {
             fontFamily:     '"Open Sans", sans-serif',

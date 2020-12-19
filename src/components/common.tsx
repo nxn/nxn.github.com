@@ -22,6 +22,10 @@ export const ListItem       = styled.li(({theme})       => theme.styles.lists.it
 export const ThematicBreak  = styled.hr(({theme})       => theme.styles.misc.hr);
 export const Pre            = styled.pre(({theme})      => theme.styles.misc.pre);
 
+// CodeBlock (more specifically, prism-react-renderer) creates its own `pre` block. To prevent it from getting nested
+// within the `pre` block created by MDXRenderer, this PassThrough component is used.
+const PassThrough = (props: { children: React.ReactNode }) => props.children;
+
 export default {
     h1:         PageHeading,
     h2:         SectionHeading,
@@ -38,6 +42,6 @@ export default {
     ol:         OrderedList,
     li:         ListItem,
     hr:         ThematicBreak,
-    pre:        styled.div(({theme}) => theme.styles.misc.pre),
+    pre:        PassThrough,
     code:       CodeBlock
 }
