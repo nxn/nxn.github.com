@@ -2,6 +2,8 @@ import { Styles } from '@emotion/react';
 import palette from './palette';
 import chevron from '../../images/chevron.svg';
 
+const empty = { };
+
 export const styles: Styles = {
     body: {
         color:              palette.text.standard.main,
@@ -90,10 +92,10 @@ export const styles: Styles = {
         paragraph: {
             marginBottom: '1.0rem'
         },
-        code: {},
+        code: empty,
     },
     lists: {
-        ordered: {},
+        ordered: empty,
         unordered: {
             listStyleType:  'disc',
             listStyleImage: `url("${ chevron }")`,
@@ -114,8 +116,8 @@ export const styles: Styles = {
             borderImage: 
                 `linear-gradient(to right, ${ palette.accents.light }, rgba(247, 247, 247, 0)) 100% 1;`
         },
-        button: { },
-        pre: { }
+        button: empty,
+        pre: empty
     }
 }
 

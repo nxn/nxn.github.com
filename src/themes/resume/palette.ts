@@ -1,24 +1,25 @@
 import type { Palette } from '@emotion/react';
 
+const empty = { };
+
 export const palette: Palette = {
     bgs: {
         standard: {
             main: '#f7f7f7'
         },
-        primary: {},
-        secondary: {}
+        primary:    empty,
+        secondary:  empty
     },
     text: {
         standard: {
             main: '#000'
         },
-        alternate: {}
+        alternate: empty
     },
     actions: {
-        primary: {},
-        secondary: {}
+        primary:    empty,
+        secondary:  empty
     },
-    error: {},
     nav: {
         main:   '#000',
         light:  '#EF545F',
@@ -31,7 +32,8 @@ export const palette: Palette = {
         gray:   '#666',
         white:  '#fff',
         black:  '#000'
-    }
+    },
+    error: empty
 }
 
 export default palette;

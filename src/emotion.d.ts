@@ -56,8 +56,8 @@ declare module '@emotion/react' {
         };
         misc: {
             button: CSSProperties
-            hr: CSSProperties
-            pre: CSSProperties
+            hr:     CSSProperties
+            pre:    CSSProperties
         }
     }
     

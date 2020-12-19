@@ -57,6 +57,7 @@ export const palette: Palette = {
     error: {
         main:   '#da2840'
     },
+    
     accents: {
         // Use for contrast 
         light:  '#9DA69E',

@@ -8,21 +8,22 @@ import { PageToC, SidepanelToC } from "../components/toc";
 
 type PostData = {
     mdx: {
-        id: string,
-        body: string,
-        tableOfContents: any,
+        id:                 string,
+        body:               string,
+        tableOfContents:    any,
         frontmatter: {
-            title: string,
-            date: string,
-            toc?: boolean
+            title:  string,
+            date:   string,
+            toc?:   boolean
         }
     }
 }
 
 type PostPageProps = {
     className?: string,
-    data: PostData
+    data:       PostData
 }
+
 export function PostPage(props: PostPageProps) {
     const post = props.data.mdx;
     const toc = post.frontmatter.toc;
@@ -49,7 +50,8 @@ const ContentUnstyled = (props: { className?: string, toc: boolean, children: Re
         { props.children }
     </div>
 );
-export const Content = styled(ContentUnstyled)(({ theme, toc }) => ({
+
+export const Content = styled(ContentUnstyled)(({ toc }) => ({
     display: 'grid',
     gridTemplateColumns: '1fr auto',
     alignItems: 'baseline',

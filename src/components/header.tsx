@@ -113,10 +113,10 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
         alignItems:     'center',
 
         '@media (min-width: 41.5rem)': {
-            gridColumn: 'span 1',
-            paddingBottom: 0,
+            gridColumn:     'span 1',
+            paddingBottom:  0,
             justifyContent: 'flex-end',
-            display: 'flex !important'
+            display:        'flex !important'
         },
 
         '& li': {
@@ -153,8 +153,8 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
             display:    'none',
             color:      theme.palette.text.alternate.main,
             '@media (min-width: 41.5rem)': {
-                display: 'inline-block',
-                marginRight: '2rem'
+                display:        'inline-block',
+                marginRight:    '2rem'
             }
         },
 

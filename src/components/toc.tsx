@@ -39,7 +39,8 @@ export const SidepanelToC = styled(ToCUnstyled)({
     overflow:           'hidden',
 });
 
-const Header = styled.div({
+const Header = styled.div(({theme}) => ({
+    color: theme.palette.accents.purple,
     lineHeight: '2.5rem',
     textTransform: 'uppercase',
     //padding: '0 1rem',
@@ -47,7 +48,7 @@ const Header = styled.div({
     fontWeight: 'bold',
     borderBottom: `0.0625rem dashed rgba(194, 194, 168, 0.5)`,
     //textAlign: 'center',
-});
+}));
 
 function ListUnstyled(props: { items: Item[], className?: string }) {
     return (
@@ -74,7 +75,7 @@ const List = styled(ListUnstyled)(({ theme }) => ({
     
     '& li': {
         '& a': {
-            color:          theme.palette.text.standard.main,
+            color:          theme.palette.accents.purple,
             display:        'block',
             width:          'auto',
             height:         '2.5rem',
@@ -88,7 +89,7 @@ const List = styled(ListUnstyled)(({ theme }) => ({
             fontSize:       '0.9rem',
 
             '&:hover': {
-                color: theme.palette.text.standard.light,
+                color: theme.palette.actions.primary.main,
                 //backgroundColor: 'rgba(255, 255, 255, 0.04)'
             }
         }
