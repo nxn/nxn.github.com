@@ -1,5 +1,5 @@
 import React from "react";
-import { Theme, Interpolation } from "@emotion/react";
+import { Link as GatsbyLink } from "gatsby";
 import styled from "@emotion/styled";
 import clsx from "clsx";
 
@@ -20,8 +20,9 @@ function asButton<P>(Component: React.ComponentType<P>) {
     }
 }
 
-export const Button     = styled(asButton(HTMLButton))(({theme}) => theme.styles.misc.button);
-export const LinkButton = styled(asButton(HTMLAnchor))(({theme}) => theme.styles.misc.button);
+export const Button             = styled(asButton(HTMLButton))(({theme}) => theme.styles.misc.button);
+export const LinkButton         = styled(asButton(HTMLAnchor))(({theme}) => theme.styles.misc.button);
+export const GatsbyLinkButton   = styled(asButton(GatsbyLink))(({theme}) => theme.styles.misc.button);
 export default Button;
 
 type ButtonGroupProps = {

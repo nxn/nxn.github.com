@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Link } from "gatsby";
 
 import graphics from "../images/graphics.svg";
 
@@ -23,10 +24,10 @@ export function FooterUnstyled(props: FooterProps) {
                     </span>
                 </li>
                 <li>
-                    <a className="item" href="/resume/">
+                    <Link className="item" to="/resume/">
                         <svg className="icon"><use href={ `${ graphics }#icon-doc` } /></svg>
                         Resume
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <a className="item" href="https://github.com/nxn/" target="_blank" rel="noreferrer">
@@ -43,8 +44,9 @@ export function FooterUnstyled(props: FooterProps) {
             </ul>
 
             <div id="footer-info">
-                The personal portfolio of Ernie Wieczorek. Contains summary of recent ventures, discoveries, and guidance
-                on technical matters. This website does not use cookies nor does it gather any information about its visitors.
+                The personal portfolio of Ernie Wieczorek. Contains summary of recent ventures, discoveries, and 
+                guidance on technical matters. This website does not use cookies, it does not gather data about its 
+                visitors, nor does it send any information to third parties.
             </div>
 
             <div id="footer-copyright">

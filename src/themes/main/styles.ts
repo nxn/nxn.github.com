@@ -123,7 +123,6 @@ export const styles: Styles = {
             fontFamily:         '"JetBrains Mono", monospace',
             padding:            '0.5rem 0.75rem',
             border:             `0.0625rem solid ${ palette.bgs.standard.light }`,
-            borderRadius:       '0.25rem',
             overflowX:          'auto',
         },
         button: {

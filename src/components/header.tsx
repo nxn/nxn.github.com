@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
+import { Link } from "gatsby";
 import graphics from "../images/graphics.svg";
 
 type HeaderProps = {
@@ -10,12 +11,12 @@ type HeaderProps = {
 export function HeaderUnstyled(props: HeaderProps) {
     return (
         <header className={ props.className }>
-            <a id="site-link" href="/">
+            <Link id="site-link" to="/">
                 <svg id="site-name">
                     <title>nxn.io</title>
                     <use href={ `${ graphics }#nxn-text` } />
                 </svg>
-            </a>
+            </Link>
 
             <label id="menu-btn" htmlFor="menu-toggle">
                 <svg className="icon"><use href={ `${ graphics }#icon-menu` } /></svg>
@@ -25,10 +26,10 @@ export function HeaderUnstyled(props: HeaderProps) {
             
             <ul id="links">
                 <li className="doc">
-                    <a className="pdf" href="/resume/">
+                    <Link className="pdf" to="/resume/">
                         <svg className="icon"><use href={ `${ graphics }#icon-doc` } /></svg>
                         Resume
-                    </a>
+                    </Link>
                 </li>
 
                 <li className="email">

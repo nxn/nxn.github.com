@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "gatsby";
 import styled from "@emotion/styled";
 
 type Item = {
@@ -51,7 +52,7 @@ function ListUnstyled(props: { items: Item[], className?: string }) {
         <ul className={ props.className }>
         { props.items.map((item, index) => (
             <li key={ index }>
-                <a  href={ item.url }>{ item.title }</a>
+                <Link to={ item.url }>{ item.title }</Link>
                 { item.items && item.items.length > 0 && <ListUnstyled items={ item.items } /> }
             </li>
         ))}

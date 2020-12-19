@@ -38,16 +38,17 @@ module.exports = {
       __key: "data",
     },
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: "gatsby-plugin-mdx",
       options: {
         defaultLayouts: {
           pages: require.resolve("./src/components/layout.tsx"),
           //default: require.resolve("./src/components/default-page-layout.js"),
         },
         gatsbyRemarkPlugins: [{
-          resolve: `gatsby-remark-autolink-headers`,
+          resolve: "gatsby-remark-autolink-headers",
             options: {
-              isIconAfterHeader: true,
+              //offsetY: '100',
+              isIconAfterHeader: true
             },
         }]
       },

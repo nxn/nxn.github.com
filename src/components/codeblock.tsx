@@ -23,7 +23,7 @@ const LineNo = styled.span(({theme}) => ({
 
 const LineContent = styled.span({
     display: 'table-cell',
-    paddingLeft: '0.5rem'
+    padding: '0 0.5rem'
 });
 
 type CodeBlockProps = {

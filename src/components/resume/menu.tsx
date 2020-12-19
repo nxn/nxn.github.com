@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
+import { Link } from "../common";
 import graphics from "../../images/graphics.svg";
 
 type MenuProps = {
@@ -23,12 +24,12 @@ export function MenuUnstyled(props: MenuProps) {
                 <svg className="address"><use href={ `${ graphics }#mail-address` } /></svg>
             </li>
             <li className="web">
-                <a href="/">
+                <Link to="/">
                     <svg className="icon">
                         <use href={ `${ graphics }#icon-web` } />
                     </svg>
                     www.nxn.io
-                </a>
+                </Link>
             </li>
             <li className="location">
                 <svg className="icon">

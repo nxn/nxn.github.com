@@ -3,7 +3,7 @@ import { PageProps } from "gatsby";
 
 
 import { Layout, Variant } from "../components/layout";
-import { Button, LinkButton, ButtonGroup } from "../components/button";
+import { Button, GatsbyLinkButton as LinkButton, ButtonGroup } from "../components/button";
 import { PageHeading } from "../components/common";
 
 import styled from "@emotion/styled";
@@ -39,7 +39,7 @@ export function Error404Page(props: Error404PageProps & PageProps) {
                         </span>
                     </div>
                     <ButtonGroup id="choice">
-                        <LinkButton color="secondary"   href="/">Blue</LinkButton>
+                        <LinkButton color="secondary"   to="/">Blue</LinkButton>
                         <Button     color="primary"     onClick={ wonderland }>Red</Button>
                     </ButtonGroup>
                 </div>
