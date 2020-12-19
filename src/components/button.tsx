@@ -20,41 +20,8 @@ function asButton<P>(Component: React.ComponentType<P>) {
     }
 }
 
-const buttonStyle: Interpolation<ButtonProps & { theme: Theme }> = ({theme: { main: theme }}) => ({
-    fontFamily:     '"Open Sans", sans-serif',
-    fontSize:       '0.8rem',
-    fontWeight:     'bold',
-    textTransform:  'uppercase',
-    textAlign:      'center !important' as 'center',
-    lineHeight:     '2.5rem',
-    display:        'inline-block',
-    padding:        '0rem 1.5rem',
-    border:         0,
-    borderRadius:   '2.5rem',
-    boxSizing:      'border-box',
-    cursor:         'pointer',
-
-    '&.primary': {
-        color:                  theme.palette.button.primary.text,
-        backgroundColor:        theme.palette.button.primary.background,
-        '&:hover': {
-            color:              theme.palette.button.primary.hover.text,
-            backgroundColor:    theme.palette.button.primary.hover.background
-        }
-    },
-
-    '&.secondary': {
-        color:                  theme.palette.button.secondary.text,
-        backgroundColor:        theme.palette.button.secondary.background,
-        '&:hover': {
-            color:              theme.palette.button.secondary.hover.text,
-            backgroundColor:    theme.palette.button.secondary.hover.background
-        }
-    }
-});
-
-export const Button     = styled(asButton(HTMLButton))(buttonStyle);
-export const LinkButton = styled(asButton(HTMLAnchor))(buttonStyle);
+export const Button     = styled(asButton(HTMLButton))(({theme}) => theme.styles.misc.button);
+export const LinkButton = styled(asButton(HTMLAnchor))(({theme}) => theme.styles.misc.button);
 export default Button;
 
 type ButtonGroupProps = {

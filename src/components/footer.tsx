@@ -54,11 +54,11 @@ export function FooterUnstyled(props: FooterProps) {
     );
 }
 
-export const Footer = styled(FooterUnstyled)(({theme: { main: theme }}) => ({
+export const Footer = styled(FooterUnstyled)(({theme}) => ({
     padding:            '2rem',
-    borderTop:          `0.0625rem solid ${ theme.palette.page.border }`,
-    color:              theme.palette.footer.text,
-    backgroundColor:    theme.palette.footer.background,
+    borderTop:          `0.0625rem solid ${ theme.palette.accents.cyan }`,
+    color:              theme.palette.text.alternate.main,
+    backgroundColor:    theme.palette.bgs.secondary.dark,
     fontSize:           '0.9rem',
     display:            'grid',
     gap:                '1rem',
@@ -90,7 +90,7 @@ export const Footer = styled(FooterUnstyled)(({theme: { main: theme }}) => ({
             width:          '3rem',
             height:         '2.25rem',
             marginRight:    '1.5rem',
-            fill:           theme.palette.footer.text
+            fill:           theme.palette.text.alternate.main
         }
     },
 
@@ -110,7 +110,7 @@ export const Footer = styled(FooterUnstyled)(({theme: { main: theme }}) => ({
         flexFlow:   'column nowrap',
         minWidth:   '8rem',
         '& .item': {
-            color:          theme.palette.footer.link.text,
+            color:          theme.palette.text.alternate.main,
             display:        'inline-block',
             lineHeight:     '2.5rem',
             paddingRight: '1rem'
@@ -121,7 +121,7 @@ export const Footer = styled(FooterUnstyled)(({theme: { main: theme }}) => ({
             width:          "1.25rem",
             marginRight:    "0.75rem",
             verticalAlign:  "top",
-            fill:           theme.palette.footer.text
+            fill:           theme.palette.text.alternate.main
         },
 
         '& .address': {
@@ -132,9 +132,9 @@ export const Footer = styled(FooterUnstyled)(({theme: { main: theme }}) => ({
         '& a': {
             textDecoration: 'none',
             '&:hover': {
-                color: theme.palette.footer.link.hover,
+                color: theme.palette.text.alternate.light,
                 '& .icon': {
-                    fill: theme.palette.footer.link.hover
+                    fill: theme.palette.text.alternate.light
                 }
             }
         }

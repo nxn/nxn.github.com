@@ -7,7 +7,6 @@ import { Layout, Variant } from "../components/layout";
 import { WelcomeBanner } from "../components/banner";
 import Blurb from "../components/blurb";
 
-
 type IndexPageProps = {
     className?: string
 };
@@ -28,10 +27,10 @@ type IndexPageData = {
     }
 };
 
-export function IndexPageUnstyled(props: IndexPageProps & PageProps<IndexPageData>) {
+export function IndexPage(props: IndexPageProps & PageProps<IndexPageData>) {
     return (
         <Layout variant={ Variant.Unpadded }>
-            <div className={ props.className }>
+            <Content className={ props.className }>
                 <WelcomeBanner id="welcome-banner" />
                 { props.data.allFile.nodes.map(({ childMdx: mdx }) => (
                     <Blurb 
@@ -42,12 +41,12 @@ export function IndexPageUnstyled(props: IndexPageProps & PageProps<IndexPageDat
                         <MDXRenderer>{ mdx.body }</MDXRenderer>
                     </Blurb>
                 )) }
-            </div>
+            </Content>
         </Layout> 
     );
 }
 
-export const IndexPage = styled(IndexPageUnstyled)(({theme: { main: theme }}) => ({
+const Content = styled.div({
     padding: '1rem',
     '& #welcome-banner': {
         padding: '0rem 1rem'
@@ -56,7 +55,7 @@ export const IndexPage = styled(IndexPageUnstyled)(({theme: { main: theme }}) =>
         padding: '1rem var(--content-margin)',
         '& #welcome-banner': { padding: 0 }
     },
-}));
+});
 
 export default IndexPage;
 

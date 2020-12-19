@@ -45,9 +45,9 @@ export function HeaderUnstyled(props: HeaderProps) {
     );
 }
 
-const Header = styled(HeaderUnstyled)(({theme: { main: theme }}) => ({
-    backgroundColor:        theme.palette.header.background,
-    borderBottom:           `0.0625rem solid ${ theme.palette.page.border }`,
+const Header = styled(HeaderUnstyled)(({theme}) => ({
+    backgroundColor:        theme.palette.bgs.standard.dark,
+    borderBottom:           `0.0625rem solid ${ theme.palette.accents.cyan }`,
     display:                'grid',
     //logo 5rem + 1rem left pad + 1rem right pad
     gridTemplateColumns:    '7rem 1fr',
@@ -55,6 +55,7 @@ const Header = styled(HeaderUnstyled)(({theme: { main: theme }}) => ({
     justifyItems:           'end',
     alignItems:             'center',
     position:               'absolute',
+    zIndex:                 1,
     top:                    0,
     left:                   0,
     width:                  '100%',
@@ -73,7 +74,7 @@ const Header = styled(HeaderUnstyled)(({theme: { main: theme }}) => ({
         '& #site-name': {
             height: '3rem',
             width:  '5rem',
-            fill:   theme.palette.header.siteName
+            fill:   theme.palette.accents.dark
         }
     },
                 
@@ -92,7 +93,10 @@ const Header = styled(HeaderUnstyled)(({theme: { main: theme }}) => ({
         '& .icon': {
             height: '1.5rem',
             width:  '2rem',
-            fill:   theme.palette.page.text
+            fill:   theme.palette.actions.secondary.main,
+        },
+        '&:hover .icon': {
+            fill:   theme.palette.actions.secondary.light,
         }
     },
             
@@ -125,29 +129,29 @@ const Header = styled(HeaderUnstyled)(({theme: { main: theme }}) => ({
                 height:         '2.5rem',
                 width:          '1.5rem',
                 verticalAlign:  'top',
-                fill:           theme.palette.header.link.text,
+                fill:           theme.palette.text.alternate.main,
                 marginRight:    '0.5rem'
             },
 
             '& a': {
-                color:          theme.palette.header.link.text,
+                color:          theme.palette.text.alternate.main,
                 textDecoration: 'none',
                 display:        'inline-block',
                 paddingRight:   '1rem',
             },
 
             '& a:hover': {
-                color: theme.palette.header.link.hover,
+                color: theme.palette.text.alternate.light
             },
 
             '& a:hover .icon': {
-                fill: `${ theme.palette.header.link.hover } !important`
+                fill: `${ theme.palette.text.alternate.light } !important`
             }
         },
 
         '& .location': {
             display:    'none',
-            color:      theme.palette.header.text,
+            color:      theme.palette.text.alternate.main,
             '@media (min-width: 41.5rem)': {
                 display: 'inline-block',
                 marginRight: '2rem'
@@ -159,7 +163,7 @@ const Header = styled(HeaderUnstyled)(({theme: { main: theme }}) => ({
             width:          '6.4rem',
             marginTop:      '-0.0625rem',
             verticalAlign:  'middle',
-            fill:           theme.palette.header.text
+            fill:           theme.palette.text.alternate.main
         }
     }
 }));

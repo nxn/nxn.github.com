@@ -1,13 +1,15 @@
-import React from "react";
-import styled from "@emotion/styled";
-import theme from "./theme";
-import clsx from "clsx";
+import React                        from "react";
+import styled                       from "@emotion/styled";
+import { ThemeProvider, Global }    from "@emotion/react";
+import { MDXProvider }              from '@mdx-js/react';
+import clsx                         from "clsx";
+
+import theme        from "../themes/main/theme";
+import components   from "./common";
 
 import Header   from "./header";
-import Content  from "./content";
+import Main     from "./main";
 import Footer   from "./footer";
-
-import { withGlobal } from "./util";
 
 import '../styles/reset.css';
 import '../styles/fonts.css';
@@ -24,24 +26,30 @@ type LayoutProps = {
     className?: string
 }
 
-export function LayoutUnstyled(props: LayoutProps) {
+export function Layout(props: LayoutProps) {
     const variant = props.variant || 0;
     const unpadded = !!(variant & Variant.Unpadded);
 
     return (
-        <div id="page" className={ clsx(props.className, props.variant) }>
+        <ThemeProvider theme={ theme }>
+            <Global styles={globalStyles} />
+
             <link rel="preconnect" href="https://fonts.gstatic.com" />
             <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet" /> 
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
-            </style>  
+            </style>
 
-            <Header />
-            <Content unpadded={ unpadded }>
-                { props.children }
-            </Content>
-            <Footer />
-        </div>
+            <MDXProvider components={ components }>
+                <Container id="layout" className={ clsx(props.className, props.variant) }>
+                    <Header />
+                    <Main unpadded={ unpadded }>
+                        { props.children }
+                    </Main>
+                    <Footer />
+                </Container>
+            </MDXProvider>
+        </ThemeProvider>
     );
 }
 
@@ -54,19 +62,12 @@ const globalStyles = {
         */
         '--content-margin': 'calc(((100vw - 41.5rem) / 2 * 0.15) + 2rem)'
     },
-    body: {
-        color:              theme.main.palette.page.text,
-        backgroundColor:    theme.main.palette.body.background,
-        fontFamily:         '"Open Sans", sans-serif',
-        fontSize:           '1rem',
-        lineHeight:         '1.75rem'
-    }
+    body: theme.styles.body
 }
 
-export const Layout = styled(withGlobal(LayoutUnstyled, globalStyles))({
+const Container = styled.div({
     minWidth:           '20rem',
     margin:             '0 auto',
-    backgroundColor:    theme.main.palette.page.background,
     position:           'relative',
     paddingTop:         '4rem',
 });

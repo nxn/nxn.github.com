@@ -21,11 +21,13 @@ export function BlurbUnstyled(props: BlurbProps) {
     );
 }
 
-export const Blurb = styled(BlurbUnstyled)(({theme: { main: theme }}) => ({
-    border:             `0.0625rem solid ${ theme.palette.box.border }`,
-    backgroundColor:    theme.palette.box.background,
-    '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.box.backgroundAlt
+export const Blurb = styled(BlurbUnstyled)(({theme}) => ({
+    border:             `0.0625rem solid ${ theme.palette.bgs.standard.light }`,
+    color:              theme.palette.text.standard.light,
+    backgroundColor:    theme.palette.bgs.standard.main,
+    '&:nth-of-type(even)': {
+        color:              theme.palette.text.standard.main,
+        backgroundColor:    theme.palette.bgs.standard.dark
     },
 
     '& header': {
@@ -36,13 +38,13 @@ export const Blurb = styled(BlurbUnstyled)(({theme: { main: theme }}) => ({
         '& h2': {
             fontFamily:         '"Oswald", sans-serif',
             fontSize:           '1.2rem',
-            color:              theme.palette.accent.standard,
+            color:              theme.palette.accents.blue,
             padding:            '0.5rem 1rem',
             width:              'calc(100% - 2rem)',
             position:           'absolute',
             top:                0,
             left:               0,
-            backgroundColor:    theme.palette.box.backgroundAlt,
+            backgroundColor:    theme.palette.bgs.standard.dark,
             opacity:            '0.9',
             whiteSpace:         'nowrap',
             overflow:           'hidden',
@@ -51,7 +53,6 @@ export const Blurb = styled(BlurbUnstyled)(({theme: { main: theme }}) => ({
     },
 
     '& .description': {
-        color: theme.palette.box.text,
         margin: '1rem'
     },
 }));

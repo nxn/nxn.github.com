@@ -4,7 +4,6 @@ import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layout";
-import Post from "../components/post";
 import { PageToC, SidepanelToC } from "../components/toc";
 
 type PostData = {
@@ -24,28 +23,33 @@ type PostPageProps = {
     className?: string,
     data: PostData
 }
-export function PostPageUnstyled(props: PostPageProps) {
+export function PostPage(props: PostPageProps) {
     const post = props.data.mdx;
     const toc = post.frontmatter.toc;
     return (
         <Layout>
-            <div className={ props.className }>
-                <Post id="post">
+            <Content toc={ !!toc }>
+                <div id="post">
                     <MDXRenderer 
                         title   = { post.frontmatter.title } 
                         date    = { post.frontmatter.date } 
                         toc     = { toc && <PageToC id="page-toc" data={ post.tableOfContents } /> }>
                         { post.body }
                     </MDXRenderer>
-                </Post>
+                </div>
                 
                 { toc && <SidepanelToC id="side-toc" data={ post.tableOfContents } /> }
-            </div>
+            </Content>
         </Layout>
     );
 }
 
-export const PostPage = styled(PostPageUnstyled)(({ data: { mdx: { frontmatter: { toc }}}, theme: { main: theme }}) => ({
+const ContentUnstyled = (props: { className?: string, toc: boolean, children: React.ReactNode }) => (
+    <div className={ props.className }>
+        { props.children }
+    </div>
+);
+export const Content = styled(ContentUnstyled)(({ theme, toc }) => ({
     display: 'grid',
     gridTemplateColumns: '1fr auto',
     alignItems: 'baseline',

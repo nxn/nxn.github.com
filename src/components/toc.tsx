@@ -17,34 +17,29 @@ export function ToCUnstyled(props: ToCProps) {
     return (
         <div id={ props.id } className={ props.className }>
             <Header className="toc-header">Table of Contents</Header>
-            { props.data && props.data.items && <ItemList items={ props.data.items } /> }
+            { props.data && props.data.items && <List items={ props.data.items } /> }
         </div>
     );
 }
 
 // Because this will be rendered within the post itself, external styles will be applied that should be undone here. Bit
 // messy, but I don't see a better approach.
-export const PageToC = styled(ToCUnstyled)(({ theme: { main: theme }}) => ({
+export const PageToC = styled(ToCUnstyled)({
     marginTop: '2.5rem',
 
-    '& ul': {
-        listStyle: 'none',
-        margin: 0,
-    },
-    
     '& .toc-header': {
         borderBottom: 0
     }
-}));
+});
 
-export const SidepanelToC = styled(ToCUnstyled)(({ theme: { main: theme }}) => ({
+export const SidepanelToC = styled(ToCUnstyled)({
     position:           'sticky',
     top:                '3rem',
-    width:              theme.tocWidth,
+    width:              '16rem',
     overflow:           'hidden',
-}));
+});
 
-const Header = styled.div(({ theme: { main: theme }}) => ({
+const Header = styled.div({
     lineHeight: '2.5rem',
     textTransform: 'uppercase',
     //padding: '0 1rem',
@@ -52,22 +47,22 @@ const Header = styled.div(({ theme: { main: theme }}) => ({
     fontWeight: 'bold',
     borderBottom: `0.0625rem dashed rgba(194, 194, 168, 0.5)`,
     //textAlign: 'center',
-}));
+});
 
-function ItemListUnstyled(props: { items: Item[], className?: string }) {
+function ListUnstyled(props: { items: Item[], className?: string }) {
     return (
         <ul className={ props.className }>
         { props.items.map((item, index) => (
             <li key={ index }>
                 <a  href={ item.url }>{ item.title }</a>
-                { item.items && item.items.length > 0 && <ItemListUnstyled items={ item.items } /> }
+                { item.items && item.items.length > 0 && <ListUnstyled items={ item.items } /> }
             </li>
         ))}
         </ul>
     )
 }
 
-const ItemList = styled(ItemListUnstyled)(({ theme: { main: theme }}) => ({
+const List = styled(ListUnstyled)(({ theme }) => ({
     margin:     0,
     //paddingLeft: '1rem',
 
@@ -77,10 +72,9 @@ const ItemList = styled(ItemListUnstyled)(({ theme: { main: theme }}) => ({
         fontWeight: 'normal',
     },
     
-
     '& li': {
         '& a': {
-            color:          theme.palette.page.text,
+            color:          theme.palette.text.standard.main,
             display:        'block',
             width:          'auto',
             height:         '2.5rem',
@@ -94,7 +88,7 @@ const ItemList = styled(ItemListUnstyled)(({ theme: { main: theme }}) => ({
             fontSize:       '0.9rem',
 
             '&:hover': {
-                color: theme.palette.box.text,
+                color: theme.palette.text.standard.light,
                 //backgroundColor: 'rgba(255, 255, 255, 0.04)'
             }
         }

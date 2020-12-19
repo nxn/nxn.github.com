@@ -1,106 +1,69 @@
 import '@emotion/react'
 
+type CSSProperties = { };
+
 declare module '@emotion/react' {
-    export interface Theme {
-        main: {
-            breakpoints: number[];
-            mediaQueries: string[];
-            tocWidth: string,
-            palette: {
-                body: {
-                    text: string;
-                    background: string;
-                };
-                page: {
-                    text: string;
-                    background: string;
-                    border: string;
-                    link: {
-                        text: string;
-                        hover: string;
-                    };
-                };
-                header: {
-                    text: string;
-                    background: string;
-                    siteName: string;
-                    link: {
-                        text: string;
-                        hover: string;
-                    }
-                },
-                footer: {
-                    text: string;
-                    background: string;
-                    link: {
-                        text: string;
-                        hover: string;
-                    }
-                },
-                banner: {
-                    logo: string;
-                },
-                box: {
-                    text: string;
-                    background: string;
-                    backgroundAlt: string;
-                    border: string;
-                },
-                accent: {
-                    standard: string;
-                    alt: string;
-                    subtle: string;
-                    error: string;
-                },
-                button: {
-                    primary: {
-                        text: string;
-                        background: string;
-                        hover: {
-                            text: string;
-                            background: string;
-                        }
-                    },
-                    secondary: {
-                        text: string;
-                        background: string;
-                        hover: {
-                            text: string;
-                            background: string;
-                        }
-                    }
-                }
-            }
+    export interface ColorVariants {
+        main?:  string;
+        light?: string;
+        dark?:  string;
+    }
     
+    export interface Palette {
+        bgs: {
+            standard:   ColorVariants,
+            primary:    ColorVariants,
+            secondary:  ColorVariants
         },
-        resume: {
-            palette: {
-                page: {
-                    text: string;
-                    background: string;
-                };
-                header: {
-                    text: string;
-                    link: {
-                        text: string;
-                        hover: string;
-                    };
-                };
-                item: {
-                    text:       string;
-                    background: string;
-                };
-                icon: {
-                    fill: string;
-                    hover: string;
-                };
-                accent: {
-                    subtle: string;
-                };
-                gray: string;
-                white: string;
-                black: string;
-            }
+
+        text: {
+            standard:   ColorVariants,
+            alternate:  ColorVariants
+        },
+
+        nav: ColorVariants,
+
+        actions: {
+            primary:    ColorVariants,
+            secondary:  ColorVariants,
+        },
+
+        error: ColorVariants,
+        accents: ColorVariants & { [ key: string ]: string }
+    }
+    
+    export interface Styles {
+        body: CSSProperties;
+        headings: {
+            page:    CSSProperties,
+            section: CSSProperties,
+            content: CSSProperties,
+            sub1:    CSSProperties,
+            sub2:    CSSProperties,
+            sub3:    CSSProperties
+        };
+        text: {
+            bold:       CSSProperties,
+            italic:     CSSProperties,
+            code:       CSSProperties,
+            anchor:     CSSProperties,
+            paragraph:  CSSProperties
+        };
+        lists: {
+            ordered:    CSSProperties,
+            unordered:  CSSProperties,
+            item:       CSSProperties
+        };
+        misc: {
+            button: CSSProperties
+            hr: CSSProperties
+            pre: CSSProperties
         }
+    }
+    
+    export interface Theme {
+        breakpoints?:   number[],
+        palette:        Palette,
+        styles:         Styles
     }
 }

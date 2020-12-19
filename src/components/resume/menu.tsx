@@ -40,7 +40,7 @@ export function MenuUnstyled(props: MenuProps) {
     );
 }
 
-export const Menu = styled(MenuUnstyled)(({theme: { resume: theme }}) => ({
+export const Menu = styled(MenuUnstyled)(({theme}) => ({
     display:        'flex',
     flexDirection:  'column',
     listStyle:      'none',
@@ -75,7 +75,7 @@ export const Menu = styled(MenuUnstyled)(({theme: { resume: theme }}) => ({
             height: '2.5rem',
             width: '1.5rem',
             verticalAlign: 'top',
-            fill: theme.palette.icon.fill,
+            fill: theme.palette.accents.light,
             marginRight: '0.5rem',
 
             '@media print': {
@@ -85,16 +85,16 @@ export const Menu = styled(MenuUnstyled)(({theme: { resume: theme }}) => ({
         },
 
         '& a': {
-            color: theme.palette.header.link.text,
+            color: theme.palette.nav.main,
             textDecoration: 'none',
             display: 'inline-block', /* inline to not stretch in mobile mode */
             paddingRight: '1rem'
         },
 
         '& a:hover': {
-            color: theme.palette.header.link.hover,
+            color: theme.palette.nav.dark,
             '& .icon': {
-                fill: theme.palette.icon.hover
+                fill: theme.palette.nav.light
             }
         }
     },
@@ -104,7 +104,7 @@ export const Menu = styled(MenuUnstyled)(({theme: { resume: theme }}) => ({
         width:          '6.4rem',
         marginTop:      '-0.0625rem',
         verticalAlign:  'middle',
-        fill:           theme.palette.page.text
+        fill:           theme.palette.nav.main
     }
 }));
 

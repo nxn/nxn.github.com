@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Interpolation, Theme } from "@emotion/react";
 
+import { PageHeading } from "./common";
 import graphics from "../images/graphics.svg";
 
 
@@ -32,7 +33,7 @@ export function BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<Reac
 export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     return (
         <BannerUnstyled logo { ...props }>
-            <h1>Hello, I'm <span className="accent">Ernie</span>.</h1>
+            <PageHeading>Hello, I'm <span className="accent">Ernie</span>.</PageHeading>
             <div className="intro">
                 I am a Philadelphia based software developer who specializes in full stack web application 
                 development. You can find a few samples of my recent personal projects below.
@@ -41,14 +42,14 @@ export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLPro
     )
 }
 
-const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme: { main: theme }}) => ({
-    backgroundColor:    theme.palette.page.background,
-    color:              theme.palette.page.text,
+const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) => ({
+    //backgroundColor:    theme.palette.page.background,
+    color:              theme.palette.text.standard.main,
     textAlign:          'center',
     verticalAlign:      'middle',
 
     '& .accent': {
-        color: theme.palette.accent.standard
+        color: theme.palette.accents.green
     },
 
     '@media (min-width: 41.5rem)': {
@@ -61,7 +62,7 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme: { m
         width:      '10rem',
         height:     '15rem',
         padding:    '2rem 5rem',
-        fill:       theme.palette.banner.logo
+        fill:       theme.palette.accents.light
     },
 
     '& #banner-content': {

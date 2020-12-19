@@ -4,6 +4,8 @@ import { PageProps } from "gatsby";
 
 import { Layout, Variant } from "../components/layout";
 import { Button, LinkButton, ButtonGroup } from "../components/button";
+import { PageHeading } from "../components/common";
+
 import styled from "@emotion/styled";
 
 import morpheus_png from "../images/morpheus.png";
@@ -16,12 +18,12 @@ type Error404PageProps = {
     className?: string
 }
 
-export function Error404PageUnstyled(props: Error404PageProps & PageProps) {
+export function Error404Page(props: Error404PageProps & PageProps) {
     return (
         <Layout variant={ Variant.Unpadded }>
-            <div className={ props.className }>
+            <Content className={ props.className }>
                 <div id="matrix">
-                    <h1>Page not found <span className="accent">404</span></h1>
+                    <PageHeading id="heading">Page not found <span className="error">404</span></PageHeading>
                     <span id="quote-intro">
                         <span>This is your last chance. <br />After this, there is no turning back. </span>
                     </span>
@@ -39,12 +41,12 @@ export function Error404PageUnstyled(props: Error404PageProps & PageProps) {
                     <LinkButton color="secondary"   href="/">Blue</LinkButton>
                     <Button     color="primary"     onClick={ wonderland }>Red</Button>
                 </ButtonGroup>
-            </div>
+            </Content>
         </Layout>
     );
 }
 
-export const Error404Page = styled(Error404PageUnstyled)(({theme: { main: theme }}) => ({
+const Content = styled.div(({theme}) => ({
     display:        'flex',
     flexFlow:       'column nowrap',
     alignItems:     'center',
@@ -57,12 +59,12 @@ export const Error404Page = styled(Error404PageUnstyled)(({theme: { main: theme 
     marginTop:          '1rem',
     padding:            '0 2rem',
 
-    '& .accent': {
-        color: theme.palette.accent.error
+    '& .error': {
+        color: theme.palette.error.main
     },
 
     '& #matrix': {
-        color:              theme.palette.box.text,
+        color:              theme.palette.text.standard.main,
         maxWidth:           '48rem',
         padding:            '0.5rem 1rem',
         margin:             '0 -1rem',
@@ -70,8 +72,8 @@ export const Error404Page = styled(Error404PageUnstyled)(({theme: { main: theme 
         borderRadius:       '0.5rem',
         backgroundColor:    'rgba(5,7,11,0.8)',
 
-        '& h1': { paddingBottom:    '1rem', color: theme.palette.page.text },
-        '& br': { display:          'none' },
+        '& #heading': { paddingBottom: '1rem' },
+        '& br': { display: 'none' },
     },
 
     '& #choice': {
@@ -105,7 +107,7 @@ export const Error404Page = styled(Error404PageUnstyled)(({theme: { main: theme 
                 textAlign:          'center'
             },
 
-            '& h1': {
+            '& #heading': {
                 gridArea:           'heading',
                 justifySelf:        'flex-start',
                 padding:            '0.5rem 1rem',
@@ -125,11 +127,17 @@ export const Error404Page = styled(Error404PageUnstyled)(({theme: { main: theme 
                 fontSize:           '0.9rem',
                 justifySelf:        'center'
             },
-            '& #quote-red':         { gridArea: 'quote-red' },
-            '& #quote-blue':        { gridArea: 'quote-blue' },
+            '& #quote-red': { 
+                gridArea: 'quote-red',
+                color: theme.palette.text.standard.light
+            },
+            '& #quote-blue': { 
+                gridArea: 'quote-blue',
+                color: theme.palette.text.standard.light
+            },
 
-            '& #quote-red .red':    { color: '#CD7860' },
-            '& #quote-blue .blue':  { color: '#94B1A3' },
+            '& #quote-red .red':    { color: theme.palette.accents.red },
+            '& #quote-blue .blue':  { color: theme.palette.accents.blue },
 
             gridTemplateAreas: `
                 "heading        heading"
