@@ -16,7 +16,7 @@ type ToCProps = {
 export function ToCUnstyled(props: ToCProps) {
     return (
         <div id={ props.id } className={ props.className }>
-            <Header className="toc-header">Table of Contents</Header>
+            <Header className="toc-header">Table of Contents:</Header>
             { props.data && props.data.items && <List items={ props.data.items } /> }
         </div>
     );
@@ -26,10 +26,6 @@ export function ToCUnstyled(props: ToCProps) {
 // messy, but I don't see a better approach.
 export const PageToC = styled(ToCUnstyled)({
     marginTop: '2.5rem',
-
-    '& .toc-header': {
-        borderBottom: 0
-    }
 });
 
 export const SidepanelToC = styled(ToCUnstyled)({
@@ -40,13 +36,13 @@ export const SidepanelToC = styled(ToCUnstyled)({
 });
 
 const Header = styled.div(({theme}) => ({
-    color: theme.palette.accents.purple,
+    color: theme.palette.text.standard.main,
     lineHeight: '2.5rem',
     textTransform: 'uppercase',
     //padding: '0 1rem',
     fontSize: '0.9rem',
     fontWeight: 'bold',
-    borderBottom: `0.0625rem dashed rgba(194, 194, 168, 0.5)`,
+    //borderBottom: `0.0625rem solid rgba(145, 127, 134, 0.25)`,
     //textAlign: 'center',
 }));
 
