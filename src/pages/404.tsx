@@ -22,25 +22,27 @@ export function Error404Page(props: Error404PageProps & PageProps) {
     return (
         <Layout variant={ Variant.Unpadded }>
             <Content className={ props.className }>
-                <div id="matrix">
-                    <PageHeading id="heading">Page not found <span className="error">404</span></PageHeading>
-                    <span id="quote-intro">
-                        <span>This is your last chance. <br />After this, there is no turning back. </span>
-                    </span>
-                    <span id="quote-blue">
-                        <span><span className="blue">You take the blue pill </span><br />— the story ends, you wake up in your bed and believe whatever you want to believe. </span>
-                    </span>
-                    <span id="quote-red">
-                        <span><span className="red">You take the red pill </span><br />— you stay in Wonderland, and I show you how deep the rabbit hole goes. </span>
-                    </span>
-                    <span id="quote-outro">
-                        <span>Remember: all I'm offering is the truth. <br />Nothing more. </span>
-                    </span>
+                <div id="matrix-morpheus">
+                    <div id="matrix-text">
+                        <PageHeading id="heading">Page not found <span className="error">404</span></PageHeading>
+                        <span id="quote-intro">
+                            <span>This is your last chance. <br />After this, there is no turning back. </span>
+                        </span>
+                        <span id="quote-blue">
+                            <span><span className="blue">You take the blue pill </span><br />— the story ends, you wake up in your bed and believe whatever you want to believe. </span>
+                        </span>
+                        <span id="quote-red">
+                            <span><span className="red">You take the red pill </span><br />— you stay in Wonderland, and I show you how deep the rabbit hole goes. </span>
+                        </span>
+                        <span id="quote-outro">
+                            <span>Remember: all I'm offering is the truth. <br />Nothing more. </span>
+                        </span>
+                    </div>
+                    <ButtonGroup id="choice">
+                        <LinkButton color="secondary"   href="/">Blue</LinkButton>
+                        <Button     color="primary"     onClick={ wonderland }>Red</Button>
+                    </ButtonGroup>
                 </div>
-                <ButtonGroup id="choice">
-                    <LinkButton color="secondary"   href="/">Blue</LinkButton>
-                    <Button     color="primary"     onClick={ wonderland }>Red</Button>
-                </ButtonGroup>
             </Content>
         </Layout>
     );
@@ -51,19 +53,20 @@ const Content = styled.div(({theme}) => ({
     flexFlow:       'column nowrap',
     alignItems:     'center',
 
-    backgroundImage:    `url("${ morpheus_webp }")`,
-    backgroundSize:     'contain',
-    backgroundRepeat:   'no-repeat',
-    backgroundPosition: 'bottom center',
-
-    marginTop:          '1rem',
-    padding:            '0 2rem',
-
     '& .error': {
         color: theme.palette.error.main
     },
 
-    '& #matrix': {
+    '& #matrix-morpheus': {
+        padding:            '0 2rem',
+        marginTop:          '1rem',
+        backgroundImage:    `url("${ morpheus_webp }")`,
+        backgroundSize:     'contain',
+        backgroundRepeat:   'no-repeat',
+        backgroundPosition: 'bottom center',
+    },
+
+    '& #matrix-text': {
         color:              theme.palette.text.standard.main,
         maxWidth:           '48rem',
         padding:            '0.5rem 1rem',
@@ -83,11 +86,13 @@ const Content = styled.div(({theme}) => ({
     },
 
     '@media (min-width: 41.5rem)': {
-        padding:                    '0 var(--content-margin)',
+        '& #matrix-morpheus': {
+            padding: '0 var(--content-margin)',
+        },
 
         '& #choice':                { paddingBottom: '2rem' },
 
-        '& #matrix': {
+        '& #matrix-text': {
             display:                'grid',
             gap:                    '2rem',
             

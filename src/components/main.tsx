@@ -17,6 +17,6 @@ export function MainUnstyled(props: MainProps) {
 
 export default styled(MainUnstyled)(({unpadded, theme}) => ({
     padding:            unpadded ? 0 : '3rem var(--content-margin)',
-    position:           'relative',
+    //position:           'relative',
     backgroundColor:    theme.palette.bgs.primary.dark
 }));
