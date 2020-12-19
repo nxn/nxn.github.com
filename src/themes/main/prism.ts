@@ -39,12 +39,12 @@ const theme: PrismTheme = {
         }
     },{
         types: [
-        "property",
-        "number",
-        "function-name",
-        "constant",
-        "symbol",
-        "deleted"
+            "property",
+            "number",
+            "function-name",
+            "constant",
+            "symbol",
+            "deleted"
         ],
         style: {
             color: colors.primitive
@@ -80,7 +80,7 @@ const theme: PrismTheme = {
             color: colors.function
         }
     },{
-        types: ["operator", "entity", "url", "variable"],
+        types: ["entity", "url", "variable"],
         style: {
             color: colors.variable
         }
