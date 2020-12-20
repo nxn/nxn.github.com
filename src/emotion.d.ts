@@ -49,13 +49,16 @@ declare module '@emotion/react' {
             anchor:     CSSProperties,
             paragraph:  CSSProperties
         };
+        controls: {
+            textbox:    CSSProperties,
+            button:     CSSProperties
+        },
         lists: {
             ordered:    CSSProperties,
             unordered:  CSSProperties,
             item:       CSSProperties
         };
         misc: {
-            button: CSSProperties
             hr:     CSSProperties
             pre:    CSSProperties
         }

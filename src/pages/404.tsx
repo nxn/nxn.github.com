@@ -1,6 +1,4 @@
 import React from "react";
-import { PageProps } from "gatsby";
-
 
 import { Layout, Variant } from "../components/layout";
 import { Button, GatsbyLinkButton as LinkButton, ButtonGroup } from "../components/button";
@@ -14,14 +12,10 @@ import morpheus_webp from "../images/morpheus.webp";
 
 function wonderland() { }
 
-type Error404PageProps = {
-    className?: string
-}
-
-export function Error404Page(props: Error404PageProps & PageProps) {
+export function Error404Page() {
     return (
         <Layout variant={ Variant.Unpadded }>
-            <Content className={ props.className }>
+            <Content>
                 <div id="matrix-morpheus">
                     <div id="matrix-text">
                         <PageHeading id="heading">Page not found <span className="error">404</span></PageHeading>

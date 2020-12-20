@@ -37,7 +37,7 @@ export const SidepanelToC = styled(ToCUnstyled)({
 });
 
 const Header = styled.div(({theme}) => ({
-    color: theme.palette.text.standard.main,
+    color: theme.palette.accents.light,
     lineHeight: '2.5rem',
     textTransform: 'uppercase',
     //padding: '0 1rem',

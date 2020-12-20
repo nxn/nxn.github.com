@@ -108,22 +108,35 @@ export const styles: Styles = {
             }
         }
     },
-    misc: {
-        hr: {
-            borderTop:      0,
-            // TODO: use an alpha function on existing palette color
-            borderBottom:   `0.0625rem dashed rgba(194, 194, 168, 0.5)`,
-            margin:         '2.5rem 0'
-        },
-        pre: {
-            margin:             '1rem 0',
-            color:              palette.text.alternate.light,
-            backgroundColor:    palette.bgs.standard.dark,
-            fontSize:           '0.9rem',
-            fontFamily:         '"JetBrains Mono", monospace',
-            padding:            '0.5rem 0.75rem',
-            border:             `0.0625rem solid ${ palette.bgs.standard.light }`,
-            overflowX:          'auto',
+    controls: {
+        textbox: {
+            fontSize:           '1rem',
+            fontFamily:         '"Open Sans", sans-serif',
+            width:              '100%',
+            lineHeight:         '1.75rem',
+            color:              palette.text.standard.main,
+            border:             `0.125rem solid ${ palette.bgs.standard.light }`,
+            backgroundColor:    'rgba(0,0,0, 0.33)',
+            padding:            '0.5rem 1rem',
+            boxSizing:          'border-box',
+    
+            '&::placeholder': {
+                color:          palette.accents.light,
+                opacity:        1,
+                textTransform:  'uppercase',
+                fontSize:       '0.9rem',
+                fontWeight:     'bold'
+            },
+
+            '&:focus, &:active': {
+                color:          palette.text.standard.light,
+                borderColor:    palette.accents.cyan,
+                outline: 'none',
+                
+                '&::placeholder': {
+                    opacity: 0.2
+                }
+            },
         },
         button: {
             fontFamily:     '"Open Sans", sans-serif',
@@ -158,6 +171,24 @@ export const styles: Styles = {
                 }
             }
         }
+    },
+    misc: {
+        hr: {
+            borderTop:      0,
+            // TODO: use an alpha function on existing palette color
+            borderBottom:   `0.0625rem dashed rgba(194, 194, 168, 0.5)`,
+            margin:         '2.5rem 0'
+        },
+        pre: {
+            margin:             '1rem 0',
+            color:              palette.text.alternate.light,
+            backgroundColor:    palette.bgs.standard.dark,
+            fontSize:           '0.9rem',
+            fontFamily:         '"JetBrains Mono", monospace',
+            padding:            '0.5rem 0.75rem',
+            border:             `0.0625rem solid ${ palette.bgs.standard.light }`,
+            overflowX:          'auto',
+        },
     }
 }
 

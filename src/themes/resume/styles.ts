@@ -105,6 +105,10 @@ export const styles: Styles = {
             breakInside:    'avoid' as 'avoid'
         }
     },
+    controls: {
+        textbox:    empty,
+        button:     empty
+    },
     misc: {
         hr: {
             margin:             '0.5rem 0',
@@ -116,7 +120,6 @@ export const styles: Styles = {
             borderImage: 
                 `linear-gradient(to right, ${ palette.accents.light }, rgba(247, 247, 247, 0)) 100% 1;`
         },
-        button: empty,
         pre: empty
     }
 }

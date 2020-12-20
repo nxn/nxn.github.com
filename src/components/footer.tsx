@@ -18,15 +18,15 @@ export function FooterUnstyled(props: FooterProps) {
 
             <ul id="footer-list">
                 <li>
-                    <span className="item">
-                        <svg className="icon"><use href={ `${ graphics }#icon-mail` } /></svg>
-                        <svg className="address"><use href={ `${ graphics }#mail-address` } /></svg>
-                    </span>
-                </li>
-                <li>
-                    <Link className="item" to="/resume/">
+                    <Link className="item" to="/resume">
                         <svg className="icon"><use href={ `${ graphics }#icon-doc` } /></svg>
                         Resume
+                    </Link>
+                </li>
+                <li>
+                    <Link className="item" to="/contact">
+                        <svg className="icon"><use href={ `${ graphics }#icon-mail` } /></svg>
+                        Contact
                     </Link>
                 </li>
                 <li>

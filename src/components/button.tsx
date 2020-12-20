@@ -20,9 +20,9 @@ function asButton<P>(Component: React.ComponentType<P>) {
     }
 }
 
-export const Button             = styled(asButton(HTMLButton))(({theme}) => theme.styles.misc.button);
-export const LinkButton         = styled(asButton(HTMLAnchor))(({theme}) => theme.styles.misc.button);
-export const GatsbyLinkButton   = styled(asButton(GatsbyLink))(({theme}) => theme.styles.misc.button);
+export const Button             = styled(asButton(HTMLButton))(({theme}) => theme.styles.controls.button);
+export const LinkButton         = styled(asButton(HTMLAnchor))(({theme}) => theme.styles.controls.button);
+export const GatsbyLinkButton   = styled(asButton(GatsbyLink))(({theme}) => theme.styles.controls.button);
 export default Button;
 
 type ButtonGroupProps = {
@@ -35,6 +35,8 @@ export function ButtonGroupUnstyled(props: ButtonGroupProps & React.DetailedHTML
 }
 
 export const ButtonGroup = styled(ButtonGroupUnstyled)({
+    display: 'flex',
+    flexFlow: 'row nowrap',
     // Hacks because emotion css doesn't allow 'first-child' selectors
     '& > .button + .button': {
         borderTopLeftRadius:        0,

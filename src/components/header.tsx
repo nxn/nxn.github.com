@@ -25,18 +25,18 @@ export function HeaderUnstyled(props: HeaderProps) {
             <input id="menu-toggle" type="checkbox" className="hidden" />
             
             <ul id="links">
-                <li className="doc">
-                    <Link className="pdf" to="/resume/">
+                <li>
+                    <Link to="/resume">
                         <svg className="icon"><use href={ `${ graphics }#icon-doc` } /></svg>
                         Resume
                     </Link>
                 </li>
-
-                <li className="email">
-                    <svg className="icon"><use href={ `${ graphics }#icon-mail` } /></svg>
-                    <svg className="address"><use href={ `${ graphics }#mail-address` } /></svg>
+                <li>
+                    <Link to="/contact">
+                        <svg className="icon"><use href={ `${ graphics }#icon-mail` } /></svg>
+                        Contact
+                    </Link>
                 </li>
-
                 <li className="location">
                     <svg className="icon"><use href={ `${ graphics }#icon-geo` } /></svg>
                     Philadelphia
@@ -157,14 +157,6 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
                 display:        'inline-block',
                 marginRight:    '2rem'
             }
-        },
-
-        '& .email .address': {
-            height:         '0.85rem',
-            width:          '6.4rem',
-            marginTop:      '-0.0625rem',
-            verticalAlign:  'middle',
-            fill:           theme.palette.text.alternate.main
         }
     }
 }));

@@ -7,10 +7,6 @@ import { Layout, Variant } from "../components/layout";
 import { WelcomeBanner } from "../components/banner";
 import { Blurb, BlurbContainer } from "../components/blurb";
 
-type IndexPageProps = {
-    className?: string
-};
-
 type IndexPageData = {
     allFile: {
         nodes: {
@@ -28,10 +24,10 @@ type IndexPageData = {
     }
 };
 
-export function IndexPage(props: IndexPageProps & PageProps<IndexPageData>) {
+export function IndexPage(props: PageProps<IndexPageData>) {
     return (
         <Layout variant={ Variant.Unpadded }>
-            <Content className={ props.className }>
+            <Content>
                 <WelcomeBanner id="welcome-banner" />
                 <BlurbContainer>
                     { props.data.allFile.nodes.map(({ childMdx: mdx }) => (
