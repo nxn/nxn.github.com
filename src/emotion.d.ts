@@ -47,7 +47,8 @@ declare module '@emotion/react' {
             italic:     CSSProperties,
             code:       CSSProperties,
             anchor:     CSSProperties,
-            paragraph:  CSSProperties
+            paragraph:  CSSProperties,
+            blockquote: CSSProperties
         };
         controls: {
             textbox:    CSSProperties,

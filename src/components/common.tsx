@@ -3,6 +3,16 @@ import { Link as GatsbyLink } from "gatsby";
 import styled from "@emotion/styled";
 import CodeBlock from "./codeblock";
 
+// Since most internal links will be done via Gatsby's Link component, the default anchor element should set noreferrer
+// and target="_blank" for convenience.
+const ExtAnchor = (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) => 
+    <a target="_blank" rel="noreferrer" {...props} />
+
+// CodeBlock (more specifically, prism-react-renderer) creates its own `pre` block. To prevent it from getting nested
+// within the `pre` block created by MDXRenderer, this PassThrough component is used.
+const PassThrough = (props: { children: React.ReactNode }) => props.children;
+
+// Set Styles
 export const PageHeading    = styled.h1(({theme})           => theme.styles.headings.page);
 export const SectionHeading = styled.h2(({theme})           => theme.styles.headings.section);
 export const ContentHeading = styled.h3(({theme})           => theme.styles.headings.content);
@@ -12,9 +22,10 @@ export const SubHeading3    = styled.h6(({theme})           => theme.styles.head
 
 export const Bold           = styled.strong(({theme})       => theme.styles.text.bold);
 export const Italic         = styled.em(({theme})           => theme.styles.text.italic);
-export const Anchor         = styled.a(({theme})            => theme.styles.text.anchor);
+export const Anchor         = styled(ExtAnchor)(({theme})   => theme.styles.text.anchor);
 export const Link           = styled(GatsbyLink)(({theme})  => theme.styles.text.anchor);
 export const Paragraph      = styled.p(({theme})            => theme.styles.text.paragraph);
+export const Blockquote     = styled.blockquote(({theme})   => theme.styles.text.blockquote);
 export const InlineCode     = styled.code(({theme})         => theme.styles.text.code);
 
 export const UnorderedList  = styled.ul(({theme})           => theme.styles.lists.unordered);
@@ -24,10 +35,7 @@ export const ListItem       = styled.li(({theme})           => theme.styles.list
 export const ThematicBreak  = styled.hr(({theme})           => theme.styles.misc.hr);
 export const Pre            = styled.pre(({theme})          => theme.styles.misc.pre);
 
-// CodeBlock (more specifically, prism-react-renderer) creates its own `pre` block. To prevent it from getting nested
-// within the `pre` block created by MDXRenderer, this PassThrough component is used.
-const PassThrough = (props: { children: React.ReactNode }) => props.children;
-
+// Default export is meant to be in a format that is consumable by an MDXProvider
 export default {
     h1:         PageHeading,
     h2:         SectionHeading,
@@ -39,6 +47,7 @@ export default {
     em:         Italic,
     a:          Anchor,
     p:          Paragraph,
+    blockquote: Blockquote,
     inlineCode: InlineCode,
     ul:         UnorderedList,
     ol:         OrderedList,

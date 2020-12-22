@@ -33,8 +33,8 @@ export function Error404Page() {
                         </span>
                     </div>
                     <ButtonGroup id="choice">
-                        <LinkButton color="secondary"   to="/">Blue</LinkButton>
-                        <Button     color="primary"     onClick={ wonderland }>Red</Button>
+                        <LinkButton color="secondary" to="/">Blue</LinkButton>
+                        <Button     color="primary"   onClick={ wonderland }>Red</Button>
                     </ButtonGroup>
                 </div>
             </Content>
@@ -75,8 +75,7 @@ const Content = styled.div(({theme}) => ({
 
     '& #choice': {
         paddingBottom:  '1rem',
-        textAlign:      'center',
-        '& .button':    { width: '5rem' },
+        '& > *':        { width: '5rem' },
     },
 
     '@media (min-width: 41.5rem)': {

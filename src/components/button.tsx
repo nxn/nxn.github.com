@@ -37,6 +37,7 @@ export function ButtonGroupUnstyled(props: ButtonGroupProps & React.DetailedHTML
 export const ButtonGroup = styled(ButtonGroupUnstyled)({
     display: 'flex',
     flexFlow: 'row nowrap',
+    justifyContent: 'center',
     // Hacks because emotion css doesn't allow 'first-child' selectors
     '& > .button + .button': {
         borderTopLeftRadius:        0,

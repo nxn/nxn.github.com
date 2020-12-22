@@ -1,0 +1,164 @@
+---
+title: "Sample Code"
+date: "2020-12-19"
+toc: false
+---
+
+# Some sample code
+
+```JavaScript
+// ==UserScript==
+// @name       belt.find
+// @namespace  http://corrupt.it/
+// @version    0.1
+// @description  Allows searching through the JavaScript Object model.
+// @match      *://*/*
+// @copyright  2012+, Ernie Wieczorek
+// ==/UserScript==
+
+(function() {
+    var _ROOT = window;
+    
+    if (typeof unsafeWindow === 'object') {
+        _ROOT = unsafeWindow;
+    }
+    
+    if (!_ROOT.belt)      _ROOT.belt = {};
+    if ( _ROOT.belt.find) return;
+    
+    _ROOT.belt.find = function(o) {
+        // Check if the argument matches any of the supported search types. If yes: assume a simple search operation,
+        // if no: assume a search config object. Also note that 'window.Object' is not the same constructor as 
+        // 'unsafeWindow.Object', meaning that an instance from 'window' will not be an instance from any constructor 
+        // under 'unsafeWindow' on account of having a different prototype origin. For this reason we must ensure the 
+        // objects we're working with use the right context (i.e., use the '_ROOT' prefix for the page's window obj).
+        
+        if (o instanceof _ROOT.RegExp || o instanceof _ROOT.Function || !(o instanceof _ROOT.Object)) {
+            return _makeResultsObj(
+                _traverse(_ROOT, o, _defaultComparer, "window")
+            );
+        }
+        
+        // start:   starting node of search
+        // compare: function for determining whether value matches the query
+        var start   = o.object          || _ROOT
+          , compare = o.compare instanceof _ROOT.Function
+                    ? o.compare          : _defaultComparer;
+        
+        return _makeResultsObj(
+            _traverse(start, o.query, compare, start === _ROOT ? "window" : "searchObject")
+        );
+    };
+    
+    var _toString = _ROOT.Object.prototype.toString;
+    
+    var _defaultComparer = function(query, value) {
+        if (query instanceof _ROOT.RegExp && typeof value === 'string') return query.test(value);
+        if (query instanceof _ROOT.Function)                            return value instanceof query;
+        
+        return query === value;
+    };      
+    
+    var _traverse = function(item, query, compare, path, matches, visited) {
+        // ignore HTML objects 
+        if (_toString.call(item).match(/\[object HTML(.*)\]/)) return;
+        
+        var key
+          , child
+          , childPath
+          , isObject = item instanceof _ROOT.Object
+          , isArray  = item instanceof _ROOT.Array
+          , isNumber = function(n) { return !isNaN(parseFloat(n)) && isFinite(n); }
+          , add      = function(value, path, matchedOnName) { 
+                           matches.push(
+                              { value:           value
+                              , path:            path
+                              , matchedOnName: !!matchedOnName
+                              }
+                           );  
+                       }
+        
+        if (!path)     path    = "searchObject";
+        if (!matches)  matches = [];
+        if (!visited)  visited = [ _ROOT.clientInformation, _ROOT.belt ];
+
+        // item value check
+        compare(query, item) && add(item, path);
+        
+        if (!isObject) return matches;
+        
+        visited.push(item);
+        
+        for (key in item) {
+            child = item[key];
+            
+            if (visited.indexOf(child) > -1) continue;
+            
+            // key is an array index
+            if (isArray && isNumber(key)) {
+                childPath = path + "[" + key + "]";
+            }
+            
+            // key is a property name
+            else {
+                childPath = path + "." + key;
+                
+                // check the name of the property to see if it matches the query
+                compare(query, key) && add(child, childPath, true);
+            }
+            
+            _traverse(child, query, compare, childPath, matches, visited);
+        }
+
+        return matches;
+    };
+    
+    var _makePrintableItemArray = function() {
+        var a = [];
+        a.print = _printItemArray;
+        return a;
+    }
+                           
+    var _printItemArray = function() {
+        // Since the item arrays are made locally, they should not have the _ROOT prefix
+        if (!(this instanceof Array)) return;
+        
+        for (var i = 0, item; item = this[i]; i++) {
+            if (item.value instanceof _ROOT.Function) {
+                console.log(item.path + " => " + item.value.toString());
+            }
+            else {
+                console.log(item.path + " => " + JSON.stringify(item.value));
+            }
+        }
+    }
+    
+    var _makeResultsObj = function (matches) {
+        var i = 0
+          , l = matches.length
+          , item
+          , value
+
+        matches.functions = _makePrintableItemArray();
+        matches.arrays    = _makePrintableItemArray();
+        matches.objects   = _makePrintableItemArray();
+        matches.names     = _makePrintableItemArray();
+        matches.values    = _makePrintableItemArray();
+        matches.print     = _printItemArray;
+        
+        for (i = 0; i < l; i++) {
+            item  = matches[i];
+            value = item.value;
+            
+            if      (value instanceof _ROOT.Function) matches.functions.push(item);
+            else if (value instanceof _ROOT.Array)    matches.arrays.push(item);
+            else if (value instanceof _ROOT.Object)   matches.objects.push(item);
+            else                                      matches.values.push(item);
+            
+            if (item.matchedOnName) matches.names.push(item);
+        }
+
+        return matches;
+    };
+})();
+```

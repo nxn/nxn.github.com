@@ -92,6 +92,7 @@ export const styles: Styles = {
         paragraph: {
             marginBottom: '1.0rem'
         },
+        blockquote: empty,
         code: empty,
     },
     lists: {
