@@ -52,8 +52,8 @@ export const styles: Styles = {
             // Auto-Generated anchors for headings
             '&.anchor': {
                 //fill: "currentcolor",
-                display: 'none',
-                fill: palette.text.standard.main,
+                display:    'none',
+                fill:       palette.text.standard.main,
                 marginLeft: '1rem',
                 '&:hover': {
                     fill: palette.text.standard.light
@@ -68,50 +68,50 @@ export const styles: Styles = {
             margin: '1rem 0rem'
         },
         blockquote: {
-            color: palette.text.alternate.light,
-            backgroundColor: palette.bgs.standard.dark,
-            border: `0.0625rem solid ${ palette.bgs.standard.light }`,
-            borderRadius: '0.5rem',
-            fontStyle: 'italic',
-            position: 'relative',
-            margin: '2.5rem',
+            color:              palette.text.alternate.light,
+            backgroundColor:    palette.bgs.standard.dark,
+            border:             `0.0625rem solid ${ palette.bgs.standard.light }`,
+            borderRadius:       '0.5rem',
+            fontStyle:          'italic',
+            position:           'relative',
+            margin:             '2.5rem',
             '& code': {
-                border: `0.0625rem solid ${ palette.bgs.standard.main }`,
                 //color: palette.actions.primary.light,
-                backgroundColor: palette.bgs.standard.dark
+                border:             `0.0625rem solid ${ palette.bgs.standard.main }`,
+                backgroundColor:    palette.bgs.standard.dark
             },
             '& p': {
                 textIndent: '2rem',
-                margin: '0.5rem 1rem'
+                margin:     '0.5rem 1rem'
             },
             '&::before, &::after': {
-                quotes: `"“" "”" "‘" "’"`,
-                color: palette.accents.purple,
-                position: 'absolute',
-                fontSize: '2rem',
-                fontStyle: 'normal',
+                quotes:     `"“" "”" "‘" "’"`,
+                color:      palette.accents.purple,
+                position:   'absolute',
+                fontSize:   '2rem',
+                fontStyle:  'normal',
                 fontFamily: '"Roboto Slab", serif'
             },
             '&::before': {
-                content: 'open-quote',
-                top: '0.5rem',
-                left: '0.75rem'
+                content:    'open-quote',
+                top:        '0.5rem',
+                left:       '0.75rem'
             },
             '&::after': {
-                content: 'close-quote',
-                bottom: '-0.5rem',
-                right: '0.75rem'
+                content:    'close-quote',
+                bottom:     '-0.5rem',
+                right:      '0.75rem'
             }
         },
         code: {
-            color: palette.accents.green,
-            backgroundColor: palette.bgs.standard.main,
+            color:              palette.accents.green,
+            backgroundColor:    palette.bgs.standard.main,
             //border: `0.0625rem solid ${ theme.palette.box.border }`,
-            padding: '0.15rem 0.5rem',
-            borderRadius: '0.25rem',
-            fontSize: '0.9rem',
-            fontFamily: '"JetBrains Mono", monospace',
-            fontStyle: 'normal',
+            padding:            '0.15rem 0.5rem',
+            borderRadius:       '0.25rem',
+            fontSize:           '0.9rem',
+            fontFamily:         '"JetBrains Mono", monospace',
+            fontStyle:          'normal',
         }
     },
     lists: {
