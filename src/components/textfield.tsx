@@ -136,7 +136,7 @@ export function TextField(props: TextFieldProps) {
         }
         default: {
             const { multiline, onInvalid, onChange, ref, ...other } = props;
-            return <TextInputField ref={ fieldRef } onInvalid={ handleInvalid }onChange={ handleChange } { ...other } />
+            return <TextInputField ref={ fieldRef } onInvalid={ handleInvalid } onChange={ handleChange } { ...other } />;
         }
     }
 }
