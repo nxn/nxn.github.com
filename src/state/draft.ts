@@ -11,13 +11,13 @@ export const draftSlice = createSlice({
     initialState: { },
     reducers: {
         updateSubject: (state: Draft, action) => {
-            state.subject = action.payload
+            state.subject = action.payload;
         },
         updateMessage: (state: Draft, action) => {
-            state.message = action.payload
+            state.message = action.payload;
         },
         updateAddress: (state: Draft, action) => {
-            state.address = action.payload
+            state.address = action.payload;
         }
     }
 });

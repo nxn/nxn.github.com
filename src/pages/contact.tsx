@@ -1,26 +1,20 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { useDispatch } from 'react-redux'
 
 import Layout from "../components/layout";
 import { PageHeading } from "../components/common";
 import { Button, ButtonGroup } from "../components/button";
 import { TextField } from "../components/textfield";
 
-import graphics from "../images/graphics.svg";
+import { notify } from "../state/snackbar";
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-const emptyRegex = /^[\s]*$/;
+import graphics from "../images/graphics.svg";
 
 type TFormValues = {
     subject: string,
     message: string,
     address: string
-}
-
-type TFormErrors = {
-    subject?: string,
-    message?: string,
-    address?: string
 }
 
 const requirements: { [ key: string ]: string } = {
@@ -29,36 +23,11 @@ const requirements: { [ key: string ]: string } = {
     address: 'Must be a valid email address, for example: "your.address@example.com"' 
 }
 
-const validate = (values: TFormValues): TFormErrors => {
-    let result: TFormErrors = { ... requirements };
-
-    if (!values) { return result; }
-
-    if (values.subject && !emptyRegex.test(values.subject)) {
-        delete result.subject;
-    }
-
-    if (values.message && !emptyRegex.test(values.message)) {
-        delete result.message;
-    }
-
-    if (values.address && !emptyRegex.test(values.address)) {
-        if (emailRegex.test(values.address)) {
-            delete result.address
-        }
-        else {
-            result.address = "Invalid email format"
-        }
-    }
-
-    return result;
-}
-
 export function ContactPage() {
     const blankForm: TFormValues = { subject: '', message: '', address: '' };
+    const dispatch = useDispatch();
 
     const [formValues, setFormValues] = React.useState<TFormValues>(blankForm);
-    const [formErrors, setFormErrors] = React.useState<TFormErrors>({});
 
     const [severity, setSeverity]       = React.useState<'success' | 'error'>('success');
     const [disabled, setDisabled]       = React.useState(false);
@@ -72,28 +41,34 @@ export function ContactPage() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const errors = validate(formValues);
-        setFormErrors(errors);
+        setDisabled(true);
 
-        if (Object.keys(errors).length === 0) {
-            setDisabled(true);
-
-            // email.send(
-            //     config.serviceID, 
-            //     config.templateID, 
-            //     formValues
-            // ).then(handleSendSuccess, handleSendError);
-        }
+        // email.send(
+        //     config.serviceID, 
+        //     config.templateID, 
+        //     formValues
+        // ).then(handleSendSuccess, handleSendError);
 
         return false;
     }
 
     const handleReset = (event: React.FormEvent<HTMLFormElement>) => {
+        const backup = { ... formValues };
+
         setFormValues(blankForm);
 
         const form = event.target as HTMLFormElement;
         form.querySelectorAll('.invalid').forEach((element: Element) => {
             element.classList.remove('invalid');
+        });
+
+        notify({
+            type:       "info",
+            message:    "Draft has been discarded.",
+            // actions: [{
+            //     name: "Undo",
+            //     action: () => setFormValues(backup)
+            // }]
         });
     }
 

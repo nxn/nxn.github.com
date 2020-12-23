@@ -10,6 +10,7 @@ import components   from "./common";
 import Header   from "./header";
 import Main     from "./main";
 import Footer   from "./footer";
+import Snackbar from "./snackbar";
 
 import '../styles/reset.css';
 import '../styles/fonts.css';
@@ -47,6 +48,9 @@ export function Layout(props: LayoutProps) {
                         { props.children }
                     </Main>
                     <Footer />
+                    <div id="modal-root">
+                        <Snackbar />
+                    </div>
                 </Container>
             </MDXProvider>
         </ThemeProvider>

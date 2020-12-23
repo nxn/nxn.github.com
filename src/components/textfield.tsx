@@ -11,20 +11,18 @@ export type TextAreaFieldProps = { multiline: true } &
 export type TextInputFieldProps = { multiline?: false } &
     React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-/*
-valid
-customError
-
-badInput
-patternMismatch
-rangeOverflow
-rangeUnderflow
-stepMismatch
-tooLong
-tooShort
-typeMismatch
-valueMissing
+/* Exhaustive list of validity states that should indicate an invalid field state:
+    badInput
+    patternMismatch
+    rangeOverflow
+    rangeUnderflow
+    stepMismatch
+    tooLong
+    tooShort
+    typeMismatch
+    valueMissing
 */
+
 const defaultErrors = {
     valueMissing:       template`This field cannot be blank or empty`,
     tooLong:            template`This value is too long, maximum length: ${ 'maxLength' }`,
@@ -40,7 +38,7 @@ const defaultErrors = {
 type Errors = typeof defaultErrors;
 
 export type TextFieldProps = (TextAreaFieldProps | TextInputFieldProps) & {
-    errors?: { [ P in keyof Errors ]: Errors[P] }
+    errors?: { [ P in keyof Errors ]?: Errors[P] }
 };
 
 // Function determines which error message, if any, should be shown once a form submition is attempted. It is
