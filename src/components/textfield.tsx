@@ -110,7 +110,9 @@ export function TextField(props: TextFieldProps) {
     });
 
     // TODO: The custom validity message displayed by the browser sometimes shows a message associated with the previous
-    // change/state rather than the current value of the field. Not sure why.
+    // change/state rather than the current value of the field. Not sure why -- but it could be the browser displaying 
+    // the message before the 'onChange' event even fires and therefore before the setCustomValidity function gets to 
+    // update the message?
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement> & React.ChangeEvent<HTMLInputElement>) => {
         if (props.onChange) {
             props.onChange(event);
