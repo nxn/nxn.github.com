@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Layout from "../components/layout";
 import { PageHeading } from "../components/common";
 import { Button, ButtonGroup } from "../components/button";
+import { TextField } from "../components/textfield";
 
 import graphics from "../images/graphics.svg";
 
@@ -22,12 +23,14 @@ type TFormErrors = {
     address?: string
 }
 
+const requirements: { [ key: string ]: string } = {
+    subject: 'Subject line cannot be blank or empty',
+    message: 'Message cannot be blank or empty',
+    address: 'Must be a valid email address, for example: "your.address@example.com"' 
+}
+
 const validate = (values: TFormValues): TFormErrors => {
-    let result: TFormErrors = {
-        subject: 'Subject is required',
-        message: 'Message is required',
-        address: 'Address is required'
-    }
+    let result: TFormErrors = { ... requirements };
 
     if (!values) { return result; }
 
@@ -63,12 +66,10 @@ export function ContactPage() {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
         const { name, value } = event.target;
-        //setFormValues({ ...formValues, [name]: value.trimStart() });
         setFormValues({ ...formValues, [name]: value });
     }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        console.log('submit');
         event.preventDefault();
 
         const errors = validate(formValues);
@@ -87,8 +88,13 @@ export function ContactPage() {
         return false;
     }
 
-    const handleReset = (_: React.FormEvent<HTMLFormElement>) => {
+    const handleReset = (event: React.FormEvent<HTMLFormElement>) => {
         setFormValues(blankForm);
+
+        const form = event.target as HTMLFormElement;
+        form.querySelectorAll('.invalid').forEach((element: Element) => {
+            element.classList.remove('invalid');
+        });
     }
 
     const handleSendSuccess = () => {
@@ -111,18 +117,18 @@ export function ContactPage() {
             <Content>
                 <PageHeading>Send <span className="accent">Ernie</span> a message:</PageHeading>
                 <br />
-                <Email onSubmit={ handleSubmit } onReset={ handleReset }>
+                <Email id="email-form" onSubmit={ handleSubmit } onReset={ handleReset }>
                     <Subject required
                         pattern     = ".*\S+.*"
-                        title       = "Subject line cannot be blank or empty"
+                        title       = { requirements.subject }
                         type        = "text"
                         value       = { formValues.subject }
                         onChange    = { handleChange }
                         name        = "subject"
                         placeholder = "Subject" />
 
-                    <Message required
-                        title       = "Message cannot be blank or empty"
+                    <Message required multiline
+                        title       = { requirements.message }
                         value       = { formValues.message }
                         onChange    = { handleChange }
                         rows        = { 5 }
@@ -131,7 +137,7 @@ export function ContactPage() {
 
                     <Address required
                         type        = "email"
-                        title       = 'Your email address, for example: "your.address@example.com"'
+                        title       = { requirements.address }
                         pattern     = "[^\s@]+@[^\s@]+\.[^\s@]{2,}"
                         value       = { formValues.address }
                         onChange    = { handleChange }
@@ -185,22 +191,19 @@ const Email = styled.form({
     }
 });
 
-const Subject = styled.input(({ theme }) => ({
-    gridArea: 'subject',
-    ...theme.styles.controls.textbox
-}));
+const Subject = styled(TextField)({
+    gridArea: 'subject'
+});
 
-const Message = styled.textarea(({ theme }) => ({
+const Message = styled(TextField)({
     gridArea:   'message',
     resize:     'vertical',
-    minHeight:  '10rem',
-    ...theme.styles.controls.textbox
-}));
+    minHeight:  '10rem'
+});
 
-const Address = styled.input(({ theme }) => ({
-    gridArea: 'address',
-    ...theme.styles.controls.textbox
-}));
+const Address = styled(TextField)({
+    gridArea: 'address'
+});
 
 const Actions = styled(ButtonGroup)({
     gridArea: 'actions',

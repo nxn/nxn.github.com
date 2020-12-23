@@ -174,19 +174,20 @@ export const styles: Styles = {
                     opacity: 0.2
                 }
             },
+            '&.invalid': {
+                borderColor: palette.error.main
+            },
 
             // Firefox applies its own invalid field effect after the user updates a field value or attempts to submit
             // the form. The effect is associated with ':-moz-ui-invalid':
             '&:-moz-ui-invalid': {
-                // Instead of using Firefox's red box-shadow glow, update the border color to reflect the error.
-                boxShadow: 'none',
-                borderColor: palette.error.main,
-            },
+                boxShadow: 'none'
+            }
 
             // No browser actually supports this right now
-            '&:user-invalid': {
-                borderColor: palette.error.main,
-            }
+            //'&:user-invalid': {
+                //borderColor: palette.error.main,
+            //}
         },
         button: {
             fontFamily:     '"Open Sans", sans-serif',

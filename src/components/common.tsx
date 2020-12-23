@@ -5,7 +5,7 @@ import CodeBlock from "./codeblock";
 
 // Since most internal links will be done via Gatsby's Link component, the default anchor element should set noreferrer
 // and target="_blank" for convenience.
-const ExtAnchor = (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) => 
+const ExtAnchor = (props: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) => 
     <a target="_blank" rel="noreferrer" {...props} />
 
 // CodeBlock (more specifically, prism-react-renderer) creates its own `pre` block. To prevent it from getting nested
