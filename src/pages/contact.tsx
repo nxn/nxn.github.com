@@ -42,8 +42,9 @@ const requirements: { [ key: string ]: string } = {
 const blank: Message = { subject: '', body: '', address: '' };
 
 export function ContactPage() {
-    const dispatch = useDispatch();
-    const message = useSelector(selectAll);
+    const dispatch      = useDispatch();
+    const message       = useSelector(selectAll);
+    const historyIndex  = useSelector(selectIndex);
 
     const [formValues, setFormValues] = React.useState<Message>(message);
 
@@ -104,7 +105,6 @@ export function ContactPage() {
         //      give option to undo via captured reference to present state
 
         clearForm();
-
         const form = event.target as HTMLFormElement;
         form.querySelectorAll('.invalid').forEach((element: Element) => {
             element.classList.remove('invalid');
@@ -113,10 +113,9 @@ export function ContactPage() {
         notify({
             type:       "info",
             message:    "Draft has been discarded.",
-            // actions: [{
-            //     name: "Undo",
-            //     action: () => setFormValues(backup)
-            // }]
+            actions: historyIndex ? [{
+                name: "Undo", action: ActionCreators.jumpToPast(historyIndex)
+            }] : undefined
         });
     }
 

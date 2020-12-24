@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, Action } from '@reduxjs/toolkit';
 import store from './store';
 
 export type SnackbarItemType = "success" | "error" | "info" | "warning";
 
 export interface SnackbarAction {
     name: string,
-    action: { type: string, payload: any };
+    action: Action<any>;
 }
 
 export interface SnackbarItem {

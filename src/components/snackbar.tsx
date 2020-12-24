@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { Action } from '@reduxjs/toolkit';
 
+import { Button, ButtonGroup } from './button';
 import { selectAll, dismiss } from '../state/snackbar'
 
 export type SnackbarProps = {
@@ -9,12 +11,23 @@ export type SnackbarProps = {
 }
 
 export function SnackbarUnstyled(props: SnackbarProps) {
+    const dispatch = useDispatch();
     const alerts = useSelector(selectAll);
+
     return (
         <div className={ props.className }>
             { alerts.map(alert => (
                 <Alert key={ alert.id } className={ alert.type }>
                     { alert.message }
+                    { alert.actions && alert.actions.length > 0 &&
+                        <ButtonGroup>
+                            {alert.actions.map((action, index) => (
+                                <Button key={ index } onClick={ () => dispatch(action.action) }>
+                                    { action.name }
+                                </Button>
+                            ))}
+                        </ButtonGroup>
+                    }
                 </Alert>
             ))}
         </div>
