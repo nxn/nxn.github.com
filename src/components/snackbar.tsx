@@ -9,8 +9,7 @@ export type SnackbarProps = {
 }
 
 export function SnackbarUnstyled(props: SnackbarProps) {
-    const alerts = useSelector((state) => state.snackbar) || [];
-    console.log(alerts);
+    const alerts = useSelector(selectAll);
     return (
         <div className={ props.className }>
             { alerts.map(alert => (

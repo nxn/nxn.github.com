@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import draftReducer from './draft';
+import messageReducer from './message';
 import snackbarReducer from './snackbar';
 
 export default configureStore({
     reducer: {
-        draft: draftReducer,
+        message: messageReducer,
         snackbar: snackbarReducer
     }
 });

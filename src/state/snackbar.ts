@@ -5,7 +5,7 @@ export type SnackbarItemType = "success" | "error" | "info" | "warning";
 
 export interface SnackbarAction {
     name: string,
-    //action: () => void;
+    action: { type: string, payload: any };
 }
 
 export interface SnackbarItem {
@@ -21,10 +21,10 @@ export const snackbarSlice = createSlice({
     name: 'snackbar',
     initialState: [] as SnackbarItem[],
     reducers: {
-        push: (state, action: { type: string, payload: SnackbarItem }) => {
+        push: (state, action: { payload: SnackbarItem }) => {
             state.push(action.payload);
         },
-        remove: (state, action: { type: string, payload: number }) => {
+        remove: (state, action: { payload: number }) => {
             const index = state.findIndex(item => item.id === action.payload);
             if (index >= 0) {
                 state.splice(index, 1);
@@ -32,6 +32,8 @@ export const snackbarSlice = createSlice({
         }
     }
 });
+
+export const selectAll = (state: { snackbar: SnackbarItem[] }) => { return state.snackbar; }
 
 export default snackbarSlice.reducer;
 
