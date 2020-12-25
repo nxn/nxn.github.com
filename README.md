@@ -18,3 +18,4 @@ TODO:
         -TBD
     - Misc
         Hamlet
+        Create typography section of theme

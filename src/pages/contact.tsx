@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ActionCreators } from 'redux-undo';
 
 import Layout from "../components/layout";
@@ -94,7 +94,7 @@ export function ContactPage() {
             type: "info",
             message: "Draft has been discarded.",
             actions: [{
-                name: "Undo", dismiss: true, action: ActionCreators.undo()
+                name: "Undo", dismiss: true, action: { type: 'message/undo' }
             }]
         });
     }

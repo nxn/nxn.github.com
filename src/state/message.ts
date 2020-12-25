@@ -7,7 +7,7 @@ export interface Message {
     address:    string
 };
 
-const messageSlice = createSlice({
+export const messageSlice = createSlice({
     name: 'message',
     // Get initial state from localStorage
     initialState: { subject: '', body: '', address: '' } as Message,
@@ -37,8 +37,10 @@ const messageSlice = createSlice({
 // export const { subjectUpdate, messageUpdate, addressUpdate, update, clear } = draftSlice.actions;
 // export default draftSlice.reducer;
 
-const undoableDraft = undoable(messageSlice.reducer, {
-    limit: 1
+export const undoableDraft = undoable(messageSlice.reducer, {
+    limit: 1,
+    undoType: 'message/undo',
+    redoType: 'message/redo'
 });
 
 export const { subjectUpdate, bodyUpdate, addressUpdate, update, clear } = messageSlice.actions;
