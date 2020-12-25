@@ -43,11 +43,11 @@ const undoableDraft = undoable(messageSlice.reducer, {
 
 export const { subjectUpdate, bodyUpdate, addressUpdate, update, clear } = messageSlice.actions;
 
-export const selectAll     = (state: { message: StateWithHistory<Message> }) => state.message.present;
-export const selectSubject = (state: { message: StateWithHistory<Message> }) => state.message.present.subject;
-export const selectBody    = (state: { message: StateWithHistory<Message> }) => state.message.present.body;
-export const selectAddress = (state: { message: StateWithHistory<Message> }) => state.message.present.address;
-export const selectIndex   = (state: { message: StateWithHistory<Message> }) => state.message.index;
+export const selectAll     = ({ message }: { message: StateWithHistory<Message> }) => message.present;
+export const selectSubject = ({ message }: { message: StateWithHistory<Message> }) => message.present.subject;
+export const selectBody    = ({ message }: { message: StateWithHistory<Message> }) => message.present.body;
+export const selectAddress = ({ message }: { message: StateWithHistory<Message> }) => message.present.address;
+export const selectIndex   = ({ message }: { message: StateWithHistory<Message> }) => message.index;
 
 
 export default undoableDraft

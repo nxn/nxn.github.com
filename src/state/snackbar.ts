@@ -35,7 +35,7 @@ export const snackbarSlice = createSlice({
     }
 });
 
-export const selectAll = (state: { snackbar: SnackbarItem[] }) => { return state.snackbar; }
+export const selectAll = ({ snackbar }: { snackbar: SnackbarItem[] }) => { return snackbar; }
 
 export default snackbarSlice.reducer;
 
@@ -70,12 +70,18 @@ export const notify = (alert: AlertData) => {
     const id = Date.now();
 
     store.dispatch(
-        push({ id, timeout: window.setTimeout(() => dismiss(id), duration), ...payload } as SnackbarItem)
+        push({ id, timeout: window.setTimeout(() => store.dispatch(remove(id)), duration), ...payload } as SnackbarItem)
     );
 
     return id;
 };
 
 export const dismiss = (id: number) => {
+    const item = store.getState().snackbar.find(item => item.id === id);
+
+    if (item && item.timeout) {
+        window.clearTimeout(item.timeout);
+    }
+
     store.dispatch(remove(id));
 }
