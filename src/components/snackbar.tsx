@@ -21,9 +21,9 @@ export function SnackbarUnstyled(props: SnackbarProps) {
                     { alert.message }
                     { alert.actions && alert.actions.length > 0 &&
                         <ButtonGroup>
-                            {alert.actions.map((action, index) => (
-                                <Button key={ index } onClick={ () => dispatch(action.action) }>
-                                    { action.name }
+                            { alert.actions.map((item, index) => (
+                                <Button key={ index } onClick={ () => dispatch(item.action) }>
+                                    { item.name }
                                 </Button>
                             ))}
                         </ButtonGroup>

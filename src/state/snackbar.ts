@@ -4,8 +4,10 @@ import store from './store';
 export type SnackbarItemType = "success" | "error" | "info" | "warning";
 
 export interface SnackbarAction {
-    name: string,
-    action: Action<any>;
+    name:       string;
+    action:     Action<any>;
+    /// If true executing the action will also dismiss the snackbar item
+    dismiss?:   boolean;
 }
 
 export interface SnackbarItem {
@@ -40,10 +42,10 @@ export default snackbarSlice.reducer;
 const { push, remove } = snackbarSlice.actions;
 
 const defaultDurationMap: { [ P in SnackbarItemType ]: number } = {
-    "success":  2000,
-    "error":    5000,
-    "info":     3000,
-    "warning":  5000
+    "success":  3000,
+    "error":    10000,
+    "info":     5000,
+    "warning":  10000
 }
 
 export type AlertData = {

@@ -38,7 +38,7 @@ const messageSlice = createSlice({
 // export default draftSlice.reducer;
 
 const undoableDraft = undoable(messageSlice.reducer, {
-    limit: 10
+    limit: 1
 });
 
 export const { subjectUpdate, bodyUpdate, addressUpdate, update, clear } = messageSlice.actions;
