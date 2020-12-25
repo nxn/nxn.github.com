@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Action } from '@reduxjs/toolkit';
 
 import { Button, ButtonGroup } from './button';
-import { selectAll, dismiss } from '../state/snackbar'
+import { selectAll, dismiss, SnackbarItem, SnackbarAction } from '../state/snackbar'
 
 export type SnackbarProps = {
     className?: string
@@ -14,6 +14,14 @@ export function SnackbarUnstyled(props: SnackbarProps) {
     const dispatch = useDispatch();
     const alerts = useSelector(selectAll);
 
+    const handleActionClick = (alert: SnackbarItem, action: SnackbarAction) => {
+        dispatch(action.action);
+        
+        if (action.dismiss) {
+            dismiss(alert.id);
+        }
+    }
+
     return (
         <div className={ props.className }>
             { alerts.map(alert => (
@@ -22,7 +30,7 @@ export function SnackbarUnstyled(props: SnackbarProps) {
                     { alert.actions && alert.actions.length > 0 &&
                         <ButtonGroup>
                             { alert.actions.map((item, index) => (
-                                <Button key={ index } onClick={ () => dispatch(item.action) }>
+                                <Button key={ index } onClick={ () => handleActionClick(alert, item) }>
                                     { item.name }
                                 </Button>
                             ))}

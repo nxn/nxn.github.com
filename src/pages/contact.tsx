@@ -94,7 +94,7 @@ export function ContactPage() {
             type: "info",
             message: "Draft has been discarded.",
             actions: [{
-                name: "Undo", action: ActionCreators.undo()
+                name: "Undo", dismiss: true, action: ActionCreators.undo()
             }]
         });
     }
