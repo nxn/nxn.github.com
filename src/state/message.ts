@@ -2,6 +2,7 @@ import { Action, ActionCreator, Middleware, PayloadAction, createSlice } from '@
 import undoable, { StateWithHistory } from 'redux-undo'
 
 export const MESSAGE_SLICE = 'message';
+const LOCAL_STORAGE_PREFIX = `nxn.io:${ MESSAGE_SLICE }`;
 
 export type MessageField = 'subject' | 'body' | 'address';
 
@@ -17,10 +18,25 @@ export interface Message {
     address:    string
 };
 
+function getInitialState() {
+    try {
+        return {
+            subject:    localStorage.getItem(`${ LOCAL_STORAGE_PREFIX }/${ MESSAGE_FIELDS.Subject }`)   || '',
+            body:       localStorage.getItem(`${ LOCAL_STORAGE_PREFIX }/${ MESSAGE_FIELDS.Body }`)      || '',
+            address:    localStorage.getItem(`${ LOCAL_STORAGE_PREFIX }/${ MESSAGE_FIELDS.Subject }`)   || '',
+        }
+    }
+    catch (error) {
+        console.error(error);
+    }
+
+    return { subject: '', body: '', address: '' };
+}
+
 export const messageSlice = createSlice({
     name: MESSAGE_SLICE,
     // Get initial state from localStorage
-    initialState: { subject: '', body: '', address: '' } as Message,
+    initialState: getInitialState(),
     reducers: {
         subjectUpdate: (state: Message, action: { payload: string }) => {
             state.subject = action.payload;
@@ -71,16 +87,6 @@ export const selectAddress = ({ message }: { message: StateWithHistory<Message> 
 export const selectIndex   = ({ message }: { message: StateWithHistory<Message> }) => message.index;
 
 
-function diff<T>(obj1: T, obj2: T) {
-    let result: { [P in keyof T]?: T[P] } | null = null;
-    for (let key in obj1) {
-        if (obj1[key] !== obj2[key]) {
-            if (!result) result = { };
-            result[key] = obj2[key]
-        }
-    }
-    return result;
-}
 
 export const persistenceMiddleware: Middleware = store => next => (action: PayloadAction<string>) => {
     if (!action.type.startsWith(MESSAGE_SLICE)) {
@@ -91,18 +97,32 @@ export const persistenceMiddleware: Middleware = store => next => (action: Paylo
     const result    = next(action);
     const newState  = selectAll(store.getState());
     
-    const changes = diff(oldState, newState);
+    const changes = diff(oldState, newState) as { [ key: string ]: string } | null;
 
     if (!changes) {
         return result;
     }
 
-    // save to persistent store asynchronously to not hold anything up
-    window.setTimeout(() => {
-        for (let key in changes) {
-            console.log(key, changes[key as keyof typeof changes]);
-        }
-    });
+    for (let key in changes) {
+        // save to persistent store asynchronously to not hold anything up
+        window.setTimeout(() => {
+            try {
+                localStorage.setItem(`${ LOCAL_STORAGE_PREFIX }/${ key }`, changes[key]);
+            }
+            catch (error) { console.error(error); }
+        });
+    }
 
+    return result;
+}
+
+function diff<T>(obj1: T, obj2: T) {
+    let result: { [P in keyof T]?: T[P] } | null = null;
+    for (let key in obj1) {
+        if (obj1[key] !== obj2[key]) {
+            if (!result) result = { };
+            result[key] = obj2[key]
+        }
+    }
     return result;
 }
