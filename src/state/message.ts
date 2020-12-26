@@ -1,5 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { Action, ActionCreator, Middleware, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import undoable, { StateWithHistory } from 'redux-undo'
+
+export const MESSAGE_SLICE = 'message';
+
+export type MessageField = 'subject' | 'body' | 'address';
+
+export const MESSAGE_FIELDS = {
+    Subject:    'subject'   as MessageField,
+    Body:       'body'      as MessageField,
+    Address:    'address'   as MessageField,
+}
 
 export interface Message {
     subject:    string,
@@ -8,7 +18,7 @@ export interface Message {
 };
 
 export const messageSlice = createSlice({
-    name: 'message',
+    name: MESSAGE_SLICE,
     // Get initial state from localStorage
     initialState: { subject: '', body: '', address: '' } as Message,
     reducers: {
@@ -34,16 +44,25 @@ export const messageSlice = createSlice({
     }
 });
 
-// export const { subjectUpdate, messageUpdate, addressUpdate, update, clear } = draftSlice.actions;
-// export default draftSlice.reducer;
+export const MESSAGE_UNDO = `${ MESSAGE_SLICE }/undo`;
+export const MESSAGE_REDO = `${ MESSAGE_SLICE }/redo`;
+
+export const { subjectUpdate, bodyUpdate, addressUpdate, update, clear } = messageSlice.actions;
+export const undo: ActionCreator<Action<string>> = () => ({ type: MESSAGE_UNDO });
+export const redo: ActionCreator<Action<string>> = () => ({ type: MESSAGE_REDO });
+export const fieldUpdate = (field: MessageField, payload: string) => ({ 
+    type: `${ MESSAGE_SLICE }/${ field }Update`, 
+    payload
+});
 
 export const undoableDraft = undoable(messageSlice.reducer, {
     limit: 1,
-    undoType: 'message/undo',
-    redoType: 'message/redo'
+    undoType: MESSAGE_UNDO,
+    redoType: MESSAGE_REDO,
 });
 
-export const { subjectUpdate, bodyUpdate, addressUpdate, update, clear } = messageSlice.actions;
+export default undoableDraft;
+
 
 export const selectAll     = ({ message }: { message: StateWithHistory<Message> }) => message.present;
 export const selectSubject = ({ message }: { message: StateWithHistory<Message> }) => message.present.subject;
@@ -52,4 +71,38 @@ export const selectAddress = ({ message }: { message: StateWithHistory<Message> 
 export const selectIndex   = ({ message }: { message: StateWithHistory<Message> }) => message.index;
 
 
-export default undoableDraft
+function diff<T>(obj1: T, obj2: T) {
+    let result: { [P in keyof T]?: T[P] } | null = null;
+    for (let key in obj1) {
+        if (obj1[key] !== obj2[key]) {
+            if (!result) result = { };
+            result[key] = obj2[key]
+        }
+    }
+    return result;
+}
+
+export const persistenceMiddleware: Middleware = store => next => (action: PayloadAction<string>) => {
+    if (!action.type.startsWith(MESSAGE_SLICE)) {
+        return next(action);
+    }
+
+    const oldState  = selectAll(store.getState());
+    const result    = next(action);
+    const newState  = selectAll(store.getState());
+    
+    const changes = diff(oldState, newState);
+
+    if (!changes) {
+        return result;
+    }
+
+    // save to persistent store asynchronously to not hold anything up
+    window.setTimeout(() => {
+        for (let key in changes) {
+            console.log(key, changes[key as keyof typeof changes]);
+        }
+    });
+
+    return result;
+}

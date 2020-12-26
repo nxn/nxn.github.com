@@ -1,30 +1,34 @@
-import React from "react";
-import styled from "@emotion/styled";
+import React                        from "react";
+import styled                       from "@emotion/styled";
 import { useDispatch, useSelector } from 'react-redux';
-import { ActionCreators } from 'redux-undo';
 
-import Layout from "../components/layout";
-import { PageHeading } from "../components/common";
-import { Button, ButtonGroup } from "../components/button";
-import { TextField } from "../components/textfield";
-import { notify } from "../state/snackbar";
-import {
-    selectAll,
-    selectIndex,
-    clear 
+import Layout                   from "../components/layout";
+import { PageHeading }          from "../components/common";
+import { Button, ButtonGroup }  from "../components/button";
+import { TextField }            from "../components/textfield";
+
+import { alert } from "../state/snackbar";
+import { 
+    selectAll, 
+    MESSAGE_FIELDS, 
+    MessageField, 
+    fieldUpdate, 
+    clear, 
+    undo
 } from "../state/message";
+
+import graphics from "../images/graphics.svg";
 
 /* Contact Page
 The contact form uses uncontrolled components that, during certain key events, transmit their state to a redux store.
 This enables the form to have time travel capability via redux-undo, and also enables the state to be saved to 
-`localStorage` without having to directly manage persistance here.
+`localStorage` without having to directly manage its persistance here (done via redux middleware).
 
-The field events that trigger the state to be transmitted to redux are:
-    `onBlur`: state is saved immediately
-    `onInput`: only happens if there is a specified and uninterrupted delay following the last user input.
+The events that trigger the state to be transmitted to redux are:
+    `onBlur`: field state is saved immediately
+    `onInput`: field state saved only if there is a specified and uninterrupted delay following the last user input.
+    `onReset`: all field states saved immediately
 */
-
-import graphics from "../images/graphics.svg";
 
 // Fields will be autosaved this many milliseconds after the last user modification.
 const autoSaveDelay = 500;
@@ -48,7 +52,7 @@ export function ContactPage() {
         // Any existing autoSave timeout should be cancelled so that it doesn't interfere with the state after the form
         // has been cleared.
         if (autoSave) {
-            clearTimeout(autoSave);
+            window.clearTimeout(autoSave);
             setAutoSave(0);
         }
         dispatch(clear());
@@ -57,26 +61,26 @@ export function ContactPage() {
     const handleFieldBlur = (event: React.FocusEvent<HTMLInputElement|HTMLTextAreaElement>) => {
         // Any existing auto-save timer can be cancelled and an immediate save can be performed instead of waiting.
         if (autoSave) {
-            clearTimeout(autoSave);
+            window.clearTimeout(autoSave);
             setAutoSave(0);
         }
         const { name, value } = event.target;
-        dispatch({ type: `message/${ name }Update`, payload: value });
+        dispatch(fieldUpdate(name as MessageField, value));
     }
 
     const handleFieldInput = (event: React.FormEvent<HTMLInputElement|HTMLTextAreaElement>) => {
         const { name, value } = event.target as HTMLInputElement | HTMLTextAreaElement;
 
-        // Form Auto-Save:
+        // Field Auto-Save:
         // On each input cancel any existing timeout and set a new one. This effectively prevents the auto-save from
         // triggering while user modifications are still being made. In order for auto-save to execute, a period of
         // `autoSaveDelay` must pass uninterrupted since the last user input.
         if (autoSave) {
-            clearTimeout(autoSave);
+            window.clearTimeout(autoSave);
         }
         setAutoSave(
             window.setTimeout(
-                () => dispatch({ type: `message/${ name }Update`, payload: value }), 
+                () => dispatch(fieldUpdate(name as MessageField, value)), 
                 autoSaveDelay
             )
         );
@@ -90,13 +94,13 @@ export function ContactPage() {
             element.classList.remove('invalid');
         });
 
-        notify({
+        dispatch(alert({
             type: "info",
             message: "Draft has been discarded.",
             actions: [{
-                name: "Undo", dismiss: true, action: { type: 'message/undo' }
+                name: "Undo", dismiss: true, action: undo()
             }]
-        });
+        }));
     }
 
     const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -139,7 +143,7 @@ export function ContactPage() {
                         defaultValue    = { message.subject }
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }
-                        name            = "subject"
+                        name            = { MESSAGE_FIELDS.Subject }
                         placeholder     = "Subject" />
 
                     <Body required multiline
@@ -148,7 +152,7 @@ export function ContactPage() {
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }
                         rows            = { 5 }
-                        name            = "body"
+                        name            = { MESSAGE_FIELDS.Body }
                         placeholder     = "Message" />
 
                     <Address required
@@ -158,7 +162,7 @@ export function ContactPage() {
                         defaultValue    = { message.address }
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }
-                        name            = "address" 
+                        name            = { MESSAGE_FIELDS.Address }
                         placeholder     = "Your email" />
                         
                     <Actions>

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { useSelector, useDispatch } from 'react-redux'
-import { Action } from '@reduxjs/toolkit';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Button, ButtonGroup } from './button';
 import { selectAll, dismiss, SnackbarItem, SnackbarAction } from '../state/snackbar'
@@ -16,9 +15,9 @@ export function SnackbarUnstyled(props: SnackbarProps) {
 
     const handleActionClick = (alert: SnackbarItem, action: SnackbarAction) => {
         dispatch(action.action);
-        
+
         if (action.dismiss) {
-            dismiss(alert.id);
+            dispatch(dismiss(alert.id));
         }
     }
 

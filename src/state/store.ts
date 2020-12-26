@@ -1,14 +1,16 @@
 import { configureStore, applyMiddleware } from '@reduxjs/toolkit'
 
-import messageReducer from './message';
-import snackbarReducer from './snackbar';
+import messageReducer, { persistenceMiddleware } from './message';
+import snackbarReducer, { autoDismissMiddleware } from './snackbar';
 
-import messagePersistence from './persistence';
 
 export default configureStore({
     reducer: {
         message: messageReducer,
         snackbar: snackbarReducer
     },
-    enhancers: [ applyMiddleware(messagePersistence) ]
+    enhancers: [ 
+        applyMiddleware(persistenceMiddleware), 
+        applyMiddleware(autoDismissMiddleware)
+    ]
 });
