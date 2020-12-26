@@ -79,14 +79,11 @@ export const undoableDraft = undoable(messageSlice.reducer, {
 
 export default undoableDraft;
 
-
 export const selectAll     = ({ message }: { message: StateWithHistory<Message> }) => message.present;
 export const selectSubject = ({ message }: { message: StateWithHistory<Message> }) => message.present.subject;
 export const selectBody    = ({ message }: { message: StateWithHistory<Message> }) => message.present.body;
 export const selectAddress = ({ message }: { message: StateWithHistory<Message> }) => message.present.address;
 export const selectIndex   = ({ message }: { message: StateWithHistory<Message> }) => message.index;
-
-
 
 export const persistenceMiddleware: Middleware = store => next => (action: PayloadAction<string>) => {
     if (!action.type.startsWith(MESSAGE_SLICE)) {

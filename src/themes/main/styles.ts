@@ -212,7 +212,7 @@ export const styles: Styles = {
             transitionDuration: '60ms',
             transitionTimingFunction: 'ease-out',
 
-            '&:active': {
+            '&:focus:active': {
                 transform: 'scale(.95)',
                 opacity: 0.8,
 
@@ -242,6 +242,15 @@ export const styles: Styles = {
                 },
                 '&:focus': {
                     boxShadow: `inset 0 0 0 0.25rem ${ palette.bgs.secondary.light }`,
+                }
+            },
+
+            '&:disabled, &:disabled:hover': {
+                backgroundColor: palette.bgs.disabled.main,
+                color: palette.actions.disabled.main,
+                cursor: 'default',
+                '&:focus': {
+                    boxShadow: `inset 0 0 0 0.25rem ${ palette.bgs.disabled.light }`,
                 }
             },
 

@@ -48,6 +48,8 @@ export function ContactPage() {
     const [autoSave, setAutoSave] = React.useState(0);
     const [disabled, setDisabled] = React.useState(false);
 
+    let hasDraft = !!message.subject || !!message.body || !!message.address;
+
     const clearForm = () => {
         // Any existing autoSave timeout should be cancelled so that it doesn't interfere with the state after the form
         // has been cleared.
@@ -70,7 +72,7 @@ export function ContactPage() {
 
     const handleFieldInput = (event: React.FormEvent<HTMLInputElement|HTMLTextAreaElement>) => {
         const { name, value } = event.target as HTMLInputElement | HTMLTextAreaElement;
-
+        
         // Field Auto-Save:
         // On each input cancel any existing timeout and set a new one. This effectively prevents the auto-save from
         // triggering while user modifications are still being made. In order for auto-save to execute, a period of
@@ -170,7 +172,7 @@ export function ContactPage() {
                             <svg className="icon"><use href={ `${ graphics }#icon-send` } /></svg>
                             Send It
                         </Button>
-                        <Button type="reset" color="secondary">
+                        <Button type="reset" color="secondary" disabled={ disabled || !hasDraft }>
                             <svg className="icon"><use href={ `${ graphics }#icon-trash` } /></svg>
                             Discard
                         </Button>

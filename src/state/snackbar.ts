@@ -1,5 +1,4 @@
 import { createSlice, Middleware, PayloadAction, Action } from '@reduxjs/toolkit';
-import store from './store';
 
 export const SNACKBAR_SLICE = 'snackbar';
 

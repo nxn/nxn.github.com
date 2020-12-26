@@ -19,6 +19,10 @@ export const palette: Palette = {
             main:   '#141b22',
             light:  '#18252d',
             dark:   '#0c1317'
+        },
+        disabled: {
+            main: '#1b1a22',
+            light: '#25242c'
         }
     },
     
@@ -46,6 +50,9 @@ export const palette: Palette = {
         secondary: {
             main:   '#94B1A3',
             light:  '#B0D0C1'
+        },
+        disabled: {
+            main: '#777'
         }
     },
 

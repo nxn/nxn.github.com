@@ -13,7 +13,8 @@ declare module '@emotion/react' {
         bgs: {
             standard:   ColorVariants,
             primary:    ColorVariants,
-            secondary:  ColorVariants
+            secondary:  ColorVariants,
+            disabled:   ColorVariants,
         },
 
         text: {
@@ -26,6 +27,7 @@ declare module '@emotion/react' {
         actions: {
             primary:    ColorVariants,
             secondary:  ColorVariants,
+            disabled:   ColorVariants
         },
 
         error: ColorVariants,

@@ -8,7 +8,8 @@ export const palette: Palette = {
             main: '#f7f7f7'
         },
         primary:    empty,
-        secondary:  empty
+        secondary:  empty,
+        disabled:   empty
     },
     text: {
         standard: {
@@ -18,7 +19,8 @@ export const palette: Palette = {
     },
     actions: {
         primary:    empty,
-        secondary:  empty
+        secondary:  empty,
+        disabled:   empty
     },
     nav: {
         main:   '#000',
