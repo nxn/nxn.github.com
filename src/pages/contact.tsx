@@ -4,20 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Layout                   from "../components/layout";
 import { PageHeading }          from "../components/common";
-import { Button, ButtonGroup }  from "../components/button";
-import { TextField }            from "../components/textfield";
+import { Button, ButtonGroup }  from "../components/controls/button";
+import { TextField }            from "../components/controls/textfield";
 
 import { alert } from "../state/snackbar";
 import { 
     selectAll, 
-    MESSAGE_FIELDS, 
+    MESSAGE_FIELDS,
     MessageField, 
-    fieldUpdate, 
+    fieldUpdate,
     clear, 
     undo
 } from "../state/message";
 
-import graphics from "../images/graphics.svg";
+import {
+    SendIcon,
+    TrashIcon
+} from "../components/graphics";
 
 /* Contact Page
 The contact form uses uncontrolled components that, during certain key events, transmit their state to a redux store.
@@ -48,7 +51,9 @@ export function ContactPage() {
     const [autoSave, setAutoSave] = React.useState(0);
     const [disabled, setDisabled] = React.useState(false);
 
-    let hasDraft = !!message.subject || !!message.body || !!message.address;
+    // Determines whether discarding the form contents should be enabled based on whether there's any saved data at the
+    // moment.
+    const hasDraft = !!message.subject || !!message.body || !!message.address;
 
     const clearForm = () => {
         // Any existing autoSave timeout should be cancelled so that it doesn't interfere with the state after the form
@@ -98,7 +103,7 @@ export function ContactPage() {
 
         dispatch(alert({
             type: "info",
-            message: "Draft has been discarded.",
+            message: "Draft discarded",
             actions: [{
                 name: "Undo", dismiss: true, action: undo()
             }]
@@ -169,11 +174,11 @@ export function ContactPage() {
                         
                     <Actions>
                         <Button type="submit" color="primary">
-                            <svg className="icon"><use href={ `${ graphics }#icon-send` } /></svg>
+                            <SendIcon className="icon" />
                             Send It
                         </Button>
                         <Button type="reset" color="secondary" disabled={ disabled || !hasDraft }>
-                            <svg className="icon"><use href={ `${ graphics }#icon-trash` } /></svg>
+                            <TrashIcon className="trash" />
                             Discard
                         </Button>
                     </Actions>

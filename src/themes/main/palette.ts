@@ -21,8 +21,8 @@ export const palette: Palette = {
             dark:   '#0c1317'
         },
         disabled: {
-            main: '#1b1a22',
-            light: '#25242c'
+            main:   '#1b1a22',
+            light:  '#25242c'
         }
     },
     
@@ -52,7 +52,7 @@ export const palette: Palette = {
             light:  '#B0D0C1'
         },
         disabled: {
-            main: '#777'
+            main: '#666'
         }
     },
 

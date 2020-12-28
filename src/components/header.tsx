@@ -2,7 +2,15 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import { Link } from "gatsby";
-import graphics from "../images/graphics.svg";
+//import graphics from "../images/graphics.svg";
+
+import {
+    Logo,
+    MenuIcon,
+    DocIcon,
+    GeoIcon,
+    MailIcon,
+} from "./graphics";
 
 type HeaderProps = {
     className?: string
@@ -12,14 +20,11 @@ export function HeaderUnstyled(props: HeaderProps) {
     return (
         <header className={ props.className }>
             <Link id="site-link" to="/">
-                <svg id="site-name">
-                    <title>nxn.io</title>
-                    <use href={ `${ graphics }#nxn-text` } />
-                </svg>
+                <Logo id="site-name" title="nxn.io" variant="text" />
             </Link>
 
             <label id="menu-btn" htmlFor="menu-toggle">
-                <svg className="icon"><use href={ `${ graphics }#icon-menu` } /></svg>
+                <MenuIcon className="icon" />
             </label>
 
             <input id="menu-toggle" type="checkbox" className="hidden" />
@@ -27,18 +32,18 @@ export function HeaderUnstyled(props: HeaderProps) {
             <ul id="links">
                 <li>
                     <Link to="/resume">
-                        <svg className="icon"><use href={ `${ graphics }#icon-doc` } /></svg>
+                        <DocIcon className="icon" />
                         Resume
                     </Link>
                 </li>
                 <li>
                     <Link to="/contact">
-                        <svg className="icon"><use href={ `${ graphics }#icon-mail` } /></svg>
+                        <MailIcon className="icon" />
                         Contact
                     </Link>
                 </li>
                 <li className="location">
-                    <svg className="icon"><use href={ `${ graphics }#icon-geo` } /></svg>
+                    <GeoIcon className="icon" />
                     Philadelphia
                 </li>
             </ul> 

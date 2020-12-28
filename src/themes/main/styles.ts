@@ -199,9 +199,7 @@ export const styles: Styles = {
             height:         '2.5rem',
             lineHeight:     '2.5rem',
             display:        'inline-block',
-            padding:        '0rem 1.5rem',
             border:         0,
-            borderRadius:   '1.25rem',
             boxSizing:      'border-box',
             cursor:         'pointer',
         
@@ -229,7 +227,7 @@ export const styles: Styles = {
                     backgroundColor:    palette.bgs.primary.light,
                 },
                 '&:focus': {
-                    boxShadow: `inset 0 0 0 0.25rem ${ palette.bgs.primary.light }`,
+                    boxShadow: `inset 0 0 0 0.25rem ${ palette.bgs.primary.light }`
                 }
             },
         
@@ -251,6 +249,27 @@ export const styles: Styles = {
                 cursor: 'default',
                 '&:focus': {
                     boxShadow: `inset 0 0 0 0.25rem ${ palette.bgs.disabled.light }`,
+                }
+            },
+
+            '&.standard': {
+                borderRadius:   '1.25rem',
+                padding:        '0rem 1.5rem'
+            },
+
+            '&.minimal': {
+                padding: 0,
+                backgroundColor: 'transparent',
+                '&:hover': {
+                    backgroundColor: 'rgba(255,255,255,0.04)'
+                },
+                '&:focus': {
+                    textDecoration: '0.125rem underline',
+                    textUnderlineOffset: '0.4375rem',
+                    boxShadow: 'none'
+                },
+                '&:active': {
+                    textDecoration: 'none'
                 }
             },
 

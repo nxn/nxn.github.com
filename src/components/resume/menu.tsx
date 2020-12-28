@@ -2,7 +2,14 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import { Link } from "../common";
-import graphics from "../../images/graphics.svg";
+
+import {
+    DocIcon,
+    MailIcon,
+    WebIcon,
+    GeoIcon,
+    EmailAddress,
+} from "../graphics"
 
 type MenuProps = {
     className?: string
@@ -13,28 +20,22 @@ export function MenuUnstyled(props: MenuProps) {
         <ul className={ props.className }>
             <li className="doc">
                 <a className="pdf" href="<%= require('./downloads/ewieczorek.pdf').default %>" target="_blank">
-                    <svg className="icon">
-                        <use href={ `${ graphics }#icon-doc` } />
-                    </svg>
+                    <DocIcon className="icon" />
                     Download PDF
                 </a>
             </li>
             <li className="email">
-                <svg className="icon"><use href={ `${ graphics }#icon-mail` } /></svg>
-                <svg className="address"><use href={ `${ graphics }#mail-address` } /></svg>
+                <MailIcon className="icon" />
+                <EmailAddress className="address" />
             </li>
             <li className="web">
                 <Link to="/">
-                    <svg className="icon">
-                        <use href={ `${ graphics }#icon-web` } />
-                    </svg>
+                    <WebIcon className="icon" />
                     www.nxn.io
                 </Link>
             </li>
             <li className="location">
-                <svg className="icon">
-                    <use href={ `${ graphics }#icon-geo` } />
-                </svg>
+                <GeoIcon className="icon" />
                 Philadelphia, PA
             </li>
         </ul>

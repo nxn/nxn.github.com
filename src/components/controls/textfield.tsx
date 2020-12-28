@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { template } from '../util';
+import { template } from '../../util';
 
 // Discriminated union based on `multiline` prop; if it is true the component will render a textarea, otherwise an input 
 // element will be used.

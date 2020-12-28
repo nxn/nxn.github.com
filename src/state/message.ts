@@ -1,8 +1,8 @@
-import { Action, ActionCreator, Middleware, PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Action, ActionCreator, Middleware, PayloadAction, createSlice, Store } from '@reduxjs/toolkit';
 import undoable, { StateWithHistory } from 'redux-undo'
 
 export const MESSAGE_SLICE = 'message';
-const LOCAL_STORAGE_PREFIX = `nxn.io:${ MESSAGE_SLICE }`;
+export const LOCAL_STORAGE_PREFIX = `nxn.io:${ MESSAGE_SLICE }`;
 
 export type MessageField = 'subject' | 'body' | 'address';
 
@@ -18,25 +18,10 @@ export interface Message {
     address:    string
 };
 
-function getInitialState() {
-    try {
-        return {
-            subject:    localStorage.getItem(`${ LOCAL_STORAGE_PREFIX }/${ MESSAGE_FIELDS.Subject }`)   || '',
-            body:       localStorage.getItem(`${ LOCAL_STORAGE_PREFIX }/${ MESSAGE_FIELDS.Body }`)      || '',
-            address:    localStorage.getItem(`${ LOCAL_STORAGE_PREFIX }/${ MESSAGE_FIELDS.Subject }`)   || '',
-        }
-    }
-    catch (error) {
-        console.error(error);
-    }
-
-    return { subject: '', body: '', address: '' };
-}
-
 export const messageSlice = createSlice({
     name: MESSAGE_SLICE,
     // Get initial state from localStorage
-    initialState: getInitialState(),
+    initialState: { subject: '', body: '', address: '' },
     reducers: {
         subjectUpdate: (state: Message, action: { payload: string }) => {
             state.subject = action.payload;
@@ -104,13 +89,34 @@ export const persistenceMiddleware: Middleware = store => next => (action: Paylo
         // save to persistent store asynchronously to not hold anything up
         window.setTimeout(() => {
             try {
-                localStorage.setItem(`${ LOCAL_STORAGE_PREFIX }/${ key }`, changes[key]);
+                window.localStorage.setItem(`${ LOCAL_STORAGE_PREFIX }/${ key }`, changes[key]);
             }
             catch (error) { console.error(error); }
         });
     }
 
     return result;
+}
+
+// Function fetches any persisted message data and dispatches it as an update to the store.
+// 
+// The store itself is created on both the client as well as the server during SSR/SSG compilation. However, since this 
+// data is only available to the client, it cannot be used as the `initialState` input of the `messageSlice`; doing so
+// would cause disparities during client hydration as the data used to render the page would be different from what the
+// client expects. To avoid this issue, the `initialState` is set as empty and this function is expected to be executed 
+// once all depended components are ready to receive state updates (currently this is done via Gatsby's 
+// `onInitialClientRender` browser API call).
+export const loadClientMessageData = (store: Store) => {
+    try {
+        store.dispatch(update({
+            subject:    window.localStorage.getItem(`${ LOCAL_STORAGE_PREFIX }/${ MESSAGE_FIELDS.Subject }`)   || '',
+            body:       window.localStorage.getItem(`${ LOCAL_STORAGE_PREFIX }/${ MESSAGE_FIELDS.Body }`)      || '',
+            address:    window.localStorage.getItem(`${ LOCAL_STORAGE_PREFIX }/${ MESSAGE_FIELDS.Address }`)   || '',
+        }));
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
 
 function diff<T>(obj1: T, obj2: T) {

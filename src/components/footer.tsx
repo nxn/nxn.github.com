@@ -2,7 +2,13 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Link } from "gatsby";
 
-import graphics from "../images/graphics.svg";
+import {
+    Logo,
+    DocIcon,
+    MailIcon,
+    GithubIcon,
+    GeoIcon
+} from "./graphics";
 
 type FooterProps = {
     className?: string
@@ -12,32 +18,32 @@ export function FooterUnstyled(props: FooterProps) {
     return (
         <footer className={ props.className }>
             <div id="footer-logos">
-                <svg className="icon"><use href={ `${ graphics }#logo-no-outline` } /></svg>
-                <svg className="text"><use href={ `${ graphics }#nxn-text` } /></svg>
+                <Logo className="icon" variant="standard" />
+                <Logo className="text" variant="text" />
             </div>
 
             <ul id="footer-list">
                 <li>
                     <Link className="item" to="/resume">
-                        <svg className="icon"><use href={ `${ graphics }#icon-doc` } /></svg>
+                        <DocIcon className="icon" />
                         Resume
                     </Link>
                 </li>
                 <li>
                     <Link className="item" to="/contact">
-                        <svg className="icon"><use href={ `${ graphics }#icon-mail` } /></svg>
+                        <MailIcon className="icon" />
                         Contact
                     </Link>
                 </li>
                 <li>
                     <a className="item" href="https://github.com/nxn/" target="_blank" rel="noreferrer">
-                        <svg className="icon"><use href={ `${ graphics }#icon-github` } /></svg>
+                        <GithubIcon className="icon" />
                         nxn
                     </a>
                 </li>
                 <li>
                     <span className="item">
-                        <svg className="icon"><use href={ `${ graphics }#icon-geo` } /></svg>
+                        <GeoIcon className="icon" />
                         Philadelphia
                     </span>
                 </li>

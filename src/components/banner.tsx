@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import { Interpolation, Theme } from "@emotion/react";
 
 import { PageHeading } from "./common";
-import graphics from "../images/graphics.svg";
 
+import { Logo } from "../components/graphics";
 
 type BannerProps = {
     children?: React.ReactNode,
@@ -19,7 +19,7 @@ export function BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<Reac
         <div { ...remaining }>
             { logo &&
                 <div id="banner-logo">
-                    <svg id="logo"><use href={ `${ graphics }#logo-no-outline` } /></svg>
+                    <Logo id="logo" variant="standard" />
                 </div>
             }
             

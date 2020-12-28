@@ -10,13 +10,14 @@ const HTMLAnchor = (p: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAn
 
 type ButtonProps = {
     color?: "primary" | "secondary",
+    variant?: "standard" | "minimal",
     className?: string,
 }
 
 function asButton<P>(Component: React.ComponentType<P>) {
     return (props: ButtonProps & P) => {
-        const { className, color, ...remaining } = props;
-        return <Component className={ clsx(className, "button", color || "primary") } { ...remaining as P } />
+        const { className, color, variant, ...remaining } = props;
+        return <Component className={ clsx(className, "button", color || "primary", variant || "standard") } { ...remaining as P } />
     }
 }
 
@@ -27,17 +28,24 @@ export default Button;
 
 type ButtonGroupProps = {
     className?: string,
+    fullWidth?: boolean,
     children?: React.ReactNode
 }
 
 export function ButtonGroupUnstyled(props: ButtonGroupProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
-    return <div { ...props } />;
+    const { fullWidth, ...remaining } = props;
+    return <div { ...remaining } />;
 }
 
-export const ButtonGroup = styled(ButtonGroupUnstyled)({
+export const ButtonGroup = styled(ButtonGroupUnstyled)(({ fullWidth }) => ({
     display: 'flex',
     flexFlow: 'row nowrap',
     justifyContent: 'center',
+
+    '& > .button': {
+        flex: fullWidth ? '1 0 0rem' : '0 1 auto'
+    },
+    
     // Hacks because emotion css doesn't allow 'first-child' selectors
     '& > .button + .button': {
         borderTopLeftRadius:        0,
@@ -48,4 +56,4 @@ export const ButtonGroup = styled(ButtonGroupUnstyled)({
         borderTopRightRadius:       0,
         borderBottomRightRadius:    0
     },
-});
+}));

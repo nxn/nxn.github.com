@@ -17,5 +17,6 @@ TODO:
     - 404 Page
         -TBD
     - Misc
-        Hamlet
-        Create typography section of theme
+        - Hamlet
+        - Create typography section of theme
+        - Embed graphics sheet in layouts so that the full contents aren't inlined on use
