@@ -4,16 +4,16 @@ import { ThemeProvider, Global }    from "@emotion/react";
 import { MDXProvider }              from '@mdx-js/react';
 import clsx                         from "clsx";
 
-import theme        from "../themes/main/theme";
-import components   from "./common";
+import theme        from "../../themes/main/theme";
+import components   from "../common";
 
 import Header   from "./header";
 import Main     from "./main";
 import Footer   from "./footer";
-import Snackbar from "./snackbar";
+import Snackbar from "../snackbar";
 
-import '../styles/reset.css';
-import '../styles/fonts.css';
+import '../../styles/reset.css';
+import '../../styles/fonts.css';
 
 export enum Variant {
     Standard    = 0,

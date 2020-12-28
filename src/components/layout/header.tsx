@@ -10,7 +10,7 @@ import {
     DocIcon,
     GeoIcon,
     MailIcon,
-} from "./graphics";
+} from "../graphics";
 
 type HeaderProps = {
     className?: string

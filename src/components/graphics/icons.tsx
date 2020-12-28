@@ -33,7 +33,7 @@ export const DocIcon = React.memo((props: SvgProps) => (
     </Svg>
 ));
 
-export const WebIcon = React.memo((props: SvgProps) => (
+export const LinkIcon = React.memo((props: SvgProps) => (
     <Svg { ...props }>
         <path d="M12.8,17.8c-0.7,0-1.5-0.1-2.3-0.4l-0.1,0l-0.8,0.8c-0.5,0.5-1.2,0.8-2,0.8s-1.5-0.3-2-0.8c-0.5-0.5-0.8-1.2-0.8-2
             c0-0.8,0.3-1.5,0.8-2.1l2.8-2.8c0.4-0.4,0.9-0.6,1.5-0.7c0.7-0.1,1.3,0,1.9,0.3l0,0c0.2,0.1,0.5,0.2,0.6,0.4

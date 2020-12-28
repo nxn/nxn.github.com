@@ -6,7 +6,7 @@ import { Link } from "../common";
 import {
     DocIcon,
     MailIcon,
-    WebIcon,
+    LinkIcon,
     GeoIcon,
     EmailAddress,
 } from "../graphics"
@@ -30,7 +30,7 @@ export function MenuUnstyled(props: MenuProps) {
             </li>
             <li className="web">
                 <Link to="/">
-                    <WebIcon className="icon" />
+                    <LinkIcon className="icon" />
                     www.nxn.io
                 </Link>
             </li>

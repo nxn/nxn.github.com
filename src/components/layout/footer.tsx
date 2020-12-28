@@ -8,7 +8,7 @@ import {
     MailIcon,
     GithubIcon,
     GeoIcon
-} from "./graphics";
+} from "../graphics";
 
 type FooterProps = {
     className?: string
