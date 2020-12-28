@@ -5,7 +5,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     const result = await graphql(`
         query {
-            allFile(filter: {sourceInstanceName: {eq: "data"}, relativeDirectory: {eq: "posts"}}) {
+            allFile(filter: {sourceInstanceName: {eq: "content"}, relativeDirectory: {eq: "posts"}}) {
                 nodes {
                     childMdx {
                         slug

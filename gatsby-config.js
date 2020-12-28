@@ -31,10 +31,10 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "data",
-        path: "./src/data/",
+        name: "content",
+        path: "./src/content/",
       },
-      __key: "data",
+      __key: "content",
     },
     {
       resolve: "gatsby-plugin-mdx",

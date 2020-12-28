@@ -64,7 +64,7 @@ export default IndexPage;
 export const query = graphql`
     query {
         allFile(
-            filter: {sourceInstanceName: {eq: "data"}, relativeDirectory: {eq: "blurbs"}}, 
+            filter: {sourceInstanceName: {eq: "content"}, relativeDirectory: {eq: "blurbs"}}, 
             sort: {
                 fields: [
                     childMdx___frontmatter___priority, 
