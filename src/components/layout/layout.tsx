@@ -12,8 +12,8 @@ import Main     from "./main";
 import Footer   from "./footer";
 import Snackbar from "../snackbar";
 
-import '../../styles/reset.css';
-import '../../styles/fonts.css';
+import '../../stylesheets/reset.css';
+import '../../stylesheets/fonts.css';
 
 export enum Variant {
     Standard    = 0,

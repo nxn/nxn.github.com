@@ -6,8 +6,8 @@ import { MDXProvider }              from '@mdx-js/react';
 import theme        from "../../themes/resume/theme";
 import components   from "../common";
 
-import '../../styles/reset.css';
-import '../../styles/fonts.css';
+import '../../stylesheets/reset.css';
+import '../../stylesheets/fonts.css';
 
 type LayoutProps = {
     children?: React.ReactNode;

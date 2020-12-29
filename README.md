@@ -8,15 +8,14 @@ TODO:
         - Fix fluid design
         - OpenSeaDragon viewer
     - Contact Page
-        - Redux store for loading draft
-        - Storage
-        - Form Submit
-        - Snackbar
+        - Form Submit / Form Disable
     - Post Page
         - Live TOC
     - 404 Page
-        -TBD
+        - TBD
+    - Snackbar
+        - Unique constraint
     - Misc
         - Hamlet
         - Create typography section of theme
-        - Embed graphics sheet in layouts so that the full contents aren't inlined on use
+        - Fix button clicks so that scaling doesn't cancel click event

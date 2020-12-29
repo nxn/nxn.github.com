@@ -14,7 +14,7 @@ const Pre = styled.pre(({ theme }) => ({
     padding: 0,
 }));
 
-const Wrap = styled.div({
+const CodeWrap = styled.div({
     position: 'relative',
 
     '&:hover .code-tools': {
@@ -90,20 +90,14 @@ export default (props: CodeBlockProps) => {
     const language = (props.className || '').replace(/language-/, '').toLowerCase();
     const code = props.children.trim();
 
+    const copySuccess   = () => dispatch(alert({ type: "success", message: "Copied!" }));
+    const copyError     = () => dispatch(alert({ type: "error", message: "Could not copy" }));
     const copy = (code: string) => {
         navigator.clipboard.writeText(code).then(copySuccess, copyError);
     }
-
-    const copySuccess = () => {
-        dispatch(alert({ type: "success", message: "Copied!", }));
-    }
-
-    const copyError = () => {
-        dispatch(alert({ type: "error", message: "Could not copy", }));
-    }
     
     return (
-        <Wrap>
+        <CodeWrap>
             <Highlight Prism={ Prism } theme={ theme } code={ code } language={ language as Language }>
                 { ({ className, style, tokens, getLineProps, getTokenProps }) => (
                     <Pre className={ className } style={ style }>
@@ -125,6 +119,6 @@ export default (props: CodeBlockProps) => {
                     <CopyIcon />
                 </CopyButton>
             </Tools>
-        </Wrap>
+        </CodeWrap>
     );
 }
