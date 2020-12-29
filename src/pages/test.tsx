@@ -36,6 +36,7 @@ export function TestPage() {
         <Layout>
             <Content>
                 <PageHeading>Test &amp; Demo Page</PageHeading>
+                
                 <Divider />
 
                 <SectionHeading>Minimal</SectionHeading>
@@ -45,7 +46,9 @@ export function TestPage() {
                     <Button onClick={ handleClick } data-type="warning" data-minimal="true">Warning</Button>
                     <Button onClick={ handleClick } data-type="error"   data-minimal="true">Error</Button>
                 </ButtonGroup>
+
                 <Divider />
+
                 <SectionHeading>Multi-Choice</SectionHeading>
                 <ButtonGroup>
                     <Button onClick={ handleClick } data-type="info"    color="secondary">Info</Button>

@@ -102,7 +102,7 @@ export function ContactPage() {
         });
 
         dispatch(alert({
-            type: "info",
+            type: "warning",
             message: "Draft discarded",
             actions: [{
                 name: "Undo", dismiss: true, action: undo()
