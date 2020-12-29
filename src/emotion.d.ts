@@ -74,10 +74,18 @@ declare module '@emotion/react' {
             pre:    CSSProperties
         }
     }
+
+    export interface Transitions {
+        click: {
+            on?:     CSSProperties,
+            off?:    CSSProperties
+        }
+    }
     
     export interface Theme {
         breakpoints?:   number[],
         palette:        Palette,
-        styles:         Styles
+        styles:         Styles,
+        transitions:    Transitions,
     }
 }

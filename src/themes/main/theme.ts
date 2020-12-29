@@ -1,11 +1,13 @@
-import { Theme } from '@emotion/react';
-import palette from './palette';
-import styles from './styles';
+import { Theme }    from '@emotion/react';
+import palette      from './palette';
+import styles       from './styles';
+import transitions  from './transitions';
 
 export const theme: Theme = {
+    palette,
+    styles,
+    transitions,
     breakpoints: [41.5],
-    palette: palette,
-    styles: styles
 }
 
 export default theme;

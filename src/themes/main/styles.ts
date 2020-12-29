@@ -1,5 +1,6 @@
 import { Styles } from '@emotion/react';
 import palette from './palette';
+import transitions from './transitions';
 
 export const styles: Styles = {
     body: {
@@ -206,18 +207,8 @@ export const styles: Styles = {
             '&:hover': { },
             '&:focus': { outline: 0 },
 
-            transitionProperty: 'transform, opacity',
-            transitionDuration: '60ms',
-            transitionTimingFunction: 'ease-out',
-
-            '&:focus:active': {
-                transform: 'scale(.95)',
-                opacity: 0.8,
-
-                transitionProperty: 'transform, opacity',
-                transitionDuration: '60ms',
-                transitionTimingFunction: 'ease-in'
-            },
+            ... transitions.click.off,
+            '&:focus:active': transitions.click.on,
             
             '&.primary': {
                 color:                  palette.actions.primary.main,
@@ -255,6 +246,7 @@ export const styles: Styles = {
             '&.standard': {
                 borderRadius:   '1.25rem',
                 padding:        '0rem 1.5rem',
+                
                 '& svg': {
                     fill:           'currentcolor',
                     verticalAlign:  'middle',
