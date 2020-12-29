@@ -40,29 +40,29 @@ const LineContent = styled.span({
     padding: '0 1rem'
 });
 
+const CopyButton = styled.button(({theme}) => ({
+    width:      '2.875rem',
+    height:     '2.875rem',
+    color:      theme.palette.text.alternate.main,
+    background: 'rgba(5,7,11,0.8)',
+    textAlign:  'center',
+    padding:    0,
+    border:     0,
+    '& > .icon': {
+        width:          '1.25rem',
+        height:         '1.25rem',
+        verticalAlign:  'middle'
+    },
+    '&:hover': {
+        color: theme.palette.text.alternate.light,
+    }
+}));
+
 const Tools = styled.span(({theme}) => ({
     display:    'none',
     position:   'absolute',
     right:      0,
-    top:        0,
-
-    '& > button': {
-        width:      '2.875rem',
-        height:     '2.875rem',
-        color:      theme.palette.text.alternate.main,
-        background: 'rgba(5,7,11,0.8)',
-        textAlign:  'center',
-        padding:    0,
-        border:     0,
-        '& > .icon': {
-            width:          '1.25rem',
-            height:         '1.25rem',
-            verticalAlign:  'middle'
-        },
-        '&:hover': {
-            color: theme.palette.text.alternate.light,
-        }
-    }
+    top:        0
 }));
 
 type CodeBlockProps = {
@@ -108,9 +108,9 @@ export default (props: CodeBlockProps) => {
                         </Line>
                     ))}
                     <Tools className="code-tools">
-                        <button onClick={ () => copy(code) }>
+                        <CopyButton onClick={ () => copy(code) }>
                             <CopyIcon />
-                        </button>
+                        </CopyButton>
                     </Tools>
                 </Pre>
             ) }
