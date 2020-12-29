@@ -71,7 +71,8 @@ const CopyButton = styled.button(({theme}) => ({
         backgroundColor: theme.palette.bgs.secondary.dark
     },
     '&:focus': {
-        boxShadow: `inset 0 0 0 0.125rem ${ theme.palette.bgs.secondary.main }`,
+        outline: 0,
+        border: `0.125rem solid ${ theme.palette.bgs.secondary.main }`,
         backgroundColor: theme.palette.bgs.secondary.dark
     },
 

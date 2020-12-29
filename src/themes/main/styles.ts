@@ -246,7 +246,7 @@ export const styles: Styles = {
             '&.standard': {
                 borderRadius:   '1.25rem',
                 padding:        '0rem 1.5rem',
-                
+
                 '& svg': {
                     fill:           'currentcolor',
                     verticalAlign:  'middle',
