@@ -23,6 +23,12 @@ export const palette: Palette = {
         disabled: {
             main:   '#1b1a22',
             light:  '#25242c'
+        },
+        alerts: {
+            info:       '#1a2633',
+            success:    '#2A4A30',
+            warning:    '#5b471f',
+            error:      '#77231d'
         }
     },
     

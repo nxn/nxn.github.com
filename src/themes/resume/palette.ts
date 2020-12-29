@@ -9,7 +9,8 @@ export const palette: Palette = {
         },
         primary:    empty,
         secondary:  empty,
-        disabled:   empty
+        disabled:   empty,
+        alerts:     empty
     },
     text: {
         standard: {

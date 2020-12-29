@@ -1,8 +1,15 @@
 import '@emotion/react'
 
-type CSSProperties = { };
-
 declare module '@emotion/react' {
+    export type CSSProperties = { };
+
+    export interface AlertTypeColors {
+        info?:      string,
+        success?:   string,
+        warning?:   string,
+        error?:     string,
+    }
+
     export interface ColorVariants {
         main?:  string;
         light?: string;
@@ -15,6 +22,7 @@ declare module '@emotion/react' {
             primary:    ColorVariants,
             secondary:  ColorVariants,
             disabled:   ColorVariants,
+            alerts:     AlertTypeColors
         },
 
         text: {

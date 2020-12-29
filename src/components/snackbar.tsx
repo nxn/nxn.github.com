@@ -1,9 +1,26 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { useSelector, useDispatch } from 'react-redux';
+import clsx from "clsx";
 
 import { Button, ButtonGroup } from './controls/button';
 import { selectAll, dismiss, timeoutUpdate, SnackbarItem, SnackbarAction } from '../state/snackbar'
+
+import {
+    SuccessIcon,
+    WarnIcon,
+    ErrorIcon,
+    InfoIcon
+} from "./graphics/icons";
+
+const resolveIcon = (alert: SnackbarItem) => {
+    switch(alert.type) {
+        case "success": return <SuccessIcon />
+        case "error":   return <ErrorIcon />
+        case "warning": return <WarnIcon />
+        default:        return <InfoIcon />
+    }
+}
 
 export type SnackbarProps = {
     className?: string
@@ -40,76 +57,109 @@ export function SnackbarUnstyled(props: SnackbarProps) {
     return (
         <div className={ props.className }>
             { alerts.map(alert => (
-                <Alert 
+                <Alert
                     key             = { alert.id } 
-                    className       = { alert.type } 
+                    className       = { clsx(alert.type, alert.actions && alert.actions.length > 0 ? 'full' : 'minimal') } 
                     onMouseEnter    = { (event) => handleMouseEnter(alert, event) } 
                     onMouseLeave    = { (event) => handleMouseLeave(alert, event) }>
 
+                    <Icon>{ resolveIcon(alert) }</Icon>
                     <Message>{ alert.message }</Message>
-
-                    <Actions fullWidth>
+                    <Actions fullWidth className="actions">
                         { alert.actions && alert.actions.map((item, index) => (
                         <Button variant="minimal" key={ index } onClick={ () => handleActionClick(alert, item) }>
                             { item.name }
                         </Button>
                         ))}
-                        <Button variant="minimal" color="secondary" onClick={ () => dispatch(dismiss(alert.id)) }>
+                        <Button variant="minimal" onClick={ () => dispatch(dismiss(alert.id)) }>
                             Dismiss
                         </Button>
                     </Actions>
-
-                    
                 </Alert>
             ))}
         </div>
     );
 }
 
-const Snackbar = styled(SnackbarUnstyled)(({theme}) => ({
-    position: 'fixed',
-    zIndex: 999,
-    bottom: '2rem',
-    left: '50%',
-    transform: 'translateX(-50%)',
+const Snackbar = styled(SnackbarUnstyled)({
+    position:   'fixed',
+    zIndex:     999,
+    bottom:     '2rem',
+    left:       '50%',
+    transform:  'translateX(-50%)',
 
-    display: 'flex',
-    //border: '1px solid red',
-    alignItems: 'center',
+    display:        'flex',
+    alignItems:     'center',
     justifyContent: 'center',
-    flexFlow: 'column nowrap',
-    minWidth: '18rem',
-    maxWidth: '48rem'
+    flexFlow:       'column nowrap',
+});
+
+const Alert = styled.div(({theme}) => ({
+    margin:     '0.5rem 0',
+    overflow:   'hidden',
+
+    display:        'grid',
+    alignItems:     'center',
+    justifyContent: 'center',
+    
+    
+    borderRadius:       '0.5rem',
+    boxShadow:          '0.0625rem 0.25rem 0.5rem black',
+    color:              theme.palette.text.standard.light,
+    backgroundColor:    theme.palette.bgs.alerts.info,
+    
+    '&.success':    { backgroundColor: theme.palette.bgs.alerts.success },
+    '&.error':      { backgroundColor: theme.palette.bgs.alerts.error },
+    '&.warning':    { backgroundColor: theme.palette.bgs.alerts.warning },
+
+    '&.minimal': {
+        gridTemplateColumns:    'auto 1fr auto',
+        gridTemplateAreas:      '"icon message actions"',
+        '& .actions': {
+            borderLeft: '0.0625rem solid rgba(0,0,0,0.25)'
+        },
+    },
+
+    '&.full': {
+        gridTemplateColumns: 'auto 1fr',
+        gridTemplateAreas: `
+            "icon       message"
+            "actions    actions"
+        `,
+        '& .actions': {
+            borderTop: '0.0625rem solid rgba(0,0,0,0.25)'
+        },
+    },
 }));
 
-const Alert = styled.div(({theme, children}) => ({
-    margin: '0.5rem 0',
-    overflow: 'hidden',
-
-    display: 'flex',
-    flexDirection: React.Children.count(children) > 1 ? 'column' : 'row',
-    flexWrap: 'nowrap',
-    alignItems: 'center',
-
-    color: theme.palette.text.standard.light,
-    backgroundColor: theme.palette.bgs.standard.main,
-    borderRadius: '0.5rem',
-    boxShadow: '0.0625rem 0.25rem 0.5rem black'
-}));
-
-const Message = styled.span(({ theme }) => ({
-    padding: '0.5rem 1rem',
-    gridArea: 'message',
-    fontSize: '0.9rem',
-}));
-
-const Actions = styled(ButtonGroup)(({ theme }) => ({
-    gridArea: 'actions',
-    '& > .button': {
-        minWidth: '6.25rem'
+const Icon = styled.div({
+    gridArea:   'icon',
+    width:      '3rem',
+    textAlign:  'center',
+    '& > *': {
+        height:         '1.5rem',
+        width:          '1.5rem',
+        verticalAlign:  'middle',
     }
-}));
+});
 
+const Message = styled.span({
+    gridArea:   'message',
+    padding:    '0.5rem 1rem 0.5rem 0',
+    fontSize:   '0.9rem',
+    lineHeight: '1.5rem',
+    boxSizing:  'border-box',
+});
 
+const Actions = styled(ButtonGroup)({
+    gridArea:           'actions',
+    backgroundColor:    'rgba(0,0,0,0.33)',
+    height:             '100%',
+
+    '& > .button': {
+        padding: '0rem 1rem',
+        height: '100%'
+    }
+});
 
 export default Snackbar;

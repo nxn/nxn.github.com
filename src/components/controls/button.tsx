@@ -41,9 +41,10 @@ export const ButtonGroup = styled(ButtonGroupUnstyled)(({ fullWidth }) => ({
     display: 'flex',
     flexFlow: 'row nowrap',
     justifyContent: 'center',
-
+    
+    width: fullWidth ? '100%' : 'auto',
     '& > .button': {
-        flex: fullWidth ? '1 0 0rem' : '0 1 auto'
+        flex: fullWidth ? '1 1 0px' : '0 1 auto'
     },
     
     // Hacks because emotion css doesn't allow 'first-child' selectors
