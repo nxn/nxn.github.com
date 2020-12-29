@@ -174,11 +174,11 @@ export function ContactPage() {
                         
                     <Actions>
                         <Button type="submit" color="primary">
-                            <SendIcon className="icon" />
+                            <SendIcon />
                             Send It
                         </Button>
                         <Button type="reset" color="secondary" disabled={ disabled || !hasDraft }>
-                            <TrashIcon className="trash" />
+                            <TrashIcon />
                             Discard
                         </Button>
                     </Actions>

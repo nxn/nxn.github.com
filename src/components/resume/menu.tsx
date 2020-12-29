@@ -20,22 +20,22 @@ export function MenuUnstyled(props: MenuProps) {
         <ul className={ props.className }>
             <li className="doc">
                 <a className="pdf" href="<%= require('./downloads/ewieczorek.pdf').default %>" target="_blank">
-                    <DocIcon className="icon" />
+                    <DocIcon />
                     Download PDF
                 </a>
             </li>
             <li className="email">
-                <MailIcon className="icon" />
+                <MailIcon />
                 <EmailAddress className="address" />
             </li>
             <li className="web">
                 <Link to="/">
-                    <LinkIcon className="icon" />
+                    <LinkIcon />
                     www.nxn.io
                 </Link>
             </li>
             <li className="location">
-                <GeoIcon className="icon" />
+                <GeoIcon />
                 Philadelphia, PA
             </li>
         </ul>

@@ -25,25 +25,25 @@ export function FooterUnstyled(props: FooterProps) {
             <ul id="footer-list">
                 <li>
                     <Link className="item" to="/resume">
-                        <DocIcon className="icon" />
+                        <DocIcon />
                         Resume
                     </Link>
                 </li>
                 <li>
                     <Link className="item" to="/contact">
-                        <MailIcon className="icon" />
+                        <MailIcon />
                         Contact
                     </Link>
                 </li>
                 <li>
                     <a className="item" href="https://github.com/nxn/" target="_blank" rel="noreferrer">
-                        <GithubIcon className="icon" />
+                        <GithubIcon />
                         nxn
                     </a>
                 </li>
                 <li>
                     <span className="item">
-                        <GeoIcon className="icon" />
+                        <GeoIcon />
                         Philadelphia
                     </span>
                 </li>

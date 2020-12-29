@@ -1,8 +1,9 @@
 import React from "react";
 import Svg, { SvgProps } from "./svg";
+import clsx from "clsx";
 
 export const MenuIcon = React.memo((props: SvgProps) => (
-    <Svg viewBox="0 0 32 24" { ...props }>
+    <Svg viewBox="0 0 32 24" className={ clsx('icon', props.className) } { ...props }>
         <rect x="2" y="2" width="28" height="2"/>
         <rect x="2" y="11" width="28" height="2"/>
         <rect x="2" y="20" width="28" height="2"/>
@@ -10,7 +11,7 @@ export const MenuIcon = React.memo((props: SvgProps) => (
 ));
 
 export const MailIcon = React.memo((props: SvgProps) => (
-    <Svg { ...props }>
+    <Svg className={ clsx('icon', props.className) } { ...props }>
         <path d="M18.6,4H5.4C3.5,4,2,5.5,2,7.4v9.2C2,18.5,3.5,20,5.4,20h13.2c1.9,0,3.4-1.5,3.4-3.4V7.4C22,5.5,20.5,4,18.6,4z M5.4,6h13.2
             c0.5,0,0.9,0.2,1.2,0.6l-7.2,4.8c-0.3,0.2-0.8,0.2-1.1,0L4.2,6.6C4.5,6.2,4.9,6,5.4,6z M18.6,18H5.4C4.6,18,4,17.4,4,16.6V8.9
             l6.3,4.2c0.5,0.3,1.1,0.5,1.7,0.5s1.2-0.2,1.7-0.5L20,8.9v7.7C20,17.4,19.4,18,18.6,18z"/>
@@ -18,7 +19,7 @@ export const MailIcon = React.memo((props: SvgProps) => (
 ));
 
 export const GeoIcon = React.memo((props: SvgProps) => (
-    <Svg { ...props }>
+    <Svg className={ clsx('icon', props.className) } { ...props }>
         <path d="M11.9,2.1c-4,0-8,3-8,8c0,6,8,12,8,12s8-6,8-12C19.9,5.2,15.9,2.1,11.9,2.1z M11.9,16.1c-3.3,0-6-2.7-6-6c0-3.3,2.7-6,6-6
             s6,2.7,6,6C17.9,13.4,15.2,16.1,11.9,16.1z"/>
         <circle cx="11.9" cy="10.1" r="2"/>
@@ -26,7 +27,7 @@ export const GeoIcon = React.memo((props: SvgProps) => (
 ));
 
 export const DocIcon = React.memo((props: SvgProps) => (
-    <Svg { ...props }>
+    <Svg className={ clsx('icon', props.className) } { ...props }>
         <path d="M15.4,10.2c-2,0-3.6-1.6-3.6-3.6V2.1H7c-1.7,0-3.1,1.4-3.1,3.1V19c0,1.7,1.4,3.1,3.1,3.1h9.8c1.7,0,3.1-1.4,3.1-3.1v-8.8
             H15.4z M17.9,19c0,0.6-0.5,1.1-1.1,1.1H7c-0.6,0-1.1-0.5-1.1-1.1V5.2c0-0.6,0.5-1.1,1.1-1.1h2.8v2.5c0,3.1,2.5,5.6,5.6,5.6h2.5V19z"/>
         <path d="M15.2,8.4h4.5l-6.1-6.1v4.5C13.5,7.7,14.3,8.4,15.2,8.4z"/>
@@ -34,7 +35,7 @@ export const DocIcon = React.memo((props: SvgProps) => (
 ));
 
 export const LinkIcon = React.memo((props: SvgProps) => (
-    <Svg { ...props }>
+    <Svg className={ clsx('icon', props.className) } { ...props }>
         <path d="M12.8,17.8c-0.7,0-1.5-0.1-2.3-0.4l-0.1,0l-0.8,0.8c-0.5,0.5-1.2,0.8-2,0.8s-1.5-0.3-2-0.8c-0.5-0.5-0.8-1.2-0.8-2
             c0-0.8,0.3-1.5,0.8-2.1l2.8-2.8c0.4-0.4,0.9-0.6,1.5-0.7c0.7-0.1,1.3,0,1.9,0.3l0,0c0.2,0.1,0.5,0.2,0.6,0.4
             c0.2,0.2,0.3,0.4,0.5,0.7l0,0.1l0.1,0c0.2-0.1,0.4-0.1,0.5-0.3l1.2-1.2l-0.1-0.1c-0.2-0.3-0.4-0.6-0.6-0.8c-0.2-0.2-0.5-0.5-0.8-0.6
@@ -51,13 +52,13 @@ export const LinkIcon = React.memo((props: SvgProps) => (
 ))
 
 export const SendIcon = React.memo((props: SvgProps) => (
-    <Svg { ...props }>
+    <Svg className={ clsx('icon', props.className) } { ...props }>
         <polygon points="3 12 8.61 14.992 17 8 9 17.455 9 21 12.164 16.887 18 20 21 3 3 12"/>
     </Svg>
 ));
 
 export const TrashIcon = React.memo((props: SvgProps) => (
-    <Svg viewBox="0 0 512 512" { ...props }>
+    <Svg className={ clsx('icon', props.className) } viewBox="0 0 512 512" { ...props }>
         <path d="M413.7,133.4c-2.4-9-4-14-4-14c-2.6-9.3-9.2-9.3-19-10.9l-53.1-6.7c-6.6-1.1-6.6-1.1-9.2-6.8c-8.7-19.6-11.4-31-20.9-31
             h-103c-9.5,0-12.1,11.4-20.8,31.1c-2.6,5.6-2.6,5.6-9.2,6.8l-53.2,6.7c-9.7,1.6-16.7,2.5-19.3,11.8c0,0-1.2,4.1-3.7,13
             c-3.2,11.9-4.5,10.6,6.5,10.6h302.4C418.2,144.1,417,145.3,413.7,133.4z"/>
@@ -67,7 +68,7 @@ export const TrashIcon = React.memo((props: SvgProps) => (
 ));
 
 export const GithubIcon = React.memo((props: SvgProps) => (
-    <Svg viewBox="0 0 16 16" { ...props }>
+    <Svg className={ clsx('icon', props.className) } viewBox="0 0 16 16" { ...props }>
         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
             0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21
             1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21
@@ -77,29 +78,35 @@ export const GithubIcon = React.memo((props: SvgProps) => (
 ));
 
 export const SuccessIcon = React.memo((props: SvgProps) => (
-    <Svg { ...props }>
+    <Svg className={ clsx('icon', props.className) } { ...props }>
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
         {/* <path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" /> */}
     </Svg>
 ));
 
 export const ErrorIcon = React.memo((props: SvgProps) => (
-    <Svg { ...props }>
+    <Svg className={ clsx('icon', props.className) } { ...props }>
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
         {/* <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" /> */}
     </Svg>
 ));
 
 export const InfoIcon = React.memo((props: SvgProps) => (
-    <Svg { ...props }>
+    <Svg className={ clsx('icon', props.className) } { ...props }>
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
         {/* <path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /> */}
     </Svg>
 ));
 
 export const WarnIcon = React.memo((props: SvgProps) => (
-    <Svg { ...props }>
+    <Svg className={ clsx('icon', props.className) } { ...props }>
         <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
         {/* <path d="M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z" /> */}
+    </Svg>
+));
+
+export const CopyIcon = React.memo((props: SvgProps) => (
+    <Svg className={ clsx('icon', props.className) } { ...props }>
+        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z" />
     </Svg>
 ));

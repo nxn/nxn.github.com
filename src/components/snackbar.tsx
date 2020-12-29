@@ -102,7 +102,7 @@ const Alert = styled.div(({theme}) => ({
     alignItems:     'center',
     justifyContent: 'center',
     
-    
+    userSelect:         'none',
     borderRadius:       '0.5rem',
     boxShadow:          '0.0625rem 0.25rem 0.5rem black',
     color:              theme.palette.text.standard.light,
@@ -157,7 +157,6 @@ const Actions = styled(ButtonGroup)({
     height:             '100%',
 
     '& > .button': {
-        padding: '0rem 1rem',
         height: '100%'
     }
 });

@@ -254,11 +254,20 @@ export const styles: Styles = {
 
             '&.standard': {
                 borderRadius:   '1.25rem',
-                padding:        '0rem 1.5rem'
+                padding:        '0rem 1.5rem',
+                '& svg': {
+                    fill:           'currentcolor',
+                    verticalAlign:  'middle',
+                    height:         '2.5rem',
+                    width:          '1.5rem',
+                    marginTop:      '-0.0625rem',
+                    marginLeft:     '-0.75rem',
+                    marginRight:    '0.75rem',
+                },
             },
 
             '&.minimal': {
-                padding: 0,
+                padding: '0 1rem',
                 backgroundColor: 'transparent',
                 '&:hover': {
                     backgroundColor: 'rgba(255,255,255,0.04)'
@@ -271,16 +280,6 @@ export const styles: Styles = {
                 '&:active': {
                     textDecoration: 'none'
                 }
-            },
-
-            '& svg': {
-                fill:           'currentcolor',
-                verticalAlign:  'middle',
-                height:         '2.5rem',
-                width:          '1.5rem',
-                marginTop:      '-0.0625rem',
-                marginLeft:     '-0.75rem',
-                marginRight:    '0.75rem',
             },
         }
     },

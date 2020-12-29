@@ -24,7 +24,7 @@ export function HeaderUnstyled(props: HeaderProps) {
             </Link>
 
             <label id="menu-btn" htmlFor="menu-toggle">
-                <MenuIcon className="icon" />
+                <MenuIcon />
             </label>
 
             <input id="menu-toggle" type="checkbox" className="hidden" />
@@ -32,18 +32,18 @@ export function HeaderUnstyled(props: HeaderProps) {
             <ul id="links">
                 <li>
                     <Link to="/resume">
-                        <DocIcon className="icon" />
+                        <DocIcon />
                         Resume
                     </Link>
                 </li>
                 <li>
                     <Link to="/contact">
-                        <MailIcon className="icon" />
+                        <MailIcon />
                         Contact
                     </Link>
                 </li>
                 <li className="location">
-                    <GeoIcon className="icon" />
+                    <GeoIcon />
                     Philadelphia
                 </li>
             </ul> 
