@@ -1,7 +1,7 @@
-import React from "react";
-import { Link as GatsbyLink } from "gatsby";
-import styled from "@emotion/styled";
-import clsx from "clsx";
+import React    from "react";
+import styled   from "@emotion/styled";
+import clsx     from "clsx";
+import Link     from "./link";
 
 // Wrapper Components for HTML elements that can serve as buttons; doing this allows them to be used as inputs to HOCs.
 // Though doing it this way is a bit silly -- might be a better idea to use a render prop instead.
@@ -21,9 +21,8 @@ function asButton<P>(Component: React.ComponentType<P>) {
     }
 }
 
-export const Button             = styled(asButton(HTMLButton))(({theme}) => theme.styles.controls.button);
-export const LinkButton         = styled(asButton(HTMLAnchor))(({theme}) => theme.styles.controls.button);
-export const GatsbyLinkButton   = styled(asButton(GatsbyLink))(({theme}) => theme.styles.controls.button);
+export const Button     = styled(asButton(HTMLButton))(({theme}) => theme.styles.controls.button);
+export const LinkButton = styled(asButton(Link))(({theme}) => theme.styles.controls.button);
 export default Button;
 
 type ButtonGroupProps = {

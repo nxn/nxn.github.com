@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { Link } from "gatsby";
+import Link from "../controls/link";
 //import graphics from "../images/graphics.svg";
 
 import {

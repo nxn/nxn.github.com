@@ -1,7 +1,6 @@
-import React from "react";
-import styled from "@emotion/styled";
-
-import { Link } from "../common";
+import React    from "react";
+import styled   from "@emotion/styled";
+import Link     from "../controls/link";
 
 import {
     DocIcon,

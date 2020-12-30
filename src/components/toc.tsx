@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "gatsby";
-import styled from "@emotion/styled";
+import React    from "react";
+import Link     from "./controls/link";
+import styled   from "@emotion/styled";
 
 type Item = {
     title:  string,

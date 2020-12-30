@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Layout, Variant } from "../components/layout";
-import { Button, GatsbyLinkButton as LinkButton, ButtonGroup } from "../components/controls/button";
+import { Button, LinkButton, ButtonGroup } from "../components/controls/button";
 import { PageHeading } from "../components/common";
 
 import styled from "@emotion/styled";

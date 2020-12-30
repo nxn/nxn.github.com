@@ -67,9 +67,8 @@ will be using it remotely, and glue it all together.
         -   Click `Disable Inheritance`
         -   Select `Convert inherited permissions into explicit permissions on this object.`
         -   Remove any entries that are not `SYSTEM`, the `Administrators` group, or **your own user account**
-        -   See <a
-            href="https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#user-private-key-files"
-            target="blank" rel="noreferrer">"User private key files"</a> for more details
+        -   See ["User private key files"](https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#user-private-key-files)
+            for more details
           
     -   POSIX Clients: Ensure ownership is restricted to your own account and the file permissions are set to **0600**, to
         change either you can use something like the following:
@@ -103,10 +102,8 @@ will be using it remotely, and glue it all together.
     PS> git config --global core.sshcommand "C:/Windows/System32/OpenSSH/ssh.exe"
     ```
 
-8.  Ensure the Windows Host's public key has been added to GitHub -- <a
-    href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account"
-    target="_blank" rel="noreferrer">instructions for adding keys</a>. You may wish to also add the client public 
-    keys if you would like to use them to connect to GitHub directly.
+8.  Ensure the Windows Host's public key has been added to GitHub -- [instructions for adding keys](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account).
+    You may wish to also add the client public keys if you would like to use them to connect to GitHub directly.
 
 9.  Verify everything up to this point is working correctly by authenticating with GitHub from the Windows Host and from
     any of the clients you intend to use directly. You should not be required to enter your passphrase if `ssh-agent` is
@@ -119,8 +116,8 @@ will be using it remotely, and glue it all together.
 
 10. Import client public keys into `~/.ssh/authorized_keys` (or `%programdata%/ssh/administrators_authorized_keys` if
     the host account you'll be using is designated as an admin and you want to keep the default configuration scheme).
-    The following import scripts are copied from <a href="https://code.visualstudio.com/docs/remote/troubleshooting"
-    target="_blank" rel="noreferrer">VSCode's documentation</a> and will only work for modifying the user owned 
+    The following import scripts are copied from [VSCode's documentation](https://code.visualstudio.com/docs/remote/troubleshooting)
+    and will only work for modifying the user owned 
     `~/.ssh/authorized_keys`.
     -   Remote Unix-like client:
         ``` bash
@@ -151,14 +148,12 @@ will be using it remotely, and glue it all together.
     -   Click `Disable Inheritance`
     -   Select `Convert inherited permissions into explicit permissions on this object.`
     -   Remove any entries that are not `SYSTEM`, the `Administrators` group, or **your own user account**
-    -   See <a 
-        href="https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#authorized_keys"
-        target="_blank" rel="noreferrer">"authorized_keys"</a> for more details.
+    -   See ["authorized_keys"](https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#authorized_keys)
+        for more details.
     
     If using the `administrators_authorized_keys` file, its permissions should only allow access by `SYSTEM` and the
-    `Administrators` group; inheritance should be disabled. See <a 
-    href="https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#administrators_authorized_keys"
-    target="_blank" rel="noreferrer">"administrators_authorized_keys"</a> for specifics.
+    `Administrators` group; inheritance should be disabled. See ["administrators_authorized_keys"](https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#administrators_authorized_keys)
+    for specifics.
 
 12. With everything configured you should be able to `ssh` into your Windows Host from all of your clients.
 
@@ -173,9 +168,9 @@ running on the Windows Host. To do this, a few tools are going to be required:
     sudo apt install socat
     ```
 
-2.  Download <a href="https://github.com/jstarks/npiperelay/releases" target="_blank" rel="noreferrer">npiperelay</a> 
-    and put `npiperelay.exe` under the Windows portion of the file system. You can then symlink it to some location 
-    that's visible to your WSL's *PATH* environment variable.
+2.  Download [npiperelay](https://github.com/jstarks/npiperelay/releases) and put `npiperelay.exe` under the Windows 
+    portion of the file system. You can then symlink it to some location that's visible to your WSL's *PATH* environment
+    variable.
     ``` bash
     $ wget https://github.com/jstarks/npiperelay/releases/download/v0.1.0/npiperelay_windows_amd64.zip
     $ unzip npiperelay_windows_amd64.zip
@@ -183,11 +178,8 @@ running on the Windows Host. To do this, a few tools are going to be required:
     $ sudo ln -s /mnt/c/Users/[USER]/bin/npiperelay.exe /usr/local/bin/npiperelay.exe
     ```
 
-3.  Add the following to your `~/.bashrc`, sources: <a
-    href="https://stuartleeks.com/posts/wsl-ssh-key-forward-to-windows/" target="_blank" rel="noreferrer">
-    stuartleeks.com</a>, <a
-    href="https://github.com/rupor-github/wsl-ssh-agent#wsl-2-compatibility" target="_blank" rel="noreferrer">
-    rupor-github</a>
+3.  Add the following to your `~/.bashrc`, sources: [stuartleeks.com](https://stuartleeks.com/posts/wsl-ssh-key-forward-to-windows/)
+    and [rupor-github](https://github.com/rupor-github/wsl-ssh-agent#wsl-2-compatibility).
     ``` bash
     # Route SSH Agent Forwarding to Windows Host's ssh-agent
     export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
@@ -232,9 +224,8 @@ specific environment you want to connect to for remote development.
 
 2.  Ensure proper permissions are applied to `~/.ssh/config`:
     -   For Windows: similar to before, disable permission inheritance and restrict access to only allow `SYSTEM`, the
-        `Administrators` group, and **your own user account**; See <a 
-        href="https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#ssh_config"
-        target="_blank" rel="noreferrer">"ssh_config"</a> for more information.
+        `Administrators` group, and **your own user account**; See ["ssh_config"](https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#ssh_config)
+        for more information.
     -   For POSIX: ensure ownership is restricted to your own account and the file permissions are set to 0600:
         ``` bash
         # Set 'username' as owner
