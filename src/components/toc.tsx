@@ -9,51 +9,91 @@ type Item = {
 };
 
 type ToCProps = {
-    id?: string,
-    className?: string,
-    data?: { items?: Item[] }
+    id?:                string,
+    className?:         string,
+    highlight?:         boolean,
+    data?: { items?:    Item[] }
 }
 
-export function ToCUnstyled(props: ToCProps) {
+const selectURIs = (items: Item[], result: string[] = []) => {
+    for (let item of items) {
+        result.push(item.url);
+        if (item.items) {
+            selectURIs(item.items, result);
+        }
+    }
+    return result;
+}
+
+export function ToC(props: ToCProps) {
+    const items = props.data && props.data.items;
+
+    let first = null;
+    if (props.highlight && items && items.length > 0) {
+        first = items[0].url;
+    }
+
+    const [current, setCurrent] = React.useState(first);
+
+    React.useLayoutEffect(() => {
+        if (!props.highlight || !items || !items.length) { return; }
+
+        const targets = window.document.querySelectorAll<HTMLElement>(selectURIs(items).join(', '));
+
+        const end = targets.length - 1;
+        let pending = false;
+        
+        const updateCurrent = () => {
+            const scrollOffset = window.scrollY + (window.document.documentElement.clientHeight * .33);
+
+            let index = 0;
+            while (index < end && scrollOffset > targets[index + 1].offsetTop) index++;
+
+            setCurrent(`#${ targets[index].id }`);
+            pending = false;
+        }
+
+        const handleScroll = () => {
+            if (!pending) {
+                window.requestAnimationFrame(updateCurrent);
+                pending = true;
+            }
+        }
+
+        document.addEventListener('scroll', handleScroll);
+        return () => {
+            document.removeEventListener('scroll', handleScroll);
+        }
+    }, []);
+
+    const renderItem = (item: Item) => {
+        return (
+            <ToCLink to={ item.url } className={ current === item.url ? 'current' : undefined }>
+                { item.title }
+            </ToCLink>
+        )
+    }
+
     return (
         <div id={ props.id } className={ props.className }>
-            <Header className="toc-header">Table of Contents:</Header>
-            { props.data && props.data.items && <List items={ props.data.items } /> }
+            { items && items.length > 0 && <List items={ items } renderItem={ renderItem } /> }
         </div>
     );
 }
 
-// Because this will be rendered within the post itself, external styles will be applied that should be undone here. Bit
-// messy, but I don't see a better approach.
-export const PageToC = styled(ToCUnstyled)({
-    marginTop: '2.5rem',
-});
+type ListProps = {
+    items: Item[],
+    renderItem: (item: Item) => JSX.Element,
+    className?: string
+}
 
-export const SidepanelToC = styled(ToCUnstyled)({
-    position:           'sticky',
-    top:                '3rem',
-    width:              '16rem',
-    overflow:           'hidden',
-});
-
-const Header = styled.div(({theme}) => ({
-    color: theme.palette.accents.light,
-    lineHeight: '2.5rem',
-    textTransform: 'uppercase',
-    //padding: '0 1rem',
-    fontSize: '0.9rem',
-    fontWeight: 'bold',
-    //borderBottom: `0.0625rem solid rgba(145, 127, 134, 0.25)`,
-    //textAlign: 'center',
-}));
-
-function ListUnstyled(props: { items: Item[], className?: string }) {
+function ListUnstyled(props: ListProps) {
     return (
         <ul className={ props.className }>
         { props.items.map((item, index) => (
             <li key={ index }>
-                <Link to={ item.url }>{ item.title }</Link>
-                { item.items && item.items.length > 0 && <ListUnstyled items={ item.items } /> }
+                { props.renderItem(item) }
+                { item.items && item.items.length > 0 && <ListUnstyled items={ item.items } renderItem={ props.renderItem } /> }
             </li>
         ))}
         </ul>
@@ -61,36 +101,57 @@ function ListUnstyled(props: { items: Item[], className?: string }) {
 }
 
 const List = styled(ListUnstyled)(({ theme }) => ({
-    margin:     0,
-    //paddingLeft: '1rem',
+    fontSize: '0.9rem',
 
-    fontWeight: 'bold',
-    '& ul': {
-        paddingLeft: '2rem',
-        fontWeight: 'normal',
+    '& > li > a': {
+        fontWeight: 'bold',
+        color: theme.palette.accents.light,
     },
-    
-    '& li': {
-        '& a': {
-            color:          theme.palette.accents.purple,
-            display:        'block',
-            width:          'auto',
-            height:         '2.5rem',
-            lineHeight:     '2.5rem',
-            boxSizing:      'border-box',
-            //padding:        '0 1rem',
-            overflow:       'hidden',
-            whiteSpace:     'nowrap',
-            textOverflow:   'ellipsis',
-            textDecoration: 'none',
-            fontSize:       '0.9rem',
 
-            '&:hover': {
-                color: theme.palette.actions.primary.main,
-                //backgroundColor: 'rgba(255, 255, 255, 0.04)'
-            }
-        }
+    '& li': {
+        margin: '0.5rem 0',
     }
 }));
 
-export default ToCUnstyled;
+const ToCLink = styled(Link)(({theme}) => ({
+    color:          theme.palette.accents.purple,
+    display:        'inline-block',
+    lineHeight:     '1.5rem',
+    boxSizing:      'border-box',
+    textDecoration: 'none',
+    padding:        '0.25rem 0rem',
+
+    '&:hover': {
+        color: theme.palette.actions.primary.main,
+    },
+}));
+
+export const PageToC = styled(ToC)({
+    marginTop: '2.5rem',
+    '& li li': {
+        paddingLeft: '1.5rem',
+    }
+});
+
+export const SidepanelToC = styled(ToC)(({theme}) => ({
+    position:           'sticky',
+    top:                '3rem',
+    width:              '16rem',
+    overflow:           'hidden',
+
+    '& li li': {
+        paddingLeft: '1.0625rem',
+    },
+
+    '& a': {
+        borderLeft: `0.0625rem solid transparent`,
+        paddingLeft: '1.0rem'
+    },
+
+    '& a.current': {
+        color: theme.palette.accents.green,
+        borderLeft: `0.0625rem solid ${ theme.palette.accents.green }`
+    }
+}));
+
+export default ToC;

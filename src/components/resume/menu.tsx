@@ -18,10 +18,10 @@ export function MenuUnstyled(props: MenuProps) {
     return (
         <ul className={ props.className }>
             <li className="doc">
-                <a className="pdf" href="<%= require('./downloads/ewieczorek.pdf').default %>" target="_blank">
+                <Link className="pdf" to="/downloads/ewieczorek_resume.pdf" target="_blank">
                     <DocIcon />
                     Download PDF
-                </a>
+                </Link>
             </li>
             <li className="email">
                 <MailIcon />

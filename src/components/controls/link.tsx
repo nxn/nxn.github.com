@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Link as GatsbyLink } from "gatsby";
 
 // Internal links must start with exactly one slash `/`

@@ -1,15 +1,17 @@
-import React from "react";
+import React  from "react";
 import styled from "@emotion/styled";
 
 import { template } from '../../util';
 
-// Discriminated union based on `multiline` prop; if it is true the component will render a textarea, otherwise an input 
-// element will be used.
-export type TextAreaFieldProps = { multiline: true } &
-    React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
+type HTMLInputProps     = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+type HTMLTextAreaProps  = React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
 
-export type TextInputFieldProps = { multiline?: false } &
-    React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+// TODO: Unfortunately, if the `multiline` prop is optional and omitted the type system accepts props from both. It
+// only works as intended if a false value is provided explicitly.
+export type TextInputFieldProps = { multiline?: false } & HTMLInputProps;
+export type TextAreaFieldProps  = { multiline: true }   & HTMLTextAreaProps;
+
+type TextFieldElement = HTMLInputElement & HTMLTextAreaElement;
 
 /* Exhaustive list of validity states that should indicate an invalid field state:
     badInput
@@ -37,9 +39,67 @@ const defaultErrors = {
 
 type Errors = typeof defaultErrors;
 
-export type TextFieldProps = (TextAreaFieldProps | TextInputFieldProps) & {
-    errors?: { [ P in keyof Errors ]?: Errors[P] }
+export type TextFieldProps = (TextInputFieldProps | TextAreaFieldProps) & {
+    errors?: { [ P in keyof Errors ]?: Errors[P] },
+    deferValidation?: boolean
 };
+
+export function TextField(props: TextFieldProps): JSX.Element {
+    const { multiline, deferValidation, errors, onInvalid, onInput, ...other } = props;
+    const Component = multiline ? TextAreaField : TextInputField;
+    const errorMessages = {
+        ...defaultErrors,
+        ...errors
+    };
+
+    // Event will fire when a form submition is attempted or if the field's `checkValidity()` or `reportValidity()` 
+    // methods are used while the current value is invalid.
+    const handleInvalid = (event: React.FormEvent<TextFieldElement>) => {
+        if (onInvalid) {
+            onInvalid(event);
+        }
+
+        (event.target as TextFieldElement).classList.add('invalid');
+    };
+
+    // TODO: The custom validity message displayed by the browser sometimes shows a residual message associated with the
+    // prior state rather than the current value of the field. This happens despite `reportValidity()` being called
+    // after having set the new message. This is most noticeable when a field becomes valid -- the `.invalid` class is
+    // removed as expected, but the browser's (firefox in this case) error pop up remains visible on screen for some
+    // reason.
+    const handleInput = (event: React.FormEvent<TextFieldElement>) => {
+        if (onInput) {
+            onInput(event);
+        }
+
+        const target = event.target as TextFieldElement;
+        setCustomValidity(target, errorMessages);
+        if (!deferValidation && target.reportValidity()) {
+            target.classList.remove('invalid');
+        }
+    };
+
+    // After being created, the DOM element should have its custom validation message set. Otherwise, submitting the 
+    // form before any changes have been made to the field will still show a default browser-supplied error message.
+    //
+    // TODO: The default browser messages still show up after the form has been cleared or reset. Since the textfield is
+    // meant to work as an uncontrolled component, and since a reset event occurs on the parent form and not the child 
+    // fields, it's actually somewhat tricky to identify when this event happens. Solutions that necessitate the parent
+    // form manually having to communicate this event via props or other similar means are too clunky.
+    const initCustomValidity = React.useCallback((node: TextFieldElement | null) => {
+        if (node) {
+            setCustomValidity(node, errorMessages);
+        }
+    }, Object.values(errorMessages));
+
+    return (
+        <Component 
+            ref         = { initCustomValidity } 
+            onInvalid   = { handleInvalid } 
+            onInput     = { handleInput } 
+            { ...other as HTMLInputProps & HTMLTextAreaProps } />
+    );
+}
 
 // Function determines which error message, if any, should be shown once a form submition is attempted. It is
 // important to note that this function should not cause any error messages or error styles to be shown prior to
@@ -48,8 +108,8 @@ export type TextFieldProps = (TextAreaFieldProps | TextInputFieldProps) & {
 
 // Furthermore, the `element.checkValidity()` function also considers empty strings to be valid inputs for 
 // `required` fields, which is unwanted behavior.
-function setCustomValidity(element: HTMLTextAreaElement & HTMLInputElement, errors: Errors) {
-    let error = null;
+function setCustomValidity(element: TextFieldElement, errors: Errors) {
+    let error = "";
     const type = (element.type || '').toLowerCase();
 
     // Treat empty and blank strings as missing
@@ -81,63 +141,8 @@ function setCustomValidity(element: HTMLTextAreaElement & HTMLInputElement, erro
         error = errors.badInput(element);
     }
 
-    if (error) {
-        element.setCustomValidity(error);
-    }
-    else {
-        // If all of the above passed the field value should be considered valid; any existing error message or
-        // style should be removed to signal that there is no further problem with this field.
-        element.classList.remove('invalid');
-        element.setCustomValidity("");
-    }
+    element.setCustomValidity(error);
 };
-
-export function TextField(props: TextFieldProps) {
-    const errors = {
-        ...defaultErrors,
-        ...props.errors
-    };
-
-    // After being created, the DOM element should have its custom validation message set. Otherwise, submitting the 
-    // form before any changes have been made to the field will still show a default browser-supplied error message.
-    const fieldRef = React.useRef<HTMLInputElement & HTMLTextAreaElement>(null);
-    React.useEffect(() => {
-        if (fieldRef.current) {
-            setCustomValidity(fieldRef.current, errors);
-        }
-    });
-
-    // TODO: The custom validity message displayed by the browser sometimes shows a message associated with the previous
-    // change/state rather than the current value of the field. Not sure why -- but it could be the browser displaying 
-    // the message before the 'onChange' event even fires and therefore before the setCustomValidity function gets to 
-    // update the message?
-    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement> & React.ChangeEvent<HTMLInputElement>) => {
-        if (props.onChange) {
-            props.onChange(event);
-        }
-        setCustomValidity(event.target, errors);
-    };
-
-    // Event will fire when a form submition is attempted or if the field's `checkValidity()` method is called and the
-    // current value is determined to be invalid.
-    const handleInvalid = (event: React.ChangeEvent<HTMLTextAreaElement> & React.ChangeEvent<HTMLInputElement>) => {
-        if (props.onInvalid) {
-            props.onInvalid(event);
-        }
-        event.target.classList.add('invalid');
-    };
-
-    switch (props.multiline) {
-        case true: {
-            const { multiline, onInvalid, onChange, ref, ...other } = props;
-            return <TextAreaField ref={ fieldRef } onInvalid={ handleInvalid } onChange={ handleChange } { ...other } />;
-        }
-        default: {
-            const { multiline, onInvalid, onChange, ref, ...other } = props;
-            return <TextInputField ref={ fieldRef } onInvalid={ handleInvalid } onChange={ handleChange } { ...other } />;
-        }
-    }
-}
 
 const TextInputField    = styled.input(({theme}) => theme.styles.controls.textbox);
 const TextAreaField     = styled.textarea(({theme}) => theme.styles.controls.textbox);

@@ -66,6 +66,7 @@ const globalStyles = {
         */
         '--content-margin': 'calc(((100vw - 41.5rem) / 2 * 0.15) + 2rem)'
     },
+    html: { scrollBehavior: 'smooth' },
     body: theme.styles.body
 }
 
@@ -73,7 +74,7 @@ const Container = styled.div({
     minWidth:           '20rem',
     margin:             '0 auto',
     position:           'relative',
-    paddingTop:         '4rem',
+    paddingTop:         '4rem'
 });
 
 export default Layout;

@@ -6,7 +6,6 @@ import Link     from "./link";
 // Wrapper Components for HTML elements that can serve as buttons; doing this allows them to be used as inputs to HOCs.
 // Though doing it this way is a bit silly -- might be a better idea to use a render prop instead.
 const HTMLButton = (p: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => <button { ... p } />;
-const HTMLAnchor = (p: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) => <a { ...p } />;
 
 type ButtonProps = {
     color?: "primary" | "secondary",

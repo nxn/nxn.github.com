@@ -28,9 +28,9 @@ This enables the form to have time travel capability via redux-undo, and also en
 `localStorage` without having to directly manage its persistance here (done via redux middleware).
 
 The events that trigger the state to be transmitted to redux are:
-    `onBlur`: field state is saved immediately
-    `onInput`: field state saved only if there is a specified and uninterrupted delay following the last user input.
-    `onReset`: all field states saved immediately
+    `onBlur`:   field state is saved immediately
+    `onInput`:  field state saved only if there is a specified and uninterrupted delay following the last user input.
+    `onReset`:  all field states saved immediately
 */
 
 // Fields will be autosaved this many milliseconds after the last user modification.
@@ -51,6 +51,11 @@ export function ContactPage() {
     const [autoSave, setAutoSave] = React.useState(0);
     const [disabled, setDisabled] = React.useState(false);
 
+    // If set true all error messages will be suppressed until the user attempts to submit an invalid form. At that
+    // point `deferValidation` can be disabled to show instant error information as changes are being made. This is 
+    // essentially a compromise to prevent displaying errors for inputs that have not yet been fully filled out.
+    const [deferValidation, setDeferValidation] = React.useState(true);
+
     // Determines whether discarding the form contents should be enabled based on whether there's any saved data at the
     // moment.
     const hasDraft = !!message.subject || !!message.body || !!message.address;
@@ -63,6 +68,16 @@ export function ContactPage() {
             setAutoSave(0);
         }
         dispatch(clear());
+    }
+
+    // If `deferValidation` is set to true, this event will only fire when there is an attempt to submit the form.
+    // Rather annoyingly, this is the only practical way to detect an attempt to submit the form without disabling
+    // the form's client validation entirely (i.e., via the `novalidate` form attribute).
+    const handleInvalid = () => {
+        if (deferValidation) {
+            // Enables instant error reporting
+            setDeferValidation(false);
+        }
     }
 
     const handleFieldBlur = (event: React.FocusEvent<HTMLInputElement|HTMLTextAreaElement>) => {
@@ -95,6 +110,7 @@ export function ContactPage() {
 
     const handleFormReset = (event: React.FormEvent<HTMLFormElement>) => {
         clearForm();
+        setDeferValidation(true);
 
         const form = event.target as HTMLFormElement;
         form.querySelectorAll('.invalid').forEach((element: Element) => {
@@ -147,30 +163,36 @@ export function ContactPage() {
                         type            = "text"
                         pattern         = ".*\S+.*"
                         title           = { requirements.subject }
+                        name            = { MESSAGE_FIELDS.Subject }
                         defaultValue    = { message.subject }
+                        placeholder     = "Subject"
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }
-                        name            = { MESSAGE_FIELDS.Subject }
-                        placeholder     = "Subject" />
+                        onInvalid       = { handleInvalid }
+                        deferValidation = { deferValidation } />
 
                     <Body required multiline
                         title           = { requirements.message }
+                        name            = { MESSAGE_FIELDS.Body }
                         defaultValue    = { message.body }
+                        placeholder     = "Message"
+                        rows            = { 5 }
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }
-                        rows            = { 5 }
-                        name            = { MESSAGE_FIELDS.Body }
-                        placeholder     = "Message" />
+                        onInvalid       = { handleInvalid }
+                        deferValidation = { deferValidation } />
 
                     <Address required
                         type            = "email"
                         pattern         = "[^\s@]+@[^\s@]+\.[^\s@]{2,}"
                         title           = { requirements.address }
+                        name            = { MESSAGE_FIELDS.Address }
                         defaultValue    = { message.address }
+                        placeholder     = "Your email"
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }
-                        name            = { MESSAGE_FIELDS.Address }
-                        placeholder     = "Your email" />
+                        onInvalid       = { handleInvalid }
+                        deferValidation = { deferValidation } />
                         
                     <Actions>
                         <Button type="submit" color="primary">

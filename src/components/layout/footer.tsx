@@ -36,10 +36,10 @@ export function FooterUnstyled(props: FooterProps) {
                     </Link>
                 </li>
                 <li>
-                    <a className="item" href="https://github.com/nxn/" target="_blank" rel="noreferrer">
+                    <Link className="item" to="https://github.com/nxn/">
                         <GithubIcon />
                         nxn
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <span className="item">

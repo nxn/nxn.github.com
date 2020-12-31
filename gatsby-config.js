@@ -46,7 +46,7 @@ module.exports = {
         gatsbyRemarkPlugins: [{
           resolve: "gatsby-remark-autolink-headers",
             options: {
-              //offsetY: '100',
+              //offsetY: 100, // this doesn't work or do anything
               isIconAfterHeader: true
             },
         }]

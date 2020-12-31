@@ -39,7 +39,7 @@ export function PostPage(props: PostPageProps) {
                     </MDXRenderer>
                 </div>
                 
-                { toc && <SidepanelToC id="side-toc" data={ post.tableOfContents } /> }
+                { toc && <SidepanelToC id="side-toc" data={ post.tableOfContents } highlight /> }
             </Content>
         </Layout>
     );
