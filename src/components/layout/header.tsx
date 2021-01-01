@@ -157,12 +157,12 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
             display:        'flex',
 
             '& a': {
-                marginRight: '1rem'
+                marginRight: '0.75rem'
             },
             '& .icon': {
                 display:        'inline-block',
                 verticalAlign:  'top',
-                marginRight:    '0.5rem',
+                marginRight:    '0.75rem',
                 height:         '2rem'
             }
         },

@@ -48,6 +48,7 @@ export function ContactPage() {
     const dispatch      = useDispatch();
     const message       = useSelector(selectAll);
 
+    const formRef = React.useRef<HTMLFormElement | null>(null);
     const [autoSave, setAutoSave] = React.useState(0);
     const [disabled, setDisabled] = React.useState(false);
 
@@ -59,16 +60,6 @@ export function ContactPage() {
     // Determines whether discarding the form contents should be enabled based on whether there's any saved data at the
     // moment.
     const hasDraft = !!message.subject || !!message.body || !!message.address;
-
-    const clearForm = () => {
-        // Any existing autoSave timeout should be cancelled so that it doesn't interfere with the state after the form
-        // has been cleared.
-        if (autoSave) {
-            window.clearTimeout(autoSave);
-            setAutoSave(0);
-        }
-        dispatch(clear());
-    }
 
     // If `deferValidation` is set to true, this event will only fire when there is an attempt to submit the form.
     // Rather annoyingly, this is the only practical way to detect an attempt to submit the form without disabling
@@ -108,28 +99,42 @@ export function ContactPage() {
         );
     }
 
-    const handleFormReset = (event: React.FormEvent<HTMLFormElement>) => {
-        clearForm();
+    const handleFormReset = () => {
+        // Any existing autoSave timeout should be cancelled so that it doesn't interfere with the state after the form
+        // has been cleared.
+        if (autoSave) {
+            window.clearTimeout(autoSave);
+            setAutoSave(0);
+        }
+
+        dispatch(clear());
+
         setDeferValidation(true);
 
-        const form = event.target as HTMLFormElement;
-        form.querySelectorAll('.invalid').forEach((element: Element) => {
-            element.classList.remove('invalid');
-        });
-
-        dispatch(alert({
-            type: "warning",
-            message: "Draft discarded",
-            actions: [{
-                name: "Undo", dismiss: true, action: undo()
-            }]
-        }));
+        if (formRef.current) {
+            formRef.current.querySelectorAll('.invalid').forEach((element: Element) => {
+                element.classList.remove('invalid');
+            });
+        }
     }
 
     const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        //setDisabled(true);
+        setDisabled(true);
+
+        const close = dispatch(alert({
+            type:           "working",
+            message:        "Sending ...",
+            noAutoDismiss:  true,
+            undismissable:  true
+        })) as unknown as () => void;
+
+
+        window.setTimeout(() => {
+            close();
+            handleSendError();
+        }, 3000)
 
         // email.send(
         //     config.serviceID, 
@@ -140,25 +145,46 @@ export function ContactPage() {
         return false;
     }
 
-    // const handleSendSuccess = () => {
-    //     setSeverity('success');
-    //     setShowResult(true);
-    //     clearForm();
-    //     setDisabled(false);
-    // }
+    const handleSendSuccess = () => {
+        setDisabled(false);
 
-    // const handleSendError = (_reason: any) => {
-    //     setSeverity('error');
-    //     setShowResult(true);
-    //     setDisabled(false);
-    // }
+        dispatch(alert({
+            type:       "success",
+            message:    "Message delivered!"
+        }));
+        
+        if (formRef.current) {
+            formRef.current.reset();
+        };
+    }
+
+    const handleSendError = () => {
+        setDisabled(false);
+
+        dispatch(alert({
+            type:           "error",
+            title:          "Message could not be delivered",
+            message:        "Please verify that you have internet access and try again; a draft of this message has been saved to your device in case you would like to retry at a later time.",
+            noAutoDismiss:  true,
+            undismissable:  true,
+            actions:        [{ name: "Dismiss", dismiss: true }]
+        }));
+    }
+
+    const showUndoPrompt = () => {
+        dispatch(alert({
+            type:       "warning",
+            message:    "Draft discarded",
+            actions:    [{ name: "Undo", dismiss: true, action: undo() }]
+        }));
+    }
 
     return (
         <Layout>
             <Content>
                 <PageHeading>Send <span className="accent">Ernie</span> a message:</PageHeading>
                 <br />
-                <Email id="email-form" onSubmit={ handleFormSubmit } onReset={ handleFormReset }>
+                <Email ref={ formRef } id="email-form" onSubmit={ handleFormSubmit } onReset={ handleFormReset }>
                     <Subject required
                         type            = "text"
                         pattern         = ".*\S+.*"
@@ -169,6 +195,7 @@ export function ContactPage() {
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }
                         onInvalid       = { handleInvalid }
+                        disabled        = { disabled }
                         deferValidation = { deferValidation } />
 
                     <Body required multiline
@@ -180,6 +207,7 @@ export function ContactPage() {
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }
                         onInvalid       = { handleInvalid }
+                        disabled        = { disabled }
                         deferValidation = { deferValidation } />
 
                     <Address required
@@ -192,14 +220,15 @@ export function ContactPage() {
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }
                         onInvalid       = { handleInvalid }
+                        disabled        = { disabled }
                         deferValidation = { deferValidation } />
                         
                     <Actions>
-                        <Button type="submit" color="primary">
+                        <Button type="submit" color="primary" disabled={ disabled }>
                             <SendIcon />
                             Send It
                         </Button>
-                        <Button type="reset" color="secondary" disabled={ disabled || !hasDraft }>
+                        <Button type="reset" color="secondary" onClick={ showUndoPrompt } disabled={ disabled || !hasDraft }>
                             <TrashIcon />
                             Discard
                         </Button>

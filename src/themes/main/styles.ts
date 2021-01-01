@@ -1,5 +1,6 @@
 import { Styles } from '@emotion/react';
 import palette from './palette';
+import theme from './prism';
 import transitions from './transitions';
 
 export const styles: Styles = {
@@ -183,12 +184,30 @@ export const styles: Styles = {
             // the form. The effect is associated with ':-moz-ui-invalid':
             '&:-moz-ui-invalid': {
                 boxShadow: 'none'
-            }
+            },
 
             // No browser actually supports this right now
             //'&:user-invalid': {
                 //borderColor: palette.error.main,
             //}
+
+            '&:disabled': {
+                opacity:        0.66,
+                userSelect:     'none',
+                color:          palette.actions.disabled.main,
+                borderColor:    palette.bgs.disabled.light,
+                background: `repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 0.5rem,
+                    ${ palette.bgs.standard.dark } 0.5rem,
+                    ${ palette.bgs.standard.dark } 1rem
+                ), linear-gradient(
+                    to bottom, 
+                    ${ palette.bgs.standard.dark }, 
+                    rgba(0,0,0, 0.33)
+                )`
+            }
         },
         button: {
             fontFamily:     '"Open Sans", sans-serif',
@@ -235,9 +254,10 @@ export const styles: Styles = {
             },
 
             '&:disabled, &:disabled:hover': {
-                backgroundColor: palette.bgs.disabled.main,
-                color: palette.actions.disabled.main,
-                cursor: 'default',
+                opacity:            0.66,
+                cursor:             'default',
+                color:              palette.actions.disabled.main,
+                backgroundColor:    palette.bgs.disabled.main,
                 '&:focus': {
                     boxShadow: `inset 0 0 0 0.25rem ${ palette.bgs.disabled.light }`,
                 }

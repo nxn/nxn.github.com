@@ -10,7 +10,8 @@ import {
     SuccessIcon,
     WarnIcon,
     ErrorIcon,
-    InfoIcon
+    InfoIcon,
+    SpinnerIcon
 } from "./graphics/icons";
 
 const resolveIcon = (alert: SnackbarItem) => {
@@ -18,6 +19,7 @@ const resolveIcon = (alert: SnackbarItem) => {
         case "success": return <SuccessIcon />
         case "error":   return <ErrorIcon />
         case "warning": return <WarnIcon />
+        case "working": return <SpinnerIcon />
         default:        return <InfoIcon />
     }
 }
@@ -41,6 +43,10 @@ export function SnackbarUnstyled(props: SnackbarProps) {
     };
 
     const handleMouseEnter = (alert: SnackbarItem, _event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (alert.undismissable || alert.noAutoDismiss) {
+            return;
+        }
+
         if (alert.timeout) {
             window.clearTimeout(alert.timeout);
             dispatch(timeoutUpdate({ id: alert.id, value: 0 }));
@@ -48,6 +54,10 @@ export function SnackbarUnstyled(props: SnackbarProps) {
     };
 
     const handleMouseLeave = (alert: SnackbarItem, _event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (alert.undismissable || alert.noAutoDismiss) {
+            return;
+        }
+        
         dispatch(timeoutUpdate({
             id: alert.id,
             value: window.setTimeout(() => dispatch(dismiss(alert.id)), alert.duration)
@@ -64,16 +74,21 @@ export function SnackbarUnstyled(props: SnackbarProps) {
                     onMouseLeave    = { (event) => handleMouseLeave(alert, event) }>
 
                     <Icon>{ resolveIcon(alert) }</Icon>
-                    <Message>{ alert.message }</Message>
+                    <Message>
+                        { !!alert.title && <Title>{ alert.title }</Title> }
+                        { alert.message }
+                    </Message>
                     <Actions fullWidth className="actions">
-                        { alert.actions && alert.actions.map((item, index) => (
+                    { alert.actions && alert.actions.map((item, index) => (
                         <Button variant="minimal" key={ index } onClick={ () => handleActionClick(alert, item) }>
                             { item.name }
                         </Button>
-                        ))}
+                    ))}
+                    { !alert.undismissable &&
                         <Button variant="minimal" onClick={ () => dispatch(dismiss(alert.id)) }>
                             Dismiss
                         </Button>
+                    }
                     </Actions>
                 </Alert>
             ))}
@@ -87,6 +102,8 @@ const Snackbar = styled(SnackbarUnstyled)({
     bottom:     '2rem',
     left:       '50%',
     transform:  'translateX(-50%)',
+    minWidth:   '18rem',
+    maxWidth:   '48rem',
 
     display:        'flex',
     alignItems:     'center',
@@ -116,7 +133,7 @@ const Alert = styled.div(({theme}) => ({
         gridTemplateColumns:    'auto 1fr auto',
         gridTemplateAreas:      '"icon message actions"',
         '& .actions': {
-            borderLeft: '0.0625rem solid rgba(0,0,0,0.25)'
+            //borderLeft: '0.0625rem solid rgba(0,0,0,0.25)'
         },
     },
 
@@ -127,7 +144,7 @@ const Alert = styled.div(({theme}) => ({
             "actions    actions"
         `,
         '& .actions': {
-            borderTop: '0.0625rem solid rgba(0,0,0,0.25)'
+            //borderTop: '0.0625rem solid rgba(0,0,0,0.25)'
         },
     },
 }));
@@ -136,19 +153,24 @@ const Icon = styled.div({
     gridArea:   'icon',
     width:      '3rem',
     textAlign:  'center',
-    '& > *': {
+    '& > svg.icon': {
         height:         '1.5rem',
         width:          '1.5rem',
         verticalAlign:  'middle',
     }
 });
 
-const Message = styled.span({
+const Message = styled.div({
     gridArea:   'message',
     padding:    '0.5rem 1rem 0.5rem 0',
     fontSize:   '0.9rem',
     lineHeight: '1.5rem',
     boxSizing:  'border-box',
+});
+
+const Title = styled.div({
+    fontWeight: 'bold',
+    paddingBottom: '0.5rem'
 });
 
 const Actions = styled(ButtonGroup)({

@@ -2,18 +2,20 @@ import { createSlice, Middleware, PayloadAction, Action } from '@reduxjs/toolkit
 
 export const SNACKBAR_SLICE = 'snackbar';
 
-export type SnackbarItemType = "success" | "error" | "info" | "warning";
+export type SnackbarItemType = "success" | "error" | "info" | "warning" | "working";
 
 export const DEFAULT_DURATION_MAP: { [ P in SnackbarItemType ]: number } = {
     "success":  3000,
     "error":    10000,
     "info":     5000,
-    "warning":  10000
+    "warning":  10000,
+    "working":  0,
 }
 
 export interface SnackbarAction {
     name:       string;
-    action:     Action<any>;
+    // The action is allowed to be optional so that custom dismissal buttons can be created
+    action?:    Action<any>;
     /// If true executing the action will also dismiss the snackbar item
     dismiss?:   boolean;
 }
@@ -22,18 +24,22 @@ export interface SnackbarItem {
     id:             number;
     type:           SnackbarItemType;
     message:        string;
-    duration:       number;
+    title?:         string;
+    duration?:      number;
     actions?:       SnackbarAction[];
     timeout?:       number;
     undismissable?: boolean;
+    noAutoDismiss?: boolean;
 }
 
 export type AlertData = {
     message:            string;
+    title?:             string;
     type?:              SnackbarItemType;
     actions?:           SnackbarAction[];
-    undismissable?:     boolean;
     duration?:          number;
+    undismissable?:     boolean;
+    noAutoDismiss?:     boolean;
 }
 
 export const snackbarSlice = createSlice({
@@ -49,6 +55,10 @@ export const snackbarSlice = createSlice({
 
                 if (!payload.type) { 
                     payload.type = 'info';
+                }
+
+                if (payload.type === 'working') {
+                    payload.noAutoDismiss = true;
                 }
 
                 if (!payload.duration) {
@@ -93,12 +103,18 @@ export const autoDismissMiddleware: Middleware = store => next => (action: Paylo
 
     if (action.type.endsWith('/alert')) {
         const item = action.payload as SnackbarItem;
-        item.timeout = window.setTimeout(() => store.dispatch(dismiss(item.id)), item.duration);
+
+        if (item.noAutoDismiss) {
+            item.timeout = 0;
+        }
+        else {
+            item.timeout = window.setTimeout(() => store.dispatch(dismiss(item.id)), item.duration);
+        }
+        
         next(action);
 
-        return function cancel() {
-            window.clearTimeout(item.timeout);
-            store.dispatch(timeoutUpdate({ id: item.id, value: 0 }));
+        return function close() {
+            return store.dispatch(dismiss(item.id));
         }
     }
 
