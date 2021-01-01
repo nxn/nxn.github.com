@@ -71,7 +71,7 @@ export function TextField(props: TextFieldProps): JSX.Element {
     // Needs to execute on each value change to make sure that validity is up to date. Also depends on `deferValidation`
     // and `errorMessages` values. The reason this isn't done via `onInput` or `onChange` events is that these events 
     // only fire as a result of user initiated interactions. However, validity must also be updated whenever the value
-    // is changed via other sources, for example redux state changes. 
+    // is changed via other sources, for example redux state changes, form resets, etc.
     React.useEffect(updateValidity, [
         fieldRef.current,
         fieldRef.current && fieldRef.current.value,
