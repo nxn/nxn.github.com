@@ -178,7 +178,7 @@ export const Footer = styled(FooterUnstyled)(({theme}) => ({
 
         '& #footer-misc': {
             flexDirection:  'row',
-            justifyContent: 'center',
+            justifyContent: 'space-around',
             alignSelf:      'self-start'
         }
     },
