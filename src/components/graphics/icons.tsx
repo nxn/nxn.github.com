@@ -110,3 +110,15 @@ export const CopyIcon = React.memo((props: SvgProps) => (
         <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z" />
     </Svg>
 ));
+
+export const HomeIcon = React.memo((props: SvgProps) => (
+    <Svg className={ clsx('icon', props.className) } viewBox="0 0 32 32" { ...props }>
+        <path stroke="currentcolor" stroke-width="1" d="M18.12,2.88a3.08,3.08,0,0,0-4.24,0L1.29,15.46l1.42,1.42L5,14.59V27a3,3,0,0,0,3,3H24a3,3,0,0,0,3-3V14.59l2.29,2.29,1.42-1.42ZM14,28V21h4v7Zm11-1a1,1,0,0,1-1,1H20V19H12v9H8a1,1,0,0,1-1-1V12.59l8.29-8.3a1,1,0,0,1,1.42,0L25,12.59Z"/>
+    </Svg>
+));
+
+export const BookIcon = React.memo((props: SvgProps) => (
+    <Svg className={ clsx('icon', props.className) } { ...props }>
+        <path style={{fill:'none'}} stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.25278V19.2528M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.2528C4.16789 18.4769 5.75351 18 7.5 18C9.24649 18 10.8321 18.4769 12 19.2528M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.2528C19.8321 18.4769 18.2465 18 16.5 18C14.7535 18 13.1679 18.4769 12 19.2528"/>
+    </Svg>
+));

@@ -7,8 +7,9 @@ import Link from "../controls/link";
 import {
     Logo,
     MenuIcon,
+    HomeIcon,
+    BookIcon,
     DocIcon,
-    GeoIcon,
     MailIcon,
 } from "../graphics";
 
@@ -31,9 +32,15 @@ export function HeaderUnstyled(props: HeaderProps) {
             
             <ul id="links">
                 <li>
-                    <Link to="/resume">
-                        <DocIcon />
-                        Resume
+                    <Link to="/">
+                        <HomeIcon />
+                        Home
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/posts">
+                        <BookIcon />
+                        Posts
                     </Link>
                 </li>
                 <li>
@@ -42,9 +49,11 @@ export function HeaderUnstyled(props: HeaderProps) {
                         Contact
                     </Link>
                 </li>
-                <li className="location">
-                    <GeoIcon />
-                    Philadelphia
+                <li>
+                    <Link to="/resume">
+                        <DocIcon />
+                        Resume
+                    </Link>
                 </li>
             </ul> 
         </header>
@@ -99,10 +108,10 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
         '& .icon': {
             height: '1.5rem',
             width:  '2rem',
-            fill:   theme.palette.actions.secondary.main,
+            fill:   theme.palette.actions.secondary.main
         },
         '&:hover .icon': {
-            fill:   theme.palette.actions.secondary.light,
+            fill:   theme.palette.actions.secondary.light
         }
     },
             
@@ -112,57 +121,51 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
 
     '& #links': {
         gridColumn:     'span 2',
-        paddingBottom:  '0.5rem',
         width:          '100%',
         display:        'none',
         justifyContent: 'space-evenly',
         alignItems:     'center',
 
+        '& .icon': {
+            display:        'block',
+            margin:         '0 auto',
+            height:         '1.5rem',
+            width:          '1.5rem',
+            fill:           theme.palette.text.alternate.main,
+        },
+
+        '& a': {
+            display:        'inline-block',
+            color:          theme.palette.text.alternate.main,
+            textAlign:      'center',
+            textDecoration: 'none',
+            lineHeight:     '2rem',
+            padding:        '1rem',
+        },
+
+        '& a:hover': {
+            color: theme.palette.text.alternate.light,
+        },
+
+        '& a:hover .icon': {
+            fill: `${ theme.palette.text.alternate.light } !important`,
+        },
+
         '@media (min-width: 41.5rem)': {
             gridColumn:     'span 1',
-            paddingBottom:  0,
             justifyContent: 'flex-end',
-            display:        'flex !important'
-        },
-
-        '& li': {
-            textAlign:      'left',
-            lineHeight:     '2.5rem',
-            marginRight:    '1rem',
-
-            '& .icon': {
-                display:        'inline-block',
-                height:         '2.5rem',
-                width:          '1.5rem',
-                verticalAlign:  'top',
-                fill:           theme.palette.text.alternate.main,
-                marginRight:    '0.5rem'
-            },
+            display:        'flex',
 
             '& a': {
-                color:          theme.palette.text.alternate.main,
-                textDecoration: 'none',
+                marginRight: '1rem'
+            },
+            '& .icon': {
                 display:        'inline-block',
-                paddingRight:   '1rem',
-            },
-
-            '& a:hover': {
-                color: theme.palette.text.alternate.light
-            },
-
-            '& a:hover .icon': {
-                fill: `${ theme.palette.text.alternate.light } !important`
+                verticalAlign:  'top',
+                marginRight:    '0.5rem',
+                height:         '2rem'
             }
         },
-
-        '& .location': {
-            display:    'none',
-            color:      theme.palette.text.alternate.main,
-            '@media (min-width: 41.5rem)': {
-                display:        'inline-block',
-                marginRight:    '2rem'
-            }
-        }
     }
 }));
 
