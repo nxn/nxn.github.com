@@ -133,8 +133,8 @@ export function ContactPage() {
 
         window.setTimeout(() => {
             close();
-            handleSendError();
-        }, 3000)
+            handleSendSuccess();
+        }, 5000)
 
         // email.send(
         //     config.serviceID, 

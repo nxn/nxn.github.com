@@ -45,12 +45,39 @@ export type TextFieldProps = (TextInputFieldProps | TextAreaFieldProps) & {
 };
 
 export function TextField(props: TextFieldProps): JSX.Element {
-    const { multiline, deferValidation, errors, onInvalid, onInput, ...other } = props;
+    const { multiline, deferValidation, errors, onInvalid, ...other } = props;
     const Component = multiline ? TextAreaField : TextInputField;
     const errorMessages = {
         ...defaultErrors,
         ...errors
     };
+
+    const fieldRef = React.useRef<(HTMLInputElement & HTMLTextAreaElement) | null>(null);
+
+    // TODO: The custom validity message displayed by the browser sometimes shows a residual message associated with the
+    // prior state rather than the current value of the field. This happens despite `reportValidity()` being called
+    // after having set the new message. This is most noticeable when a field becomes valid -- the `.invalid` class is
+    // removed as expected, but the browser's (firefox in this case) error pop up remains visible on screen for some
+    // reason. This issue might be unavoidable/out of my control.
+    const updateValidity = () => {
+        if (!fieldRef.current) { return; }
+
+        setCustomValidity(fieldRef.current, errorMessages);
+        if (!deferValidation && fieldRef.current.reportValidity()) {
+            fieldRef.current.classList.remove('invalid');
+        }
+    }
+
+    // Needs to execute on each value change to make sure that validity is up to date. Also depends on `deferValidation`
+    // and `errorMessages` values. The reason this isn't done via `onInput` or `onChange` events is that these events 
+    // only fire as a result of user initiated interactions. However, validity must also be updated whenever the value
+    // is changed via other sources, for example redux state changes. 
+    React.useEffect(updateValidity, [
+        fieldRef.current,
+        fieldRef.current && fieldRef.current.value,
+        deferValidation,
+        ...Object.values(errorMessages)
+    ]);
 
     // Event will fire when a form submition is attempted or if the field's `checkValidity()` or `reportValidity()` 
     // methods are used while the current value is invalid.
@@ -59,44 +86,15 @@ export function TextField(props: TextFieldProps): JSX.Element {
             onInvalid(event);
         }
 
-        (event.target as TextFieldElement).classList.add('invalid');
-    };
-
-    // TODO: The custom validity message displayed by the browser sometimes shows a residual message associated with the
-    // prior state rather than the current value of the field. This happens despite `reportValidity()` being called
-    // after having set the new message. This is most noticeable when a field becomes valid -- the `.invalid` class is
-    // removed as expected, but the browser's (firefox in this case) error pop up remains visible on screen for some
-    // reason.
-    const handleInput = (event: React.FormEvent<TextFieldElement>) => {
-        if (onInput) {
-            onInput(event);
-        }
-
-        const target = event.target as TextFieldElement;
-        setCustomValidity(target, errorMessages);
-        if (!deferValidation && target.reportValidity()) {
-            target.classList.remove('invalid');
+        if (fieldRef.current) {
+            fieldRef.current.classList.add('invalid');
         }
     };
-
-    // After being created, the DOM element should have its custom validation message set. Otherwise, submitting the 
-    // form before any changes have been made to the field will still show a default browser-supplied error message.
-    //
-    // TODO: The default browser messages still show up after the form has been cleared or reset. Since the textfield is
-    // meant to work as an uncontrolled component, and since a reset event occurs on the parent form and not the child 
-    // fields, it's actually somewhat tricky to identify when this event happens. Solutions that necessitate the parent
-    // form manually having to communicate this event via props or other similar means are too clunky.
-    const initCustomValidity = React.useCallback((node: TextFieldElement | null) => {
-        if (node) {
-            setCustomValidity(node, errorMessages);
-        }
-    }, Object.values(errorMessages));
 
     return (
         <Component 
-            ref         = { initCustomValidity } 
-            onInvalid   = { handleInvalid } 
-            onInput     = { handleInput } 
+            ref         = { fieldRef } 
+            onInvalid   = { handleInvalid }
             { ...other as HTMLInputProps & HTMLTextAreaProps } />
     );
 }
