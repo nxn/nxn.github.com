@@ -1,6 +1,6 @@
-import React, { MutableRefObject }        from "react";
-import styled       from "@emotion/styled";
-import { Helmet }   from "react-helmet";
+import React, { MutableRefObject }  from "react";
+import styled                       from "@emotion/styled";
+import { Helmet }                   from "react-helmet";
 
 const global = (window as { [key: string]: any });
 
@@ -35,8 +35,8 @@ export const Recaptcha = React.forwardRef<RecaptchaAPI, RecaptchaProps>((props: 
         const result = api.render(containerRef.current, {
             sitekey:            props.siteKey,
             callback:           props.callback,
-            expiredCallback:    props.expiredCallback,
             errorCallback:      props.errorCallback,
+            expiredCallback:    props.expiredCallback,
             tabIndex:           props.tabIndex  || 0,
             isolated:           props.isolated  || false,
             theme:              props.theme     || "dark",

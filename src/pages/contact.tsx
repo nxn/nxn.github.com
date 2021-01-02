@@ -199,25 +199,22 @@ export function ContactPage() {
             config.emailjs.userID
         ).then(() => {
             dispatch(alert(alerts.messageDelivered));
-            
             if (formRef.current) {
                 formRef.current.reset();
             };
         }).catch((reason) => {
-            console.error(reason);
             dispatch(alert(alerts.deliveryFailed));
+            console.error(reason);
         }).finally(() => {
             close();
             setDisabled(false);
         });
-
-        return false;
     }
 
     const handleRecaptchaReady = (widgetId: number) => setRecaptchaId(widgetId);
     const handleRecaptchaError = (...args: any[]) => {
+        dispatch(alert(alerts.recaptchaError));
         console.error(args);
-        dispatch(alert(alerts.recaptchaError))
     }
 
     const showUndoPrompt = () => dispatch(alert(alerts.undoPrompt));
