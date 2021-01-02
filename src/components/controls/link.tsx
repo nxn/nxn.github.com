@@ -20,14 +20,14 @@ export function Link({ children, to, href, activeClassName, partiallyActive, ...
     const url = to || href;
 
     if (!url) { 
-        return <a { ... other }>{ children }</a> 
+        return <a { ...other }>{ children }</a> 
     }
 
     if (externalUrlRx.test(url)) {
-        const { target, rel, ...remaining } = other as React.AnchorHTMLAttributes<HTMLAnchorElement>;
-
         return (
-            <a href={ url } target="_blank" rel="noreferrer" { ...remaining }>
+            // if `other` specifies `target` or `rel` attributes they will be used; otherwise "_blank" and "noreferrer"
+            // will serve as defaults.
+            <a href={ url } target="_blank" rel="noreferrer" { ...other }>
                 { children }
             </a>
         );
