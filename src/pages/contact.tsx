@@ -1,13 +1,16 @@
 import React                        from "react";
 import styled                       from "@emotion/styled";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
+import email                        from "emailjs-com";
 
-import Layout                   from "../components/layout";
-import { PageHeading }          from "../components/common";
-import { Button, ButtonGroup }  from "../components/controls/button";
-import { TextField }            from "../components/controls/textfield";
+import config                       from "../config";
+import Layout                       from "../components/layout";
+import { PageHeading }              from "../components/common";
+import { Button, ButtonGroup }      from "../components/controls/button";
+import { TextField }                from "../components/controls/textfield";
+import Recaptcha, { RecaptchaAPI }  from "../components/recaptcha";
 
-import { alert } from "../state/snackbar";
+import { alert, AlertData } from "../state/snackbar";
 import { 
     selectAll, 
     MESSAGE_FIELDS,
@@ -44,13 +47,64 @@ const requirements: { [ key: string ]: string } = {
     address:    'Must be a valid email address, for example: "your.address@example.com"' 
 }
 
+const alerts = {
+    undoPrompt: {
+        type:       "warning",
+        message:    "Draft discarded",
+        actions:    [{ name: "Undo", dismiss: true, action: undo() }]
+    } as AlertData,
+
+    recaptchaLoadError: {
+        type:           "error",
+        title:          "Could not load reCAPTCHA",
+        message:        "To use this form ensure that your ad or script blockers allow scripts and content from both google.com and gstatic.com",
+        noAutoDismiss:  true,
+        undismissable:  true,
+        actions:        [{ name: "Dismiss", dismiss: true }]
+    } as AlertData,
+
+    recaptchaError: {
+        type:           "error",
+        title:          "Unexpected reCAPTCHA error",
+        message:        "Please verify that you have internet access and try again.",
+        noAutoDismiss:  true,
+        undismissable:  true,
+        actions:        [{ name: "Dismiss", dismiss: true }]
+    } as AlertData,
+
+    sending: {
+        type:           "working",
+        message:        "Sending ...",
+        noAutoDismiss:  true,
+        undismissable:  true
+    } as AlertData,
+
+    messageDelivered: {
+        type:       "success",
+        message:    "Message delivered!"
+    } as AlertData,
+
+    deliveryFailed: {
+        type:           "error",
+        title:          "Message could not be delivered",
+        message:        "Please verify that you have internet access and try again; a draft of this message has been saved to your device in case you would like to retry at a later time.",
+        noAutoDismiss:  true,
+        undismissable:  true,
+        actions:        [{ name: "Dismiss", dismiss: true }]
+    } as AlertData,
+}
+
 export function ContactPage() {
     const dispatch      = useDispatch();
     const message       = useSelector(selectAll);
 
-    const formRef = React.useRef<HTMLFormElement | null>(null);
+    const formRef           = React.useRef<HTMLFormElement | null>(null);
+    const recaptchaApiRef   = React.useRef<RecaptchaAPI | null>(null);
+
     const [autoSave, setAutoSave] = React.useState(0);
     const [disabled, setDisabled] = React.useState(false);
+
+    const [recaptchaId, setRecaptchaId] = React.useState<number | null>(null);
 
     // If set true all error messages will be suppressed until the user attempts to submit an invalid form. At that
     // point `deferValidation` can be disabled to show instant error information as changes are being made. This is 
@@ -99,6 +153,17 @@ export function ContactPage() {
         );
     }
 
+    const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        
+        if (!recaptchaApiRef.current || recaptchaId === null) {
+            dispatch(alert(alerts.recaptchaLoadError));
+            return;
+        }
+
+        recaptchaApiRef.current.execute(recaptchaId);
+    }
+
     const handleFormReset = () => {
         // Any existing autoSave timeout should be cancelled so that it doesn't interfere with the state after the form
         // has been cleared.
@@ -118,77 +183,64 @@ export function ContactPage() {
         }
     }
 
-    const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const sendEmail = (recaptchaResponseToken: string) => {
+        if (!formRef.current) { return; }
 
+        const formData = new FormData(formRef.current);
+        formData.append('g-recaptcha-response', recaptchaResponseToken);
+
+        const close = dispatch(alert(alerts.sending)) as unknown as () => void;
         setDisabled(true);
 
-        const close = dispatch(alert({
-            type:           "working",
-            message:        "Sending ...",
-            noAutoDismiss:  true,
-            undismissable:  true
-        })) as unknown as () => void;
-
-
-        window.setTimeout(() => {
+        email.send(
+            config.emailjs.serviceID,
+            config.emailjs.templateID,
+            Object.fromEntries(formData),
+            config.emailjs.userID
+        ).then(() => {
+            dispatch(alert(alerts.messageDelivered));
+            
+            if (formRef.current) {
+                formRef.current.reset();
+            };
+        }).catch((reason) => {
+            console.error(reason);
+            dispatch(alert(alerts.deliveryFailed));
+        }).finally(() => {
             close();
-            handleSendSuccess();
-        }, 5000)
-
-        // email.send(
-        //     config.serviceID, 
-        //     config.templateID, 
-        //     formValues
-        // ).then(handleSendSuccess, handleSendError);
+            setDisabled(false);
+        });
 
         return false;
     }
 
-    const handleSendSuccess = () => {
-        setDisabled(false);
-
-        dispatch(alert({
-            type:       "success",
-            message:    "Message delivered!"
-        }));
-        
-        if (formRef.current) {
-            formRef.current.reset();
-        };
+    const handleRecaptchaReady = (widgetId: number) => setRecaptchaId(widgetId);
+    const handleRecaptchaError = (...args: any[]) => {
+        console.error(args);
+        dispatch(alert(alerts.recaptchaError))
     }
 
-    const handleSendError = () => {
-        setDisabled(false);
-
-        dispatch(alert({
-            type:           "error",
-            title:          "Message could not be delivered",
-            message:        "Please verify that you have internet access and try again; a draft of this message has been saved to your device in case you would like to retry at a later time.",
-            noAutoDismiss:  true,
-            undismissable:  true,
-            actions:        [{ name: "Dismiss", dismiss: true }]
-        }));
-    }
-
-    const showUndoPrompt = () => {
-        dispatch(alert({
-            type:       "warning",
-            message:    "Draft discarded",
-            actions:    [{ name: "Undo", dismiss: true, action: undo() }]
-        }));
-    }
+    const showUndoPrompt = () => dispatch(alert(alerts.undoPrompt));
 
     return (
         <Layout>
             <Content>
                 <PageHeading>Send <span className="accent">Ernie</span> a message:</PageHeading>
                 <br />
+                
+                <Recaptcha 
+                    ref             = { recaptchaApiRef }
+                    siteKey         = { config.recaptcha.siteKey }
+                    onReady         = { handleRecaptchaReady }
+                    errorCallback   = { handleRecaptchaError }
+                    callback        = { sendEmail } />
+
                 <Email ref={ formRef } id="email-form" onSubmit={ handleFormSubmit } onReset={ handleFormReset }>
                     <Subject required
                         type            = "text"
                         pattern         = ".*\S+.*"
                         title           = { requirements.subject }
+                        id              = { MESSAGE_FIELDS.Subject }
                         name            = { MESSAGE_FIELDS.Subject }
                         defaultValue    = { message.subject }
                         placeholder     = "Subject"
@@ -200,6 +252,7 @@ export function ContactPage() {
 
                     <Body required multiline
                         title           = { requirements.message }
+                        id              = { MESSAGE_FIELDS.Body }
                         name            = { MESSAGE_FIELDS.Body }
                         defaultValue    = { message.body }
                         placeholder     = "Message"
@@ -214,6 +267,7 @@ export function ContactPage() {
                         type            = "email"
                         pattern         = "[^\s@]+@[^\s@]+\.[^\s@]{2,}"
                         title           = { requirements.address }
+                        id              = { MESSAGE_FIELDS.Address }
                         name            = { MESSAGE_FIELDS.Address }
                         defaultValue    = { message.address }
                         placeholder     = "Your email"
