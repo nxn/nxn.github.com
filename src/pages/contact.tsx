@@ -189,7 +189,7 @@ export function ContactPage() {
         const formData = new FormData(formRef.current);
         formData.append('g-recaptcha-response', recaptchaResponseToken);
 
-        const close = dispatch(alert(alerts.sending)) as unknown as () => void;
+        const dismissSendingAlert = dispatch(alert(alerts.sending)) as unknown as () => void;
         setDisabled(true);
 
         email.send(
@@ -206,7 +206,7 @@ export function ContactPage() {
             dispatch(alert(alerts.deliveryFailed));
             console.error(reason);
         }).finally(() => {
-            close();
+            dismissSendingAlert();
             setDisabled(false);
         });
     }

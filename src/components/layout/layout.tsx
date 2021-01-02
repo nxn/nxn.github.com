@@ -66,7 +66,7 @@ const globalStyles = {
         */
         '--content-margin': 'calc(((100vw - 41.5rem) / 2 * 0.15) + 2rem)'
     },
-    html: { scrollBehavior: 'smooth' },
+    //html: { scrollBehavior: 'smooth' },
     body: theme.styles.body
 }
 

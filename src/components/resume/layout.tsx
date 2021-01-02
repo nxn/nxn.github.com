@@ -16,7 +16,7 @@ type LayoutProps = {
 export function Layout(props: LayoutProps) {
     return (
         <ThemeProvider theme={ theme }>
-            <Global styles={{ html: { scrollBehavior: 'smooth' } , body: theme.styles.body }} />
+            <Global styles={{ body: theme.styles.body }} />
 
             <MDXProvider components={ components }>
                 <Container id="layout">

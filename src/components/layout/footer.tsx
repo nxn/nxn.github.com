@@ -178,8 +178,11 @@ export const Footer = styled(FooterUnstyled)(({theme}) => ({
 
         '& #footer-misc': {
             flexDirection:  'row',
-            justifyContent: 'space-around',
-            alignSelf:      'self-start'
+            justifyContent: 'center',
+            alignSelf:      'self-start',
+            '& li': {
+                margin: '0 1rem'
+            }
         }
     },
 }));
