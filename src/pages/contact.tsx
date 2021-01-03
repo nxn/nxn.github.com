@@ -200,10 +200,11 @@ export function ContactPage() {
     const sendEmail = (recaptchaResponseToken: string) => {
         if (!formRef.current) { return; }
 
+        // Collect form data and append recaptcha response token
         const formData = new FormData(formRef.current);
         formData.append('g-recaptcha-response', recaptchaResponseToken);
 
-        // Prepare to form state for sending
+        // Prepare the form state for sending
         setDisabled(true);
         const dismissSendingAlert = dispatch(alert(alerts.sending)) as unknown as () => void;
 
@@ -216,8 +217,20 @@ export function ContactPage() {
             dispatch(alert(alerts.messageDelivered));
             if (formRef.current) {
                 formRef.current.reset();
-            };
+            }
+            // Token was consumed so recaptcha should be reset in case the user wants to send a follow up.
+            if (recaptchaRef.current) {
+                recaptchaRef.current.reset();
+            }
         }).catch((reason) => {
+            // TODO: Include some logic to determine if a new recaptcha token needs to be obtained based on the error
+            // response?
+            // 
+            // Not sure if something like that is actually needed. As it stands, attempting to obtain a new token when a
+            // valid and unused token already exists ends in no action or response (error or otherwise) from google's
+            // recaptcha service. To add to this, emailjs provides no documentation on its response codes or what to 
+            // expect from its recaptcha token verification process. Between the two of them, I think I'd much rather 
+            // deal with spam mail than putting any more effort into this.
             dispatch(alert(alerts.deliveryFailed));
             console.error(reason);
         }).finally(() => {
