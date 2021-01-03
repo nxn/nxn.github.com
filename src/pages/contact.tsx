@@ -2,13 +2,13 @@ import React                        from "react";
 import styled                       from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import email                        from "emailjs-com";
+import ReCAPTCHA                    from "react-google-recaptcha";
 
 import config                       from "../config";
 import Layout                       from "../components/layout";
 import { PageHeading }              from "../components/common";
 import { Button, ButtonGroup }      from "../components/controls/button";
 import { TextField }                from "../components/controls/textfield";
-import Recaptcha, { RecaptchaAPI }  from "../components/recaptcha";
 
 import { alert, AlertData } from "../state/snackbar";
 import { 
@@ -63,6 +63,15 @@ const alerts = {
         actions:        [{ name: "Dismiss", dismiss: true }]
     } as AlertData,
 
+    recaptchaExpiredError: {
+        type:           "error",
+        title:          "reCAPTCHA challenge expired",
+        message:        "Your reCAPTCHA challenge has expired, please try again.",
+        noAutoDismiss:  true,
+        undismissable:  true,
+        actions:        [{ name: "Dismiss", dismiss: true }]
+    } as AlertData,
+
     recaptchaError: {
         type:           "error",
         title:          "Unexpected reCAPTCHA error",
@@ -98,13 +107,11 @@ export function ContactPage() {
     const dispatch      = useDispatch();
     const message       = useSelector(selectAll);
 
-    const formRef           = React.useRef<HTMLFormElement | null>(null);
-    const recaptchaApiRef   = React.useRef<RecaptchaAPI | null>(null);
+    const formRef       = React.useRef<HTMLFormElement | null>(null);
+    const recaptchaRef  = React.useRef<ReCAPTCHA | null>(null);
 
     const [autoSave, setAutoSave] = React.useState(0);
     const [disabled, setDisabled] = React.useState(false);
-
-    const [recaptchaId, setRecaptchaId] = React.useState<number | null>(null);
 
     // If set true all error messages will be suppressed until the user attempts to submit an invalid form. At that
     // point `deferValidation` can be disabled to show instant error information as changes are being made. This is 
@@ -153,15 +160,22 @@ export function ContactPage() {
         );
     }
 
-    const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
-        if (!recaptchaApiRef.current || recaptchaId === null) {
+        if (!recaptchaRef.current) {
             dispatch(alert(alerts.recaptchaLoadError));
             return;
         }
 
-        recaptchaApiRef.current.execute(recaptchaId);
+        const token = await recaptchaRef.current.executeAsync();
+
+        if (token === null) {
+            dispatch(alert(alerts.recaptchaExpiredError));
+        }
+        else {
+            sendEmail(token);
+        }
     }
 
     const handleFormReset = () => {
@@ -189,8 +203,9 @@ export function ContactPage() {
         const formData = new FormData(formRef.current);
         formData.append('g-recaptcha-response', recaptchaResponseToken);
 
-        const dismissSendingAlert = dispatch(alert(alerts.sending)) as unknown as () => void;
+        // Prepare to form state for sending
         setDisabled(true);
+        const dismissSendingAlert = dispatch(alert(alerts.sending)) as unknown as () => void;
 
         email.send(
             config.emailjs.serviceID,
@@ -211,7 +226,6 @@ export function ContactPage() {
         });
     }
 
-    const handleRecaptchaReady = (widgetId: number) => setRecaptchaId(widgetId);
     const handleRecaptchaError = (...args: any[]) => {
         dispatch(alert(alerts.recaptchaError));
         console.error(args);
@@ -225,12 +239,13 @@ export function ContactPage() {
                 <PageHeading>Send <span className="accent">Ernie</span> a message:</PageHeading>
                 <br />
                 
-                <Recaptcha 
-                    ref             = { recaptchaApiRef }
-                    siteKey         = { config.recaptcha.siteKey }
-                    onReady         = { handleRecaptchaReady }
-                    errorCallback   = { handleRecaptchaError }
-                    callback        = { sendEmail } />
+                <ReCAPTCHA 
+                    ref             = { recaptchaRef }
+                    sitekey         = { config.recaptcha.siteKey }
+                    size            = "invisible"
+                    theme           = "dark"
+                    badge           = "bottomleft"
+                    onErrored       = { handleRecaptchaError } />
 
                 <Email ref={ formRef } id="email-form" onSubmit={ handleFormSubmit } onReset={ handleFormReset }>
                     <Subject required
@@ -296,6 +311,10 @@ const Content = styled.div(({ theme }) => ({
     '& .accent': {
         color: theme.palette.accents.green
     },
+
+    '& .grecaptcha-badge': {
+        boxShadow: 'rgba(0,0,0,0.66) 0px 0px 5px !important'
+    }
 }));
 
 const Email = styled.form({

@@ -66,17 +66,25 @@ export function Link({ children, to, href, activeClassName, partiallyActive, ...
     )
 }
 
+let supportsScrollBehavior: boolean | null = null;
 function smoothScroll(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    // Saves the result so the check isn't done on each click
+    if (supportsScrollBehavior === null) {
+        supportsScrollBehavior = 'scrollBehavior' in window.document.documentElement.style;
+    }
+
+    if (!supportsScrollBehavior) { return; }
+
     const anchor = event.currentTarget as HTMLAnchorElement;
     const element = window.document.querySelector<HTMLElement>(anchor.hash);
+
     if (element) {
         event.preventDefault();
-        element.scrollIntoView({ 
-            behavior: 'smooth' 
-        });
-        element.focus();
+        element.scrollIntoView({ behavior: 'smooth' });
+        // Arbitrary timeout for updating the url and focus since `scrollIntoView` doesn't accept a callback or return a
+        // promise.
+        setTimeout(() => window.location.hash = anchor.hash, 500);
     }
 }
-
 
 export default Link;

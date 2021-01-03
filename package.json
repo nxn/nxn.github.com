@@ -36,12 +36,14 @@
         "prism-react-renderer": "^1.1.1",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
+        "react-google-recaptcha": "^2.1.0",
         "react-helmet": "^6.1.0",
         "react-redux": "^7.2.2",
         "redux-undo": "^1.0.1"
     },
     "devDependencies": {
         "@types/mdx-js__react": "^1.5.3",
+        "@types/react-google-recaptcha": "^2.1.0",
         "@types/react-helmet": "^6.1.0",
         "@types/react-redux": "^7.1.12"
     }
