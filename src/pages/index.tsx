@@ -5,7 +5,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import { Layout, Variant } from "../components/layout";
 import { WelcomeBanner } from "../components/banner";
-import { Blurb, BlurbContainer } from "../components/blurb";
+import { Blurb, RecentPostsBlurb, BlurbContainer } from "../components/blurb";
 
 type IndexPageData = {
     allFile: {
@@ -25,12 +25,25 @@ type IndexPageData = {
 };
 
 export function IndexPage(props: PageProps<IndexPageData>) {
+    const head = props.data.allFile.nodes.slice(0,1).pop()?.childMdx;
+    const tail = props.data.allFile.nodes.slice(1);
     return (
         <Layout variant={ Variant.Unpadded }>
             <Content>
                 <WelcomeBanner id="welcome-banner" />
                 <BlurbContainer>
-                    { props.data.allFile.nodes.map(({ childMdx: mdx }) => (
+                    <Blurb
+                        key = { head?.id }
+                        title = { head?.frontmatter.title || "" }
+                        date = { head?.frontmatter.date || "" }
+                        style = "left-large">
+
+                        <MDXRenderer>{ head.body }</MDXRenderer>
+                    </Blurb>
+                    
+                    <RecentPostsBlurb />
+
+                    { tail.map(({ childMdx: mdx }) => (
                         <Blurb 
                             key     = { mdx.id } 
                             title   = { mdx.frontmatter.title }
@@ -52,7 +65,6 @@ const Content = styled.div({
         padding: '0rem 1rem'
     },
     '@media (min-width: 41.5rem)': {
-        gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))',
         padding: '1rem var(--content-margin)',
         paddingBottom: 'min(5rem, var(--content-margin))', 
         '& #welcome-banner': { padding: 0 }
