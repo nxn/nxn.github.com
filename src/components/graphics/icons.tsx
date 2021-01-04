@@ -124,6 +124,12 @@ export const BookIcon = React.memo((props: SvgProps) => (
     </Svg>
 ));
 
+export const ChevronIcon = React.memo((props: SvgProps) => (
+    <Svg { ...props } className={ clsx('icon', props.className) }>
+        <path d="M9.6,18.9c-0.3,0-0.6-0.1-0.8-0.3c-0.5-0.5-0.5-1.2,0-1.6l5-5l-5-5c-0.5-0.5-0.5-1.2,0-1.6 c0.5-0.5,1.2-0.5,1.6,0L17,12l-6.6,6.6C10.2,18.8,9.9,18.9,9.6,18.9z"/>
+    </Svg>
+));
+
 const Spinner = (props: SvgProps) => (
     <Svg { ...props } className={ clsx('icon', props.className) } viewBox="0 0 66 66">
         <circle fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="24"></circle>

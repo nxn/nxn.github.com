@@ -91,13 +91,13 @@ export const query = graphql`
             nodes {
                 childMdx {
                     id
+                    body
                     frontmatter {
                         title
                         date
                         priority
                         style
                     }
-                    body
                 }
             }
         }

@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import clsx from "clsx";
 
 import { Link, LinkButton } from "../components/controls";
+import { ChevronIcon } from "../components/graphics/icons";
 
 type PostData = {
     allFile: {
@@ -82,20 +83,26 @@ export function LatestPostsBlurb({ className, style }: { className?: string, sty
                 ))}
             </List>
             <Actions>
-                <ViewMore to="/posts" color="primary">More &nbsp; &gt;</ViewMore>
+                <ViewMore to="/posts" color="primary">More <ChevronIcon /></ViewMore>
             </Actions>
         </PostList>
     );
 }
 
-const ViewMore = styled(LinkButton)(({theme}) => ({
-    border: `0.0625rem solid rgba(255,255,255,0.1)`
-}));
+const ViewMore = styled(LinkButton)({
+    border: `0.0625rem solid rgba(255,255,255,0.1)`,
+    // TODO: Yeesh, pass icon is as either a `startIcon` or `endIcon` which determines which margins to use
+    '& > svg.icon': {
+        marginLeft: '0.25rem',
+        marginRight: '-0.75rem'
+    }
+});
 
 const Actions = styled.div(() => ({
     position: 'absolute',
     bottom: '1rem',
-    right: '1rem'
+    left: '50%',
+    transform: 'translateX(-50%)'
 }));
 
 const List = styled.ul(() => ({
@@ -104,7 +111,7 @@ const List = styled.ul(() => ({
 
 const ListItem = styled.li(() => ({
     padding: '0.5rem 0',
-    borderBottom: '0.0625rem dotted rgba(194, 194, 168, 0.5)'
+    borderBottom: '0.0625rem solid rgba(255,255,255,0.1)'
 }));
 
 const PostLink = styled(Link)(({theme}) => ({
