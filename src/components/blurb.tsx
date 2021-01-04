@@ -1,6 +1,24 @@
 import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
 import styled from "@emotion/styled";
 import clsx from "clsx";
+
+import { Link, LinkButton } from "../components/controls";
+
+type PostData = {
+    allFile: {
+        nodes: {
+            childMdx: {
+                id: "string",
+                slug: "string",
+                frontmatter: {
+                    title: string,
+                    date: string
+                }
+            }
+        }[]
+    }
+};
 
 type BlurbProps = {
     className?:     string,
@@ -23,19 +41,91 @@ export function Blurb(props: BlurbProps) {
     );
 }
 
-export function RecentPostsBlurb({ className, style }: { className?: string, style?: string }) {
+export function LatestPostsBlurb({ className, style }: { className?: string, style?: string }) {
+    const { allFile: { nodes: posts }}: PostData = useStaticQuery(graphql`query {
+        allFile(
+            filter: {sourceInstanceName: {eq: "content"}, relativeDirectory: {eq: "posts"}}, 
+            sort: {
+                fields: [
+                    childMdx___frontmatter___date
+                ],
+                order: [DESC, DESC]
+            },
+            limit: 5
+        ) {
+            nodes {
+                childMdx {
+                    id
+                    slug
+                    frontmatter {
+                        title
+                        date
+                    }
+                }
+            }
+        }
+    }`);
+    
     return (
         <PostList className={ clsx(className, style) }>
             <Header>
-                <Heading>Recent Posts</Heading>
+                <Heading>Latest Posts</Heading>
                 <FoldedCorner />
             </Header>
-            <Description>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </Description>
+            <List>
+                { posts.map(({ childMdx: post }) => (
+                    <ListItem key={ post.id }>
+                        <PostLink to={ `/${ post.slug }` }>
+                            { post.frontmatter.title }
+                        </PostLink>
+                    </ListItem>
+                ))}
+            </List>
+            <Actions>
+                <ViewMore to="/posts" color="primary">More &nbsp; &gt;</ViewMore>
+            </Actions>
         </PostList>
     );
 }
+
+const ViewMore = styled(LinkButton)(({theme}) => ({
+    border: `0.0625rem solid rgba(255,255,255,0.1)`
+}));
+
+const Actions = styled.div(() => ({
+    position: 'absolute',
+    bottom: '1rem',
+    right: '1rem'
+}));
+
+const List = styled.ul(() => ({
+    padding: '0 0.5rem'
+}));
+
+const ListItem = styled.li(() => ({
+    padding: '0.5rem 0',
+    borderBottom: '0.0625rem dotted rgba(194, 194, 168, 0.5)'
+}));
+
+const PostLink = styled(Link)(({theme}) => ({
+    textDecoration: 'none',
+    color: theme.palette.actions.primary.main,
+    display: 'block',
+    borderRadius: '0.25rem',
+    padding: '0.25rem 0.5rem',
+
+    //textTransform: 'uppercase',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    fontSize: '0.9rem',
+    fontWeight: 'bold',
+    
+    '&:hover': {
+        color: theme.palette.actions.primary.light,
+        backgroundColor: theme.palette.bgs.primary.light
+    }
+}));
 
 const Header = styled.header(() => ({
     minHeight:  '12rem',
@@ -82,6 +172,7 @@ const PostList = styled.div(({theme}) => ({
     position:           'relative',
     borderRadius:       '0.25rem',
     overflow:           'hidden',
+    paddingBottom:      '4.5rem',
     clipPath:           'polygon(0 0, calc(100% - 5.5rem) 0, 100% 5.5rem, 100% 100%, 0 100%)'
 }));
 

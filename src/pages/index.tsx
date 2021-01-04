@@ -5,7 +5,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import { Layout, Variant } from "../components/layout";
 import { WelcomeBanner } from "../components/banner";
-import { Blurb, RecentPostsBlurb, BlurbContainer } from "../components/blurb";
+import { Blurb, LatestPostsBlurb, BlurbContainer } from "../components/blurb";
 
 type IndexPageData = {
     allFile: {
@@ -25,32 +25,35 @@ type IndexPageData = {
 };
 
 export function IndexPage(props: PageProps<IndexPageData>) {
-    const head = props.data.allFile.nodes.slice(0,1).pop()?.childMdx;
-    const tail = props.data.allFile.nodes.slice(1);
+    if (!props.data.allFile.nodes.length) {
+        throw new Error("IndexPage: Page query returned no data!");
+    }
+
+    const [ { childMdx: head }, ...tail ] = props.data.allFile.nodes;
+
     return (
         <Layout variant={ Variant.Unpadded }>
             <Content>
                 <WelcomeBanner id="welcome-banner" />
                 <BlurbContainer>
                     <Blurb
-                        key = { head?.id }
-                        title = { head?.frontmatter.title || "" }
-                        date = { head?.frontmatter.date || "" }
-                        style = "left-large">
-
+                        key     = { head.id }
+                        title   = { head.frontmatter.title }
+                        date    = { head.frontmatter.date }
+                        style   = "left-large">
                         <MDXRenderer>{ head.body }</MDXRenderer>
                     </Blurb>
                     
-                    <RecentPostsBlurb />
+                    <LatestPostsBlurb />
 
-                    { tail.map(({ childMdx: mdx }) => (
+                    { tail.map(({ childMdx: blurb }) => (
                         <Blurb 
-                            key     = { mdx.id } 
-                            title   = { mdx.frontmatter.title }
-                            date    = { mdx.frontmatter.date }
-                            style   = { mdx.frontmatter.style }>
+                            key     = { blurb.id } 
+                            title   = { blurb.frontmatter.title }
+                            date    = { blurb.frontmatter.date }
+                            style   = { blurb.frontmatter.style }>
 
-                            <MDXRenderer>{ mdx.body }</MDXRenderer>
+                            <MDXRenderer>{ blurb.body }</MDXRenderer>
                         </Blurb>
                     )) }
                 </BlurbContainer>
