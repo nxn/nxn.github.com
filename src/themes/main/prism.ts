@@ -14,13 +14,13 @@ const colors = {
     function:       palette.text.alternate.light,
     className:      palette.accents.green,
     method:         "#6699CC",
-    operator:       palette.nav.dark
+    operator:       palette.nav.dim
 };
 
 const theme: PrismTheme = {
     plain: {
         color:              palette.text.standard.main,
-        backgroundColor:    palette.bgs.standard.dark
+        backgroundColor:    palette.bgs.secondary.dark
     },
     styles: [{
         types: ["attr-name"],

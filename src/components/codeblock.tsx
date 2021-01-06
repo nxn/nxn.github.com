@@ -68,12 +68,12 @@ const CopyButton = styled.button(({theme}) => ({
     },
     '&:hover': {
         color: theme.palette.actions.secondary.light,
-        backgroundColor: theme.palette.bgs.secondary.dark
+        backgroundColor: theme.palette.bgs.secondary.dim
     },
     '&:focus': {
         outline: 0,
         border: `0.125rem solid ${ theme.palette.bgs.secondary.main }`,
-        backgroundColor: theme.palette.bgs.secondary.dark
+        backgroundColor: theme.palette.bgs.secondary.dim
     },
 
     ...theme.transitions.click.off,

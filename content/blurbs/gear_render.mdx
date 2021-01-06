@@ -1,0 +1,25 @@
+---
+title: "3D Gear Model"
+date: "2020-09-01"
+priority: 0
+style: "right-large"
+images:
+    header:
+        sources:
+            -   image: "../images/gear_1col.jpg"
+                media: "(max-width: 640px)"
+            -   image: "../images/gear_2col.jpg"
+    embedded:
+        - "../images/gear_render1.jpg"
+        - "../images/gear_render2.jpg"
+---
+
+import Img from 'gatsby-image';
+import Gallery from '../../src/components/gallery';
+
+Results of my first serious attempt at learning 3D modelling; created using Blender.
+
+<Gallery>
+    <Img fluid={ props.embedded["gear_render1.jpg"] } />
+    <Img fluid={ props.embedded["gear_render2.jpg"] } />
+</Gallery>

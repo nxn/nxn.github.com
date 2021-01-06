@@ -22,7 +22,7 @@ export function TestPage() {
         //let message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 
         if (!minimal) {
-            actions.push({ name: "Ok", action: null })
+            actions.push({ name: "Ok" })
         }
 
         dispatch(alert({

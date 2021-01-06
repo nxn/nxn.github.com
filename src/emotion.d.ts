@@ -13,6 +13,7 @@ declare module '@emotion/react' {
     export interface ColorVariants {
         main?:  string;
         light?: string;
+        dim?:   string;
         dark?:  string;
     }
     

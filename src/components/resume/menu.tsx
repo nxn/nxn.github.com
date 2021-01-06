@@ -93,7 +93,7 @@ export const Menu = styled(MenuUnstyled)(({theme}) => ({
         },
 
         '& a:hover': {
-            color: theme.palette.nav.dark,
+            color: theme.palette.nav.dim,
             '& .icon': {
                 fill: theme.palette.nav.light
             }

@@ -26,10 +26,10 @@ export const palette: Palette = {
     nav: {
         main:   '#000',
         light:  '#EF545F',
-        dark:   '#CD546C'
+        dim:   '#CD546C'
     },
     accents: {
-        dark:   '#222',
+        dim:   '#222',
         light:  '#c6c6c6',
 
         gray:   '#666',

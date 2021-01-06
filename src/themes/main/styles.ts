@@ -6,7 +6,7 @@ import transitions from './transitions';
 export const styles: Styles = {
     body: {
         color:              palette.text.standard.main,
-        backgroundColor:    palette.bgs.secondary.dark,
+        backgroundColor:    palette.bgs.secondary.dim,
         fontFamily:         '"Open Sans", sans-serif',
         fontSize:           '1rem',
         lineHeight:         '1.75rem'
@@ -49,7 +49,7 @@ export const styles: Styles = {
             color:          palette.nav.main,
             textDecoration: 'none',
             '&:hover': {
-                color: palette.nav.dark
+                color: palette.nav.dim
             },
             // Auto-Generated anchors for headings
             '&.anchor': {
@@ -71,7 +71,7 @@ export const styles: Styles = {
         },
         blockquote: {
             color:              palette.text.alternate.light,
-            backgroundColor:    palette.bgs.standard.dark,
+            backgroundColor:    palette.bgs.secondary.dark,
             border:             `0.0625rem solid ${ palette.bgs.standard.light }`,
             borderRadius:       '0.5rem',
             fontStyle:          'italic',
@@ -80,7 +80,7 @@ export const styles: Styles = {
             '& code': {
                 //color: palette.actions.primary.light,
                 border:             `0.0625rem solid ${ palette.bgs.standard.main }`,
-                backgroundColor:    palette.bgs.standard.dark
+                backgroundColor:    palette.bgs.standard.dim
             },
             '& p': {
                 textIndent: '2rem',
@@ -200,11 +200,11 @@ export const styles: Styles = {
                     45deg,
                     transparent,
                     transparent 0.5rem,
-                    ${ palette.bgs.standard.dark } 0.5rem,
-                    ${ palette.bgs.standard.dark } 1rem
+                    ${ palette.bgs.standard.dim } 0.5rem,
+                    ${ palette.bgs.standard.dim } 1rem
                 ), linear-gradient(
                     to bottom, 
-                    ${ palette.bgs.standard.dark }, 
+                    ${ palette.bgs.standard.dim }, 
                     rgba(0,0,0, 0.33)
                 )`
             }
@@ -216,11 +216,14 @@ export const styles: Styles = {
             textTransform:  'uppercase',
             textDecoration: 'none',
             textAlign:      'center !important' as 'center',
-            height:         '2.5rem',
-            lineHeight:     '2.5rem',
+            // TODO: Line height actually messes the alignment up
             display:        'inline-block',
-            border:         0,
             boxSizing:      'border-box',
+            height:         '2.5rem',
+            lineHeight:     '1.5rem',
+            border:         '0.0625rem solid transparent',
+            padding:        '0.4375rem 1rem',
+            
             cursor:         'pointer',
         
             '&:hover': { },
@@ -237,7 +240,8 @@ export const styles: Styles = {
                     backgroundColor:    palette.bgs.primary.light,
                 },
                 '&:focus': {
-                    boxShadow: `inset 0 0 0 0.25rem ${ palette.bgs.primary.light }`
+                    borderColor:    palette.bgs.primary.light,
+                    boxShadow:      `inset 0 0 0 0.25rem ${ palette.bgs.primary.light }`
                 }
             },
         
@@ -249,6 +253,7 @@ export const styles: Styles = {
                     backgroundColor:    palette.bgs.secondary.light,
                 },
                 '&:focus': {
+                    borderColor: palette.bgs.secondary.light,
                     boxShadow: `inset 0 0 0 0.25rem ${ palette.bgs.secondary.light }`,
                 }
             },
@@ -259,27 +264,16 @@ export const styles: Styles = {
                 color:              palette.actions.disabled.main,
                 backgroundColor:    palette.bgs.disabled.main,
                 '&:focus': {
+                    borderColor: palette.bgs.disabled.light,
                     boxShadow: `inset 0 0 0 0.25rem ${ palette.bgs.disabled.light }`,
                 }
             },
 
             '&.standard': {
                 borderRadius:   '1.25rem',
-                padding:        '0rem 1.5rem',
-
-                '& svg': {
-                    fill:           'currentcolor',
-                    verticalAlign:  'middle',
-                    height:         '2.5rem',
-                    width:          '1.5rem',
-                    marginTop:      '-0.0625rem',
-                    marginLeft:     '-0.75rem',
-                    marginRight:    '0.75rem',
-                },
             },
 
             '&.minimal': {
-                padding: '0 1rem',
                 backgroundColor: 'transparent',
                 '&:hover': {
                     backgroundColor: 'rgba(255,255,255,0.04)'
@@ -287,11 +281,39 @@ export const styles: Styles = {
                 '&:focus': {
                     textDecoration: '0.125rem underline',
                     textUnderlineOffset: '0.4375rem',
-                    boxShadow: 'none'
+                    boxShadow: 'none',
+                    borderColor: 'transparent'
                 },
                 '&:active': {
                     textDecoration: 'none'
                 }
+            },
+
+            '&.outlined': {
+                borderColor: 'rgba(255,255,255,0.1)'
+            },
+
+
+            '& .button-icon-start, & .button-icon-end': {
+                display:    'inline-block',
+            },
+
+            '& .button-icon-start': {
+                marginRight:    '0.5rem',
+                marginLeft:     '-0.5rem'
+            },
+
+            '& .button-icon-end': {
+                marginRight:    '-0.5rem',
+                marginLeft:     '0.5rem'
+            },
+
+            '& .icon': {
+                fill:           'currentcolor',
+                verticalAlign:  'top',
+                height:         '1.5rem',
+                width:          '1.5rem',
+                display:        'inline-block'
             },
         }
     },
@@ -305,7 +327,7 @@ export const styles: Styles = {
         pre: {
             margin:             '1rem 0',
             color:              palette.text.alternate.light,
-            backgroundColor:    palette.bgs.standard.dark,
+            backgroundColor:    palette.bgs.secondary.dark,
             fontSize:           '0.9rem',
             fontFamily:         '"JetBrains Mono", monospace',
             padding:            '0.5rem 0.75rem',

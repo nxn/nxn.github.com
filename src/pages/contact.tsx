@@ -303,12 +303,10 @@ export function ContactPage() {
                         deferValidation = { deferValidation } />
                         
                     <Actions>
-                        <Button type="submit" color="primary" disabled={ disabled }>
-                            <SendIcon />
+                        <Button type="submit" color="primary" disabled={ disabled } startIcon={ <SendIcon /> }>
                             Send It
                         </Button>
-                        <Button type="reset" color="secondary" onClick={ showUndoPrompt } disabled={ disabled || !hasDraft }>
-                            <TrashIcon />
+                        <Button type="reset" color="secondary" onClick={ showUndoPrompt } disabled={ disabled || !hasDraft } startIcon={ <TrashIcon /> }>
                             Discard
                         </Button>
                     </Actions>

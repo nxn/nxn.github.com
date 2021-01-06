@@ -61,7 +61,7 @@ export function HeaderUnstyled(props: HeaderProps) {
 }
 
 const Header = styled(HeaderUnstyled)(({theme}) => ({
-    backgroundColor:        theme.palette.bgs.standard.dark,
+    backgroundColor:        theme.palette.bgs.secondary.dark,
     borderBottom:           `0.0625rem solid ${ theme.palette.accents.cyan }`,
     display:                'grid',
     //logo 5rem + 1rem left pad + 1rem right pad
@@ -89,7 +89,7 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
         '& #site-name': {
             height: '3rem',
             width:  '5rem',
-            fill:   theme.palette.accents.dark
+            fill:   theme.palette.accents.dim
         }
     },
                 

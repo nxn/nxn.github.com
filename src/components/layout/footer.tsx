@@ -83,7 +83,7 @@ export const Footer = styled(FooterUnstyled)(({theme}) => ({
     padding:            '2rem',
     borderTop:          `0.0625rem solid ${ theme.palette.accents.cyan }`,
     color:              theme.palette.text.alternate.main,
-    backgroundColor:    theme.palette.bgs.secondary.dark,
+    backgroundColor:    theme.palette.bgs.secondary.dim,
     fontSize:           '0.9rem',
 
     display:                'grid',

@@ -33,7 +33,7 @@ const Container = styled.div(({theme}) => ({
     margin:     '0 auto',
 
     '& #tech-tags li': {
-        color:              theme.palette.accents.dark,
+        color:              theme.palette.accents.dim,
         display:            'inline-block',
         border:             `0.0625rem solid ${ theme.palette.accents.light }`,
         backgroundColor:    theme.palette.accents.white,

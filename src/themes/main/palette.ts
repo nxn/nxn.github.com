@@ -2,23 +2,24 @@ import type { Palette } from '@emotion/react';
 
 export const palette: Palette = {
     bgs: {
-        // Black
+        // Gray/Black
         standard: {
             main:   '#1b1a22',
-            light:  '#2e343e',
-            dark:   '#05070b'
+            light:  '#2e343e'
         },
         // Purple
         primary: {
             main:   '#28192b',
             light:  '#312437',
-            dark:   '#130c17'
+            dim:    '#130c17',
+            dark:   '#07020b'
         },
         // Teal
         secondary: {
             main:   '#141b22',
             light:  '#18252d',
-            dark:   '#0c1317'
+            dim:    '#0c1317',
+            dark:   '#05070b'
         },
         disabled: {
             main:   '#1b1a22',
@@ -64,7 +65,7 @@ export const palette: Palette = {
 
     nav: {
         main: '#ea7d93',
-        dark: '#EF545F'
+        dim: '#EF545F'
     },
 
     error: {
@@ -74,7 +75,7 @@ export const palette: Palette = {
     accents: {
         // Use for contrast 
         light:  '#9DA69E',
-        dark:   '#29302d',
+        dim:   '#29302d',
 
         // Use for color contrast
         red:    '#CD7860',

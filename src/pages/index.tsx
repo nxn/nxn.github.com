@@ -1,5 +1,6 @@
 import React from "react";
 import { PageProps, graphql } from "gatsby";
+import { FluidObject, FixedObject } from "gatsby-image";
 import styled from "@emotion/styled";
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
@@ -16,13 +17,49 @@ type IndexPageData = {
                     title:      string,
                     date:       string,
                     priority:   number,
-                    style?:     string
+                    style?:     string,
+                    images: {
+                        header: {
+                            sources: {
+                                image: {
+                                    childImageSharp: {
+                                        fixed: FixedObject
+                                    }
+                                }
+                                media?: string
+                            }[],
+                            position?: string
+                        },
+                        embedded?: {
+                            childImageSharp: {
+                                fluid: FluidObject
+                            }
+                        }[]
+                    },
                 },
                 body: string
             }
         }[]
     }
 };
+
+// Matches and groups filenames of relative paths
+const filenameRx = /\/([^/]+\.[0-9a-z]+$)/i;
+
+function imageData(embedded?: { childImageSharp: { fluid: FluidObject; } }[]) {
+    if (!embedded) { return undefined; }
+
+    let result: { [key: string]: FluidObject } = { };
+
+    embedded.forEach(({ childImageSharp: { fluid: data }}) => { 
+        const match = data.src.match(filenameRx);
+        if (match && match.length === 2) {
+            result[match[1]] = data;
+        }
+    });
+
+    return result;
+}
 
 export function IndexPage(props: PageProps<IndexPageData>) {
     if (!props.data.allFile.nodes.length) {
@@ -40,8 +77,17 @@ export function IndexPage(props: PageProps<IndexPageData>) {
                         key     = { head.id }
                         title   = { head.frontmatter.title }
                         date    = { head.frontmatter.date }
-                        style   = "left-large">
-                        <MDXRenderer>{ head.body }</MDXRenderer>
+                        style   = "left-large"
+                        image   = {{
+                            position:   head.frontmatter.images.header.position,
+                            data: head.frontmatter.images.header.sources.map(
+                                source => ({ ...source.image.childImageSharp.fixed, media: source.media })
+                            )
+                        }}>
+
+                        <MDXRenderer embedded={ imageData(head.frontmatter.images.embedded) }>
+                            { head.body }
+                        </MDXRenderer>
                     </Blurb>
                     
                     <LatestPostsBlurb />
@@ -51,9 +97,17 @@ export function IndexPage(props: PageProps<IndexPageData>) {
                             key     = { blurb.id } 
                             title   = { blurb.frontmatter.title }
                             date    = { blurb.frontmatter.date }
-                            style   = { blurb.frontmatter.style }>
+                            style   = { blurb.frontmatter.style }
+                            image   = {{
+                                position:   blurb.frontmatter.images.header.position,
+                                data: blurb.frontmatter.images.header.sources.map(
+                                    source => ({ ...source.image.childImageSharp.fixed, media: source.media })
+                                )
+                            }}>
 
-                            <MDXRenderer>{ blurb.body }</MDXRenderer>
+                            <MDXRenderer embedded={ imageData(blurb.frontmatter.images.embedded) }>
+                                { blurb.body }
+                            </MDXRenderer>
                         </Blurb>
                     )) }
                 </BlurbContainer>
@@ -97,6 +151,29 @@ export const query = graphql`
                         date
                         priority
                         style
+                        images {
+                            header {
+                                sources {
+                                    image {
+                                        childImageSharp {
+                                            fixed(height: 192, quality: 90) {
+                                                ...GatsbyImageSharpFixed_withWebp
+                                            }
+                                        }
+                                    }
+                                    media
+                                }
+                                position
+                            }
+                            embedded {
+                                childImageSharp {
+                                    fluid(maxHeight: 200, quality: 90) {
+                                        ...GatsbyImageSharpFluid_withWebp
+                                        ...GatsbyImageSharpFluidLimitPresentationSize
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

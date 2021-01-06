@@ -26,38 +26,38 @@ export const styles: Styles = {
     },
     headings: {
         page: {
-            color:          palette.accents.dark,
+            color:          palette.accents.dim,
             fontFamily:     '"Oswald", sans-serif',
             fontSize:       '3rem',
             lineHeight:     '1.0em'
         },
         section: {
-            color:          palette.accents.dark,
+            color:          palette.accents.dim,
             fontFamily:     '"Roboto Slab", serif',
             fontSize:       '2rem',
             marginTop:      '2rem',
             textAlign:      'center' as 'center'
         },
         content: {
-            color:          palette.accents.dark,
+            color:          palette.accents.dim,
             fontFamily:     '"Oswald", sans-serif',
             fontSize:       '1.5rem',
             lineHeight:     '1.5em',
             marginTop:      '1.5rem',
         },
         sub1: {
-            color:          palette.accents.dark,
+            color:          palette.accents.dim,
             fontFamily:     '"Roboto Slab", serif',
             fontWeight:     700
         },
         sub2: {
-            color:          palette.accents.dark,
+            color:          palette.accents.dim,
             fontFamily:     '"Roboto Slab", serif',
             fontWeight:     700,
             marginBottom:   '0.5rem',
         },
         sub3: {
-            color:          palette.accents.dark,
+            color:          palette.accents.dim,
             fontFamily:     '"Roboto Slab", serif',
             fontSize:       '1.25rem',
             lineHeight:     '2rem',
@@ -66,7 +66,7 @@ export const styles: Styles = {
     },
     text: {
         bold: {
-            color:      palette.accents.dark,
+            color:      palette.accents.dim,
             fontFamily: '"Roboto Slab", serif',
             fontWeight: 700
         },
@@ -77,7 +77,7 @@ export const styles: Styles = {
             color:          palette.nav.light,
             textDecoration: 'none',
             '&:hover': {
-                color: palette.nav.dark
+                color: palette.nav.dim
             },
             // Auto-Generated anchors for headings
             '&.anchor': {

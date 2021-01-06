@@ -64,7 +64,7 @@ const globalStyles = {
         calc(((100vw - 40rem) / 2) + 2rem):         this will leave a minimum margin of 2rem on either side of the grid
         calc(((100vw - 40rem) / 2 * 0.15) + 2rem):  15% of the remaining space will be used by the margins in addition to the 2rem minimum
         */
-        '--content-margin': 'calc(((100vw - 41.5rem) / 2 * 0.15) + 2rem)'
+        '--content-margin': 'calc(((100vw - 39rem) / 2 * 0.15) + 1rem)'
     },
     //html: { scrollBehavior: 'smooth' },
     body: theme.styles.body

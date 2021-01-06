@@ -8,15 +8,35 @@ import Link     from "./link";
 const HTMLButton = (p: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => <button { ... p } />;
 
 type ButtonProps = {
-    color?: "primary" | "secondary",
-    variant?: "standard" | "minimal",
+    color?:     "primary" | "secondary",
+    variant?:   "standard" | "minimal",
+    outlined?:  boolean,
     className?: string,
+    startIcon?: React.ReactNode,
+    endIcon?:   React.ReactNode,
+    children?:  React.ReactNode
 }
 
 function asButton<P>(Component: React.ComponentType<P>) {
     return (props: ButtonProps & P) => {
-        const { className, color, variant, ...remaining } = props;
-        return <Component className={ clsx(className, "button", color || "primary", variant || "standard") } { ...remaining as P } />
+        const { className, color, variant, outlined, startIcon, endIcon, children, ...remaining } = props;
+
+        return (
+            <Component 
+                className={ clsx(
+                    className, 
+                    "button", 
+                    color       || "primary", 
+                    variant     || "standard", 
+                    outlined    && "outlined"
+                ) } 
+                { ...remaining as P }>
+                
+                { startIcon && <span className="button-icon-start">{ startIcon }</span> }
+                { children }
+                { endIcon && <span className="button-icon-end">{ endIcon }</span> }
+            </Component>
+        );
     }
 }
 
