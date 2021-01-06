@@ -10,16 +10,29 @@ images:
                 media: "(max-width: 640px)"
             -   image: "../images/gear_2col.jpg"
     embedded:
-        - "../images/gear_render1.jpg"
-        - "../images/gear_render2.jpg"
+        -   "../images/gear_render1.jpg"
+        -   "../images/gear_render2.jpg"
 ---
 
 import Img from 'gatsby-image';
-import Gallery from '../../src/components/gallery';
+import { Gallery, GalleryItem } from '../../src/components/gallery';
+
+import gear_render1_full from "../images/gear_render1.jpg";
+import gear_render2_full from "../images/gear_render2.jpg";
 
 Results of my first serious attempt at learning 3D modelling; created using Blender.
 
-<Gallery>
-    <Img fluid={ props.embedded["gear_render1.jpg"] } />
-    <Img fluid={ props.embedded["gear_render2.jpg"] } />
+<Gallery maxWidth="45.5rem">
+    <GalleryItem
+        title   = "Gear Render 1 of 2"
+        image   = { gear_render1_full }
+        dzi     = "/static/dzi-data/gear_render1.dzi">
+        <Img fluid={ props.embedded["gear_render1.jpg"] } />
+    </GalleryItem>
+    <GalleryItem
+        title   = "Gear Render 2 of 2"
+        image   = { gear_render2_full }
+        dzi     = "/static/dzi-data/gear_render2.dzi">
+        <Img fluid={ props.embedded["gear_render2.jpg"] } />
+    </GalleryItem>
 </Gallery>

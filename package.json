@@ -33,6 +33,7 @@
         "gatsby-remark-autolink-headers": "^2.8.0",
         "gatsby-source-filesystem": "^2.7.0",
         "gatsby-transformer-sharp": "^2.8.0",
+        "openseadragon": "^2.4.2",
         "prism-react-renderer": "^1.1.1",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
@@ -43,6 +44,7 @@
     },
     "devDependencies": {
         "@types/mdx-js__react": "^1.5.3",
+        "@types/openseadragon": "^2.4.5",
         "@types/react-google-recaptcha": "^2.1.0",
         "@types/react-helmet": "^6.1.0",
         "@types/react-redux": "^7.1.12"

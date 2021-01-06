@@ -68,6 +68,7 @@ export function IndexPage(props: PageProps<IndexPageData>) {
 
     const [ { childMdx: head }, ...tail ] = props.data.allFile.nodes;
 
+    console.log(tail[1].childMdx.frontmatter.images.embedded);
     return (
         <Layout variant={ Variant.Unpadded }>
             <Content>
@@ -79,7 +80,7 @@ export function IndexPage(props: PageProps<IndexPageData>) {
                         date    = { head.frontmatter.date }
                         style   = "left-large"
                         image   = {{
-                            position:   head.frontmatter.images.header.position,
+                            position: head.frontmatter.images.header.position,
                             data: head.frontmatter.images.header.sources.map(
                                 source => ({ ...source.image.childImageSharp.fixed, media: source.media })
                             )
@@ -99,7 +100,7 @@ export function IndexPage(props: PageProps<IndexPageData>) {
                             date    = { blurb.frontmatter.date }
                             style   = { blurb.frontmatter.style }
                             image   = {{
-                                position:   blurb.frontmatter.images.header.position,
+                                position: blurb.frontmatter.images.header.position,
                                 data: blurb.frontmatter.images.header.sources.map(
                                     source => ({ ...source.image.childImageSharp.fixed, media: source.media })
                                 )
@@ -167,7 +168,7 @@ export const query = graphql`
                             }
                             embedded {
                                 childImageSharp {
-                                    fluid(maxHeight: 200, quality: 90) {
+                                    fluid(maxWidth: 528, quality: 90) {
                                         ...GatsbyImageSharpFluid_withWebp
                                         ...GatsbyImageSharpFluidLimitPresentationSize
                                     }
