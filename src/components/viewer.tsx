@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { useSelector, useDispatch } from 'react-redux';
+import { selectImage, close } from "../state/viewer";
 
 import {
     CloseIcon,
@@ -10,11 +12,20 @@ import {
 } from "./graphics/icons";
 
 export function Viewer() {
+    const dispatch = useDispatch();
+    const image = useSelector(selectImage);
+
+    if (!image) {
+        return null;
+    }
+
+    const handleClose = () => dispatch(close());
+
     return (
         <Container id="viewer">
             <Titlebar id="viewer-titlebar">
                 <Title id="viewer-title">nxn.io</Title>
-                <CloseButton id="viewer-close" title="Close">
+                <CloseButton id="viewer-close" title="Close" onClick={ handleClose }>
                     <CloseIcon />
                 </CloseButton>
             </Titlebar>

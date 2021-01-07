@@ -11,6 +11,7 @@ import Header   from "./header";
 import Main     from "./main";
 import Footer   from "./footer";
 import Snackbar from "../snackbar";
+import Viewer   from "../viewer";
 
 import '../../stylesheets/reset.css';
 import '../../stylesheets/fonts.css';
@@ -50,6 +51,7 @@ export function Layout(props: LayoutProps) {
                     <Footer />
                     <div id="modal-root">
                         <Snackbar />
+                        <Viewer />
                     </div>
                 </Container>
             </MDXProvider>

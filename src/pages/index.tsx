@@ -8,6 +8,8 @@ import { Layout, Variant } from "../components/layout";
 import { WelcomeBanner } from "../components/banner";
 import { Blurb, LatestPostsBlurb, BlurbContainer } from "../components/blurb";
 
+import { getFilename } from "../util";
+
 type IndexPageData = {
     allFile: {
         nodes: {
@@ -43,18 +45,15 @@ type IndexPageData = {
     }
 };
 
-// Matches and groups filenames of relative paths
-const filenameRx = /\/([^/]+\.[0-9a-z]+$)/i;
-
 function imageData(embedded?: { childImageSharp: { fluid: FluidObject; } }[]) {
     if (!embedded) { return undefined; }
 
     let result: { [key: string]: FluidObject } = { };
 
     embedded.forEach(({ childImageSharp: { fluid: data }}) => { 
-        const match = data.src.match(filenameRx);
-        if (match && match.length === 2) {
-            result[match[1]] = data;
+        const filename = getFilename(data.src);
+        if (filename) {
+            result[filename] = data;
         }
     });
 

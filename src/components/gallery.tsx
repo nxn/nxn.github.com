@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { useDispatch } from 'react-redux';
 
 import Link from "./controls/link";
+import { open } from "../state/viewer";
 
 type GalleryProps = {
     maxWidth?:  string,
@@ -26,12 +28,27 @@ type GalleryItemProps = {
 }
 
 export function GalleryItemUnstyled(props: GalleryItemProps) {
+    const dispatch = useDispatch();
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        const { dzi, title } = event.currentTarget.dataset;
+
+        if (!dzi) { return; }
+
         event.preventDefault();
+        dispatch(open({
+            image: dzi,
+            title
+        }));
     }
 
     return (
-        <Link className={ props.className } to={ props.image } target="_blank" onClick={ handleClick }>
+        <Link 
+            className   = { props.className } 
+            to          = { props.image } 
+            target      = "_blank" 
+            data-dzi    = { props.dzi } 
+            data-title  = { props.title } 
+            onClick     = { handleClick }>
             { props.children }
         </Link>
     );
