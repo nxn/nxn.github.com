@@ -38,7 +38,7 @@ export const viewerSlice = createSlice({
 
 export const { open, close } = viewerSlice.actions;
 
-export const selectAll      = ({ viewer }: { viewer: ViewerState }) => viewer;
-export const selectImage    = ({ viewer }: { viewer: ViewerState }) => viewer.open;
+export const selectAll          = ({ viewer }: { viewer: ViewerState }) => viewer;
+export const selectOpenImage    = ({ viewer }: { viewer: ViewerState }) => viewer.open;
 
 export default viewerSlice.reducer;

@@ -75,9 +75,9 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
     left:                   0,
     width:                  '100%',
 
-    '& .hidden': {
-        display: 'none !important'
-    },
+    // '& .hidden': {
+    //     display: 'none !important'
+    // },
 
     '& #site-link': {
         display:        'flex',

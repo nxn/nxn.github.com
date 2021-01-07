@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { useSelector, useDispatch } from 'react-redux';
-import { selectImage, close } from "../state/viewer";
+import { selectOpenImage, close } from "../state/viewer";
+import clsx from "clsx";
 
 import {
     CloseIcon,
@@ -12,25 +13,30 @@ import {
 } from "./graphics/icons";
 
 export function Viewer() {
-    const dispatch = useDispatch();
-    const image = useSelector(selectImage);
+    const dispatch  = useDispatch();
+    const image     = useSelector(selectOpenImage);
 
-    if (!image) {
-        return null;
-    }
+    React.useLayoutEffect(() => {
+        if (image) {
+            window.document.body.classList.add('no-scroll');
+        }
+        else {
+            window.document.body.classList.remove('no-scroll');
+        }
+    }, [ image ]);
 
     const handleClose = () => dispatch(close());
 
     return (
-        <Container id="viewer">
-            <Titlebar id="viewer-titlebar">
-                <Title id="viewer-title">nxn.io</Title>
-                <CloseButton id="viewer-close" title="Close" onClick={ handleClose }>
+        <Container className={ clsx(!image && 'hidden') }>
+            <Titlebar>
+                <Title>{ image?.title || 'nxn.io' }</Title>
+                <CloseButton title="Close" onClick={ handleClose }>
                     <CloseIcon />
                 </CloseButton>
             </Titlebar>
-            <Controls id="viewer-controls">
-                <Panel className="panel">
+            <Controls>
+                <Panel>
                     <Button id="zoom-in">
                         <ZoomInIcon />
                     </Button>
@@ -108,13 +114,16 @@ const Panel = styled.div({
 });
 
 const Button = styled.button(({theme}) => ({
-    height:         '3rem',
-    width:          '3rem',
-    cursor:         'pointer',
-    textAlign:      'center',
-    verticalAlign:  'middle',
-    lineHeight:     '3rem',
-    color:          theme.palette.actions.primary.main,
+    height:             '3rem',
+    width:              '3rem',
+    padding:            0,
+    cursor:             'pointer',
+    textAlign:          'center',
+    verticalAlign:      'middle',
+    lineHeight:         '3rem',
+    backgroundColor:    'transparent',
+    color:              theme.palette.actions.secondary.main,
+    border:             0,
 
     '& .icon': {
         width:          '1.5rem',
@@ -124,7 +133,7 @@ const Button = styled.button(({theme}) => ({
     },
 
     '&:hover': {
-        color: theme.palette.actions.primary.light
+        color: theme.palette.actions.secondary.light
     }
 }));
 

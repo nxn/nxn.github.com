@@ -34,8 +34,9 @@ export function Layout(props: LayoutProps) {
 
     return (
         <ThemeProvider theme={ theme }>
-            <Global styles={globalStyles} />
+            <Global styles={ globalStyles } />
 
+            {/* TODO: Remove this, bundle the font */}
             <link rel="preconnect" href="https://fonts.gstatic.com" />
             <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet" /> 
             <style>
@@ -69,7 +70,10 @@ const globalStyles = {
         '--content-margin': 'calc(((100vw - 39rem) / 2 * 0.15) + 1rem)'
     },
     //html: { scrollBehavior: 'smooth' },
-    body: theme.styles.body
+    body: theme.styles.body,
+    
+    '.no-scroll':   { overflow: 'hidden !important' },
+    '.hidden':      { display: 'none !important' }
 }
 
 const Container = styled.div({
