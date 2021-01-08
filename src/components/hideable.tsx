@@ -2,7 +2,11 @@ import React from "react";
 import styled from "@emotion/styled";
 import clsx from "clsx";
 
+const HIDE_CLASS            = 'hide';
+const HIDE_CLASS_PROPKEY    = '&.hide';
+
 type Direction = 'top' | 'bottom' | 'left' | 'right';
+
 interface SlideAnimationConfig {
     animation: 'slide',
     direction: Direction
@@ -18,7 +22,6 @@ type HideableConfig = (SlideAnimationConfig | FadeAnimationConfig) & {
 
 type HideableProps = {
     visible?:   boolean;
-    autoHide?:  number;
     className?: string;
 }
 
@@ -34,57 +37,57 @@ function getConfig<T>(defaults: T, options?: Partial<T>) {
 
 export function asHideable<P>(Component: React.ComponentType<P>, options?: Partial<HideableConfig>) {
     const config = getConfig(defaults, options);
-
     const HideableComponent = styled(Component)(hideableStyles(config));
 
     return (props: P & HideableProps) => {
-        const { visible, autoHide, className, ...other } = props;
-
-        //const [isVisible, setVisibility] = React.useState(true);
-
-        const componentRef = React.useRef<HTMLElement | null>(null);
-
-        // React.useEffect(() => {
-        //     if (props.visible !== isVisible) {
-        //         if (isVisible) {
-        //             // hide
-        //         }
-        //         else {
-        //             // show
-        //         }
-        //     }
-
-        //     if (isVisible && props.autoHide) {
-        //         // setTimeout
-        //     }
-        // }, [ props.visible ]);
-
-        
+        const { visible, className, ...other } = props;
 
         return (
-            <HideableComponent 
-                className   = { clsx(className, !visible && 'hide') } 
-                ref         = { componentRef } 
-                { ...other as P } />
+            <HideableComponent className={ clsx(className, !visible && HIDE_CLASS) } { ...other as P } />
         );
     }
 }
 
 const hideableStyles = (config: HideableConfig) => {
+    const base = baseStyles(config);
     switch (config.animation) {
-        case 'slide': return slideStyles(config);
-        default: {
-            return {
-                transition: `opacity ${ config.duration }ms`,
-                '&.hide': {
-                    opacity: 0
-                }
-            };
-        }
+        case 'slide':   return mergeStyles(base, slideStyles(config));
+        default:        return mergeStyles(base, fadeStyles(config));
     }
 };
 
-const slideStyles = (config: SlideAnimationConfig & HideableConfig) => {
+type Style = { [HIDE_CLASS_PROPKEY]: { } }
+const mergeStyles = (style1: Style, style2: Style) => {
+    return {
+        ...style1,
+        ...style2,
+        [HIDE_CLASS_PROPKEY]: {
+            ...style1[HIDE_CLASS_PROPKEY],
+            ...style2[HIDE_CLASS_PROPKEY]
+        }
+    }
+}
+
+const baseStyles = (config: HideableConfig) => {
+    return {
+        transitionDuration: `${ config.duration }ms`,
+        transitionTimingFunction: 'ease-out',
+        [HIDE_CLASS_PROPKEY]: {
+            transitionTimingFunction: 'ease-in',
+        }
+    };
+}
+
+const fadeStyles = (_config: FadeAnimationConfig) => {
+    return {
+        transitionProperty: 'opacity',
+        [HIDE_CLASS_PROPKEY]: {
+            opacity: 0
+        }
+    };
+}
+
+const slideStyles = (config: SlideAnimationConfig) => {
     // Each style needs to account for all aspects of an element's position along the axis of the animation. For
     // example, if moving an element upwards off of the screen:
     // - `margin-top` needs to be set 0 so that it will not cause the element to stick out when hidden
@@ -96,46 +99,37 @@ const slideStyles = (config: SlideAnimationConfig & HideableConfig) => {
     switch(config.direction) {
         case 'top': return {
             transitionProperty: 'top, margin, transform',
-            transitionDuration: `${ config.duration }ms`,
-            transitionTimingFunction: 'ease-out',
-            '&.hide': {
-                top: 0,
-                marginTop: 0,
-                transform: 'translateY(-100%)',
-                transitionTimingFunction: 'ease-in',
+            [HIDE_CLASS_PROPKEY]: {
+                top:        0,
+                marginTop:  0,
+                transform:  'translateY(-100%)',
             }
         };
+
         case 'bottom': return {
             transitionProperty: 'bottom, margin, transform',
-            transitionDuration: `${ config.duration }ms`,
-            transitionTimingFunction: 'ease-out',
-            '&.hide': {
-                bottom: 0,
-                marginBottom: 0,
-                transform: 'translateY(100%)',
-                transitionTimingFunction: 'ease-in',
+            [HIDE_CLASS_PROPKEY]: {
+                bottom:         0,
+                marginBottom:   0,
+                transform:      'translateY(100%)',
             }
         };
+
         case 'left': return {
             transitionProperty: 'left, margin, transform',
-            transitionDuration: `${ config.duration }ms`,
-            transitionTimingFunction: 'ease-out',
-            '&.hide': {
-                left: 0,
+            [HIDE_CLASS_PROPKEY]: {
+                left:       0,
                 marginLeft: 0,
-                transform: 'translateX(-100%)',
-                transitionTimingFunction: 'ease-in',
+                transform:  'translateX(-100%)',
             }
         };
+
         case 'right': return {
             transitionProperty: 'right, margin, transform',
-            transitionDuration: `${ config.duration }ms`,
-            transitionTimingFunction: 'ease-out',
-            '&.hide': {
-                right: 0,
-                marginRight: 0,
-                transform: 'translateX(100%)',
-                transitionTimingFunction: 'ease-in',
+            [HIDE_CLASS_PROPKEY]: {
+                right:          0,
+                marginRight:    0,
+                transform:      'translateX(100%)',
             }
         };
     }

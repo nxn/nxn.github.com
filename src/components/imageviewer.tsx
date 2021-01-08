@@ -166,7 +166,6 @@ const Titlebar = styled.div(({theme}) => ({
     zIndex:             (theme.zIndex.imageViewer || defaultZIndexBase) + 1,
     opacity:            1,
     visibility:         'visible',
-    transition:         'opacity 0.1s linear',
 
     top:                0,
     width:              '100vw',
@@ -191,7 +190,6 @@ const Controls = styled.div(({theme}) => ({
     zIndex:             (theme.zIndex.imageViewer || defaultZIndexBase) + 1,
     opacity:            1,
     visibility:         'visible',
-    transition:         'opacity 0.1s linear',
 
     bottom:             0,
     width:              'calc(100vw - 2rem)',
