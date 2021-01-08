@@ -14,6 +14,8 @@ import {
     SpinnerIcon
 } from "./graphics/icons";
 
+const defaultZIndexBase = 1000;
+
 const resolveIcon = (alert: SnackbarItem) => {
     switch(alert.type) {
         case "success": return <SuccessIcon />
@@ -96,9 +98,9 @@ export function SnackbarUnstyled(props: SnackbarProps) {
     );
 }
 
-const Snackbar = styled(SnackbarUnstyled)({
+const Snackbar = styled(SnackbarUnstyled)(({theme}) => ({
     position:   'fixed',
-    zIndex:     999,
+    zIndex:     theme.zIndex.snackbar || defaultZIndexBase,
     bottom:     '2rem',
     left:       '50%',
     transform:  'translateX(-50%)',
@@ -109,7 +111,7 @@ const Snackbar = styled(SnackbarUnstyled)({
     alignItems:     'center',
     justifyContent: 'center',
     flexFlow:       'column nowrap',
-});
+}));
 
 const Alert = styled.div(({theme}) => ({
     margin:     '0.5rem 0',

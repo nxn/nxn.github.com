@@ -206,7 +206,7 @@ export function ContactPage() {
 
         // Prepare the form state for sending
         setDisabled(true);
-        const dismissSendingAlert = dispatch(alert(alerts.sending)) as unknown as () => void;
+        const closeSendingAlert = dispatch(alert(alerts.sending)) as unknown as () => void;
 
         email.send(
             config.emailjs.serviceID,
@@ -234,7 +234,7 @@ export function ContactPage() {
             dispatch(alert(alerts.deliveryFailed));
             console.error(reason);
         }).finally(() => {
-            dismissSendingAlert();
+            closeSendingAlert();
             setDisabled(false);
         });
     }

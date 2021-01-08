@@ -11,8 +11,14 @@ TODO:
         - TBD
     - Snackbar
         - Unique constraint
+    - Hideable
+        - HOC accepting hide-behavior configuration
+            - Should work for:
+                - Viewer UI
+                - Snackbar Alerts
+                - Codeblock toolbox
     - Misc
-        - Hamlet
+        - Helmet
         - Create typography section of theme
         - Fix button clicks so that scaling doesn't cancel click event
         - Improve instructions and wording on vscode_remote

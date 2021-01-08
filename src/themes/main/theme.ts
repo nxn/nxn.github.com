@@ -8,6 +8,10 @@ export const theme: Theme = {
     styles,
     transitions,
     breakpoints: [41.5],
+    zIndex: {
+        imageViewer: 1000,
+        snackbar: 2000
+    }
 }
 
 export default theme;

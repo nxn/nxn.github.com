@@ -38,13 +38,21 @@ export function ToC(props: ToCProps) {
     React.useLayoutEffect(() => {
         if (!props.highlight || !items || !items.length) { return; }
 
+        // Client font size based target margin; If scrolled within 3rem above the target's position, the ToC will mark 
+        // the target as being the current one.
+        // 
+        // TODO: This should probably be determined via 'theme' or the margin/padding of the target in question.
+        // Alternatively, the ideal behavior would be to match `gatsby-remark-autolink-headers`'s offsetY setting, as
+        // then the ToC and anchor links would be in exact sync. Unfortunately, this setting doesn't appear to work at
+        // the time of writing.
+        const margin = 3 * parseFloat(window.getComputedStyle(window.document.documentElement).fontSize);
         const targets = window.document.querySelectorAll<HTMLElement>(selectURIs(items).join(', '));
 
         const end = targets.length - 1;
         let pending = false;
         
         const updateCurrent = () => {
-            const scrollOffset = window.scrollY + (window.document.documentElement.clientHeight * .33);
+            const scrollOffset = window.scrollY + margin;
 
             let index = 0;
             while (index < end && scrollOffset > targets[index + 1].offsetTop) index++;

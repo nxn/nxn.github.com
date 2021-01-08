@@ -30,15 +30,12 @@ type GalleryItemProps = {
 export function GalleryItemUnstyled(props: GalleryItemProps) {
     const dispatch = useDispatch();
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        const { dzi, title } = event.currentTarget.dataset;
+        const { title, dzi } = event.currentTarget.dataset;
 
         if (!dzi) { return; }
 
         event.preventDefault();
-        dispatch(open({
-            image: dzi,
-            title
-        }));
+        dispatch(open({ title, image: dzi }));
     }
 
     return (

@@ -11,7 +11,7 @@ import Header   from "./header";
 import Main     from "./main";
 import Footer   from "./footer";
 import Snackbar from "../snackbar";
-import Viewer   from "../viewer";
+import ImageViewer   from "../imageviewer";
 
 import '../../stylesheets/reset.css';
 import '../../stylesheets/fonts.css';
@@ -50,11 +50,11 @@ export function Layout(props: LayoutProps) {
                         { props.children }
                     </Main>
                     <Footer />
-                    <div id="modal-root">
-                        <Snackbar />
-                        <Viewer />
-                    </div>
                 </Container>
+                <ModalRoot id="modal-root">
+                    <ImageViewer />
+                    <Snackbar />
+                </ModalRoot>
             </MDXProvider>
         </ThemeProvider>
     );
@@ -71,10 +71,12 @@ const globalStyles = {
     },
     //html: { scrollBehavior: 'smooth' },
     body: theme.styles.body,
-    
+
     '.no-scroll':   { overflow: 'hidden !important' },
-    '.hidden':      { display: 'none !important' }
+    '.no-display':  { display: 'none !important' }
 }
+
+const ModalRoot = styled.div({ })
 
 const Container = styled.div({
     minWidth:           '20rem',

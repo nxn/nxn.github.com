@@ -67,7 +67,6 @@ export function IndexPage(props: PageProps<IndexPageData>) {
 
     const [ { childMdx: head }, ...tail ] = props.data.allFile.nodes;
 
-    console.log(tail[1].childMdx.frontmatter.images.embedded);
     return (
         <Layout variant={ Variant.Unpadded }>
             <Content>

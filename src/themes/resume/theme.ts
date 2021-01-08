@@ -7,7 +7,8 @@ export const theme: Theme = {
     palette,
     styles,
     transitions,
-    breakpoints: [48]
+    breakpoints: [48],
+    zIndex: { }
 }
 
 export default theme;

@@ -82,11 +82,17 @@ declare module '@emotion/react' {
             off?:    CSSProperties
         }
     }
+
+    export interface ZIndex {
+        snackbar?:      number,
+        imageViewer?:   number,
+    }
     
     export interface Theme {
         breakpoints?:   number[],
         palette:        Palette,
         styles:         Styles,
         transitions:    Transitions,
+        zIndex:         ZIndex,
     }
 }

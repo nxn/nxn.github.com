@@ -28,7 +28,7 @@ export function HeaderUnstyled(props: HeaderProps) {
                 <MenuIcon />
             </label>
 
-            <input id="menu-toggle" type="checkbox" className="hidden" />
+            <input id="menu-toggle" type="checkbox" className="no-display" />
             
             <ul id="links">
                 <li>
@@ -74,10 +74,6 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
     top:                    0,
     left:                   0,
     width:                  '100%',
-
-    // '& .hidden': {
-    //     display: 'none !important'
-    // },
 
     '& #site-link': {
         display:        'flex',
