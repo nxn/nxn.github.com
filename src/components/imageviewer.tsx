@@ -77,6 +77,8 @@ export function ImageViewer() {
                 }
                 viewer.close();
             }
+            
+            setUIVisible(false);
             return;
         }
 
