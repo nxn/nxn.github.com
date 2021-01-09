@@ -6,7 +6,6 @@ import Link from "./controls/link";
 import { open } from "../state/viewer";
 
 type GalleryProps = {
-    maxWidth?:  string,
     className?: string,
     children?:  React.ReactNode
 }

@@ -6,6 +6,8 @@ import { MDXProvider }              from '@mdx-js/react';
 import theme        from "../../themes/resume/theme";
 import components   from "../common";
 
+import Menu         from "./menu";
+
 import '../../stylesheets/reset.css';
 import '../../stylesheets/fonts.css';
 
@@ -18,7 +20,7 @@ export function Layout(props: LayoutProps) {
         <ThemeProvider theme={ theme }>
             <Global styles={{ body: theme.styles.body }} />
 
-            <MDXProvider components={ components }>
+            <MDXProvider components={{ Menu, ...components }}>
                 <Container id="layout">
                     { props.children }
                 </Container>

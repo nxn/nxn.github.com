@@ -20,24 +20,22 @@ type IndexPageData = {
                     date:       string,
                     priority:   number,
                     style?:     string,
-                    images: {
-                        header: {
-                            sources: {
-                                image: {
-                                    childImageSharp: {
-                                        fixed: FixedObject
-                                    }
+                    graphic: {
+                        sources: {
+                            image: {
+                                childImageSharp: {
+                                    fixed: FixedObject
                                 }
-                                media?: string
-                            }[],
-                            position?: string
-                        },
-                        embedded?: {
-                            childImageSharp: {
-                                fluid: FluidObject
                             }
-                        }[]
+                            media?: string
+                        }[],
+                        position?: string
                     },
+                    images?: {
+                        childImageSharp: {
+                            fluid: FluidObject
+                        }
+                    }[]
                 },
                 body: string
             }
@@ -78,13 +76,13 @@ export function IndexPage(props: PageProps<IndexPageData>) {
                         date    = { head.frontmatter.date }
                         style   = "left-large"
                         image   = {{
-                            position: head.frontmatter.images.header.position,
-                            data: head.frontmatter.images.header.sources.map(
+                            position: head.frontmatter.graphic.position,
+                            data: head.frontmatter.graphic.sources.map(
                                 source => ({ ...source.image.childImageSharp.fixed, media: source.media })
                             )
                         }}>
 
-                        <MDXRenderer embedded={ imageData(head.frontmatter.images.embedded) }>
+                        <MDXRenderer images={ imageData(head.frontmatter.images) }>
                             { head.body }
                         </MDXRenderer>
                     </Blurb>
@@ -98,13 +96,13 @@ export function IndexPage(props: PageProps<IndexPageData>) {
                             date    = { blurb.frontmatter.date }
                             style   = { blurb.frontmatter.style }
                             image   = {{
-                                position: blurb.frontmatter.images.header.position,
-                                data: blurb.frontmatter.images.header.sources.map(
+                                position: blurb.frontmatter.graphic.position,
+                                data: blurb.frontmatter.graphic.sources.map(
                                     source => ({ ...source.image.childImageSharp.fixed, media: source.media })
                                 )
                             }}>
 
-                            <MDXRenderer embedded={ imageData(blurb.frontmatter.images.embedded) }>
+                            <MDXRenderer images={ imageData(blurb.frontmatter.images) }>
                                 { blurb.body }
                             </MDXRenderer>
                         </Blurb>
@@ -132,7 +130,11 @@ export default IndexPage;
 export const query = graphql`
     query {
         allFile(
-            filter: {sourceInstanceName: {eq: "content"}, relativeDirectory: {eq: "blurbs"}}, 
+            filter: { 
+                sourceInstanceName: { eq: "content" }, 
+                relativePath: { regex: "/^blurbs/i" }, 
+                name: { eq: "index" }
+            }, 
             sort: {
                 fields: [
                     childMdx___frontmatter___priority, 
@@ -150,26 +152,24 @@ export const query = graphql`
                         date
                         priority
                         style
-                        images {
-                            header {
-                                sources {
-                                    image {
-                                        childImageSharp {
-                                            fixed(height: 192, quality: 90) {
-                                                ...GatsbyImageSharpFixed_withWebp
-                                            }
+                        graphic {
+                            position
+                            sources {
+                                media
+                                image {
+                                    childImageSharp {
+                                        fixed(height: 192, quality: 90) {
+                                            ...GatsbyImageSharpFixed_withWebp
                                         }
                                     }
-                                    media
                                 }
-                                position
                             }
-                            embedded {
-                                childImageSharp {
-                                    fluid(maxWidth: 528, quality: 90) {
-                                        ...GatsbyImageSharpFluid_withWebp
-                                        ...GatsbyImageSharpFluidLimitPresentationSize
-                                    }
+                        }
+                        images {
+                            childImageSharp {
+                                fluid(maxWidth: 528, quality: 90) {
+                                    ...GatsbyImageSharpFluid_withWebp
+                                    ...GatsbyImageSharpFluidLimitPresentationSize
                                 }
                             }
                         }

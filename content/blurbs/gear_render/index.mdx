@@ -1,0 +1,37 @@
+---
+title: "3D Gear Model"
+date: "2020-09-01"
+priority: 0
+style: "right-large"
+graphic:
+    sources:
+        -   image: "./graphic_1col.jpg"
+            media: "(max-width: 640px)"
+        -   image: "./graphic_2col.jpg"
+images:
+    -   "./gear_render1.jpg"
+    -   "./gear_render2.jpg"
+---
+
+import Img from 'gatsby-image';
+import { Gallery, GalleryItem } from '../../../src/components/gallery';
+
+import gear_render1_full from "./gear_render1.jpg";
+import gear_render2_full from "./gear_render2.jpg";
+
+Results of my first serious attempt at learning 3D modelling; created using Blender.
+
+<Gallery>
+    <GalleryItem
+        title   = "Gear Render 1 of 2"
+        image   = { gear_render1_full }
+        dzi     = "/dzi-data/gear_render1.dzi">
+        <Img fluid={ props.images["gear_render1.jpg"] } />
+    </GalleryItem>
+    <GalleryItem
+        title   = "Gear Render 2 of 2"
+        image   = { gear_render2_full }
+        dzi     = "/dzi-data/gear_render2.dzi">
+        <Img fluid={ props.images["gear_render2.jpg"] } />
+    </GalleryItem>
+</Gallery>

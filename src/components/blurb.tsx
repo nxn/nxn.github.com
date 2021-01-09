@@ -64,7 +64,11 @@ export function Blurb(props: BlurbProps) {
 export function LatestPostsBlurb({ className, style }: { className?: string, style?: string }) {
     const { allFile: { nodes: posts }}: PostData = useStaticQuery(graphql`query {
         allFile(
-            filter: {sourceInstanceName: {eq: "content"}, relativeDirectory: {eq: "posts"}}, 
+            filter: { 
+                sourceInstanceName: { eq: "content" }, 
+                relativePath: { regex: "/^posts/i" }, 
+                name: { eq: "index" }
+            }, 
             sort: {
                 fields: [
                     childMdx___frontmatter___date
@@ -116,6 +120,7 @@ const containerBorderRadius = '1.0rem';
 
 export const BlurbContainer = styled.div({
     maxWidth: '71.75rem',
+    //maxWidth: '74.9375rem',
     margin: '0 auto',
 
     display:                'grid',
@@ -198,10 +203,11 @@ const FoldedCorner = styled.div(({theme}) => ({
     height:                 foldSize,
     borderBottomLeftRadius: containerBorderRadius,
 
+    backgroundColor: theme.palette.bgs.primary.main,
     backgroundImage: `linear-gradient(
         45deg,
-        ${ theme.palette.bgs.standard.light },
-        ${ theme.palette.bgs.standard.main } 50%
+        ${ theme.palette.bgs.primary.light },
+        rgba(0,0,0,0.25) 50%
     )`,
 
     boxShadow: '0 0.125rem 0.25rem rgba(0,0,0,0.33), -0.0625rem 0.0625rem 0.0625rem rgba(0,0,0,0.20)'
