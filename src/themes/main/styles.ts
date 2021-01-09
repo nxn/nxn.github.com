@@ -21,7 +21,7 @@ export const styles: Styles = {
         section: {
             fontFamily: '"Oswald", sans-serif',
             fontSize:   '1.5rem',
-            margin:     '2.5rem 0',
+            margin:     '3rem 0 1.5rem 0',
             color:      palette.accents.purple
         },
         content: {
@@ -322,7 +322,7 @@ export const styles: Styles = {
             borderTop:      0,
             // TODO: use an alpha function on existing palette color
             borderBottom:   `0.0625rem dashed rgba(194, 194, 168, 0.5)`,
-            margin:         '2.5rem 0'
+            margin:         '3rem 0'
         },
         pre: {
             margin:             '1rem 0',

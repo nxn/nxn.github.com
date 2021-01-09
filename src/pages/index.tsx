@@ -10,53 +10,38 @@ import { Blurb, LatestPostsBlurb, BlurbContainer } from "../components/blurb";
 
 import { getFilename } from "../util";
 
-type IndexPageData = {
-    allFile: {
-        nodes: {
-            childMdx: {
-                id: string,
-                frontmatter: {
-                    title:      string,
-                    date:       string,
-                    priority:   number,
-                    style?:     string,
-                    graphic: {
-                        sources: {
-                            image: {
-                                childImageSharp: {
-                                    fixed: FixedObject
-                                }
-                            }
-                            media?: string
-                        }[],
-                        position?: string
-                    },
-                    images?: {
-                        childImageSharp: {
-                            fluid: FluidObject
-                        }
-                    }[]
-                },
-                body: string
+type BlurbData = {
+    id: string,
+    body: string,
+    frontmatter: {
+        title:      string,
+        date:       string,
+        priority:   number,
+        style?:     string,
+        graphic: {
+            sources: {
+                image: {
+                    childImageSharp: {
+                        fixed: FixedObject
+                    }
+                }
+                media?: string
+            }[],
+            position?: string
+        },
+        images?: {
+            childImageSharp: {
+                fluid: FluidObject
             }
         }[]
     }
 };
 
-function imageData(embedded?: { childImageSharp: { fluid: FluidObject; } }[]) {
-    if (!embedded) { return undefined; }
-
-    let result: { [key: string]: FluidObject } = { };
-
-    embedded.forEach(({ childImageSharp: { fluid: data }}) => { 
-        const filename = getFilename(data.src);
-        if (filename) {
-            result[filename] = data;
-        }
-    });
-
-    return result;
-}
+type IndexPageData = {
+    allFile: {
+        nodes: { childMdx: BlurbData }[]
+    }
+};
 
 export function IndexPage(props: PageProps<IndexPageData>) {
     if (!props.data.allFile.nodes.length) {
@@ -64,49 +49,16 @@ export function IndexPage(props: PageProps<IndexPageData>) {
     }
 
     const [ { childMdx: head }, ...tail ] = props.data.allFile.nodes;
+    head.frontmatter.style = "left-large";
 
     return (
         <Layout variant={ Variant.Unpadded }>
             <Content>
                 <WelcomeBanner id="welcome-banner" />
                 <BlurbContainer>
-                    <Blurb
-                        key     = { head.id }
-                        title   = { head.frontmatter.title }
-                        date    = { head.frontmatter.date }
-                        style   = "left-large"
-                        image   = {{
-                            position: head.frontmatter.graphic.position,
-                            data: head.frontmatter.graphic.sources.map(
-                                source => ({ ...source.image.childImageSharp.fixed, media: source.media })
-                            )
-                        }}>
-
-                        <MDXRenderer images={ imageData(head.frontmatter.images) }>
-                            { head.body }
-                        </MDXRenderer>
-                    </Blurb>
-                    
+                    { makeBlurb(head) }
                     <LatestPostsBlurb />
-
-                    { tail.map(({ childMdx: blurb }) => (
-                        <Blurb 
-                            key     = { blurb.id } 
-                            title   = { blurb.frontmatter.title }
-                            date    = { blurb.frontmatter.date }
-                            style   = { blurb.frontmatter.style }
-                            image   = {{
-                                position: blurb.frontmatter.graphic.position,
-                                data: blurb.frontmatter.graphic.sources.map(
-                                    source => ({ ...source.image.childImageSharp.fixed, media: source.media })
-                                )
-                            }}>
-
-                            <MDXRenderer images={ imageData(blurb.frontmatter.images) }>
-                                { blurb.body }
-                            </MDXRenderer>
-                        </Blurb>
-                    )) }
+                    { tail.map( ({ childMdx: data }) => makeBlurb(data) ) }
                 </BlurbContainer>
             </Content>
         </Layout> 
@@ -124,6 +76,40 @@ const Content = styled.div({
         '& #welcome-banner': { padding: 0 }
     },
 });
+
+function imageData(embedded?: { childImageSharp: { fluid: FluidObject; } }[]) {
+    if (!embedded) { return undefined; }
+
+    let result: { [key: string]: FluidObject } = { };
+
+    embedded.forEach(({ childImageSharp: { fluid: data }}) => { 
+        const filename = getFilename(data.src);
+        if (filename) {
+            result[filename] = data;
+        }
+    });
+
+    return result;
+}
+
+const makeBlurb = (data: BlurbData) => (
+    <Blurb 
+        key     = { data.id } 
+        title   = { data.frontmatter.title }
+        date    = { data.frontmatter.date }
+        style   = { data.frontmatter.style }
+        image   = {{
+            position: data.frontmatter.graphic.position,
+            data: data.frontmatter.graphic.sources.map(
+                source => ({ ...source.image.childImageSharp.fixed, media: source.media })
+            )
+        }}>
+
+        <MDXRenderer images={ imageData(data.frontmatter.images) }>
+            { data.body }
+        </MDXRenderer>
+    </Blurb>
+);
 
 export default IndexPage;
 
