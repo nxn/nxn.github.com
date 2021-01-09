@@ -8,8 +8,10 @@ const HIDE_CLASS_PROPKEY    = '&.hide';
 type Direction = 'top' | 'bottom' | 'left' | 'right';
 
 interface SlideAnimationConfig {
-    animation: 'slide',
-    direction: Direction
+    animation:  'slide',
+    direction:  Direction,
+    shift?:     number | string,
+    transform?: string,
 }
 
 interface FadeAnimationConfig {
@@ -28,6 +30,7 @@ type HideableProps = {
 const defaults: HideableConfig = {
     animation:  'slide',
     direction:  'top',
+    shift:      0,
     duration:   250
 }
 
@@ -88,6 +91,7 @@ const fadeStyles = (_config: FadeAnimationConfig) => {
 }
 
 const slideStyles = (config: SlideAnimationConfig) => {
+    const shift = config.shift? config.shift : 0;
     // Each style needs to account for all aspects of an element's position along the axis of the animation. For
     // example, if moving an element upwards off of the screen:
     // - `margin-top` needs to be set 0 so that it will not cause the element to stick out when hidden
@@ -102,7 +106,10 @@ const slideStyles = (config: SlideAnimationConfig) => {
             [HIDE_CLASS_PROPKEY]: {
                 top:        0,
                 marginTop:  0,
-                transform:  'translateY(-100%)',
+                transform:  [
+                    `translate(${ shift }, -100%)`,
+                    config.transform
+                ].join(' '),
             }
         };
 
@@ -111,7 +118,10 @@ const slideStyles = (config: SlideAnimationConfig) => {
             [HIDE_CLASS_PROPKEY]: {
                 bottom:         0,
                 marginBottom:   0,
-                transform:      'translateY(100%)',
+                transform:      [
+                    `translate(${ shift }, 100%)`,
+                    config.transform
+                ].join(' '),
             }
         };
 
@@ -120,7 +130,10 @@ const slideStyles = (config: SlideAnimationConfig) => {
             [HIDE_CLASS_PROPKEY]: {
                 left:       0,
                 marginLeft: 0,
-                transform:  'translateX(-100%)',
+                transform:  [
+                    `translate(-100%, ${ shift })`,
+                    config.transform
+                ].join(' '),
             }
         };
 
@@ -129,7 +142,10 @@ const slideStyles = (config: SlideAnimationConfig) => {
             [HIDE_CLASS_PROPKEY]: {
                 right:          0,
                 marginRight:    0,
-                transform:      'translateX(100%)',
+                transform:      [
+                    `translate(100%, ${ shift })`,
+                    config.transform
+                ].join(' '),
             }
         };
     }

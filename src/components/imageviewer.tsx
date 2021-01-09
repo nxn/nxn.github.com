@@ -46,17 +46,19 @@ export function ImageViewer() {
     const [uiVisible, setUIVisible] = React.useState(false);
     const [hideTimeout, setHideTimeout] = React.useState(0);
 
-    const showUI = () => {
+    const showUI = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         setUIVisible(true);
 
         if (hideTimeout) {
             window.clearTimeout(hideTimeout);
         }
 
-        setHideTimeout(window.setTimeout(() => {
-            setUIVisible(false);
-            setHideTimeout(0);
-        }, 5000));
+        if (event && event.target instanceof HTMLCanvasElement) {
+            setHideTimeout(window.setTimeout(() => {
+                setUIVisible(false);
+                setHideTimeout(0);
+            }, 5000));
+        }
     };
 
     const clearHideTimeout = () => { 
@@ -108,7 +110,7 @@ export function ImageViewer() {
 
             osd.open(image.image);
 
-            //osd.addHandler('canvas-press', showViewerUI);
+            //osd.addHandler('canvas-press', showUI);
 
             setViewer(osd);
         }).catch((reason) => {
@@ -130,20 +132,18 @@ export function ImageViewer() {
                 </CloseButton>
             </HideableTitlebar>
             <HideableControls visible={ uiVisible } onMouseEnter={ clearHideTimeout }>
-                <Panel>
-                    <Button id="zoom-in">
-                        <ZoomInIcon />
-                    </Button>
-                    <Button id="zoom-out">
-                        <ZoomOutIcon />
-                    </Button>
-                    <Button id="reset">
-                        <ZoomToFitIcon />
-                    </Button>
-                    <Button id="full-page">
-                        <FullscreenIcon />
-                    </Button>
-                </Panel>
+                <Button id="zoom-in">
+                    <ZoomInIcon />
+                </Button>
+                <Button id="zoom-out">
+                    <ZoomOutIcon />
+                </Button>
+                <Button id="reset">
+                    <ZoomToFitIcon />
+                </Button>
+                <Button id="full-page">
+                    <FullscreenIcon />
+                </Button>
             </HideableControls>
         </Container>
     );
@@ -162,12 +162,10 @@ export const Container = styled.div(({ theme }) => ({
 
 const Titlebar = styled.div(({theme}) => ({
     position:           'absolute',
+    top:                0,
     left:               0,
     zIndex:             (theme.zIndex.imageViewer || defaultZIndexBase) + 1,
-    opacity:            1,
-    visibility:         'visible',
 
-    top:                0,
     width:              '100vw',
     height:             '3rem',
     backgroundColor:    'rgba(0,0,0,0.5)',
@@ -186,28 +184,24 @@ const Title = styled.h3({
 
 const Controls = styled.div(({theme}) => ({
     position:           'absolute',
-    left:               0,
-    zIndex:             (theme.zIndex.imageViewer || defaultZIndexBase) + 1,
-    opacity:            1,
-    visibility:         'visible',
-
+    left:               '50%',
     bottom:             0,
-    width:              'calc(100vw - 2rem)',
-    margin:             '1rem',
-}));
+    transform:          'translateX(-50%)',
+    zIndex:             (theme.zIndex.imageViewer || defaultZIndexBase) + 1,
 
-const HideableControls = asHideable(Controls, { animation: 'slide', direction: 'bottom' });
-
-const Panel = styled.div({
-    backgroundColor:    'rgba(0,0,0,0.75)',
-    margin:             '0 auto',
+    margin:             '1rem auto',
     height:             '3rem',
+    width:              'calc(100vw - 2rem)',
     maxWidth:           '20rem',
     borderRadius:       '0.3rem',
+    backgroundColor:    'rgba(0,0,0,0.75)',
+
     display:            'flex',
-    alignItems:         'center',
     justifyContent:     'space-evenly',
-});
+    alignItems:         'center',
+}));
+
+const HideableControls = asHideable(Controls, { animation: 'slide', direction: 'bottom', shift: '-50%' });
 
 const Button = styled.button(({theme}) => ({
     height:             '3rem',

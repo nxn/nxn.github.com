@@ -97,13 +97,8 @@ export default (props: CodeBlockProps) => {
     const language = (props.className || '').replace(/language-/, '').toLowerCase();
     const code = props.children.trim();
 
-    const showTools = () => {
-        setToolsVisible(true);
-    }
-
-    const hideTools = () => {
-        setToolsVisible(false);
-    }
+    const showTools = () => setToolsVisible(true);
+    const hideTools = () => setToolsVisible(false);
 
     const copySuccess   = () => dispatch(alert({ type: "success", message: "Copied!" }));
     const copyError     = () => dispatch(alert({ type: "error", message: "Could not copy" }));
