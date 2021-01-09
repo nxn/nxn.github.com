@@ -2,9 +2,7 @@ import React from "react";
 import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-import Layout from "../components/resume/layout";
-
-type ResumeData = {
+type MDXData = {
     mdx: {
         id:     string,
         body:   string,
@@ -14,23 +12,21 @@ type ResumeData = {
     }
 }
 
-type ResumePageProps = {
+type MDXPageProps = {
     className?: string,
-    data:       ResumeData
+    data:       MDXData
 }
 
-export function ResumePage(props: ResumePageProps) {
-    const resume = props.data.mdx;
+export function MDXPage(props: MDXPageProps) {
+    const { data: { mdx } } = props;
     return (
-        <Layout>
-            <MDXRenderer title={ resume.frontmatter.title }>
-                { resume.body }
-            </MDXRenderer>
-        </Layout>
+        <MDXRenderer title={ mdx.frontmatter.title }>
+            { mdx.body }
+        </MDXRenderer>
     );
 }
 
-export default ResumePage;
+export default MDXPage;
 
 export const query = graphql`
     query($slug: String!) {
