@@ -1,7 +1,8 @@
 import '@emotion/react'
 
 declare module '@emotion/react' {
-    export type CSSProperties = { };
+    // TODO: Look through React/Emotion to see if a suitable type definition can be used here
+    export type CSSProperties = any;
 
     export interface AlertTypeColors {
         info?:      string,
