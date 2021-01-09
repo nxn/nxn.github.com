@@ -54,12 +54,14 @@ export function ImageViewer() {
         }
 
         if (event && event.target instanceof HTMLCanvasElement) {
-            setHideTimeout(window.setTimeout(() => {
-                setUIVisible(false);
-                setHideTimeout(0);
-            }, 5000));
+            setHideTimeout(window.setTimeout(hideUI, 5000));
         }
     };
+
+    const hideUI = () => {
+        clearHideTimeout();
+        setUIVisible(false);
+    }
 
     const clearHideTimeout = () => { 
         if (hideTimeout) {
@@ -77,8 +79,8 @@ export function ImageViewer() {
                 }
                 viewer.close();
             }
-            
-            setUIVisible(false);
+
+            hideUI();
             return;
         }
 
