@@ -3,10 +3,9 @@ import styled                       from "@emotion/styled";
 import { ThemeProvider, Global }    from "@emotion/react";
 import { MDXProvider }              from '@mdx-js/react';
 
-import theme        from "../../themes/resume/theme";
-import components   from "../common";
-
-import Menu         from "./menu";
+import theme    from "../../themes/resume/theme";
+import common   from "../common";
+import Menu     from "./menu";
 
 import '../../stylesheets/reset.css';
 import '../../stylesheets/fonts.css';
@@ -15,12 +14,15 @@ type LayoutProps = {
     children?: React.ReactNode;
     className?: string
 }
+
+const components = { Menu, ...common };
+
 export function Layout(props: LayoutProps) {
     return (
         <ThemeProvider theme={ theme }>
             <Global styles={{ body: theme.styles.body }} />
 
-            <MDXProvider components={{ Menu, ...components }}>
+            <MDXProvider components={ components }>
                 <Container id="layout">
                     { props.children }
                 </Container>

@@ -1,38 +1,48 @@
-const path              = require('path');
-const {createCompiler}  = require('@mdx-js/mdx');
-const toHtml            = require('hast-util-to-html');
+const path      = require('path');
+const mdx       = require('@mdx-js/mdx');
+const babel     = require('@babel/core');
+
+const transform = code => babel.transform(code, {
+    plugins: [
+        '@babel/plugin-transform-react-jsx',
+        '@babel/plugin-proposal-object-rest-spread'
+    ]
+}).code;
 
 const extractSummary = () => (tree, file) => {
     const start = tree.children.findIndex(node => node.type === 'jsx' && node.value === '<Summary>');
     const end   = tree.children.findIndex(node => node.type === 'jsx' && node.value === '</Summary>');
 
-    if (start < 0 || end < 0) { return; }
+    if (start < 0 || end < 0) {
+        // Can't seem to find any other way to abort compiling if there is no summary
+        return Error("No Summary");
+    }
 
-    file.data.summary = toHtml(tree.children.slice(start + 1, end));
+    // Removes everything except the contents/children of Summary. Probably not the correct way of doing this.
+    tree.children = tree.children.slice(start + 1, end);
 }
 
-const mdxCompiler = createCompiler({
-    rehypePlugins: [ extractSummary ]
-});
+const options = {
+    remarkPlugins: [ extractSummary ],
+    skipExport: true
+};
 
 exports.onCreateNode = async ({ node, getNode, actions: { createNodeField } }) => {
     if (node.internal.type !== 'Mdx') {
         return;
     }
 
-    const file = await mdxCompiler.process(
-        getNode(node.parent).internal.content
-    );
+    try {
+        const fileNode = getNode(node.parent);
+        const jsx = await mdx(fileNode.internal.content, options);
 
-    if (!file.data.summary) {
-        return;
+        createNodeField({
+            node,
+            name: 'summary',
+            value: transform(jsx)
+        });
     }
-
-    createNodeField({
-        node,
-        name: 'summary',
-        value: file.data.summary
-    });
+    catch (error) { }
 }
 
 exports.createPages = async ({ graphql, actions: { createPage } }) => {
