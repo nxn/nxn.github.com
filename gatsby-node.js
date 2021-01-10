@@ -10,15 +10,18 @@ const transform = code => babel.transform(code, {
 }).code;
 
 const extractSummary = () => (tree, file) => {
+    // Poor and relatively inefficient approach; it restricts Summaries to the top level of the file and most likely has
+    // a million other problems.
     const start = tree.children.findIndex(node => node.type === 'jsx' && node.value === '<Summary>');
     const end   = tree.children.findIndex(node => node.type === 'jsx' && node.value === '</Summary>');
 
     if (start < 0 || end < 0) {
-        // Can't seem to find any other way to abort compiling if there is no summary
+        // Can't seem to find any better way to stop compilation when there is no point in continuing
         return Error("No Summary");
     }
 
-    // Removes everything except the contents/children of Summary. Probably not the correct way of doing this.
+    // Removes everything except the nodes in-between the Summary. Probably not the correct way of doing this, but
+    // neither is anything else in this function.
     tree.children = tree.children.slice(start + 1, end);
 }
 
@@ -32,6 +35,7 @@ exports.onCreateNode = async ({ node, getNode, actions: { createNodeField } }) =
         return;
     }
 
+    // Must wrap in try catch due to use of deliberate "errors" to stop compilation early.
     try {
         const fileNode = getNode(node.parent);
         const jsx = await mdx(fileNode.internal.content, options);
