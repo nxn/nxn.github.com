@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
+
 import CodeBlock from "./codeblock";
 import Link from "./controls/link";
+import { Gallery, GalleryItem } from "./gallery";
+import Summary from "./summary";
 
 // CodeBlock (more specifically, prism-react-renderer) creates its own `pre` block. To prevent it from getting nested
 // within the `pre` block created by MDXRenderer, this PassThrough component is used.
@@ -48,5 +51,9 @@ export default {
     li:         ListItem,
     hr:         ThematicBreak,
     pre:        PassThrough,
-    code:       CodeBlock
+    code:       CodeBlock,
+
+    Summary,
+    Gallery,
+    GalleryItem,
 }
