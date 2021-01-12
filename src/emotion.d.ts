@@ -43,6 +43,13 @@ declare module '@emotion/react' {
         error: ColorVariants,
         accents: ColorVariants & { [ key: string ]: string }
     }
+
+    export interface Typography {
+        main: CSSProperties,
+        mono: CSSProperties,
+        slab: CSSProperties,
+        sans: CSSProperties,
+    }
     
     export interface Styles {
         body: CSSProperties;
@@ -92,6 +99,7 @@ declare module '@emotion/react' {
     export interface Theme {
         breakpoints?:   number[],
         palette:        Palette,
+        typography:     Typography,
         styles:         Styles,
         transitions:    Transitions,
         zIndex:         ZIndex,

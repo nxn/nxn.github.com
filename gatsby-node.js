@@ -25,7 +25,7 @@ const extractSummary = () => (tree, file) => {
     tree.children = tree.children.slice(start + 1, end);
 }
 
-const options = {
+const extractOptions = {
     remarkPlugins: [ extractSummary ],
     skipExport: true
 };
@@ -35,15 +35,33 @@ exports.onCreateNode = async ({ node, getNode, actions: { createNodeField } }) =
         return;
     }
 
+    // Store additional date fields -- useful for grouping, filtering, and creating JS Dates client-side
+    if (node.frontmatter && node.frontmatter.date) {
+        const date = new Date(node.frontmatter.date);
+
+        if (date instanceof Date && !isNaN(date)) {
+            const year          = date.getFullYear();
+            const month         = date.getMonth()   + 1;
+            const day           = date.getDate()    + 1;
+            const year_month    = `${year}-${month}`;
+            
+            createNodeField({ node, name: "year",       value: year });
+            createNodeField({ node, name: "month",      value: month });
+            createNodeField({ node, name: "day",        value: day });
+            createNodeField({ node, name: "year-month", value: year_month });
+        }
+    }
+
+    // Create `summary` field if MDX contains `Summary` component
     // Must wrap in try catch due to use of deliberate "errors" to stop compilation early.
     try {
         const fileNode = getNode(node.parent);
-        const jsx = await mdx(fileNode.internal.content, options);
+        const summary = await mdx(fileNode.internal.content, extractOptions);
 
         createNodeField({
             node,
             name: 'summary',
-            value: transform(jsx)
+            value: transform(summary)
         });
     }
     catch (error) { }

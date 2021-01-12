@@ -19,6 +19,5 @@ TODO:
                 - Codeblock toolbox
     - Misc
         - Helmet
-        - Create typography section of theme
         - Fix button clicks so that scaling doesn't cancel click event
         - Improve instructions and wording on vscode_remote

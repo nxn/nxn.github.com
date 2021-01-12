@@ -13,6 +13,21 @@ export function getFilename(path: string) {
     return null;
 }
 
+export function getOrdinalIndicator(num: number) {
+    if (num > 10 && num <14) {
+        return 'th';
+    }
+
+    num %= 10;
+    switch (num) {
+        case 1: return 'st';
+        case 2: return 'nd';
+        case 3: return 'rd';
+
+        default: return 'th';
+    }
+}
+
 export function template(template: TemplateStringsArray, ...keys: string[]) {
     return (function(...values: any[]) {
         let dict = (values[values.length - 1] || {}) as { [key: string]: string };

@@ -8,7 +8,7 @@ const externalUrlRx = /^(?:[a-z]+:)?\/\//i;
 const fileRx        = /\.[0-9a-z]+$/i;
 
 type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-    children:           React.ReactNode, 
+    children?:          React.ReactNode, 
     to?:                string, 
     activeClassName?:   string, 
     partiallyActive?:   boolean

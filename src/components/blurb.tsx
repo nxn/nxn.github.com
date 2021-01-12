@@ -1,7 +1,7 @@
 import React from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
-import { FluidObject, FixedObject } from "gatsby-image";
+import { FixedObject } from "gatsby-image";
 import styled from "@emotion/styled";
 import clsx from "clsx";
 
@@ -146,7 +146,7 @@ export const BlurbContainer = styled.div({
 
 const Article = styled.article(({theme}) => ({
     position:           'relative',
-    borderRadius:       '0.33rem',
+    borderRadius:       '0.5rem',
     overflow:           'hidden',
 
     color:              theme.palette.text.alternate.light,
@@ -162,7 +162,7 @@ const PostList = styled.div(({theme}) => ({
     color:              theme.palette.text.standard.light,
     backgroundColor:    theme.palette.bgs.primary.main,
     position:           'relative',
-    borderRadius:       '0.33rem',
+    borderRadius:       '0.5rem',
     overflow:           'hidden',
     paddingBottom:      '4.5rem',
     clipPath:           `polygon(0 0, calc(100% - ${ foldSize }) 0, 100% ${ foldSize }, 100% 100%, 0 100%)`,
@@ -214,7 +214,7 @@ const FoldedCorner = styled.div(({theme}) => ({
 }));
 
 const Heading = styled.h2(({theme}) => ({
-    fontFamily:         '"Oswald", sans-serif',
+    fontFamily:         theme.typography.sans.fontFamily,
     fontSize:           '1.2rem',
     padding:            '0.5rem 1rem',
     width:              'calc(100% - 2rem)',

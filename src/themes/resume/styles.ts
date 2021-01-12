@@ -1,14 +1,16 @@
 import { Styles } from '@emotion/react';
 import palette from './palette';
+import typography from './typography';
 import chevron from '../../images/chevron.svg';
 
 const empty = { };
 
 export const styles: Styles = {
     body: {
+
         color:              palette.text.standard.main,
         backgroundColor:    palette.bgs.standard.main,
-        fontFamily:         '"Open Sans", sans-serif',
+        fontFamily:         typography.main.fontFamily,
         fontSize:           '1rem',
         lineHeight:         '1.5rem',
         padding:            '6.5%',
@@ -27,38 +29,38 @@ export const styles: Styles = {
     headings: {
         page: {
             color:          palette.accents.dim,
-            fontFamily:     '"Oswald", sans-serif',
+            fontFamily:     typography.sans.fontFamily,
             fontSize:       '3rem',
             lineHeight:     '1.0em'
         },
         section: {
             color:          palette.accents.dim,
-            fontFamily:     '"Roboto Slab", serif',
+            fontFamily:     typography.slab.fontFamily,
             fontSize:       '2rem',
             marginTop:      '2rem',
             textAlign:      'center' as 'center'
         },
         content: {
             color:          palette.accents.dim,
-            fontFamily:     '"Oswald", sans-serif',
+            fontFamily:     typography.sans.fontFamily,
             fontSize:       '1.5rem',
             lineHeight:     '1.5em',
             marginTop:      '1.5rem',
         },
         sub1: {
             color:          palette.accents.dim,
-            fontFamily:     '"Roboto Slab", serif',
+            fontFamily:     typography.slab.fontFamily,
             fontWeight:     700
         },
         sub2: {
             color:          palette.accents.dim,
-            fontFamily:     '"Roboto Slab", serif',
+            fontFamily:     typography.slab.fontFamily,
             fontWeight:     700,
             marginBottom:   '0.5rem',
         },
         sub3: {
             color:          palette.accents.dim,
-            fontFamily:     '"Roboto Slab", serif',
+            fontFamily:     typography.slab.fontFamily,
             fontSize:       '1.25rem',
             lineHeight:     '2rem',
             marginBottom:   '1rem'
@@ -67,7 +69,7 @@ export const styles: Styles = {
     text: {
         bold: {
             color:      palette.accents.dim,
-            fontFamily: '"Roboto Slab", serif',
+            fontFamily: typography.slab.fontFamily,
             fontWeight: 700
         },
         italic: {

@@ -1,25 +1,25 @@
 import { Styles } from '@emotion/react';
 import palette from './palette';
-import theme from './prism';
+import typography from './typography';
 import transitions from './transitions';
 
 export const styles: Styles = {
     body: {
         color:              palette.text.standard.main,
         backgroundColor:    palette.bgs.secondary.dim,
-        fontFamily:         '"Open Sans", sans-serif',
+        fontFamily:         typography.main.fontFamily,
         fontSize:           '1rem',
         lineHeight:         '1.75rem'
     },
     headings: {
         page: {
-            fontFamily: '"Roboto Slab", serif',
+            fontFamily: typography.slab.fontFamily,
             fontSize:   '2rem',
             lineHeight: '1.2em',
             color:      palette.text.standard.light
         },
         section: {
-            fontFamily: '"Oswald", sans-serif',
+            fontFamily: typography.sans.fontFamily,
             fontSize:   '1.5rem',
             margin:     '3rem 0 1.5rem 0',
             color:      palette.accents.purple
@@ -112,7 +112,7 @@ export const styles: Styles = {
             padding:            '0.15rem 0.5rem',
             borderRadius:       '0.25rem',
             fontSize:           '0.9rem',
-            fontFamily:         '"JetBrains Mono", monospace',
+            fontFamily:         typography.mono.fontFamily,
             fontStyle:          'normal',
         }
     },
@@ -150,7 +150,7 @@ export const styles: Styles = {
     controls: {
         textbox: {
             fontSize:           '1rem',
-            fontFamily:         '"Open Sans", sans-serif',
+            fontFamily:         typography.main.fontFamily,
             width:              '100%',
             lineHeight:         '1.75rem',
             color:              palette.text.standard.main,
@@ -210,7 +210,7 @@ export const styles: Styles = {
             }
         },
         button: {
-            fontFamily:     '"Open Sans", sans-serif',
+            fontFamily:     typography.main.fontFamily,
             fontSize:       '0.8rem',
             fontWeight:     'bold',
             textTransform:  'uppercase',
@@ -329,7 +329,7 @@ export const styles: Styles = {
             color:              palette.text.alternate.light,
             backgroundColor:    palette.bgs.secondary.dark,
             fontSize:           '0.9rem',
-            fontFamily:         '"JetBrains Mono", monospace',
+            fontFamily:         typography.mono.fontFamily,
             padding:            '0.5rem 0.75rem',
             border:             `0.0625rem solid ${ palette.bgs.standard.light }`,
             overflowX:          'auto',

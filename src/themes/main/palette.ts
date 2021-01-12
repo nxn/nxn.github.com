@@ -75,7 +75,7 @@ export const palette: Palette = {
     accents: {
         // Use for contrast 
         light:  '#9DA69E',
-        dim:   '#29302d',
+        dim:    '#29302d',
 
         // Use for color contrast
         red:    '#CD7860',
