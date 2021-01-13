@@ -4,7 +4,7 @@ import styled, { Interpolation } from '@emotion/styled';
 import { Link, LinkProps } from './controls/link';
 
 // TODO: Should accept 'variant' prop that corresponds to `theme.styles.headings` allowing any style to be mapped to any
-// component.
+// component. Saving this for later because the actual theme heading styles need to be finalized first.
 type LinkHeaderProps = LinkProps & {
     component:  'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     startIcon?: React.ReactNode,
@@ -14,7 +14,7 @@ type LinkHeaderProps = LinkProps & {
 export function LinkHeader(props: LinkHeaderProps) {
     const { startIcon, endIcon, children, component, ...other } = props;
     // TODO: This should probably be memoized since it creates a component dynamically on each render
-    const Heading = styled(component)(headingStyle);
+    const Heading = styled(component)(baseHeadingStyle);
     return (
         <LinkContainer { ...other }>
             { startIcon }
@@ -33,10 +33,12 @@ export const LinkContainer = styled(Link)(({theme}) => ({
     flexFlow:   'row nowrap',
     alignItems: 'flex-start',
 
+    // TODO: Remove this when `variant` prop exists
     fontSize:   '1.5rem',
     fontFamily: theme.typography.slab.fontFamily,
     height:     '2.5rem',
     lineHeight: '2.5rem',
+    // end remove
 
     '& > .icon': {
         width:              '2.5rem',
@@ -59,7 +61,7 @@ export const LinkContainer = styled(Link)(({theme}) => ({
     }
 }));
 
-const headingStyle: Interpolation<{}> = {
+const baseHeadingStyle: Interpolation<{}> = {
     whiteSpace:     'nowrap',
     overflow:       'hidden',
     textOverflow:   'ellipsis',
