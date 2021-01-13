@@ -7,7 +7,8 @@ const timelineDotColor      = '#7a9388';
 const timelineDotRadius     = 0.75;
 const timelineDotRadiusRem  = `${ timelineDotRadius }rem`;
 
-// TODO: internalize offsetting right column of TimelineItems
+// TODO: internalize offsetting right column of TimelineItems and internalize `right` | `left` classes so that user
+// doesn't need to worry about providing and setting class names.
 export const Timeline = styled.div({
     display:        'grid',
     alignItems:     'center',
