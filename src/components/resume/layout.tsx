@@ -1,5 +1,6 @@
 import React                        from "react";
 import styled                       from "@emotion/styled";
+import Helmet                       from "react-helmet";
 import { ThemeProvider, Global }    from "@emotion/react";
 import { MDXProvider }              from '@mdx-js/react';
 
@@ -9,6 +10,11 @@ import Menu     from "./menu";
 
 import '../../stylesheets/reset.css';
 import '../../stylesheets/fonts.css';
+
+import OpenSansRegularFont      from '../../fonts/OpenSans/OpenSans-Regular.woff2';
+import OswaldRegularFont        from '../../fonts/Oswald/Oswald-Regular.woff2';
+import RobotoSlabRegularFont    from '../../fonts/RobotoSlab/RobotoSlab-Regular.woff2';
+import RobotoSlabBoldFont       from '../../fonts/RobotoSlab/RobotoSlab-Bold.woff2';
 
 type LayoutProps = {
     children?: React.ReactNode;
@@ -20,6 +26,12 @@ const components = { Menu, ...common };
 export function Layout(props: LayoutProps) {
     return (
         <ThemeProvider theme={ theme }>
+            <Helmet>
+                <link rel="preload" href={ OpenSansRegularFont } as="font" type="font/woff2" crossOrigin="" />
+                <link rel="preload" href={ OswaldRegularFont } as="font"  type="font/woff2" crossOrigin="" />
+                <link rel="preload" href={ RobotoSlabRegularFont } as="font" type="font/woff2" crossOrigin="" />
+                <link rel="preload" href={ RobotoSlabBoldFont } as="font" type="font/woff2" crossOrigin="" />
+            </Helmet>
             <Global styles={{ body: theme.styles.body }} />
             <MDXProvider components={ components }>
                 <Container>{ props.children }</Container>

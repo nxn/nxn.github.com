@@ -18,6 +18,12 @@ import ImageViewer   from "../imageviewer";
 import '../../stylesheets/reset.css';
 import '../../stylesheets/fonts.css';
 
+import OpenSansRegularFont      from '../../fonts/OpenSans/OpenSans-Regular.woff2';
+import OpenSansBoldFont         from '../../fonts/OpenSans/OpenSans-Bold.woff2';
+import OswaldRegularFont        from '../../fonts/Oswald/Oswald-Regular.woff2';
+import RobotoSlabRegularFont    from '../../fonts/RobotoSlab/RobotoSlab-Regular.woff2';
+
+
 export enum Variant {
     Standard    = 0,
     Minimal     = 1 << 0,
@@ -52,14 +58,12 @@ export function Layout(props: LayoutProps) {
                 </title>
                 <meta name="description" content={ meta.description } />
                 <meta name="author" content={ meta.author } />
-            </Helmet>
 
-            {/* TODO: Remove this, bundle the font */}
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet" /> 
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
-            </style>
+                <link rel="preload" href={ OpenSansRegularFont } as="font" type="font/woff2" crossOrigin="" />
+                <link rel="preload" href={ OswaldRegularFont } as="font"  type="font/woff2" crossOrigin="" />
+                <link rel="preload" href={ RobotoSlabRegularFont } as="font" type="font/woff2" crossOrigin="" />
+                <link rel="preload" href={ OpenSansBoldFont } as="font" type="font/woff2" crossOrigin="" />
+            </Helmet>
 
             <MDXProvider components={ components }>
                 <Container id="layout" className={ clsx(props.className, props.variant) }>
