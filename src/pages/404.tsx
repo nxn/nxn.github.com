@@ -1,4 +1,6 @@
 import React from "react";
+import Helmet from "react-helmet";
+import { graphql, PageProps } from "gatsby";
 
 import { Layout, Variant } from "../components/layout";
 import { Button, LinkButton, ButtonGroup } from "../components/controls/button";
@@ -9,12 +11,23 @@ import styled from "@emotion/styled";
 import morpheus_png from "../images/morpheus.png";
 import morpheus_webp from "../images/morpheus.webp";
 
-
 function wonderland() { }
 
-export function Error404Page() {
+type Error404PageData = {
+    site: {
+        siteMetadata: {
+            title: string
+        }
+    }
+}
+
+export function Error404Page(props: PageProps<Error404PageData>) {
+    const meta = props.data.site.siteMetadata;
     return (
         <Layout variant={ Variant.Unpadded }>
+            <Helmet>
+                <title>Page not found · { meta.title }</title>
+            </Helmet>
             <Content>
                 <div id="matrix-morpheus">
                     <div id="matrix-text">
@@ -148,3 +161,11 @@ const Content = styled.div(({theme}) => ({
 }));
 
 export default Error404Page;
+
+export const query = graphql`query {
+    site {
+        siteMetadata {
+            title
+        }
+    }
+}`;

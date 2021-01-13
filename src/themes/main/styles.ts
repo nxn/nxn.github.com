@@ -114,6 +114,7 @@ export const styles: Styles = {
             fontSize:           '0.9rem',
             fontFamily:         typography.mono.fontFamily,
             fontStyle:          'normal',
+            //whiteSpace:         'nowrap'
         }
     },
     lists: {
@@ -139,12 +140,11 @@ export const styles: Styles = {
             listStyleType:  'disc',
         },
         item: {
-            margin:     '3rem 0 3rem 2rem',
-
-            '& li': {
-                margin:     '0.25rem 0 0.25rem 2rem',
-                fontSize:   '0.9rem',
-            }
+            margin: '3rem 0 3rem 2rem',
+            // since the 3rem margin is a bit large for some use cases a `dense` class can be set on the parent list or
+            // a wrapping span/div in the case of markdown
+            '.dense &, .dense &, & li': { margin: '0.25rem 0 0.25rem 2rem' },
+            '& li': { fontSize: '0.9rem' }
         }
     },
     controls: {

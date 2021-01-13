@@ -1,5 +1,7 @@
 import React                        from "react";
 import styled                       from "@emotion/styled";
+import Helmet                       from "react-helmet";
+import { graphql, PageProps }       from "gatsby";
 import { useDispatch, useSelector } from "react-redux";
 import email                        from "emailjs-com";
 import ReCAPTCHA                    from "react-google-recaptcha";
@@ -103,7 +105,16 @@ const alerts = {
     } as AlertData,
 }
 
-export function ContactPage() {
+type ContatPageData = {
+    site: {
+        siteMetadata: {
+            title: string
+        }
+    }
+}
+
+export function ContactPage(props: PageProps<ContatPageData>) {
+    const meta          = props.data.site.siteMetadata;
     const dispatch      = useDispatch();
     const message       = useSelector(selectAll);
 
@@ -248,6 +259,9 @@ export function ContactPage() {
 
     return (
         <Layout>
+            <Helmet>
+                <title>Ernie Wieczorek: Contact · { meta.title }</title>
+            </Helmet>
             <Content>
                 <PageHeading>Send <span className="accent">Ernie</span> a message:</PageHeading>
                 <br />
@@ -371,3 +385,11 @@ const Actions = styled(ButtonGroup)({
 });
 
 export default ContactPage;
+
+export const query = graphql`query {
+    site {
+        siteMetadata {
+            title
+        }
+    }
+}`;

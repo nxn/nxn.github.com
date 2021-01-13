@@ -4,14 +4,17 @@ import clsx from "clsx";
 type SummaryProps = {
     className?: string,
     children?:  React.ReactNode,
+    component?: string,
     hidden?:    boolean
 }
 
 export function Summary(props: SummaryProps) {
-    return (
-        <span id="summary" className={ clsx(props.className, props.hidden && 'no-display') }>
-            { props.children }
-        </span>
+    const { className, children, component, hidden, ...other } = props;
+
+    return React.createElement(
+        component || 'span',
+        { className: clsx(className, hidden && 'no-display'), ...other },
+        children
     );
 }
 

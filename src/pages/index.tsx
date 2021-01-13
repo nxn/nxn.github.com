@@ -61,7 +61,7 @@ export function IndexPage(props: PageProps<IndexPageData>) {
                     { tail.map( ({ childMdx: data }) => makeBlurb(data) ) }
                 </BlurbContainer>
             </Content>
-        </Layout> 
+        </Layout>
     );
 }
 

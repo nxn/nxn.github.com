@@ -1,7 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: "Personal Portfolio: Ernie Wieczorek · nxn.io",
+    title: "nxn.io",
     siteUrl: "https://nxn.io/",
+    author: "Ernie Wieczorek",
     description: "The personal portfolio of Ernie Wieczorek. Ernie is a Philadelphia based software developer who " +
       "specializes in full stack web application development. Contains summary of recent ventures, discoveries, and " +
       "guidance on technical matters."

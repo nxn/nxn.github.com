@@ -1,5 +1,7 @@
 import React                        from "react";
 import styled                       from "@emotion/styled";
+import Helmet                       from "react-helmet";
+import { useStaticQuery, graphql }  from "gatsby";
 import { ThemeProvider, Global }    from "@emotion/react";
 import { MDXProvider }              from '@mdx-js/react';
 import clsx                         from "clsx";
@@ -31,10 +33,26 @@ type LayoutProps = {
 export function Layout(props: LayoutProps) {
     const variant = props.variant || 0;
     const unpadded = !!(variant & Variant.Unpadded);
+    const { site: { siteMetadata: meta } } = useStaticQuery(graphql`query {
+        site {
+            siteMetadata {
+                title
+                description
+                author
+            }
+        }
+    }`);
 
     return (
         <ThemeProvider theme={ theme }>
             <Global styles={ globalStyles } />
+            <Helmet>
+                <title>
+                    Ernie Wieczorek: Personal Portfolio · { meta.title }
+                </title>
+                <meta name="description" content={ meta.description } />
+                <meta name="author" content={ meta.author } />
+            </Helmet>
 
             {/* TODO: Remove this, bundle the font */}
             <link rel="preconnect" href="https://fonts.gstatic.com" />

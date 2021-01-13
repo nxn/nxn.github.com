@@ -21,11 +21,8 @@ export function Layout(props: LayoutProps) {
     return (
         <ThemeProvider theme={ theme }>
             <Global styles={{ body: theme.styles.body }} />
-
             <MDXProvider components={ components }>
-                <Container id="layout">
-                    { props.children }
-                </Container>
+                <Container>{ props.children }</Container>
             </MDXProvider>
         </ThemeProvider>
     );
@@ -48,7 +45,7 @@ const Container = styled.div(({theme}) => ({
         listStyle:          'none'
     },
 
-    '& #summary': {
+    '& #overview': {
         '& p': {
             marginTop: '1rem'
         },
@@ -72,17 +69,17 @@ const Container = styled.div(({theme}) => ({
             columns:    2,
             columnGap: '2rem'
         },
-        '& #summary': {
+        '& #overview': {
             display:                'grid',
             gridTemplateColumns:    '1fr 1fr',
             columnGap:              '2rem',
             gridTemplateAreas: `
-                "statement   statement"
-                "specialties tech-tags"
+                "summary        summary"
+                "specialties    tech-tags"
             `,
-            '& p':              { gridArea: 'statement' },
+            '& #summary':       { gridArea: 'summary' },
             '& #specialties':   { gridArea: 'specialties' },
-            '& tech-tags':      { gridArea: 'tech-tags' },
+            '& #tech-tags':     { gridArea: 'tech-tags' },
             '& h3':             { marginTop: '0.5rem' },
         }
     },

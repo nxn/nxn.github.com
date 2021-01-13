@@ -1,4 +1,5 @@
 import React from "react";
+import Helmet from "react-helmet";
 import { PageProps, graphql } from "gatsby";
 
 import styled from "@emotion/styled";
@@ -38,10 +39,11 @@ type PostData = {
     slug:       string,
     excerpt:    string,
     fields:     { 
-        day:        number,
-        month:      number,
-        year:       number,
-        summary:    string 
+        day:            number,
+        month:          number,
+        year:           number,
+        summaryMdx?:    string,
+        summaryText?:   string
     }
     frontmatter: {
         title:  string
@@ -49,6 +51,11 @@ type PostData = {
 }
 
 type PostPageData = {
+    site: {
+        siteMetadata: {
+            title: string
+        }
+    },
     allFile: {
         group: {
             fieldValue: "string",
@@ -61,10 +68,14 @@ type PostPageData = {
 }
 
 export function PostsPage(props: PageProps<PostPageData>) {
+    const meta = props.data.site.siteMetadata;
     const data = [ ...props.data.allFile.group ].reverse();
 
     return (
         <Layout variant={ Variant.Unpadded }>
+            <Helmet>
+                <title>Ernie Wieczorek: Post History · { meta.title }</title>
+            </Helmet>
             <Content>
                 <Timeline>{ data.map(year => (
                     <React.Fragment key={ year.fieldValue }>
@@ -116,11 +127,17 @@ function getPostDate(data: PostData) {
 }
 
 function getPostSummary(data: PostData) {
-    if (data.fields && data.fields.summary) {
-        return <Mdx>{ data.fields.summary }</Mdx>;
+    if (data.fields) {
+        if (data.fields.summaryMdx) {
+            return <Mdx>{ data.fields.summaryMdx }</Mdx>;
+        }
+    
+        if (data.fields.summaryText) {
+            return <Paragraph>{ data.fields.summaryMdx }</Paragraph>;
+        }
     }
 
-    // If there's no summary field use the excerpt instead. The excerpt will contain the page's <h1> content, which
+    // If there are no summary fields, use the excerpt instead. The excerpt will contain the page's <h1> content, which
     // will most likely be the title text. Attempt to trim out the title for these cases since it is already being
     // shown. 
     const excerpt = data.excerpt.replace(data.frontmatter.title, '');
@@ -130,6 +147,11 @@ function getPostSummary(data: PostData) {
 export default PostsPage;
 
 export const query = graphql`query {
+    site {
+        siteMetadata {
+            title
+        }
+    }
     allFile(
         filter: {sourceInstanceName: {eq: "content"}, 
             relativePath: {regex: "/^posts/i"}, 
@@ -151,7 +173,8 @@ export const query = graphql`query {
                         day
                         month
                         year
-                        summary
+                        summaryMdx
+                        summaryText
                     }
                     frontmatter {
                         title
