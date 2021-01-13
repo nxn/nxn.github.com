@@ -3,6 +3,8 @@ import styled, { Interpolation } from '@emotion/styled';
 
 import { Link, LinkProps } from './controls/link';
 
+// TODO: Should accept 'variant' prop that corresponds to `theme.styles.headings` allowing any style to be mapped to any
+// component.
 type LinkHeaderProps = LinkProps & {
     component:  'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     startIcon?: React.ReactNode,
