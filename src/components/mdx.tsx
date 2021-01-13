@@ -1,6 +1,6 @@
 /// A very basic MDX component renderer.
 /// The `MDXRenderer` component provided by Gatsby only works for MDX that has been compiled and processed through
-/// Gatsby's own MDX integration code. MDX data that has been compiled separately/externally has to use its own means
+/// Gatsby's own MDX integration layer. MDX data that has been compiled separately/externally has to use its own means
 /// of rendeing the content in React. For most common cases the following method should work just fine.
 import React from "react"
 import { mdx } from '@mdx-js/react';

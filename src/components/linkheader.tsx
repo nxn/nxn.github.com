@@ -13,8 +13,13 @@ type LinkHeaderProps = LinkProps & {
 
 export function LinkHeader(props: LinkHeaderProps) {
     const { startIcon, endIcon, children, component, ...other } = props;
-    // TODO: This should probably be memoized since it creates a component dynamically on each render
-    const Heading = styled(component)(baseHeadingStyle);
+
+    // Memoize to not generate a new component on each render
+    const Heading = React.useMemo(
+        () => styled(component)(baseHeadingStyle), 
+        [ component, baseHeadingStyle ]
+    );
+    
     return (
         <LinkContainer { ...other }>
             { startIcon }

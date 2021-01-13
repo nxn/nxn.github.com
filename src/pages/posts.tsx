@@ -120,14 +120,16 @@ function getPostSummary(data: PostData) {
         return <Mdx>{ data.fields.summary }</Mdx>;
     }
 
+    // If there's no summary field use the excerpt instead. The excerpt will contain the page's <h1> content, which
+    // will most likely be the title text. Attempt to trim out the title for these cases since it is already being
+    // shown. 
     const excerpt = data.excerpt.replace(data.frontmatter.title, '');
     return <Paragraph>{ excerpt }</Paragraph>;
 }
 
 export default PostsPage;
 
-export const query = graphql`
-query {
+export const query = graphql`query {
     allFile(
         filter: {sourceInstanceName: {eq: "content"}, 
             relativePath: {regex: "/^posts/i"}, 
@@ -158,5 +160,4 @@ query {
             }
         }
     }
-}
-`;
+}`;
