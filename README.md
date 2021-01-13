@@ -19,5 +19,6 @@ TODO:
                 - Codeblock toolbox
     - Misc
         - Helmet
+        - Remove hardcoded media queries
         - Fix button clicks so that scaling doesn't cancel click event
         - Improve instructions and wording on vscode_remote

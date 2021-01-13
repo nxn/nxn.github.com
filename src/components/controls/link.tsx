@@ -7,7 +7,7 @@ const fragmentUrlRx = /^\#[0-9a-z\-]+$/i;
 const externalUrlRx = /^(?:[a-z]+:)?\/\//i;
 const fileRx        = /\.[0-9a-z]+$/i;
 
-type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
     children?:          React.ReactNode, 
     to?:                string, 
     activeClassName?:   string, 
