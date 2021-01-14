@@ -1,5 +1,5 @@
 ---
-title: "Welcome"
+title: "Hello and Welcome"
 date: "2021-01-14"
 toc: true
 ---
@@ -7,21 +7,22 @@ import { Logos, Gatsby } from "./logos";
 
 <Logos />
 
-# Welcome
+# Hello and Welcome
 
 <br />
 
 <Summary>
 
-**Hello and welcome** — this website is a little project that I've been working on for the last few weeks. Initially, it was
-intended to serve as a quick showcase of my recent work, however, I came to the realization that I would also like the
-ability document and share any insights regarding development and technology. To that end, I will be updating the site 
-on a periodic basis with my findings. 
+This website is a little project that I've been working on for the last few weeks. Initially, it was intended to serve 
+as a quick showcase of my recent work, however, I came to the realization that I would also like to occasionally 
+document and share insights regarding development and the technologies I work with. To that end, I will be updating the
+site on a periodic basis with my findings. 
 
 </Summary>
 
 As an example of the type of content that will be coming in the future, here's a brief overview of 
-[Gatsby](https://www.gatsbyjs.com/), creating the site, and other miscellaneous things.
+[Gatsby](https://www.gatsbyjs.com/), the site's design, and a thank you to some of the projects that this site depends 
+on.
 
 <Fragment>
     { props.toc }
@@ -35,37 +36,45 @@ As an example of the type of content that will be coming in the future, here's a
 
 This was my first experience with [Gatsby](https://www.gatsbyjs.com/), and overall I think it's pretty close to the 
 ideal tool for building portfolio style websites. In case you're not familiar, at its core Gatsby is a static site
-generator — it allows you to point to a source of content, write some React components for it, and compile the mixture
-into browser-food. Of course, ontop of this it also comes with tools for pre-fetching, lazy-loading, code splitting, 
-image optimization, etc.
+generator — it allows you to point to a source of content, write some [React](https://reactjs.org/) components for it, 
+and compile the mixture into browser-food. Of course, ontop of this it also comes with tools for pre-fetching, 
+lazy-loading, code splitting, image optimization, etc.
 
-Though what I personally liked the most about it is that it hid Webpack out of my sight. That's not to say that I don't
-like Webpack or what it does, just that I typically find working with it to be somewhat frustrating. The source of my 
-pain usually involves having a mountain of various plugins and loaders that often don't mix well with some finer detail 
-of the overall system that I would like to have in place. So while I know that webpack is one of the core components of 
-Gatsby, I am grateful that thus far Gatsby has managed to encapsulate it to the point that I don't even need to know
-it's actually there.
+Though what I personally liked the most about it is that it will give you a solid pre-configured starting point for your 
+website or web application. In the past, I would have set everything up myself because there typically isn't an ideal
+starter app that accounts for everything I'd like. You could pick one that's closest to what you're after but there is 
+still a good chance that eventually you'll will find yourself tearing through config files to figure out why the tool 
+you just included is refusing to cooperate with everything else. I've been there, and it's why I typically prefer to 
+develop an understanding of how everything operates by setting it all up myself.
 
-Gatsby does this pretty well in general. While you could break Gatsby down and claim that fundamentally it is simply a 
-mixture of React SSR, GraphQL, Webpack, Reach/React-Router, Babel, Sharp, etc, the overall package has been composed 
-well and feels cohesive. That same frustration I typically get as a result of needing to work with an overabundance of 
-third party tools thankfully doesn't exist here.
+The difference with Gatsby is that it already comes with a ton technologies that have been integrated and configured to
+work well with each other. In fact, I suppose you could break Gatsby down and claim that fundamentally it is a mixture
+of React SSR, GraphQL, Webpack, Reach/React-Router, Babel, Sharp, and many more. But really the key for me is how well
+all of these components are integrated out of the box. There's nothing that immediately stands out as being its own 
+disntict entity, in fact, most of the parts are hidden out of sight and you wouldn't even know that they're there unless
+you've had prior experience using them.
 
 ---
 
 ## The Design
 
-When I picture other websites in the developer blog / portfolio category, I typically think of a handful of premade blog
-themes — the ones that are mostly white and minimalistic, or the other end of the spectrum, where every pixel on the
+When I picture other websites in the developer blog / portfolio category, I typically think of a handful of pre-made
+themes — the ones that are mostly white and minimalistic; or the other end of the spectrum — where every pixel on the
 page has a chance of triggering some action or animation. I mostly wanted to avoid going too far down either path so I 
-just have a basic layout and a somewhat funky color scheme.
+just have a basic layout, a somewhat funky color scheme, and a little fun with content presentation on a few of the
+pages.
 
-The colors were initially based on a terminal theme that I've been using for the last 10 years, but as the tweaks and
-changes added up the end result doesn't really have much of a resemblence to the original anymore.
+I structured the design and styles in a way that should make creating themes relatively straightforward, and I may
+include theme settings at some point in the future. As it stands, the current color scheme was actually inspired by a 
+terminal theme that I've been using for roughly the last 10 years; though in retrospect, after a lot of tweaks and 
+changes the end result doesn't really have that much in common with the original.
+
+There's still a lot more that I'd like to do with regards to the look and feel of the site. While I'm generally not a 
+fan of drastic design changes, I do plan on revising a few things in the near future if time permits.
 
 ---
 
-## Credits & Tech Summary
+## Tech Summary & Credits
 
 Besides [Gatsby](https://www.gatsbyjs.com/) and its toolset, this website also uses:
 
