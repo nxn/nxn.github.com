@@ -131,9 +131,12 @@ export function ContactPage(props: PageProps<ContatPageData>) {
     // essentially a compromise to prevent displaying errors for inputs that have not yet been fully filled out.
     const [deferValidation, setDeferValidation] = React.useState(true);
 
-    // Syncs the form field values with the current message store state. Has to be done via useEffect since we'd like to
-    // avoid using controlled components. Setting `defaultValue` is also not an option as that results in re-renders
-    // to update the `value` attribute -- this then causes validation messages to get glitchy in some browsers.
+    // Syncs the form field values with the current message store state. Has to be done via useLayoutEffect since we'd 
+    // like to avoid using controlled components. Setting `defaultValue` is also not an option as that results in 
+    // re-renders to update the `value` attribute -- this then causes validation messages to get glitchy in some 
+    // browsers.
+    //
+    // Also needs to be done prior to the field's `updateValidity` effect, hence the use of `useLayoutEffect`
     React.useLayoutEffect(() => {
         if (!formRef.current) { return; }
 
