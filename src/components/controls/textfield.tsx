@@ -61,10 +61,10 @@ export function TextField(props: TextFieldProps): JSX.Element {
     // reason. This issue might be unavoidable/out of my control.
     const updateValidity = () => {
         if (!fieldRef.current) { return; }
-
-        setCustomValidity(fieldRef.current, errorMessages);
-        if (!deferValidation && fieldRef.current.reportValidity()) {
-            fieldRef.current.classList.remove('invalid');
+        const field = fieldRef.current;
+        setCustomValidity(field, errorMessages);
+        if (!deferValidation && field.reportValidity()) {
+            field.classList.remove('invalid');
         }
     }
 
