@@ -46,12 +46,12 @@ export const Menu = styled(MenuUnstyled)(({theme}) => ({
     flexDirection:  'column',
     listStyle:      'none',
 
-    '@media screen and (min-width: 48rem)': {
+    [`@media screen and (min-width: ${ theme.breakPoints.standard }rem)`]: {
         flexDirection:  'row',
         justifyContent: 'space-between'
     },
 
-    '@media print': {
+    [theme.mediaQueries.print]: {
         border:     0,
         padding:    0,
         margin:     0,
@@ -66,7 +66,7 @@ export const Menu = styled(MenuUnstyled)(({theme}) => ({
         lineHeight: '2.5rem',
         padding: 0,
 
-        '@media print': {
+        [theme.mediaQueries.print]: {
             lineHeight: '1.66rem',
             height: '1.66rem'
         },
@@ -79,7 +79,7 @@ export const Menu = styled(MenuUnstyled)(({theme}) => ({
             fill: theme.palette.accents.light,
             marginRight: '0.5rem',
 
-            '@media print': {
+            [theme.mediaQueries.print]: {
                 lineHeight: '1.66rem',
                 height: '1.66rem'
             },

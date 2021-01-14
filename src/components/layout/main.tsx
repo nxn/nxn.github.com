@@ -16,6 +16,9 @@ export function MainUnstyled(props: MainProps) {
 }
 
 export default styled(MainUnstyled)(({unpadded, theme}) => ({
-    padding:            unpadded ? 0 : '3rem var(--content-margin)',
-    backgroundColor:    theme.palette.bgs.primary.dim
+    padding:            unpadded ? 0 : '1rem',
+    backgroundColor:    theme.palette.bgs.primary.dim,
+    [theme.mediaQueries.standard]: {
+        padding: unpadded ? 0 : `${ theme.spacing.margins.vertical } ${ theme.spacing.margins.horizontal }`,
+    }
 }));

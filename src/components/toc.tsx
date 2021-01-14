@@ -72,6 +72,7 @@ export function ToC(props: ToCProps) {
         return () => {
             document.removeEventListener('scroll', handleScroll);
         }
+    // TODO: Decide if optimizing via dependency list is necessary
     }, []);
 
     const renderItem = (item: Item) => {
@@ -143,8 +144,8 @@ export const PageToC = styled(ToC)({
 
 export const SidepanelToC = styled(ToC)(({theme}) => ({
     position:           'sticky',
-    top:                '3rem',
-    width:              '16rem',
+    top:                theme.spacing.margins.vertical,
+    maxWidth:           '16rem',
     overflow:           'hidden',
 
     '& li li': {

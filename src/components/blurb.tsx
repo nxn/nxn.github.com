@@ -118,10 +118,10 @@ export function LatestPostsBlurb({ className, style }: { className?: string, sty
 const foldSize = '4.0rem';
 const containerBorderRadius = '1.0rem';
 
-export const BlurbContainer = styled.div({
-    maxWidth: '71.75rem',
+export const BlurbContainer = styled.div(({theme}) => ({
+    //maxWidth: '71.75rem',
     //maxWidth: '74.9375rem',
-    margin: '0 auto',
+    //margin: '0 auto',
 
     display:                'grid',
     gridTemplateColumns:    '1fr',
@@ -132,7 +132,8 @@ export const BlurbContainer = styled.div({
     overflow:               'hidden',
     filter:                 'drop-shadow(0 0.125rem 0.125rem rgba(0,0,0, 0.33))',
 
-    '@media (min-width: 41.5rem)': {
+    [theme.mediaQueries.standard]: {
+        margin: '0 -1rem -1rem -1rem',
         gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))',
 
         '& .full-row':      { gridColumn: '1 / -1' },
@@ -141,8 +142,8 @@ export const BlurbContainer = styled.div({
         '& .left-large':    { gridColumn: '1 / -2' },
         '& .right-small':   { gridColumn: '-3 / -1' },
         '& .left-small':    { gridColumn: '1 / 3' }
-    }
-});
+    },
+}));
 
 const Article = styled.article(({theme}) => ({
     position:           'relative',

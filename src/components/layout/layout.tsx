@@ -9,11 +9,11 @@ import clsx                         from "clsx";
 import theme        from "../../themes/main/theme";
 import components   from "../common";
 
-import Header   from "./header";
-import Main     from "./main";
-import Footer   from "./footer";
-import Snackbar from "../snackbar";
-import ImageViewer   from "../imageviewer";
+import Header       from "./header";
+import Main         from "./main";
+import Footer       from "./footer";
+import Snackbar     from "../snackbar";
+import ImageViewer  from "../imageviewer";
 
 import '../../stylesheets/reset.css';
 import '../../stylesheets/fonts.css';
@@ -89,9 +89,9 @@ const globalStyles = {
         calc(((100vw - 40rem) / 2) + 2rem):         this will leave a minimum margin of 2rem on either side of the grid
         calc(((100vw - 40rem) / 2 * 0.15) + 2rem):  15% of the remaining space will be used by the margins in addition to the 2rem minimum
         */
-        '--content-margin': 'calc(((100vw - 39rem) / 2 * 0.15) + 1rem)'
+        '--content-h-margin': `calc(((100vw - ${ theme.breakPoints.standard }rem) / 2 * 0.15) + 2rem)`,
+        '--content-v-margin': `min(4rem, var(--content-h-margin))`
     },
-    //html: { scrollBehavior: 'smooth' },
     body: theme.styles.body,
 
     '.no-scroll':   { overflow: 'hidden !important' },

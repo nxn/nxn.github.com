@@ -113,12 +113,11 @@ export function PostsPage(props: PageProps<PostPageData>) {
     );
 }
 
-const Content = styled.div({
-    //padding: '1rem 0',
-    '@media (min-width: 41.5rem)': {
-        padding:  '3rem 0',
+const Content = styled.div(({theme}) => ({
+    [theme.mediaQueries.standard]: {
+        padding:  `${ theme.spacing.margins.vertical } 0`,
     }
-});
+}));
 
 const PostSummary = styled.div({ margin: '1rem 0' });
 

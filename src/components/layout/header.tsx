@@ -20,6 +20,7 @@ type HeaderProps = {
 export function HeaderUnstyled(props: HeaderProps) {
     return (
         <header className={ props.className }>
+            
             <Link id="site-link" to="/">
                 <Logo id="site-name" title="nxn.io" variant="text" />
             </Link>
@@ -97,7 +98,7 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
         height:         '4rem',
         width:          '4rem',
 
-        '@media (min-width: 41.5rem)': {
+        [theme.mediaQueries.standard]: {
             display: 'none'
         },
 
@@ -147,13 +148,14 @@ const Header = styled(HeaderUnstyled)(({theme}) => ({
             fill: `${ theme.palette.text.alternate.light } !important`,
         },
 
-        '@media (min-width: 41.5rem)': {
+        [theme.mediaQueries.standard]: {
             gridColumn:     'span 1',
             justifyContent: 'flex-end',
             display:        'flex',
 
+            paddingRight: '1rem',
             '& a': {
-                marginRight: '0.75rem'
+                //marginRight: '0.75rem'
             },
             '& .icon': {
                 display:        'inline-block',

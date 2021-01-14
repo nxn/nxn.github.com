@@ -52,7 +52,7 @@ export function IndexPage(props: PageProps<IndexPageData>) {
     head.frontmatter.style = "left-large";
 
     return (
-        <Layout variant={ Variant.Unpadded }>
+        <Layout>
             <Content>
                 <WelcomeBanner id="welcome-banner" />
                 <BlurbContainer>
@@ -65,17 +65,10 @@ export function IndexPage(props: PageProps<IndexPageData>) {
     );
 }
 
-const Content = styled.div({
-    padding: '1rem',
-    '& #welcome-banner': {
-        padding: '0rem 1rem'
-    },
-    '@media (min-width: 41.5rem)': {
-        padding: '1rem var(--content-margin)',
-        paddingBottom: 'min(5rem, var(--content-margin))', 
-        '& #welcome-banner': { padding: 0 }
-    },
-});
+const Content = styled.div(({theme}) => ({
+    maxWidth: '90rem',
+    margin: '0 auto'
+}));
 
 function imageData(embedded?: { childImageSharp: { fluid: FluidObject; } }[]) {
     if (!embedded) { return undefined; }

@@ -342,7 +342,7 @@ const Content = styled.div(({ theme }) => ({
     }
 }));
 
-const Email = styled.form({
+const Email = styled.form(({theme}) => ({
     display:    'grid',
     gap:        '1rem',
     gridTemplateRows: '1fr auto 1fr 0.5rem 1fr',
@@ -354,7 +354,7 @@ const Email = styled.form({
         "actions"
     `,
 
-    '@media (min-width: 41.5rem)': {
+    [theme.mediaQueries.standard]: {
         gridTemplateColumns: '1fr auto',
         gridTemplateRows: '1fr auto 1fr',
         gridTemplateAreas: `
@@ -363,7 +363,7 @@ const Email = styled.form({
             "address    actions"
         `,
     }
-});
+}));
 
 const Subject = styled(TextField)({
     gridArea:   'subject'

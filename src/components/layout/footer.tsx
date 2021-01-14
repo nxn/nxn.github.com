@@ -80,7 +80,7 @@ export function FooterUnstyled(props: FooterProps) {
 }
 
 export const Footer = styled(FooterUnstyled)(({theme}) => ({
-    padding:            '2rem',
+    padding:            '1rem',
     borderTop:          `0.0625rem solid ${ theme.palette.accents.cyan }`,
     color:              theme.palette.text.alternate.main,
     backgroundColor:    theme.palette.bgs.secondary.dim,
@@ -89,7 +89,7 @@ export const Footer = styled(FooterUnstyled)(({theme}) => ({
     display:                'grid',
     gap:                    '1rem',
     justifyContent:         'space-evenly',
-    alignItems:             'center',
+    alignItems:             'flex-start',
     gridTemplateColumns:    '1fr auto',
     gridTemplateAreas: `
         "logos      nav"
@@ -166,9 +166,9 @@ export const Footer = styled(FooterUnstyled)(({theme}) => ({
         lineHeight: '2.5rem'
     },
 
-    '@media (min-width: 41.5rem)': {
-        padding:                '2rem var(--content-margin)',
-        columnGap:              'var(--content-margin)',
+    [theme.mediaQueries.standard]: {
+        padding:                `2rem ${ theme.spacing.margins.horizontal }`,
+        columnGap:              theme.spacing.margins.horizontal,
         gridTemplateColumns:    'auto 1fr auto',
         gridTemplateAreas: `
             "logos      misc        nav"

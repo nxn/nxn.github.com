@@ -52,7 +52,7 @@ export function GalleryItemUnstyled(props: GalleryItemProps) {
 
 export const Gallery = styled(GalleryUnstyled)({
     display:                'grid',
-    gridTemplateColumns:    'repeat(auto-fill, minmax(16rem, 1fr))',
+    gridTemplateColumns:    'repeat(auto-fit, minmax(16rem, 1fr))',
     gap:                    '1rem',
 });
 

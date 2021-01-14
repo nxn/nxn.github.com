@@ -2,12 +2,15 @@ import { Styles } from '@emotion/react';
 import palette from './palette';
 import typography from './typography';
 import chevron from '../../images/chevron.svg';
+import {
+    breakPoints,
+    mediaQueries
+} from './mediaqueries';
 
 const empty = { };
 
 export const styles: Styles = {
     body: {
-
         color:              palette.text.standard.main,
         backgroundColor:    palette.bgs.standard.main,
         fontFamily:         typography.main.fontFamily,
@@ -15,14 +18,14 @@ export const styles: Styles = {
         lineHeight:         '1.5rem',
         padding:            '6.5%',
 
-        '@media print': {
+        [mediaQueries.print]: {
             color:              palette.accents.black,
             backgroundColor:    palette.accents.white,
             // Padding needed otherwise list bullets (chevrons) not printed
             padding:            '0 0 0 1rem'
         },
 
-        '@media screen and (min-width: 48rem)': {
+        [`@media screen and (min-width: ${ breakPoints.standard }rem)`]: {
             padding: '3.125rem'
         }
     },

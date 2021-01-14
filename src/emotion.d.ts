@@ -50,6 +50,13 @@ declare module '@emotion/react' {
         slab: CSSProperties,
         sans: CSSProperties,
     }
+
+    export interface Spacing {
+        margins: {
+            horizontal?: string,
+            vertical?:   string,
+        }
+    }
     
     export interface Styles {
         body: CSSProperties;
@@ -95,13 +102,24 @@ declare module '@emotion/react' {
         snackbar?:      number,
         imageViewer?:   number,
     }
+
+    export interface BreakPoints {
+        standard:   number,
+        sidePanel?: number,
+    }
+
+    export type MediaQueries = { [P in keyof BreakPoints]: string } & {
+        print: string
+    }
     
     export interface Theme {
-        breakpoints?:   number[],
+        breakPoints:    BreakPoints,
+        mediaQueries:   MediaQueries,
         palette:        Palette,
         typography:     Typography,
         styles:         Styles,
         transitions:    Transitions,
         zIndex:         ZIndex,
+        spacing:        Spacing,
     }
 }

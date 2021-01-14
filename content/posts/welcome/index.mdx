@@ -24,15 +24,15 @@ As an example of the type of content that will be coming in the future, here's a
 [Gatsby](https://www.gatsbyjs.com/), the site's design, and a thank you to some of the projects that this site depends 
 on.
 
-<Fragment>
+<React.Fragment>
     { props.toc }
-</Fragment>
+</React.Fragment>
 
 ---
 
 <Gatsby />
 
-## Gatsby, The Great
+## Gatsby
 
 This was my first experience with [Gatsby](https://www.gatsbyjs.com/), and overall I think it's pretty close to the 
 ideal tool for building portfolio style websites. In case you're not familiar, at its core Gatsby is a static site
@@ -40,19 +40,19 @@ generator — it allows you to point to a source of content, write some [React](
 and compile the mixture into browser-food. Of course, ontop of this it also comes with tools for pre-fetching, 
 lazy-loading, code splitting, image optimization, etc.
 
-Though what I personally liked the most about it is that it will give you a solid pre-configured starting point for your 
-website or web application. In the past, I would have set everything up myself because there typically isn't an ideal
-starter app that accounts for everything I'd like. You could pick one that's closest to what you're after but there is 
-still a good chance that eventually you'll will find yourself tearing through config files to figure out why the tool 
-you just included is refusing to cooperate with everything else. I've been there, and it's why I typically prefer to 
-develop an understanding of how everything operates by setting it all up myself.
+Though what I personally liked the most about it is that it will give you a solid starting point for your website or web
+application. In the past, I would typically set everything up myself because there usually isn't an ideal starter app 
+that contains all the things I want included. You could pick one that's closest to what you're after, but there is still 
+a good chance that you will eventually find yourself tearing through config files to figure out why the tool you just 
+added refuses to cooperate with everything else. I've been there, and it's why I typically prefer to develop an 
+understanding of how everything fits together by building it myself piece by piece.
 
 The difference with Gatsby is that it already comes with a ton technologies that have been integrated and configured to
 work well with each other. In fact, I suppose you could break Gatsby down and claim that fundamentally it is a mixture
-of React SSR, GraphQL, Webpack, Reach/React-Router, Babel, Sharp, and many more. But really the key for me is how well
-all of these components are integrated out of the box. There's nothing that immediately stands out as being its own 
-disntict entity, in fact, most of the parts are hidden out of sight and you wouldn't even know that they're there unless
-you've had prior experience using them.
+of React SSR, GraphQL, Webpack, Reach/React-Router, Babel, Sharp, and many other components. But really the key for me 
+is how well all of these parts are integrated out of the box. There's nothing that immediately stands out as being its 
+own disntict entity. In fact, by default most of the pieces are kept out of sight, so you probably wouldn't even know 
+that they're there unless you've worked with them before or require direct control over them for some specific task. 
 
 ---
 
@@ -64,13 +64,13 @@ page has a chance of triggering some action or animation. I mostly wanted to avo
 just have a basic layout, a somewhat funky color scheme, and a little fun with content presentation on a few of the
 pages.
 
-I structured the design and styles in a way that should make creating themes relatively straightforward, and I may
+I structured the design and styles in a way that should make creating themes relatively straightforward, so I may
 include theme settings at some point in the future. As it stands, the current color scheme was actually inspired by a 
 terminal theme that I've been using for roughly the last 10 years; though in retrospect, after a lot of tweaks and 
 changes the end result doesn't really have that much in common with the original.
 
 There's still a lot more that I'd like to do with regards to the look and feel of the site. While I'm generally not a 
-fan of drastic design changes, I do plan on revising a few things in the near future if time permits.
+fan of drastic design changes, I do plan on revising a few things in the near future.
 
 ---
 
@@ -80,17 +80,17 @@ Besides [Gatsby](https://www.gatsbyjs.com/) and its toolset, this website also u
 
 <div className="dense">
 
--   **[Redux](https://redux.js.org/)**: Used in contact form, snackbar alerts, image viewer, and general state management
--   **[redux-undo](https://redux-undo.js.org/)**: Used in implementation of contact form message drafts
--   **[Emotion](https://emotion.sh)**: Used for all CSS style definitions
--   **[MDX](https://mdxjs.com/)**: Used for content authoring
--   **[OpenSeadragon](https://openseadragon.github.io/)**: Used as deep zoom image viewer
--   **[prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer)**: Used for syntax highlighting
--   **[React Helmet](https://github.com/nfl/react-helmet)**: Used for metadata management
--   **[react-google-recaptcha](https://github.com/dozoisch/react-google-recaptcha)**: Used in contact form
--   **[EmailJS](https://www.emailjs.com/)**: Used for emailing
--   **[unist-util-visit](https://github.com/syntax-tree/unist-util-visit)**: Used for MDX excerpt extraction
--   **[clsx](https://github.com/lukeed/clsx)**: Used for dynamic class management
+-   [Redux](https://redux.js.org/) — Used in contact form, snackbar alerts, image viewer, and general state management
+-   [redux-undo](https://redux-undo.js.org/) — Used in implementation of contact form message drafts
+-   [Emotion](https://emotion.sh/) — Used for all CSS style definitions
+-   [MDX](https://mdxjs.com/) — Used for content authoring
+-   [OpenSeadragon](https://openseadragon.github.io/) — Used as deep zoom image viewer
+-   [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer) — Used for syntax highlighting
+-   [React Helmet](https://github.com/nfl/react-helmet) — Used for metadata management
+-   [react-google-recaptcha](https://github.com/dozoisch/react-google-recaptcha) — Used in contact form
+-   [EmailJS](https://www.emailjs.com/) — Used for emailing
+-   [unist-util-visit](https://github.com/syntax-tree/unist-util-visit) — Used for MDX excerpt extraction
+-   [clsx](https://github.com/lukeed/clsx) — Used for dynamic class management
 
 </div>
 

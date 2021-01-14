@@ -69,7 +69,7 @@ const ContentUnstyled = (props: { className?: string, toc: boolean, children: Re
     </div>
 );
 
-export const Content = styled(ContentUnstyled)(({ toc }) => ({
+export const Content = styled(ContentUnstyled)(({ theme, toc }) => ({
     display:                'grid',
     gridTemplateColumns:    '1fr auto',
     alignItems:             'self-start',
@@ -84,8 +84,8 @@ export const Content = styled(ContentUnstyled)(({ toc }) => ({
         display: toc ? 'block' : 'none'
     },
 
-    '@media (min-width: 64rem)': {
-        gap: toc ? 'var(--content-margin)' : 0,
+    [theme.mediaQueries.sidePanel || '64rem']: {
+        gap: toc ? theme.spacing.margins.horizontal : 0,
 
         '& #page-toc': {
             display: 'none'

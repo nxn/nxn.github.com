@@ -91,9 +91,9 @@ const Content = styled.div(({theme}) => ({
         '& > *':        { width: '5rem' },
     },
 
-    '@media (min-width: 41.5rem)': {
+    [theme.mediaQueries.standard]: {
         '& #matrix-morpheus': {
-            padding: '0 var(--content-margin)',
+            padding: `0 ${ theme.spacing.margins.horizontal }`,
         },
 
         '& #choice':                { paddingBottom: '2rem' },

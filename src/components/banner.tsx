@@ -47,32 +47,38 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) =>
     color:              theme.palette.text.standard.main,
     textAlign:          'center',
     verticalAlign:      'middle',
+    paddingBottom:      '2rem',
 
     '& .accent': {
         color: theme.palette.accents.green
     },
 
-    '@media (min-width: 41.5rem)': {
-        display:        'flex',
-        alignItems:     'center',
-        justifyContent: 'center',
-    },
-
     '& #logo': {
         width:      '10rem',
-        height:     '15rem',
-        padding:    '2rem 5rem',
+        height:     'auto',
+        padding:    '4rem',
         fill:       theme.palette.accents.light
     },
 
     '& #banner-content': {
         textAlign: 'left',
-
+        padding: '0 1rem',
+        paddingRight: 0,
         '& .intro': {
             maxWidth:   '48rem',
-            margin:     '1.5rem 0'
+            marginTop:  '1.5rem'
         }
-    }
+    },
+
+    [theme.mediaQueries.standard]: {
+        display:        'flex',
+        alignItems:     'center',
+        justifyContent: 'center',
+        paddingBottom:  theme.spacing.margins.vertical,
+        '& #logo': {
+            padding:        '2rem 4rem',
+        },
+    },
 });
 
 export const Banner         = styled(BannerUnstyled)(bannerStyles);

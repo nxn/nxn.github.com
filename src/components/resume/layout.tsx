@@ -76,7 +76,7 @@ const Container = styled.div(({theme}) => ({
     },
 
     // Set lists and summary to 2 Columns when printing or on larger screens
-    '@media print, (min-width: 48rem)': {
+    [`@media print, (min-width: ${ theme.breakPoints.standard }rem)`]: {
         '& section ul': {
             columns:    2,
             columnGap: '2rem'
@@ -97,7 +97,7 @@ const Container = styled.div(({theme}) => ({
     },
 
 
-    '@media print': {
+    [theme.mediaQueries.print]: {
         maxWidth: 'none',
         // Moves links to top right when printing
         '& header': {

@@ -9,12 +9,12 @@ const timelineDotRadiusRem  = `${ timelineDotRadius }rem`;
 
 // TODO: internalize offsetting right column of TimelineItems and internalize `right` | `left` classes so that user
 // doesn't need to worry about providing and setting class names.
-export const Timeline = styled.div({
+export const Timeline = styled.div(({theme}) => ({
     display:        'grid',
     alignItems:     'center',
     paddingBottom:  '1rem',
 
-    '@media (min-width: 41.5rem)': {
+    [theme.mediaQueries.standard]: {
         gridTemplateColumns: '1fr 1fr',
 
         backgroundImage: `linear-gradient(
@@ -27,7 +27,7 @@ export const Timeline = styled.div({
         backgroundPosition: 'top center',
         backgroundRepeat:   'no-repeat',
     }
-});
+}));
 
 export const TimelineHeading = styled.div(({theme}) => ({
     gridColumn:         '1 / -1',
@@ -42,7 +42,7 @@ export const TimelineHeading = styled.div(({theme}) => ({
     padding:            '0.75rem 3rem',
     borderRadius:       '0.5rem',
 
-    '@media (min-width: 41.5rem)': {
+    [theme.mediaQueries.standard]: {
         backgroundColor:    timelineColor,
         marginBottom:       '3rem',
         marginTop:          '0rem',
@@ -71,7 +71,7 @@ export const TimelineItem = styled.div(({theme}) => ({
     },
     // end mobile
 
-    '@media (min-width: 41.5rem)': {
+    [theme.mediaQueries.standard]: {
         gridRow: 'span 2',
 
         // undo mobile
@@ -98,16 +98,16 @@ export function TimelineDate(props: { children?: React.ReactNode }) {
     );
 }
 
-export const TimelineEntry = styled.article({
-    padding: '0 var(--content-margin)',
-    '@media (min-width: 41.5rem)': {
-        margin: '2rem 0'
+export const TimelineEntry = styled.article(({theme}) => ({
+    [theme.mediaQueries.standard]: {
+        margin: '2rem 0',
+        padding: `0 ${ theme.spacing.margins.horizontal }`,
     }
-});
+}));
 
 
 
-const TimelineDateContainer = styled.div({
+const TimelineDateContainer = styled.div(({theme}) => ({
     textAlign: 'center',
 
     // Following is specific to the mobile version of the timeline
@@ -118,17 +118,17 @@ const TimelineDateContainer = styled.div({
     transform: 'translateY(-50%)',
     // end mobile
 
-    '@media (min-width: 41.5rem)': {
+    [theme.mediaQueries.standard]: {
         position: 'relative',
 
         // undo mobile
         top: 0,
         transform: 'none'
     }
-});
+}));
 
 const TimelineDateDot = styled.div(({theme}) => ({
-    '@media (min-width: 41.5rem)': {
+    [theme.mediaQueries.standard]: {
         width:      `${ timelineDotRadius * 2 }rem`,
         position:   'absolute',
         top:        0,
@@ -148,8 +148,8 @@ const TimelineDateDot = styled.div(({theme}) => ({
     }
 }));
 
-const TimelineDateLine = styled.div({
-    '@media (min-width: 41.5rem)': {
+const TimelineDateLine = styled.div(({theme}) => ({
+    [theme.mediaQueries.standard]: {
         position:   'absolute',
         top:        0,
         bottom:     0,
@@ -174,7 +174,7 @@ const TimelineDateLine = styled.div({
             '0.25rem 0.25rem'
         ),
     }
-});
+}));
 
 const TimelineDateItem = styled.div(({theme}) => ({
     display:    'inline-block',
