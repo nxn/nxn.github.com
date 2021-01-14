@@ -182,9 +182,11 @@ const Titlebar = styled.div(({theme}) => ({
 
 const HideableTitlebar = asHideable(Titlebar, { animation: 'slide', direction: 'top' });
 
-const Title = styled.h3({
-    marginLeft: '1rem'
-});
+const Title = styled.h3(({theme}) => ({
+    marginLeft: '1rem',
+    fontSize: '1.25rem',
+    fontFamily: theme.typography.sans.fontFamily
+}));
 
 const Controls = styled.div(({theme}) => ({
     position:           'absolute',
@@ -214,20 +216,25 @@ const Button = styled.button(({theme}) => ({
     cursor:             'pointer',
     textAlign:          'center',
     verticalAlign:      'middle',
-    lineHeight:         '3rem',
     backgroundColor:    'transparent',
     color:              theme.palette.actions.secondary.main,
-    border:             0,
+    borderRadius:       '3rem',
+    boxSizing:          'border-box',
+    border:             '0.25rem solid transparent',
+
+    '&:focus': { 
+        outline: 0,
+        boxShadow: `inset 0 0 0 0.25rem rgba(122,147,136,0.33)`
+    },
 
     '& .icon': {
         width:          '1.5rem',
         height:         '1.5rem',
-        lineHeight:     '3rem',
         verticalAlign:  'middle',
     },
 
     '&:hover': {
-        color: theme.palette.actions.secondary.light
+        color: theme.palette.actions.secondary.light,
     }
 }));
 
