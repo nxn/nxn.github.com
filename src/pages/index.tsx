@@ -55,19 +55,25 @@ export function IndexPage(props: PageProps<IndexPageData>) {
         <Layout>
             <Content>
                 <WelcomeBanner id="welcome-banner" />
-                <BlurbContainer>
+                <Blurbs>
                     { makeBlurb(head) }
                     <LatestPostsBlurb />
                     { tail.map( ({ childMdx: data }) => makeBlurb(data) ) }
-                </BlurbContainer>
+                </Blurbs>
             </Content>
         </Layout>
     );
 }
 
-const Content = styled.div(({theme}) => ({
-    maxWidth: '90rem',
+const Content = styled.div({
+    maxWidth: '72.9375rem',
     margin: '0 auto'
+});
+
+const Blurbs = styled(BlurbContainer)(({theme}) => ({
+    [theme.mediaQueries.standard]:{
+        margin: '0 -1rem -1rem -1rem'
+    }
 }));
 
 function imageData(embedded?: { childImageSharp: { fluid: FluidObject; } }[]) {

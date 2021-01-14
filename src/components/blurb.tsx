@@ -130,10 +130,9 @@ export const BlurbContainer = styled.div(({theme}) => ({
 
     borderRadius:           containerBorderRadius,
     overflow:               'hidden',
-    filter:                 'drop-shadow(0 0.125rem 0.125rem rgba(0,0,0, 0.33))',
+    filter:                 'drop-shadow(0 0.125rem 0.125rem rgba(0,0,0, .5)) drop-shadow(0 0 0.5rem rgba(0,0,0, .25))',
 
     [theme.mediaQueries.standard]: {
-        margin: '0 -1rem -1rem -1rem',
         gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))',
 
         '& .full-row':      { gridColumn: '1 / -1' },
@@ -233,7 +232,16 @@ const Heading = styled.h2(({theme}) => ({
 }));
 
 const Description = styled.div(() => ({
-    margin: '1rem'
+    margin: '1rem',
+    '& > p:first-of-type': {
+        marginTop: 0
+    },
+    '& > p:last-of-type': {
+        marginBottom: 0
+    },
+    '& > p:only-of-type': {
+        margin: '1rem 0'
+    }
 }))
 
 const List = styled.ul(() => ({

@@ -12,7 +12,6 @@ const timelineDotRadiusRem  = `${ timelineDotRadius }rem`;
 export const Timeline = styled.div(({theme}) => ({
     display:        'grid',
     alignItems:     'center',
-    paddingBottom:  '1rem',
 
     [theme.mediaQueries.standard]: {
         gridTemplateColumns: '1fr 1fr',
@@ -56,7 +55,6 @@ export const TimelineItem = styled.div(({theme}) => ({
 
     // Following is specific to the mobile version of the timeline
     padding:        '2.5rem 0',
-    margin:         '0 1rem',
     marginTop:      '-0.5rem',
     border:         '0.5rem solid transparent',
     borderRadius:   '2rem',
@@ -100,8 +98,16 @@ export function TimelineDate(props: { children?: React.ReactNode }) {
 
 export const TimelineEntry = styled.article(({theme}) => ({
     [theme.mediaQueries.standard]: {
-        margin: '2rem 0',
-        padding: `0 ${ theme.spacing.margins.horizontal }`,
+        margin: '2rem auto',
+        maxWidth: theme.typography.lineLength,
+        '.left &': {
+            paddingRight: `min(4rem, ${ theme.spacing.margins.horizontal })`
+        },
+        '.right &': {
+            paddingLeft: `min(4rem, ${ theme.spacing.margins.horizontal })`
+        }
+        
+        //padding: `0 ${ theme.spacing.margins.horizontal }`,
     }
 }));
 

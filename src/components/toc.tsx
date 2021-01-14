@@ -145,7 +145,7 @@ export const PageToC = styled(ToC)({
 export const SidepanelToC = styled(ToC)(({theme}) => ({
     position:           'sticky',
     top:                theme.spacing.margins.vertical,
-    maxWidth:           '16rem',
+    //maxWidth:           '16rem',
     overflow:           'hidden',
 
     '& li li': {

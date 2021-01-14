@@ -71,8 +71,9 @@ const ContentUnstyled = (props: { className?: string, toc: boolean, children: Re
 
 export const Content = styled(ContentUnstyled)(({ theme, toc }) => ({
     display:                'grid',
-    gridTemplateColumns:    '1fr auto',
+    gridTemplateColumns:    `minmax(18rem, ${ theme.typography.lineLength }) auto`,
     alignItems:             'self-start',
+    justifyContent:         'center',
     
     '& #post': {
         overflow: 'hidden'

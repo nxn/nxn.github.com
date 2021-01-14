@@ -72,7 +72,7 @@ export function PostsPage(props: PageProps<PostPageData>) {
     const data = [ ...props.data.allFile.group ].reverse();
 
     return (
-        <Layout variant={ Variant.Unpadded }>
+        <Layout>
             <Helmet>
                 <title>Ernie Wieczorek: Post History · { meta.title }</title>
             </Helmet>
@@ -114,9 +114,6 @@ export function PostsPage(props: PageProps<PostPageData>) {
 }
 
 const Content = styled.div(({theme}) => ({
-    [theme.mediaQueries.standard]: {
-        padding:  `${ theme.spacing.margins.vertical } 0`,
-    }
 }));
 
 const PostSummary = styled.div({ margin: '1rem 0' });

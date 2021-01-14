@@ -41,6 +41,8 @@ The events that trigger the state to be transmitted to redux are:
 // Fields will be autosaved this many milliseconds after the last user modification.
 const autoSaveDelay = 500;
 
+const fields = Object.values(MESSAGE_FIELDS);
+
 // Shown as tooltips and/or error messages if javascript is disabled and we are unable to specify custom validation
 // messages instead.
 const requirements: { [ key: string ]: string } = {
@@ -128,6 +130,21 @@ export function ContactPage(props: PageProps<ContatPageData>) {
     // point `deferValidation` can be disabled to show instant error information as changes are being made. This is 
     // essentially a compromise to prevent displaying errors for inputs that have not yet been fully filled out.
     const [deferValidation, setDeferValidation] = React.useState(true);
+
+    // Syncs the form field values with the current message store state. Has to be done via useEffect since we'd like to
+    // avoid using controlled components. Setting `defaultValue` is also not an option as that results in re-renders
+    // to update the `value` attribute -- this then causes validation messages to get glitchy in some browsers.
+    React.useEffect(() => {
+        if (!formRef.current) { return; }
+
+        const elements = formRef.current.elements;
+        for (let field of fields) {
+            const element = elements.namedItem(field) as HTMLInputElement | HTMLTextAreaElement;
+            if (element.value !== message[field]) {
+                element.value = message[field];
+            }
+        }
+    }, Object.values(message));
 
     // Determines whether discarding the form contents should be enabled based on whether there's any saved data at the
     // moment.
@@ -281,7 +298,6 @@ export function ContactPage(props: PageProps<ContatPageData>) {
                         title           = { requirements.subject }
                         id              = { MESSAGE_FIELDS.Subject }
                         name            = { MESSAGE_FIELDS.Subject }
-                        defaultValue    = { message.subject }
                         placeholder     = "Subject"
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }
@@ -293,7 +309,6 @@ export function ContactPage(props: PageProps<ContatPageData>) {
                         title           = { requirements.message }
                         id              = { MESSAGE_FIELDS.Body }
                         name            = { MESSAGE_FIELDS.Body }
-                        defaultValue    = { message.body }
                         placeholder     = "Message"
                         rows            = { 5 }
                         onInput         = { handleFieldInput }
@@ -308,7 +323,6 @@ export function ContactPage(props: PageProps<ContatPageData>) {
                         title           = { requirements.address }
                         id              = { MESSAGE_FIELDS.Address }
                         name            = { MESSAGE_FIELDS.Address }
-                        defaultValue    = { message.address }
                         placeholder     = "Your email"
                         onInput         = { handleFieldInput }
                         onBlur          = { handleFieldBlur }

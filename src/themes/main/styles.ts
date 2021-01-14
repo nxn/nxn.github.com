@@ -9,7 +9,7 @@ export const styles: Styles = {
         backgroundColor:    palette.bgs.secondary.dim,
         fontFamily:         typography.main.fontFamily,
         fontSize:           '1rem',
-        lineHeight:         '1.75rem'
+        lineHeight:         typography.lineHeight
     },
     headings: {
         page: {
@@ -67,7 +67,7 @@ export const styles: Styles = {
             },
         },
         paragraph: {
-            margin: '1rem 0rem'
+            margin: '2rem 0rem'
         },
         blockquote: {
             color:              palette.text.alternate.light,

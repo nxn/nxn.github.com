@@ -49,6 +49,9 @@ declare module '@emotion/react' {
         mono: CSSProperties,
         slab: CSSProperties,
         sans: CSSProperties,
+
+        lineLength?: string,
+        lineHeight?: string,
     }
 
     export interface Spacing {
