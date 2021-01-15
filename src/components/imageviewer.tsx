@@ -1,12 +1,11 @@
-import React from "react";
-import styled from "@emotion/styled";
+import React                        from "react";
+import styled                       from "@emotion/styled";
 import { useSelector, useDispatch } from 'react-redux';
-import { selectOpenImage, close } from "../state/viewer";
-import clsx from "clsx";
+import { selectOpenImage, close }   from "../state/viewer";
+import clsx                         from "clsx";
 
 import { alert, AlertData } from "../state/snackbar";
-
-import { asHideable } from "./hideable";
+import { asHideable }       from "./hideable";
 
 import {
     CloseIcon,
@@ -17,6 +16,8 @@ import {
 } from "./graphics/icons";
 
 const defaultZIndexBase = 1000;
+const noScrollClassName = 'no-scroll';
+const hiddenClassName   = 'no-display';
 
 const alerts = {
     loadingViewer: {
@@ -36,130 +37,149 @@ const alerts = {
     } as AlertData,
 }
 
+const viewerSettings = {
+    zoomPerScroll:          2.0,
+    gestureSettingsMouse:   { clickToZoom: false, dblClickToZoom: true },
+    zoomInButton:           "zoom-in",
+    zoomOutButton:          "zoom-out",
+    homeButton:             "reset",
+    fullPageButton:         "full-page"
+}
+
+const viewerTooltipStrings: { [key: string]: string } = {
+    "Tooltips.ZoomIn":      "Zoom In",
+    "Tooltips.ZoomOut":     "Zoom Out",
+    "Tooltips.Home":        "Fit to Screen",
+    "Tooltips.FullPage":    "Full Screen",
+}
+
 export function ImageViewer() {
     const dispatch  = useDispatch();
     const image     = useSelector(selectOpenImage);
 
-    const containerRef          = React.useRef<HTMLDivElement | null>(null);
-    const [viewer, setViewer]   = React.useState<OpenSeadragon.Viewer | null>(null);
+    const containerRef  = React.useRef<HTMLDivElement | null>(null);
+    const viewer        = React.useRef<OpenSeadragon.Viewer | null>(null);
+    const clickTimeout  = React.useRef(0);
 
     const [uiVisible, setUIVisible] = React.useState(true);
-    //const [hideTimeout, setHideTimeout] = React.useState(0);
 
-    // const showUI = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    //     setUIVisible(true);
+    const openImage = () => {
+        if (!viewer.current || !image) { return; }
 
-    //     if (hideTimeout) {
-    //         window.clearTimeout(hideTimeout);
-    //     }
+        const bodyClassList = window.document.body.classList;
+        if (!bodyClassList.contains(noScrollClassName)) {
+            bodyClassList.add(noScrollClassName);
+        }
 
-    //     if (event && event.target instanceof HTMLCanvasElement) {
-    //         setHideTimeout(window.setTimeout(hideUI, 5000));
-    //     }
-    // };
+        viewer.current.open(image.image);
+        setUIVisible(true);
 
-    // const toggleUIVisible = (event?: OpenSeadragon.ViewerEvent) => {
-    //     console.log(event);
-    //     setUIVisible(!uiVisible);
-    // }
+        if (containerRef.current) {
+            const canvas = containerRef.current.querySelector<HTMLElement>('.openseadragon-canvas');
+            if (canvas) { canvas.focus(); }
+        }
+    }
 
-    // const hideUI = () => {
-    //     clearHideTimeout();
-    //     setUIVisible(false);
-    // }
+    const closeViewer = () => {
+        const bodyClassList = window.document.body.classList;
+        if (bodyClassList.contains(noScrollClassName)) {
+            bodyClassList.remove(noScrollClassName);
+        }
 
-    // const clearHideTimeout = () => { 
-    //     if (hideTimeout) {
-    //         window.clearTimeout(hideTimeout);
-    //         setHideTimeout(0);
-    //     }
-    // }
+        if (viewer.current) {
+            const instance = viewer.current;
+            if (instance.isFullPage()) {
+                instance.setFullScreen(false);
+            }
+            instance.close();
+        }
+
+        setUIVisible(false);
+    }
+
+    const handleCloseClick = () => dispatch(close());
+
+    // OpenSeadragon API states an `originalEvent` property will be available, but it doesn't actually list it on the
+    // type definition for `ViewerEvent`.
+    function handleViewerKeydown(e: OpenSeadragon.ViewerEvent & { originalEvent?: KeyboardEvent }) {
+        const event = e.originalEvent;
+
+        // Must check event type as this handler sometimes gets called twice (for `keydown` and `keypress`)
+        if (!event || event.type !== 'keydown') { return; }
+
+        if (event.key === 'Escape') {
+            setUIVisible(false);
+        }
+        else if (event.key === ' ') {
+            setUIVisible(v => !v);
+        }
+        else {
+            setUIVisible(true);
+        }
+    }
+
+    // Sets a timeout for executing an action that should be performed on a single click. If there's no follow up click
+    // it will be executed, otherwise it will be cancelled by the double click handler.
+    function handleViewerClick(e: OpenSeadragon.ViewerEvent) {
+        if (!e.quick) { return; }
+
+        if (clickTimeout.current) { window.clearTimeout(clickTimeout.current); }
+
+        // Wait to verify it's not a double click
+        clickTimeout.current = window.setTimeout(() => {
+            // Toggle the UI Visibility
+            setUIVisible(v => !v);
+            clickTimeout.current = 0;
+        }, 300);
+    }
+
+    // Uses the double click event to cancel the single click handler from executing its action
+    function handleViewerDoubleClick() {
+        if (clickTimeout.current) {
+            window.clearTimeout(clickTimeout.current);
+            clickTimeout.current = 0;
+        };
+    }
 
     React.useEffect(() => {
+        // No image state, close viewer if open
         if (!image) {
-            window.document.body.classList.remove('no-scroll');
-            if (viewer) {
-                if (viewer.isFullPage()) {
-                    viewer.setFullScreen(false);
-                }
-                viewer.close();
-            }
-
-            setUIVisible(false);
+            closeViewer();
             return;
         }
 
-        window.document.body.classList.add('no-scroll');
-        if (viewer) {
-            viewer.open(image.image);
-            setUIVisible(true);
+        // If a viewer instance is already available, use it to open the image
+        if (viewer.current) {
+            openImage();
             return;
         }
 
+        // Load and init the viewer, then open the image
         const closeLoadingAlert = dispatch(alert(alerts.loadingViewer)) as unknown as () => void;
-
         import('openseadragon').then(({default: OpenSeadragon}) => {
-            if (!containerRef.current) { 
-                return;
+            if (!containerRef.current) { return; }
+
+            // Set tooltip strings
+            for (let key of Object.keys(viewerTooltipStrings)) {
+                OpenSeadragon.setString(key, viewerTooltipStrings[key]);
             }
-
-            OpenSeadragon.setString("Tooltips.ZoomIn",  "Zoom In");
-            OpenSeadragon.setString("Tooltips.ZoomOut", "Zoom Out");
-            OpenSeadragon.setString("Tooltips.Home",    "Fit to Screen");
-            OpenSeadragon.setString("Tooltips.FullPage","Full Screen");
     
+            // Init viewer instance
             const osd = new OpenSeadragon.Viewer({
-                element:                containerRef.current,
-                zoomPerScroll:          2.0,
-                gestureSettingsMouse:   { clickToZoom: false, dblClickToZoom: true },
-                zoomInButton:           "zoom-in",
-                zoomOutButton:          "zoom-out",
-                homeButton:             "reset",
-                fullPageButton:         "full-page"
+                element: containerRef.current,
+                ...viewerSettings,
             });
 
-            let timeout = 0;
-            osd.addHandler('canvas-click', (e) => {
-                if (!e.quick) { return; }
+            // Assign event handlers
+            osd.addHandler('canvas-click',          handleViewerClick);
+            osd.addHandler('canvas-double-click',   handleViewerDoubleClick);
+            osd.addHandler('canvas-key',            handleViewerKeydown);
 
-                if (timeout) {  window.clearTimeout(timeout); }
+            // Save the viewer instance
+            viewer.current = (osd);
 
-                // Wait to verify it's not a double click
-                timeout = window.setTimeout(() => {
-                    // Toggle the UI Visibility
-                    setUIVisible(v => !v);
-                    timeout = 0;
-                }, 300);
-            });
-
-            // Clear visibility toggle if it was a double click
-            osd.addHandler('canvas-double-click', () => {
-                if (timeout) {
-                    window.clearTimeout(timeout);
-                    timeout = 0;
-                };
-            });
-
-            // Must check event type as this handler gets called twice (for `keydown` and `keypress`)
-            osd.addHandler('canvas-key', (e: any) => {
-                const event = e.originalEvent;
-
-                if (event.type === 'keydown' && event.keyCode === 27) { // Escape
-                    setUIVisible(false);
-                }
-                else if (event.type === 'keydown' && event.keyCode === 32) { // Space
-                    setUIVisible(v => !v);
-                }
-                else if (event.type === 'keydown') {
-                    setUIVisible(true);
-                }
-            });
-
-            osd.open(image.image);
-
-            setViewer(osd);
-            setUIVisible(true);
-
+            // Open the image
+            openImage();
         }).catch((reason) => {
             dispatch(close());
             dispatch(alert(alerts.loadingError));
@@ -168,20 +188,15 @@ export function ImageViewer() {
 
     }, [ image ]);
 
-    const handleCloseClick = () => dispatch(close());
-
     return (
-        <Container ref={ containerRef } className={ clsx(!image && 'no-display') }>
-        {/* <Container ref={ containerRef } className={ clsx(!image && 'no-display') } onClick={ showUI } onMouseMove={ showUI }> */}
+        <Container ref={ containerRef } className={ clsx(!image && hiddenClassName) }>
             <HideableTitlebar visible={ uiVisible }>
-            {/* <HideableTitlebar visible={ uiVisible } onMouseEnter={ clearHideTimeout }> */}
                 <Title>{ image?.title || 'nxn.io' }</Title>
                 <CloseButton title="Close" onClick={ handleCloseClick }>
                     <CloseIcon />
                 </CloseButton>
             </HideableTitlebar>
             <HideableControls visible={ uiVisible }>
-            {/* <HideableControls visible={ uiVisible } onMouseEnter={ clearHideTimeout }> */}
                 <Button id="zoom-in">
                     <ZoomInIcon />
                 </Button>
