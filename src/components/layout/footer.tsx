@@ -1,9 +1,8 @@
-import React    from "react";
-import styled   from "@emotion/styled";
+import React                        from "react";
+import styled                       from "@emotion/styled";
+import { graphql, useStaticQuery }  from "gatsby";
 
-import { graphql, useStaticQuery } from "gatsby";
-
-import Link     from "../controls/link";
+import Link from "../controls/link";
 
 import {
     Logo,
@@ -15,11 +14,8 @@ import {
     GeoIcon
 } from "../graphics";
 
-type FooterProps = {
-    className?: string
-}
 
-export function FooterUnstyled(props: FooterProps) {
+export function Footer() {
     const { site: { siteMetadata: { description } } } = useStaticQuery(graphql`query {
         site {
             siteMetadata {
@@ -28,68 +24,137 @@ export function FooterUnstyled(props: FooterProps) {
         }
     }`);
     return (
-        <footer className={ props.className }>
-            <div id="footer-logos">
+        <FooterContainer>
+            <FooterLogos>
                 <Logo className="icon" variant="standard" />
                 <Logo className="text" variant="text" />
-            </div>
+            </FooterLogos>
 
-            <ul id="footer-nav">
-                <li>
-                    <Link className="item" to="/">
+            <FooterNav>
+                <Item>
+                    <Link to="/">
                         <HomeIcon />
                         Home
                     </Link>
-                </li>
-                <li>
-                    <Link className="item" to="/posts">
+                </Item>
+                <Item>
+                    <Link to="/posts">
                         <BookIcon />
                         Posts
                     </Link>
-                </li>
-                <li>
-                    <Link className="item" to="/contact">
+                </Item>
+                <Item>
+                    <Link to="/contact">
                         <MailIcon />
                         Contact
                     </Link>
-                </li>
-                <li>
-                    <Link className="item" to="/resume">
+                </Item>
+                <Item>
+                    <Link to="/resume">
                         <DocIcon />
                         Resume
                     </Link>
-                </li>
-            </ul>
+                </Item>
+            </FooterNav>
 
-            <ul id="footer-misc">
-                <li>
-                    <Link className="item" to="https://github.com/nxn/">
+            <FooterMisc>
+                <Item>
+                    <Link to="https://github.com/nxn/">
                         <GithubIcon />
                         nxn@github
                     </Link>
-                </li>
-                <li>
-                    <span className="item">
+                </Item>
+                <Item>
+                    <span>
                         <GeoIcon />
                         Philadelphia
                     </span>
-                </li>
-            </ul>
+                </Item>
+            </FooterMisc>
 
-            <div id="footer-info">
+            <FooterInfo>
                 { description }
                 <br /><br />
                 &#169; 2020 <strong>Ernie Wieczorek</strong>
-            </div>
+            </FooterInfo>
 
-            {/* <div id="footer-copyright">
-                &#169; 2020 <strong>Ernie Wieczorek</strong>
-            </div> */}
-        </footer>
+        </FooterContainer>
     );
 }
 
-export const Footer = styled(FooterUnstyled)(({theme}) => ({
+const FooterLogos = styled.div(({theme}) => ({
+    gridArea: 'logos',
+
+    '& svg': {
+        width:  '3rem',
+        height: '2.5rem',
+        fill:   theme.palette.text.alternate.main
+    },
+
+    '& .icon': {
+        marginRight:    '1.5rem',
+    }
+}));
+
+const Item = styled.li(({theme}) => ({
+    '& > *': {
+        color:          theme.palette.text.alternate.main,
+        display:        'inline-block',
+        lineHeight:     '2.5rem',
+        paddingRight:   '1rem'
+    },
+
+    '& .icon': {
+        height:         "2.5rem",
+        width:          "1.25rem",
+        marginRight:    "0.75rem",
+        verticalAlign:  "top",
+        fill:           theme.palette.text.alternate.main
+    },
+
+    '& a': {
+        textDecoration: 'none',
+        '&:hover': {
+            color: theme.palette.text.alternate.light,
+            '& .icon': {
+                fill: theme.palette.text.alternate.light
+            }
+        }
+    }
+}));
+
+const FooterList = styled.ul(({theme}) => ({
+    display:        'flex',
+    flexDirection:  'column',
+    flexWrap:       'nowrap',
+}));
+
+const FooterNav = styled(FooterList)(({theme}) => ({
+    gridArea:   'nav',
+    alignSelf:  'self-start'
+}));
+
+const FooterMisc = styled(FooterList)(({theme}) => ({
+    gridArea:   'misc',
+    alignSelf:  'self-end',
+
+    [theme.mediaQueries.standard]: {
+        alignSelf: 'self-start',
+    }
+}));
+
+const FooterInfo = styled.div(({theme}) => ({
+    gridArea:   'info',
+    maxWidth:   theme.typography.lineLength,
+    justifySelf: 'center',
+    lineHeight: '1.5rem',
+
+    [theme.mediaQueries.standard]: {
+        paddingTop: '0.5rem',
+    }
+}));
+
+export const FooterContainer = styled.div(({theme}) => ({
     padding:            '1rem',
     borderTop:          `0.0625rem solid ${ theme.palette.accents.cyan }`,
     color:              theme.palette.text.alternate.main,
@@ -112,71 +177,6 @@ export const Footer = styled(FooterUnstyled)(({theme}) => ({
         fontWeight: 'bold',
     },
 
-    '& #footer-logos': {
-        gridArea: 'logos',
-        '& svg': {
-            width:          '3rem',
-            height:         '2.5rem',
-            fill:           theme.palette.text.alternate.main
-        },
-
-        '& .icon': {
-            marginRight:    '1.5rem',
-        }
-    },
-
-    '& #footer-nav, & #footer-misc': {
-        display:        'flex',
-        flexDirection:  'column',
-        flexWrap:       'nowrap',
-        '& .item': {
-            color:          theme.palette.text.alternate.main,
-            display:        'inline-block',
-            lineHeight:     '2.5rem',
-            paddingRight:   '1rem'
-        },
-    
-        '& .icon': {
-            height:         "2.5rem",
-            width:          "1.25rem",
-            marginRight:    "0.75rem",
-            verticalAlign:  "top",
-            fill:           theme.palette.text.alternate.main
-        },
-    
-        '& a': {
-            textDecoration: 'none',
-            '&:hover': {
-                color: theme.palette.text.alternate.light,
-                '& .icon': {
-                    fill: theme.palette.text.alternate.light
-                }
-            }
-        }
-    },
-
-    '& #footer-nav': {
-        gridArea:   'nav',
-        alignSelf:  'self-start'
-    },
-
-    '& #footer-misc': {
-        gridArea:   'misc',
-        alignSelf:  'self-end'
-    },
-
-    '& #footer-info': {
-        gridArea:   'info',
-        maxWidth:   theme.typography.lineLength,
-        justifySelf: 'center',
-        lineHeight: '1.5rem'
-    },
-
-    '& #footer-copyright': {
-        gridArea: 'copyright',
-        lineHeight: '2.5rem',
-    },
-
     [theme.mediaQueries.standard]: {
         padding:                `2rem ${ theme.spacing.margins.horizontal }`,
         columnGap:              theme.spacing.margins.horizontal,
@@ -186,20 +186,7 @@ export const Footer = styled(FooterUnstyled)(({theme}) => ({
         gridTemplateAreas: `
             "logos  info    nav"
             "misc   info    nav"
-        `,
-
-        '& #footer-info': {
-            paddingTop: '0.5rem',
-            //alignSelf: 'self-end',
-        },
-        '& #footer-misc': {
-            //flexDirection:  'row',
-            //justifyContent: 'center',
-            alignSelf:      'self-start',
-            // '& li': {
-            //     margin: '0 1rem'
-            // }
-        }
+        `
     },
 }));
 
