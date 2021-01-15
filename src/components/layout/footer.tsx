@@ -1,5 +1,8 @@
 import React    from "react";
 import styled   from "@emotion/styled";
+
+import { graphql, useStaticQuery } from "gatsby";
+
 import Link     from "../controls/link";
 
 import {
@@ -17,6 +20,13 @@ type FooterProps = {
 }
 
 export function FooterUnstyled(props: FooterProps) {
+    const { site: { siteMetadata: { description } } } = useStaticQuery(graphql`query {
+        site {
+            siteMetadata {
+                description
+            }
+        }
+    }`);
     return (
         <footer className={ props.className }>
             <div id="footer-logos">
@@ -67,9 +77,7 @@ export function FooterUnstyled(props: FooterProps) {
             </ul>
 
             <div id="footer-info">
-                The personal portfolio of Ernie Wieczorek. Contains summary of recent ventures, discoveries, and 
-                guidance on technical matters. This website does not use cookies, it does not gather data about its 
-                visitors, nor does it send any information to third parties.
+                { description }
             </div>
 
             <div id="footer-copyright">

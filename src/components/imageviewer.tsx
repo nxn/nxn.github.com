@@ -43,32 +43,37 @@ export function ImageViewer() {
     const containerRef          = React.useRef<HTMLDivElement | null>(null);
     const [viewer, setViewer]   = React.useState<OpenSeadragon.Viewer | null>(null);
 
-    const [uiVisible, setUIVisible] = React.useState(false);
-    const [hideTimeout, setHideTimeout] = React.useState(0);
+    const [uiVisible, setUIVisible] = React.useState(true);
+    //const [hideTimeout, setHideTimeout] = React.useState(0);
 
-    const showUI = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        setUIVisible(true);
+    // const showUI = (event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    //     setUIVisible(true);
 
-        if (hideTimeout) {
-            window.clearTimeout(hideTimeout);
-        }
+    //     if (hideTimeout) {
+    //         window.clearTimeout(hideTimeout);
+    //     }
 
-        if (event && event.target instanceof HTMLCanvasElement) {
-            setHideTimeout(window.setTimeout(hideUI, 5000));
-        }
-    };
+    //     if (event && event.target instanceof HTMLCanvasElement) {
+    //         setHideTimeout(window.setTimeout(hideUI, 5000));
+    //     }
+    // };
 
-    const hideUI = () => {
-        clearHideTimeout();
-        setUIVisible(false);
-    }
+    // const toggleUIVisible = (event?: OpenSeadragon.ViewerEvent) => {
+    //     console.log(event);
+    //     setUIVisible(!uiVisible);
+    // }
 
-    const clearHideTimeout = () => { 
-        if (hideTimeout) {
-            window.clearTimeout(hideTimeout);
-            setHideTimeout(0);
-        }
-    }
+    // const hideUI = () => {
+    //     clearHideTimeout();
+    //     setUIVisible(false);
+    // }
+
+    // const clearHideTimeout = () => { 
+    //     if (hideTimeout) {
+    //         window.clearTimeout(hideTimeout);
+    //         setHideTimeout(0);
+    //     }
+    // }
 
     React.useEffect(() => {
         if (!image) {
@@ -80,13 +85,14 @@ export function ImageViewer() {
                 viewer.close();
             }
 
-            hideUI();
+            setUIVisible(false);
             return;
         }
 
         window.document.body.classList.add('no-scroll');
         if (viewer) {
             viewer.open(image.image);
+            setUIVisible(true);
             return;
         }
 
@@ -112,11 +118,48 @@ export function ImageViewer() {
                 fullPageButton:         "full-page"
             });
 
+            let timeout = 0;
+            osd.addHandler('canvas-click', (e) => {
+                if (!e.quick) { return; }
+
+                if (timeout) {  window.clearTimeout(timeout); }
+
+                // Wait to verify it's not a double click
+                timeout = window.setTimeout(() => {
+                    // Toggle the UI Visibility
+                    setUIVisible(v => !v);
+                    timeout = 0;
+                }, 300);
+            });
+
+            // Clear visibility toggle if it was a double click
+            osd.addHandler('canvas-double-click', () => {
+                if (timeout) {
+                    window.clearTimeout(timeout);
+                    timeout = 0;
+                };
+            });
+
+            // Must check event type as this handler gets called twice (for `keydown` and `keypress`)
+            osd.addHandler('canvas-key', (e: any) => {
+                const event = e.originalEvent;
+
+                if (event.type === 'keydown' && event.keyCode === 27) { // Escape
+                    setUIVisible(false);
+                }
+                else if (event.type === 'keydown' && event.keyCode === 32) { // Space
+                    setUIVisible(v => !v);
+                }
+                else if (event.type === 'keydown') {
+                    setUIVisible(true);
+                }
+            });
+
             osd.open(image.image);
 
-            //osd.addHandler('canvas-press', showUI);
-
             setViewer(osd);
+            setUIVisible(true);
+
         }).catch((reason) => {
             dispatch(close());
             dispatch(alert(alerts.loadingError));
@@ -128,14 +171,17 @@ export function ImageViewer() {
     const handleCloseClick = () => dispatch(close());
 
     return (
-        <Container ref={ containerRef } className={ clsx(!image && 'no-display') } onClick={ showUI } onMouseMove={ showUI }>
-            <HideableTitlebar visible={ uiVisible } onMouseEnter={ clearHideTimeout }>
+        <Container ref={ containerRef } className={ clsx(!image && 'no-display') }>
+        {/* <Container ref={ containerRef } className={ clsx(!image && 'no-display') } onClick={ showUI } onMouseMove={ showUI }> */}
+            <HideableTitlebar visible={ uiVisible }>
+            {/* <HideableTitlebar visible={ uiVisible } onMouseEnter={ clearHideTimeout }> */}
                 <Title>{ image?.title || 'nxn.io' }</Title>
                 <CloseButton title="Close" onClick={ handleCloseClick }>
                     <CloseIcon />
                 </CloseButton>
             </HideableTitlebar>
-            <HideableControls visible={ uiVisible } onMouseEnter={ clearHideTimeout }>
+            <HideableControls visible={ uiVisible }>
+            {/* <HideableControls visible={ uiVisible } onMouseEnter={ clearHideTimeout }> */}
                 <Button id="zoom-in">
                     <ZoomInIcon />
                 </Button>
