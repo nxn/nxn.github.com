@@ -65,7 +65,7 @@ export function FooterUnstyled(props: FooterProps) {
                 <li>
                     <Link className="item" to="https://github.com/nxn/">
                         <GithubIcon />
-                        nxn
+                        nxn@github
                     </Link>
                 </li>
                 <li>
@@ -78,11 +78,13 @@ export function FooterUnstyled(props: FooterProps) {
 
             <div id="footer-info">
                 { description }
-            </div>
-
-            <div id="footer-copyright">
+                <br /><br />
                 &#169; 2020 <strong>Ernie Wieczorek</strong>
             </div>
+
+            {/* <div id="footer-copyright">
+                &#169; 2020 <strong>Ernie Wieczorek</strong>
+            </div> */}
         </footer>
     );
 }
@@ -165,32 +167,38 @@ export const Footer = styled(FooterUnstyled)(({theme}) => ({
 
     '& #footer-info': {
         gridArea:   'info',
-        //maxWidth:   '48rem',
+        maxWidth:   theme.typography.lineLength,
+        justifySelf: 'center',
         lineHeight: '1.5rem'
     },
 
     '& #footer-copyright': {
         gridArea: 'copyright',
-        lineHeight: '2.5rem'
+        lineHeight: '2.5rem',
     },
 
     [theme.mediaQueries.standard]: {
         padding:                `2rem ${ theme.spacing.margins.horizontal }`,
         columnGap:              theme.spacing.margins.horizontal,
-        gridTemplateColumns:    'auto 1fr auto',
+        justifyContent:         'center',
+        gridTemplateColumns:    `8.5rem minmax(16rem, 48rem) 8.5rem`,
+        gridTemplateRows:       '2.5rem 1fr',
         gridTemplateAreas: `
-            "logos      misc        nav"
-            "info       info        nav"
-            "copyright  copyright   nav"
+            "logos  info    nav"
+            "misc   info    nav"
         `,
 
+        '& #footer-info': {
+            paddingTop: '0.5rem',
+            //alignSelf: 'self-end',
+        },
         '& #footer-misc': {
-            flexDirection:  'row',
-            justifyContent: 'center',
+            //flexDirection:  'row',
+            //justifyContent: 'center',
             alignSelf:      'self-start',
-            '& li': {
-                margin: '0 1rem'
-            }
+            // '& li': {
+            //     margin: '0 1rem'
+            // }
         }
     },
 }));

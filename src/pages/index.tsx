@@ -67,12 +67,13 @@ export function IndexPage(props: PageProps<IndexPageData>) {
 
 const Content = styled.div({
     maxWidth: '72.9375rem',
-    margin: '0 auto'
+    margin: '0 auto',
 });
 
 const Blurbs = styled(BlurbContainer)(({theme}) => ({
     [theme.mediaQueries.standard]:{
-        margin: '0 -1rem -1rem -1rem'
+        margin: '0 -1rem -1rem -1rem',
+        paddingBottom: '1rem'
     }
 }));
 
