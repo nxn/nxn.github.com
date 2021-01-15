@@ -23,6 +23,7 @@ export function Footer() {
             }
         }
     }`);
+
     return (
         <FooterContainer>
             <FooterLogos>
@@ -82,20 +83,6 @@ export function Footer() {
     );
 }
 
-const FooterLogos = styled.div(({theme}) => ({
-    gridArea: 'logos',
-
-    '& svg': {
-        width:  '3rem',
-        height: '2.5rem',
-        fill:   theme.palette.text.alternate.main
-    },
-
-    '& .icon': {
-        marginRight:    '1.5rem',
-    }
-}));
-
 const Item = styled.li(({theme}) => ({
     '& > *': {
         color:          theme.palette.text.alternate.main,
@@ -123,38 +110,60 @@ const Item = styled.li(({theme}) => ({
     }
 }));
 
-const FooterList = styled.ul(({theme}) => ({
+const FooterList = styled.ul({
     display:        'flex',
     flexDirection:  'column',
     flexWrap:       'nowrap',
-}));
+});
 
-const FooterNav = styled(FooterList)(({theme}) => ({
-    gridArea:   'nav',
-    alignSelf:  'self-start'
-}));
+const FooterLogos = styled.div(({theme}) => ({
+    gridArea:       'logos',
 
-const FooterMisc = styled(FooterList)(({theme}) => ({
-    gridArea:   'misc',
-    alignSelf:  'self-end',
+    // Top Left
+    justifySelf:    'self-start',
+    alignSelf:      'self-start',
 
-    [theme.mediaQueries.standard]: {
-        alignSelf: 'self-start',
+    '& svg': {
+        width:  '3rem',
+        height: '2.5rem',
+        fill:   theme.palette.text.alternate.main
+    },
+
+    '& .icon': {
+        marginRight:    '1.5rem',
     }
 }));
+
+const FooterMisc = styled(FooterList)({
+    gridArea:       'misc',
+    minWidth:       'max-content',
+
+    // Bottom Left
+    justifySelf:    'self-start',
+    alignSelf:      'self-end',
+});
 
 const FooterInfo = styled.div(({theme}) => ({
-    gridArea:   'info',
-    maxWidth:   theme.typography.lineLength,
-    justifySelf: 'center',
-    lineHeight: '1.5rem',
+    gridArea:       'info',
+    maxWidth:       theme.typography.lineLength,
 
-    [theme.mediaQueries.standard]: {
-        paddingTop: '0.5rem',
-    }
+    // Center
+    justifySelf:    'center',
+    alignSelf:      'center',
+
+    lineHeight:     '1.5rem',
 }));
 
-export const FooterContainer = styled.div(({theme}) => ({
+const FooterNav = styled(FooterList)({
+    gridArea:       'nav',
+    minWidth:       'max-content',
+
+    // Top Left
+    justifySelf:    'self-start',
+    alignSelf:      'self-start',
+});
+
+const FooterContainer = styled.div(({theme}) => ({
     padding:            '1rem',
     borderTop:          `0.0625rem solid ${ theme.palette.accents.cyan }`,
     color:              theme.palette.text.alternate.main,
@@ -170,7 +179,6 @@ export const FooterContainer = styled.div(({theme}) => ({
         "logos      nav"
         "misc       nav"
         "info       info"
-        "copyright  copyright"
     `,
 
     '& strong': {
@@ -181,8 +189,7 @@ export const FooterContainer = styled.div(({theme}) => ({
         padding:                `2rem ${ theme.spacing.margins.horizontal }`,
         columnGap:              theme.spacing.margins.horizontal,
         justifyContent:         'center',
-        gridTemplateColumns:    `8.5rem minmax(16rem, 48rem) 8.5rem`,
-        gridTemplateRows:       '2.5rem 1fr',
+        gridTemplateColumns:    `auto minmax(16rem, calc(${ theme.typography.lineLength } * 0.9)) auto`,
         gridTemplateAreas: `
             "logos  info    nav"
             "misc   info    nav"
