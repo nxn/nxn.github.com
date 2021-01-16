@@ -84,13 +84,19 @@ export function Layout(props: LayoutProps) {
 
 const globalStyles = {
     ':root': {
-        /*
-        calc((100vw - 40rem) / 2):                  represents the total amount of remaining viewport space left before the 40rem breakport is hit
-        calc(((100vw - 40rem) / 2) + 2rem):         this will leave a minimum margin of 2rem on either side of the grid
-        calc(((100vw - 40rem) / 2 * 0.15) + 2rem):  15% of the remaining space will be used by the margins in addition to the 2rem minimum
-        */
-        '--content-h-margin': `calc(((100vw - ${ theme.breakPoints.standard }rem) / 2 * 0.15) + 2rem)`,
-        '--content-v-margin': `min(4rem, var(--content-h-margin))`
+        // Equates to a minimum margin of 2rem plus an addition 7.5% of the available space left after meeting the
+        // breakpoint. That's per side, so the right + left margin total would be 15% * (100vw - breakpoint) + 4rem.
+
+        //`calc(7.5vw - ${ theme.breakPoints.standard * 0.075 - 2 }rem)`,
+        '--content-h-margin': `calc(${ 
+            (theme.spacing.margins.standard.additional      || 0.075) * 100 // 7.5vw
+        }vw - ${ theme.breakPoints.standard                                 // - (40
+            * (theme.spacing.margins.standard.additional    || 0.075)       // * 0.075
+            - (theme.spacing.margins.standard.minHorizontal || 2)           // - 2)rem
+        }rem)`,
+        
+        // Same as above, but caps the maxium vertical margin to 4rem max
+        '--content-v-margin': `min(${ theme.spacing.margins.standard.maxVertical }rem, var(--content-h-margin))`
     },
     body: theme.styles.body,
 

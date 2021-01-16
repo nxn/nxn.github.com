@@ -65,6 +65,11 @@ declare module '@emotion/react' {
 
     export interface Spacing {
         margins: {
+            standard: {
+                minHorizontal?: number,
+                maxVertical?:   number,
+                additional?:    number,
+            }
             horizontal?: string,
             vertical?:   string,
         }

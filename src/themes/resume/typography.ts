@@ -1,6 +1,9 @@
 import type { Typography } from "@emotion/react"
 
 export const typography: Typography = {
+    // TODO: Define and use this
+    lineLength: { },
+    lineHeight: { },
     main: {
         fontFamily: '"Open Sans", sans-serif'
     },

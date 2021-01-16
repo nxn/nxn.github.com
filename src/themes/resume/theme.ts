@@ -16,8 +16,10 @@ export const theme: Theme = {
     breakPoints,
     mediaQueries,
     spacing: {
-        // TODO: This should is relevant to the resume layout so it should be used
-        margins: { }
+        // TODO: Define and use this
+        margins: {
+            standard: { }
+        }
     },
     zIndex: { }
 }
