@@ -14,7 +14,9 @@ export const Timeline = styled.div(({theme}) => ({
     alignItems:     'center',
 
     [theme.mediaQueries.standard]: {
-        gridTemplateColumns: '1fr 1fr',
+        //gridTemplateColumns: '1fr 1fr',
+        gridTemplateColumns: `repeat(2, minmax(auto, ${ theme.typography.lineLength.long }))`,
+        justifyContent: 'center',
 
         backgroundImage: `linear-gradient(
             to bottom,
