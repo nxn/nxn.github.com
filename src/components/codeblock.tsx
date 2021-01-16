@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 
 import { asHideable } from "./hideable";
 import { alert } from "../state/snackbar";
-import Button from './controls/button';
 import { CopyIcon } from "./graphics/icons";
 
 const Pre = styled.pre(({ theme }) => ({
@@ -57,8 +56,8 @@ const Tools = styled.span({
 const HideableTools = asHideable(Tools, { animation: 'slide', direction: 'right' });
 
 const CopyButton = styled.button(({theme}) => ({
-    width:              '2.25rem',
-    height:             '2.25rem',
+    width:              '2.5rem',
+    height:             '2.5rem',
     color:              theme.palette.actions.secondary.main,
     backgroundColor:    'transparent',
     textAlign:          'center',
@@ -67,8 +66,8 @@ const CopyButton = styled.button(({theme}) => ({
     borderRadius:       '0.25rem',
 
     '& > .icon': {
-        width:          '1.25rem',
-        height:         '1.25rem',
+        width:          '1.5rem',
+        height:         '1.5rem',
         verticalAlign:  'middle'
     },
     '&:hover': {
