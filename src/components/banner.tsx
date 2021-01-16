@@ -65,7 +65,7 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) =>
         padding: '0 1rem',
         paddingRight: 0,
         '& .intro': {
-            maxWidth:   theme.typography.lineLength,
+            maxWidth:   theme.typography.lineLength.short,
             marginTop:  '1.5rem'
         }
     },

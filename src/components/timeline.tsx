@@ -99,7 +99,7 @@ export function TimelineDate(props: { children?: React.ReactNode }) {
 export const TimelineEntry = styled.article(({theme}) => ({
     [theme.mediaQueries.standard]: {
         margin: '2rem auto',
-        maxWidth: theme.typography.lineLength,
+        maxWidth: theme.typography.lineLength.short,
         '.left &': {
             paddingRight: `min(4rem, ${ theme.spacing.margins.horizontal })`
         },

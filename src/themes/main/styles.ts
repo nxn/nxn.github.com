@@ -9,7 +9,7 @@ export const styles: Styles = {
         backgroundColor:    palette.bgs.secondary.dim,
         fontFamily:         typography.main.fontFamily,
         fontSize:           '1rem',
-        lineHeight:         typography.lineHeight
+        lineHeight:         typography.lineHeight.regular
     },
     headings: {
         page: {
@@ -54,17 +54,24 @@ export const styles: Styles = {
             // Auto-Generated anchors for headings
             '&.anchor': {
                 //fill: "currentcolor",
-                display:    'none',
-                fill:       palette.text.standard.main,
-                marginLeft: '1rem',
+                opacity:        0.5,
+                display:        'inline-block',
+                fill:           palette.text.standard.main,
+                padding:        '0.25rem',
+                margin:         '0.75rem',
+                lineHeight:     '0',
+                border:         `0.0625rem solid rgba(255,255,255,0.33)`,
+                backgroundColor: 'rgba(255,255,255,0.04)',
+                borderRadius:   '0.25rem',
                 '&:hover': {
-                    fill: palette.text.standard.light
+                    fill: palette.text.standard.light,
+                    opacity: 1
                 }
             },
             // Display only when parent is hovered over
-            '*:hover > &.anchor': {
-                display: 'inline-block'
-            },
+            // '*:hover > &.anchor': {
+            //     opacity: 1
+            // },
         },
         paragraph: {
             margin: '2rem 0rem'

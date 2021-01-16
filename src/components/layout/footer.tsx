@@ -34,26 +34,22 @@ export function Footer() {
             <FooterNav>
                 <Item>
                     <Link to="/">
-                        <HomeIcon />
-                        Home
+                        <HomeIcon /> Home
                     </Link>
                 </Item>
                 <Item>
                     <Link to="/posts">
-                        <BookIcon />
-                        Posts
+                        <BookIcon /> Posts
                     </Link>
                 </Item>
                 <Item>
                     <Link to="/contact">
-                        <MailIcon />
-                        Contact
+                        <MailIcon /> Contact
                     </Link>
                 </Item>
                 <Item>
                     <Link to="/resume">
-                        <DocIcon />
-                        Resume
+                        <DocIcon /> Resume
                     </Link>
                 </Item>
             </FooterNav>
@@ -61,23 +57,23 @@ export function Footer() {
             <FooterMisc>
                 <Item>
                     <Link to="https://github.com/nxn/">
-                        <GithubIcon />
-                        nxn@github
+                        <GithubIcon /> nxn@github
                     </Link>
                 </Item>
                 <Item>
                     <span>
-                        <GeoIcon />
-                        Philadelphia
+                        <GeoIcon /> Philadelphia
                     </span>
                 </Item>
             </FooterMisc>
 
             <FooterInfo>
                 { description }
-                <br /><br />
-                &#169; 2020 <strong>Ernie Wieczorek</strong>
             </FooterInfo>
+
+            <FooterCopyright>
+                &#169; 2020 <strong>Ernie Wieczorek</strong>
+            </FooterCopyright> 
 
         </FooterContainer>
     );
@@ -87,7 +83,7 @@ const Item = styled.li(({theme}) => ({
     '& > *': {
         color:          theme.palette.text.alternate.main,
         display:        'inline-block',
-        lineHeight:     '2.5rem',
+        lineHeight:     theme.typography.lineHeight.entity,
         paddingRight:   '1rem'
     },
 
@@ -118,6 +114,7 @@ const FooterList = styled.ul({
 
 const FooterLogos = styled.div(({theme}) => ({
     gridArea:       'logos',
+    height:         '2.5rem',
 
     // Top Left
     justifySelf:    'self-start',
@@ -140,18 +137,22 @@ const FooterMisc = styled(FooterList)({
 
     // Bottom Left
     justifySelf:    'self-start',
-    alignSelf:      'self-end',
+    alignSelf:      'self-start',
+    marginTop:      '2.5rem',
 });
 
 const FooterInfo = styled.div(({theme}) => ({
     gridArea:       'info',
-    maxWidth:       theme.typography.lineLength,
 
     // Center
     justifySelf:    'center',
     alignSelf:      'center',
 
-    lineHeight:     '1.5rem',
+    lineHeight:     theme.typography.lineHeight.dense,
+    margin:         '1rem 0',
+    [theme.mediaQueries.standard]: {
+        margin: 0
+    }
 }));
 
 const FooterNav = styled(FooterList)({
@@ -163,6 +164,16 @@ const FooterNav = styled(FooterList)({
     alignSelf:      'self-start',
 });
 
+const FooterCopyright = styled.div(({theme}) => ({
+    gridArea:       'copyright',
+    lineHeight:     theme.typography.lineHeight.sparse,
+    justifySelf:    'self-start',
+    alignSelf:      'self-end',
+    '& strong': {
+        fontWeight: 'bold',
+    },
+}));
+
 const FooterContainer = styled.div(({theme}) => ({
     padding:            '1rem',
     borderTop:          `0.0625rem solid ${ theme.palette.accents.cyan }`,
@@ -171,28 +182,29 @@ const FooterContainer = styled.div(({theme}) => ({
     fontSize:           '0.9rem',
 
     display:                'grid',
-    gap:                    '1rem',
+    
     justifyContent:         'space-evenly',
     alignItems:             'flex-start',
     gridTemplateColumns:    '1fr auto',
+    gridTemplateRows:       '2.5rem',
+    
     gridTemplateAreas: `
         "logos      nav"
         "misc       nav"
         "info       info"
+        "copyright  copyright"
     `,
-
-    '& strong': {
-        fontWeight: 'bold',
-    },
 
     [theme.mediaQueries.standard]: {
         padding:                `2rem ${ theme.spacing.margins.horizontal }`,
         columnGap:              theme.spacing.margins.horizontal,
         justifyContent:         'center',
-        gridTemplateColumns:    `auto minmax(16rem, calc(${ theme.typography.lineLength } * 0.9)) auto`,
+        gridTemplateColumns:    `auto minmax(16rem, calc(${ theme.typography.lineLength.regular } * 0.9)) auto`,
+        gridTemplateRows:       '2.5rem auto 2.5rem',
         gridTemplateAreas: `
-            "logos  info    nav"
-            "misc   info    nav"
+            "logos  info        nav"
+            "misc   info        nav"
+            "misc   copyright   nav"
         `
     },
 }));
