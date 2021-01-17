@@ -130,7 +130,7 @@ export const BlurbContainer = styled.div(({theme}) => ({
 
     borderRadius:           containerBorderRadius,
     overflow:               'hidden',
-    filter:                 'drop-shadow(0 0.125rem 0.125rem rgba(0,0,0, .5)) drop-shadow(0 0 0.5rem rgba(0,0,0, .25))',
+    filter:                 'drop-shadow(0 0.125rem 0.125rem rgba(0,0,0, .5)) drop-shadow(0 0 0.5rem rgba(0,0,0, .125))',
 
     [theme.mediaQueries.standard]: {
         gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))',
@@ -151,6 +151,7 @@ const Article = styled.article(({theme}) => ({
 
     color:              theme.palette.text.alternate.light,
     backgroundColor:    theme.palette.bgs.secondary.main,
+    boxShadow: 'inset 0rem -0.125rem 0 0rem rgba(0,0,0, 0.33)',
 
     '&:nth-of-type(even)': {
         color:           theme.palette.text.standard.main,
@@ -161,6 +162,7 @@ const Article = styled.article(({theme}) => ({
 const PostList = styled.div(({theme}) => ({
     color:              theme.palette.text.standard.light,
     backgroundColor:    theme.palette.bgs.primary.main,
+    boxShadow: 'inset 0rem -0.125rem 0 0rem rgba(0,0,0, 0.33)',
     position:           'relative',
     borderRadius:       '0.5rem',
     overflow:           'hidden',
@@ -202,6 +204,8 @@ const FoldedCorner = styled.div(({theme}) => ({
     width:                  foldSize,
     height:                 foldSize,
     borderBottomLeftRadius: containerBorderRadius,
+    //borderBottom:           '0.125rem solid rgba(0,0,0,0.33)',
+    //boxSizing:              'border-box',
 
     backgroundColor: theme.palette.bgs.primary.main,
     backgroundImage: `linear-gradient(
@@ -210,7 +214,11 @@ const FoldedCorner = styled.div(({theme}) => ({
         rgba(0,0,0,0.25) 50%
     )`,
 
-    boxShadow: '0 0.125rem 0.25rem rgba(0,0,0,0.33), -0.0625rem 0.0625rem 0.0625rem rgba(0,0,0,0.20)'
+    boxShadow: `
+        inset 0rem -0.125rem 0 0rem #1e1320,
+        0 0.125rem 0.25rem rgba(0,0,0,0.33), 
+        -0.0625rem 0.0625rem 0.0625rem rgba(0,0,0,0.20)
+    `
 }));
 
 const Heading = styled.h2(({theme}) => ({

@@ -55,11 +55,13 @@ export function IndexPage(props: PageProps<IndexPageData>) {
         <Layout>
             <Content>
                 <WelcomeBanner id="welcome-banner" />
-                <Blurbs>
-                    { makeBlurb(head) }
-                    <LatestPostsBlurb />
-                    { tail.map( ({ childMdx: data }) => makeBlurb(data) ) }
-                </Blurbs>
+                <Expand>
+                    <BlurbContainer>
+                        { makeBlurb(head) }
+                        <LatestPostsBlurb />
+                        { tail.map( ({ childMdx: data }) => makeBlurb(data) ) }
+                    </BlurbContainer>
+                </Expand>
             </Content>
         </Layout>
     );
@@ -70,10 +72,10 @@ const Content = styled.div({
     margin: '0 auto',
 });
 
-const Blurbs = styled(BlurbContainer)(({theme}) => ({
+const Expand = styled.div(({theme}) => ({
     [theme.mediaQueries.standard]:{
         margin: '0 -1rem -1rem -1rem',
-        paddingBottom: '1rem'
+        paddingBottom: '1rem',
     }
 }));
 
