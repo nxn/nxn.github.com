@@ -59,6 +59,8 @@ export const styles: Styles = {
                 margin:         '0.5rem',
                 '& > *': {
                     opacity:            0.5,
+                    width:              '1rem',
+                    height:             '1rem',
                     fill:               palette.text.standard.main,
                     padding:            '0.25rem',
                     margin:             '0.25rem',
