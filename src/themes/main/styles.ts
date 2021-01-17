@@ -53,19 +53,23 @@ export const styles: Styles = {
             },
             // Auto-Generated anchors for headings
             '&.anchor': {
-                //fill: "currentcolor",
-                opacity:        0.5,
                 display:        'inline-block',
-                fill:           palette.text.standard.main,
-                padding:        '0.25rem',
-                margin:         '0.75rem',
-                lineHeight:     '0',
-                border:         `0.0625rem solid rgba(255,255,255,0.33)`,
-                backgroundColor: 'rgba(255,255,255,0.04)',
-                borderRadius:   '0.25rem',
-                '&:hover': {
-                    fill: palette.text.standard.light,
-                    opacity: 1
+                lineHeight:     0,
+                verticalAlign:  'middle',
+                margin:         '0.5rem',
+                '& > *': {
+                    opacity:            0.5,
+                    fill:               palette.text.standard.main,
+                    padding:            '0.25rem',
+                    margin:             '0.25rem',
+                    borderRadius:       '0.25rem',
+                    border:             '0.0625rem solid rgba(255,255,255,0.33)',
+                    backgroundColor:    'rgba(255,255,255,0.04)',
+                    
+                    '&:hover': {
+                        fill: palette.text.standard.light,
+                        opacity: 1
+                    }
                 }
             },
             // Display only when parent is hovered over
