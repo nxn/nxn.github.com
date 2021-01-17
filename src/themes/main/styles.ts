@@ -65,11 +65,10 @@ export const styles: Styles = {
                     borderRadius:       '0.25rem',
                     border:             '0.0625rem solid rgba(255,255,255,0.33)',
                     backgroundColor:    'rgba(255,255,255,0.04)',
-                    
-                    '&:hover': {
-                        fill: palette.text.standard.light,
-                        opacity: 1
-                    }
+                },
+                '&:hover > *': {
+                    fill: palette.text.standard.light,
+                    opacity: 1
                 }
             },
             // Display only when parent is hovered over
