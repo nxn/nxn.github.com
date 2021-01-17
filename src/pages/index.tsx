@@ -72,6 +72,8 @@ const Content = styled.div({
     margin: '0 auto',
 });
 
+// Since blurbs are contained within their own padded containers this helps with alignment between outside text and
+// blurb text. Plus it helps transition between mobile and standard view -- not that this is significant.
 const Expand = styled.div(({theme}) => ({
     [theme.mediaQueries.standard]:{
         margin: '0 -1rem -1rem -1rem',
