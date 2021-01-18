@@ -76,8 +76,7 @@ const Content = styled.div({
 // blurb text. Plus it helps transition between mobile and standard view -- not that this is significant.
 const Expand = styled.div(({theme}) => ({
     [theme.mediaQueries.standard]:{
-        margin: '0 -1rem -1rem -1rem',
-        paddingBottom: '1rem',
+        margin: '0 -1rem',
     }
 }));
 

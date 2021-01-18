@@ -4,9 +4,17 @@ date: "2021-01-14"
 toc: true
 style: "centered-title narrow"
 ---
-import { Logos, Gatsby } from "./logos";
 
-<Logos />
+import Image from "./image";
+
+import site     from "./site.svg";
+import design   from "./design.svg";
+import tech     from "./tech.svg";
+import gatsby   from "./gatsbyjs.svg";
+
+<Image src={ site } alt="Welcome to my site!" />
+
+<br />
 
 # Hello and Welcome
 
@@ -29,9 +37,9 @@ on.
 
 ---
 
-<Gatsby />
+<Image src={ gatsby } alt="Gatsby" />
 
-## Gatsby
+## On Gatsby
 
 This was my first experience with [Gatsby](https://www.gatsbyjs.com/), and overall I think it's pretty close to the 
 ideal tool for building portfolio style websites. In case you're not familiar, at its core Gatsby is a static site
@@ -39,43 +47,45 @@ generator — it allows you to point to a source of content, write some [React](
 and compile the mixture into browser-food. Of course, ontop of this it also comes with tools for pre-fetching, 
 lazy-loading, code splitting, image optimization, etc.
 
-Though what I personally liked the most about it is that it will give you a solid starting point for your website or web
-application. In the past, I would typically set everything up myself because there usually isn't an ideal starter app 
-that contains all the things I want included. You could pick one that's closest to what you're after, but there is still 
-a good chance that you will eventually find yourself tearing through config files to figure out why the tool you just 
-added refuses to cooperate with everything else. I've been there, and it's why I typically prefer to develop an 
-understanding of how everything fits together by building it myself piece by piece.
+Though what I personally liked the most about it is that it gives you a solid starting point for your website or web
+application. I typically tend to set everything up manually since I've never really managed to find a starter template
+that had everything I wanted configured to my liking. Plus, every time that I have used one, I eventually found 
+myself tearing through config files to figure out why something that I just added refused to cooperate with everything
+else. Essentially, I value having the understanding of how everything fits together after having built it myself piece
+by piece.
 
 The difference with Gatsby is that it already comes with a ton technologies that have been integrated and configured to
 work well with each other. In fact, I suppose you could break Gatsby down and claim that fundamentally it is a mixture
 of React SSR, GraphQL, Webpack, Reach/React-Router, Babel, Sharp, and many other components. But really the key for me 
 is how well all of these parts are integrated out of the box. There's nothing that immediately stands out as being its 
 own disntict entity. In fact, by default most of the pieces are kept out of sight, so you probably wouldn't even know 
-that they're there unless you've worked with them before or require direct control over them for some specific task. 
+that they were there unless you've worked with them before.
 
 ---
 
-## The Design
+<Image src={ design } alt="Design" />
 
-When I picture other websites in the developer blog / portfolio category, I typically think of a handful of pre-made
-themes — the ones that are mostly white and minimalistic; or the other end of the spectrum — where every pixel on the
-page has a chance of triggering some action or animation. I mostly wanted to avoid going too far down either path so I 
-just have a basic layout, a somewhat funky color scheme, and a little fun with content presentation on a few of the
-pages.
+## On The Design
 
-I structured the design and styles in a way that should make creating themes relatively straightforward, so I may
-include theme settings at some point in the future. As it stands, the current color scheme was actually inspired by a 
-terminal theme that I've been using for roughly the last 10 years; though in retrospect, after a lot of tweaks and 
-changes the end result doesn't really have that much in common with the original.
+I wanted this website to feel somewhat unique so I chose to create my own design instead of using any pre-made themes or
+templates. At the time of writing, I do not consider it to be finished — it's more along the lines of being functional 
+enough to serve as a foundation for things that I'll be gradually adding on to it in the future. In that regard, I am 
+pretty happy with it thus far; it adapts well to various screen and text sizes and, although somewhat basic, it leaves a
+lot of freedom towards content presentation.
 
-There's still a lot more that I'd like to do with regards to the look and feel of the site. While I'm generally not a 
-fan of drastic design changes, I do plan on revising a few things in the near future.
+While on the subject of designs and visuals, I'd like to give some attention to [unDraw](https://undraw.co/) for 
+creating an amazing collection of open-source graphics. They offer a comprehensive library of customizable vector-based 
+illustrations that are created for websites and applications. They are free for use in both commercial and 
+non-commercial projects, featuring a very non-restrictive [license](https://undraw.co/license). All the images in this
+post are actually from unDraw, though I have modified them a bit to better fit the website's theme.
 
 ---
 
-## Tech Summary & Credits
+<Image src={ tech } alt="Tech Summary" />
 
-Besides [Gatsby](https://www.gatsbyjs.com/) and its toolset, this website also uses:
+## Other Tech & Credits
+
+Besides [Gatsby](https://www.gatsbyjs.com/) and [unDraw](https://undraw.co/), this website also makes use of:
 
 <div className="dense">
 

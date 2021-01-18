@@ -8,7 +8,7 @@ export const breakPoints: BreakPoints = {
     //   taking space from DOM elements and shifting them over. This means the query triggers even if when there is less
     //   room than required by the query. There is no standard scrollbar width, some browsers have overlay scrollbars,
     //   others don't, etc, it's not feasible to handle this nonsense without using runtime JS.
-    standard: 40,
+    standard: 41,
     sidePanel: 64
 }
 

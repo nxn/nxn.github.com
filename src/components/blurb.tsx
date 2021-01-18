@@ -5,7 +5,7 @@ import { FixedObject } from "gatsby-image";
 import styled from "@emotion/styled";
 import clsx from "clsx";
 
-import workspace from "../images/workspace.svg";
+import latestPostsGraphic from "../images/posts.svg";
 import { Link, LinkButton } from "../components/controls";
 import { ChevronIcon } from "../components/graphics/icons";
 
@@ -95,7 +95,7 @@ export function LatestPostsBlurb({ className, style }: { className?: string, sty
             <Header>
                 <Heading>Latest Posts</Heading>
                 <ImageContainer >
-                    <LatestPostsImage src={ workspace } />
+                    <LatestPostsImage src={ latestPostsGraphic } />
                 </ImageContainer>
                 <FoldedCorner />
             </Header>
@@ -119,10 +119,6 @@ const foldSize = '4.0rem';
 const containerBorderRadius = '1.0rem';
 
 export const BlurbContainer = styled.div(({theme}) => ({
-    //maxWidth: '71.75rem',
-    //maxWidth: '74.9375rem',
-    //margin: '0 auto',
-
     display:                'grid',
     gridTemplateColumns:    '1fr',
     gridAutoFlow:           'dense',
@@ -134,6 +130,8 @@ export const BlurbContainer = styled.div(({theme}) => ({
 
     [theme.mediaQueries.standard]: {
         gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))',
+
+        gap: '2rem',
 
         '& .full-row':      { gridColumn: '1 / -1' },
         '& .middle':        { gridColumn: '2 / -2' },
@@ -151,7 +149,7 @@ const Article = styled.article(({theme}) => ({
 
     color:              theme.palette.text.alternate.light,
     backgroundColor:    theme.palette.bgs.secondary.main,
-    boxShadow: 'inset 0rem -0.125rem 0 0rem rgba(0,0,0, 0.33)',
+    boxShadow:          'inset 0rem -0.125rem 0 0rem rgba(0,0,0, 0.33)',
 
     '&:nth-of-type(even)': {
         color:           theme.palette.text.standard.main,
@@ -162,7 +160,7 @@ const Article = styled.article(({theme}) => ({
 const PostList = styled.div(({theme}) => ({
     color:              theme.palette.text.standard.light,
     backgroundColor:    theme.palette.bgs.primary.main,
-    boxShadow: 'inset 0rem -0.125rem 0 0rem rgba(0,0,0, 0.33)',
+    boxShadow:          'inset 0rem -0.125rem 0 0rem rgba(0,0,0, 0.33)',
     position:           'relative',
     borderRadius:       '0.5rem',
     overflow:           'hidden',
@@ -204,8 +202,6 @@ const FoldedCorner = styled.div(({theme}) => ({
     width:                  foldSize,
     height:                 foldSize,
     borderBottomLeftRadius: containerBorderRadius,
-    //borderBottom:           '0.125rem solid rgba(0,0,0,0.33)',
-    //boxSizing:              'border-box',
 
     backgroundColor: theme.palette.bgs.primary.main,
     backgroundImage: `linear-gradient(
@@ -228,12 +224,7 @@ const Heading = styled.h2(({theme}) => ({
     width:              'calc(100% - 2rem)',
     color:              theme.palette.accents.blue,
     backgroundColor:    theme.palette.bgs.secondary.dark,
-    // position:           'absolute',
-    // top:                0,
-    // left:               0,
-    //backgroundColor:    'rgba(5,7,11,0.95)',
     
-    //opacity:            '0.95',
     whiteSpace:         'nowrap',
     overflow:           'hidden',
     textOverflow:       'ellipsis'
@@ -268,7 +259,6 @@ const PostLink = styled(Link)(({theme}) => ({
     borderRadius:   '0.25rem',
     padding:        '0.25rem 0.5rem',
 
-    //textTransform: 'uppercase',
     overflow:       'hidden',
     textOverflow:   'ellipsis',
     whiteSpace:     'nowrap',

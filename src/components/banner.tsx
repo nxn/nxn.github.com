@@ -4,35 +4,34 @@ import { Interpolation, Theme } from "@emotion/react";
 
 import { PageHeading } from "./common";
 
-import { Logo } from "../components/graphics";
+//import { Logo } from "../components/graphics";
+import welcomeGraphic from "../images/welcome.svg";
 
 type BannerProps = {
     children?: React.ReactNode,
     className?: string,
-    logo?: boolean
+    image?: React.ReactNode,
 };
 
 // Should probably do this via ref instead
 export function BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
-    const { children, logo, ...remaining } = props;
+    const { children, image, ...remaining } = props;
     return (
         <div { ...remaining }>
-            { logo &&
-                <div id="banner-logo">
-                    <Logo id="logo" variant="standard" />
-                </div>
-            }
+            { image && <div id="image">{ image }</div> }
             
-            <article id="banner-content">
-                { children }
-            </article>
+            <div id="banner-bg">
+                <article id="banner-content">
+                    { children }
+                </article>
+            </div>
         </div>
     );
 }
 
 export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     return (
-        <BannerUnstyled logo { ...props }>
+        <BannerUnstyled image={ <WelcomeGraphic src={ welcomeGraphic } /> } { ...props }>
             <PageHeading>Hello, I'm <span className="accent">Ernie</span>.</PageHeading>
             <div className="intro">
                 I am a Philadelphia based software developer who specializes in full stack web application 
@@ -42,31 +41,43 @@ export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLPro
     )
 }
 
+const WelcomeGraphic = styled.img(({theme}) => ({
+    width: '16rem',
+}));
+
 const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) => ({
-    //backgroundColor:    theme.palette.page.background,
+    
     color:              theme.palette.text.standard.main,
     textAlign:          'center',
     verticalAlign:      'middle',
-    paddingBottom:      '2rem',
 
     '& .accent': {
         color: theme.palette.accents.green
     },
 
-    '& #logo': {
-        width:      '10rem',
-        height:     'auto',
-        padding:    '4rem',
-        fill:       theme.palette.accents.light
+    // backgroundImage: `url(${ welcomeGraphic })`,
+    // backgroundSize: 'contain',
+    // backgroundRepeat: 'no-repeat',
+    // backgroundPosition: '75%',
+
+    '& #banner-bg': {
+
+    },
+
+    '& #image': {
+        padding:        '2rem 0',
     },
 
     '& #banner-content': {
         textAlign: 'left',
-        padding: '0 1rem',
-        paddingRight: 0,
+        margin: '1rem',
+
         '& .intro': {
             maxWidth:   theme.typography.lineLength.short,
-            marginTop:  '1.5rem'
+            padding:  '1rem 0rem',
+            // paddingLeft: 0,
+            // backgroundColor:    'rgba(19,12,23,0.8)',
+            // borderRadius: '0.5rem',
         }
     },
 
@@ -74,10 +85,11 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) =>
         display:        'flex',
         alignItems:     'center',
         justifyContent: 'center',
-        paddingBottom:  theme.spacing.margins.vertical,
-        '& #logo': {
-            padding:        '2rem 4rem',
-        },
+        marginBottom:  theme.spacing.margins.vertical,
+
+        '& #banner-content': {
+            paddingLeft: '3rem',
+        }
     },
 });
 

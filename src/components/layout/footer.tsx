@@ -2,18 +2,13 @@ import React                        from "react";
 import styled                       from "@emotion/styled";
 import { graphql, useStaticQuery }  from "gatsby";
 
-import Link from "../controls/link";
-
+import Link             from "../controls/link";
+import Logo             from "./logo";
+import createNavMenu    from "./navmenu";
 import {
-    Logo,
-    HomeIcon,
-    BookIcon,
-    DocIcon,
-    MailIcon,
     GithubIcon,
     GeoIcon
 } from "../graphics";
-
 
 export function Footer() {
     const { site: { siteMetadata: { description } } } = useStaticQuery(graphql`query {
@@ -26,65 +21,35 @@ export function Footer() {
 
     return (
         <FooterContainer>
-            <FooterLogos>
-                <Logo className="icon" variant="standard" />
-                <Logo className="text" variant="text" />
-            </FooterLogos>
-
-            <FooterNav>
-                <Item>
-                    <Link to="/">
-                        <HomeIcon /> Home
-                    </Link>
-                </Item>
-                <Item>
-                    <Link to="/posts">
-                        <BookIcon /> Posts
-                    </Link>
-                </Item>
-                <Item>
-                    <Link to="/contact">
-                        <MailIcon /> Contact
-                    </Link>
-                </Item>
-                <Item>
-                    <Link to="/resume">
-                        <DocIcon /> Resume
-                    </Link>
-                </Item>
-            </FooterNav>
-
+            <FooterLogo />
+            <FooterNavMenu />
             <FooterMisc>
                 <Item>
-                    <Link to="https://github.com/nxn/">
-                        <GithubIcon /> nxn@github
-                    </Link>
+                    <Link to="https://github.com/nxn/"><GithubIcon />nxn@github</Link>
                 </Item>
                 <Item>
-                    <span>
-                        <GeoIcon /> Philadelphia
-                    </span>
+                    <span><GeoIcon />Philadelphia</span>
                 </Item>
             </FooterMisc>
-
-            <FooterInfo>
-                { description }
-            </FooterInfo>
-
-            <FooterCopyright>
-                &#169; 2020 <strong>Ernie Wieczorek</strong>
-            </FooterCopyright> 
-
+            <FooterInfo><Text>{ description }</Text></FooterInfo>
+            <FooterCopyright><Text>&#169; 2020 <strong>Ernie Wieczorek</strong></Text></FooterCopyright> 
         </FooterContainer>
     );
 }
+
+const Text = styled.div(({theme}) => ({
+    maxWidth: theme.typography.lineLength.regular,
+    [theme.mediaQueries.standard]: {
+        margin: `0 ${ theme.spacing.margins.horizontal }`
+    }
+}));
 
 const Item = styled.li(({theme}) => ({
     '& > *': {
         color:          theme.palette.text.alternate.main,
         display:        'inline-block',
         lineHeight:     theme.typography.lineHeight.entity,
-        paddingRight:   '1rem'
+        //paddingRight:   '1rem'
     },
 
     '& .icon': {
@@ -106,67 +71,55 @@ const Item = styled.li(({theme}) => ({
     }
 }));
 
-const FooterList = styled.ul({
+const List = styled.ul({
     display:        'flex',
     flexDirection:  'column',
     flexWrap:       'nowrap',
 });
 
-const FooterLogos = styled.div(({theme}) => ({
-    gridArea:       'logos',
-    height:         '2.5rem',
-
-    // Top Left
-    justifySelf:    'self-start',
-    alignSelf:      'self-start',
-
-    '& svg': {
-        width:  '3rem',
-        height: '2.5rem',
-        fill:   theme.palette.text.alternate.main
-    },
-
-    '& .icon': {
-        marginRight:    '1.5rem',
-    }
-}));
-
-const FooterMisc = styled(FooterList)({
-    gridArea:       'misc',
+const FooterNavMenu = styled(createNavMenu(List, Item))({
+    gridArea:       'ft-nav',
     minWidth:       'max-content',
 
-    // Bottom Left
+    justifySelf:    'self-end',
+    alignSelf:      'self-start',
+});
+
+const FooterLogo = styled(Logo)({
+    gridArea:       'ft-logo',
+    height:         '2.5rem',
+
+    justifySelf:    'self-start',
+    alignSelf:      'self-start',
+});
+
+const FooterMisc = styled(List)({
+    gridArea:       'ft-misc',
+    minWidth:       'max-content',
+
     justifySelf:    'self-start',
     alignSelf:      'self-start',
     marginTop:      '2.5rem',
 });
 
 const FooterInfo = styled.div(({theme}) => ({
-    gridArea:       'info',
+    gridArea:       'ft-info',
+    minWidth:       '18rem',
 
-    // Center
-    justifySelf:    'center',
+    justifySelf:    'self-start',
     alignSelf:      'center',
 
     lineHeight:     theme.typography.lineHeight.dense,
-    margin:         '1rem 0',
+    margin:         `1rem 0`,
     [theme.mediaQueries.standard]: {
         margin: 0
     }
 }));
 
-const FooterNav = styled(FooterList)({
-    gridArea:       'nav',
-    minWidth:       'max-content',
-
-    // Top Left
-    justifySelf:    'self-start',
-    alignSelf:      'self-start',
-});
-
 const FooterCopyright = styled.div(({theme}) => ({
-    gridArea:       'copyright',
+    gridArea:       'ft-copyright',
     lineHeight:     theme.typography.lineHeight.sparse,
+
     justifySelf:    'self-start',
     alignSelf:      'self-end',
     '& strong': {
@@ -174,39 +127,10 @@ const FooterCopyright = styled.div(({theme}) => ({
     },
 }));
 
-const FooterContainer = styled.div(({theme}) => ({
-    padding:            '1rem',
-    borderTop:          `0.0625rem solid ${ theme.palette.accents.cyan }`,
+const FooterContainer = styled.footer(({theme}) => ({
+    display:            'contents',
     color:              theme.palette.text.alternate.main,
-    backgroundColor:    theme.palette.bgs.secondary.dim,
     fontSize:           '0.9rem',
-
-    display:                'grid',
-    
-    justifyContent:         'space-evenly',
-    alignItems:             'flex-start',
-    gridTemplateColumns:    '1fr auto',
-    gridTemplateRows:       '2.5rem',
-    
-    gridTemplateAreas: `
-        "logos      nav"
-        "misc       nav"
-        "info       info"
-        "copyright  copyright"
-    `,
-
-    [theme.mediaQueries.standard]: {
-        padding:                `2rem ${ theme.spacing.margins.horizontal }`,
-        columnGap:              theme.spacing.margins.horizontal,
-        justifyContent:         'center',
-        gridTemplateColumns:    `auto minmax(16rem, calc(${ theme.typography.lineLength.regular } * 0.9)) auto`,
-        gridTemplateRows:       '2.5rem auto 2.5rem',
-        gridTemplateAreas: `
-            "logos  info        nav"
-            "misc   info        nav"
-            "misc   copyright   nav"
-        `
-    },
 }));
 
 export default Footer;
