@@ -77,6 +77,8 @@ const Content = styled.div({
 const Expand = styled.div(({theme}) => ({
     [theme.mediaQueries.standard]:{
         margin: '0 -1rem',
+
+        marginTop: theme.spacing.margins.vertical,
     }
 }));
 

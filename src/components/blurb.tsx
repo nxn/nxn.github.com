@@ -212,8 +212,8 @@ const FoldedCorner = styled.div(({theme}) => ({
 
     boxShadow: `
         inset 0rem -0.125rem 0 0rem #1e1320,
-        0 0.125rem 0.25rem rgba(0,0,0,0.33), 
-        -0.0625rem 0.0625rem 0.0625rem rgba(0,0,0,0.20)
+        0 0.125rem 0.125rem rgba(0,0,0, 0.5), 
+        0 0 0.5rem rgba(0,0,0, 0.125)
     `
 }));
 

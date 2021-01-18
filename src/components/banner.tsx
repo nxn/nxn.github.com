@@ -2,10 +2,11 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Interpolation, Theme } from "@emotion/react";
 
-import { PageHeading } from "./common";
+import { PageHeading, Anchor as Link } from "./common";
 
 //import { Logo } from "../components/graphics";
 import welcomeGraphic from "../images/welcome.svg";
+import notFoundGraphic from "../images/error.svg";
 
 type BannerProps = {
     children?: React.ReactNode,
@@ -14,7 +15,7 @@ type BannerProps = {
 };
 
 // Should probably do this via ref instead
-export function BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
+export function BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     const { children, image, ...remaining } = props;
     return (
         <div { ...remaining }>
@@ -29,9 +30,9 @@ export function BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<Reac
     );
 }
 
-export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
+export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     return (
-        <BannerUnstyled image={ <WelcomeGraphic src={ welcomeGraphic } /> } { ...props }>
+        <BannerUnstyled image={ <Graphic src={ welcomeGraphic } /> } { ...props }>
             <PageHeading>Hello, I'm <span className="accent">Ernie</span>.</PageHeading>
             <div className="intro">
                 I am a Philadelphia based software developer who specializes in full stack web application 
@@ -41,18 +42,33 @@ export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLPro
     )
 }
 
-const WelcomeGraphic = styled.img(({theme}) => ({
+export function Error404BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
+    return (
+        <BannerUnstyled image={ <Graphic src={ notFoundGraphic } /> } { ...props }>
+            <PageHeading id="heading">Page not found <span className="error">404</span></PageHeading>
+            <div className="intro">
+                Sorry, there are no documents located at this URL. Check that you typed the address correctly, go back 
+                to your previous page, or <Link to="/">follow this link to return to the main page</Link>.
+            </div>
+        </BannerUnstyled>
+    )
+}
+
+const Graphic = styled.img({
     width: '16rem',
-}));
+});
 
 const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) => ({
-    
     color:              theme.palette.text.standard.main,
     textAlign:          'center',
     verticalAlign:      'middle',
 
     '& .accent': {
         color: theme.palette.accents.green
+    },
+
+    '& .error': {
+        color: theme.palette.error.main
     },
 
     // backgroundImage: `url(${ welcomeGraphic })`,
@@ -85,7 +101,6 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) =>
         display:        'flex',
         alignItems:     'center',
         justifyContent: 'center',
-        marginBottom:  theme.spacing.margins.vertical,
 
         '& #banner-content': {
             paddingLeft: '3rem',
@@ -95,5 +110,6 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) =>
 
 export const Banner         = styled(BannerUnstyled)(bannerStyles);
 export const WelcomeBanner  = styled(WelcomeBannerUnstyled)(bannerStyles);
+export const Error404Banner = styled(Error404BannerUnstyled)(bannerStyles);
 
 export default Banner;
