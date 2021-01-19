@@ -4,7 +4,7 @@ import { FluidObject, FixedObject } from "gatsby-image";
 import styled from "@emotion/styled";
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-import { Layout, Variant } from "../components/layout";
+import { Layout } from "../components/layout";
 import { WelcomeBanner } from "../components/banner";
 import { Blurb, LatestPostsBlurb, BlurbContainer } from "../components/blurb";
 
@@ -56,11 +56,11 @@ export function IndexPage(props: PageProps<IndexPageData>) {
             <Content>
                 <WelcomeBanner id="welcome-banner" />
                 <Expand>
-                    <BlurbContainer>
+                    <Blurbs>
                         { makeBlurb(head) }
                         <LatestPostsBlurb />
                         { tail.map( ({ childMdx: data }) => makeBlurb(data) ) }
-                    </BlurbContainer>
+                    </Blurbs>
                 </Expand>
             </Content>
         </Layout>
@@ -79,6 +79,14 @@ const Expand = styled.div(({theme}) => ({
         margin: '0 -1rem',
 
         marginTop: theme.spacing.margins.vertical,
+    }
+}));
+
+// `Expand` decreases outer horizontal margins by 1 rem on each side, the following adjusts the inner grid gap so
+// that it matches the new smaller margins up to 2rem, at which point the gap is capped.
+const Blurbs = styled(BlurbContainer)(({theme}) => ({
+    [theme.mediaQueries.standard]:{
+        gap: `min(calc(${ theme.spacing.margins.horizontal } - 1rem), 2rem)`,
     }
 }));
 
