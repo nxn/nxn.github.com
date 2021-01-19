@@ -89,7 +89,9 @@ exports.onCreateNode = async ({ node, getNode, actions: { createNodeField } }) =
             value: summary.data.text
         });
     }
-    catch (error) { }
+    catch (error) { 
+        //console.error(error);
+    }
 }
 
 exports.createPages = async ({ graphql, actions: { createPage } }) => {
