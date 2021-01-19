@@ -1,8 +1,5 @@
 https://nxn.io/
 
-Common: 
-    - Copy button does not show up initially?
-
 iOS:
     - Snackbar Alert text and icon not visible
     - OSD fullscreen mode:

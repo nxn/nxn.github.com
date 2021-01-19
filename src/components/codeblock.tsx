@@ -115,7 +115,7 @@ export default (props: CodeBlockProps) => {
         <CodeWrap>
             <Highlight Prism={ Prism } theme={ theme } code={ code } language={ language as Language }>
                 { ({ className, style, tokens, getLineProps, getTokenProps }) => (
-                    <Pre className={ className } style={ style } onMouseEnter={ showTools } onMouseLeave={ hideTools }>
+                    <Pre className={ className } style={ style } onTouchStart={ showTools } onMouseEnter={ showTools } onMouseLeave={ hideTools }>
                         { tokens.map((line, i) => (
                             <Line key={ i } { ...getLineProps({ line, key: i }) }>
                                 <LineNo>{ i + 1 }</LineNo>
