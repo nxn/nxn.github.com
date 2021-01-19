@@ -103,7 +103,8 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) =>
         justifyContent: 'center',
 
         '& #banner-content': {
-            paddingLeft: '2rem',
+            paddingLeft: '3rem',
+            margin: '1rem 0',
         }
     },
 });
