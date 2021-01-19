@@ -215,12 +215,13 @@ export function ImageViewer() {
 }
 
 export const Container = styled.div(({ theme }) => ({
-    position:           'fixed !important' as 'fixed',
+    // OSD tries to set it as relative via inline style
+    position:           'absolute !important' as 'absolute',
     zIndex:             theme.zIndex.imageViewer || defaultZIndexBase,
     top:                0,
     left:               0,
-    width:              '100%',
-    height:             '100%',
+    width:              '100vw',
+    height:             '100vh',
     color:              theme.palette.text.standard.light,
     backgroundColor:    '#05070bee',
 

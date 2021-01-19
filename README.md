@@ -9,11 +9,12 @@ iOS:
         - swiping up triggers exit fullscreen gesture (generated frame doesn't set no-scroll?)
 
 Chrome android:
-    - Yellow/orange border around OSD
+    
     - Anchor links scroll up then 500ms later jump to top of header
     
 
 Resolved?
+    - [chrome] Yellow/orange border around OSD: partially visible :focus decoration, removed
     - [safari] OSD image title wraps to new line: added whitespace no-wrap plus overflow styles
     - [common] Copy code button does nothing: navigator.clipboard is not available unless under localhost or https
     - [chrome] No grid gaps anywhere: supported from chrome 66+
