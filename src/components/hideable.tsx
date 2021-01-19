@@ -116,6 +116,7 @@ const slideStyles = (config: SlideAnimationConfig) => {
         case 'bottom': return {
             transitionProperty: 'bottom, margin, transform',
             [HIDE_CLASS_PROPKEY]: {
+                //top:            '100%',
                 bottom:         0,
                 marginBottom:   0,
                 transform:      [

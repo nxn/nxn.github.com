@@ -226,7 +226,8 @@ export const Container = styled.div(({ theme }) => ({
 }));
 
 const Titlebar = styled.div(({theme}) => ({
-    position:           'absolute',
+    minWidth:           '20rem',
+    position:           'fixed',
     top:                0,
     left:               0,
     zIndex:             (theme.zIndex.imageViewer || defaultZIndexBase) + 1,
@@ -246,11 +247,14 @@ const HideableTitlebar = asHideable(Titlebar, { animation: 'slide', direction: '
 const Title = styled.h3(({theme}) => ({
     marginLeft: '1rem',
     fontSize: '1.25rem',
-    fontFamily: theme.typography.sans.fontFamily
+    fontFamily: theme.typography.sans.fontFamily,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden'
 }));
 
 const Controls = styled.div(({theme}) => ({
-    position:           'absolute',
+    position:           'fixed',
     left:               '50%',
     bottom:             0,
     transform:          'translateX(-50%)',
@@ -258,8 +262,7 @@ const Controls = styled.div(({theme}) => ({
 
     margin:             '1rem auto',
     height:             '3rem',
-    width:              'calc(100vw - 2rem)',
-    maxWidth:           '20rem',
+    width:              '18rem',
     borderRadius:       '0.3rem',
     backgroundColor:    'rgba(0,0,0,0.75)',
 

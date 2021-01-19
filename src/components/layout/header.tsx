@@ -146,6 +146,7 @@ const HeaderNavMenu = styled(createNavMenu(List, Item))(({theme}) => ({
     alignSelf:  'center',
 
     position:   'absolute',
+    zIndex:     999,
     top:        0,
     left:       0,
     right:      0,
@@ -154,6 +155,7 @@ const HeaderNavMenu = styled(createNavMenu(List, Item))(({theme}) => ({
 
     [theme.mediaQueries.standard]: {
         position:       'relative',
+        zIndex:         'initial',
         display:        'block',
         border:         'none',
     },

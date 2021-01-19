@@ -102,7 +102,13 @@ export default (props: CodeBlockProps) => {
     const copySuccess   = () => dispatch(alert({ type: "success", message: "Copied!" }));
     const copyError     = () => dispatch(alert({ type: "error", message: "Could not copy" }));
     const copy = (code: string) => {
-        navigator.clipboard.writeText(code).then(copySuccess, copyError);
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(code).then(copySuccess, copyError);
+        }
+        else {
+            copyError();
+            console.error(`No navigator.clipboard; secure-context: ${ window.isSecureContext }`);
+        }
     }
     
     return (
