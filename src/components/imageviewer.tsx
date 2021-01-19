@@ -224,7 +224,7 @@ export const Container = styled.div(({ theme }) => ({
     color:              theme.palette.text.standard.light,
     backgroundColor:    '#05070bee',
 
-    '& .openseadragon-container :focus { outline: none; }'
+    '& .openseadragon-container canvas:focus': { outline: 'none' }
 }));
 
 const Titlebar = styled.div(({theme}) => ({
