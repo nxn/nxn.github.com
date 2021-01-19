@@ -253,12 +253,12 @@ const Titlebar = styled.div(({theme}) => ({
 const HideableTitlebar = asHideable(Titlebar, { animation: 'slide', direction: 'top' });
 
 const Title = styled.h3(({theme}) => ({
-    marginLeft: '1rem',
-    fontSize: '1.25rem',
-    fontFamily: theme.typography.sans.fontFamily,
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden'
+    marginLeft:     '1rem',
+    fontSize:       '1.25rem',
+    fontFamily:     theme.typography.sans.fontFamily,
+    whiteSpace:     'nowrap',
+    textOverflow:   'ellipsis',
+    overflow:       'hidden'
 }));
 
 const Controls = styled.div(({theme}) => ({
