@@ -222,6 +222,7 @@ export const Container = styled.div(({ theme }) => ({
     left:               0,
     width:              '100vw',
     height:             '100vh',
+    minWidth:           '20rem',
     color:              theme.palette.text.standard.light,
     backgroundColor:    '#05070bee',
 
@@ -262,7 +263,7 @@ const Title = styled.h3(({theme}) => ({
 
 const Controls = styled.div(({theme}) => ({
     position:           'fixed',
-    left:               '50%',
+    left:               'max(10rem, 50%)',
     bottom:             0,
     transform:          'translateX(-50%)',
     zIndex:             (theme.zIndex.imageViewer || defaultZIndexBase) + 1,
@@ -283,13 +284,14 @@ const HideableControls = asHideable(Controls, { animation: 'slide', direction: '
 const Button = styled.button(({theme}) => ({
     height:             '3rem',
     width:              '3rem',
+    flexShrink:         0,
     padding:            0,
     cursor:             'pointer',
     textAlign:          'center',
     verticalAlign:      'middle',
     backgroundColor:    'transparent',
     color:              theme.palette.actions.secondary.main,
-    borderRadius:       '3rem',
+    borderRadius:       '1.5rem',
     boxSizing:          'border-box',
     border:             '0.25rem solid transparent',
 
