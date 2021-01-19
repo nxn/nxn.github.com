@@ -219,12 +219,15 @@ export const Container = styled.div(({ theme }) => ({
     zIndex:             theme.zIndex.imageViewer || defaultZIndexBase,
     top:                0,
     left:               0,
-    width:              '100vw',
-    height:             '100vh',
+    width:              '100%',
+    height:             '100%',
     color:              theme.palette.text.standard.light,
     backgroundColor:    '#05070bee',
 
-    '& .openseadragon-container canvas:focus': { outline: 'none' }
+    // Removes focus outline from canvas element. This typically wasn't visible to begin with since the canvas spans the
+    // entire viewport and the outline was being drawn out of bounds of it, however, on some devices it made the screen
+    // look broken. If an actual focus decoration is necessary it should be done in some other way.
+    '& canvas:focus': { outline: 'none' }
 }));
 
 const Titlebar = styled.div(({theme}) => ({
