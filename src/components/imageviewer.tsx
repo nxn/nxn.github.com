@@ -223,6 +223,8 @@ export const Container = styled.div(({ theme }) => ({
     height:             '100vh',
     color:              theme.palette.text.standard.light,
     backgroundColor:    '#05070bee',
+
+    '& .openseadragon-container :focus { outline: none; }'
 }));
 
 const Titlebar = styled.div(({theme}) => ({
