@@ -216,7 +216,7 @@ export function ImageViewer() {
 
 export const Container = styled.div(({ theme }) => ({
     // OSD tries to set it as relative via inline style
-    position:           'absolute !important' as 'absolute',
+    position:           'fixed !important' as 'absolute',
     zIndex:             theme.zIndex.imageViewer || defaultZIndexBase,
     top:                0,
     left:               0,
@@ -225,9 +225,10 @@ export const Container = styled.div(({ theme }) => ({
     color:              theme.palette.text.standard.light,
     backgroundColor:    '#05070bee',
 
-    // Removes focus outline from canvas element. This typically wasn't visible to begin with since the canvas spans the
-    // entire viewport and the outline was being drawn out of bounds of it, however, on some devices it made the screen
-    // look broken. If an actual focus decoration is necessary it should be done in some other way.
+    // Removes focus outline from OSD elements. This typically wasn't visible to begin with since all nested elements
+    // spanned the entire viewport dimensions and the outline was being drawn out of bounds of the screen. however, on 
+    // some devices it made the screen look broken. If an actual focus decoration is necessary it needs to be done in a
+    // more reliable way.
     '& .openseadragon-container *:focus': { outline: '0 !important' }
 }));
 
