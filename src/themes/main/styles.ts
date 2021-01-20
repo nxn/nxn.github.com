@@ -139,7 +139,7 @@ export const styles: Styles = {
                 '&:before': {
                     width:      '3rem',
                     color:      palette.text.standard.light,
-                    lineHeight: '1.75rem',
+                    //lineHeight: 'inherit',
                     textAlign:  'right',
                     position:   'absolute',
                     left:       '-3.5rem',

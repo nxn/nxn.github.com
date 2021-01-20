@@ -72,11 +72,30 @@ enough to serve as a basic foundation for things that I'll be gradually adding o
 I am pretty happy with it thus far; it adapts well to various text and screen sizes, and although somewhat basic, it 
 leaves me with a lot of freedom towards content presentation.
 
-Ultimately, however, I would like the site to have a bit more of its own distinct look and style. I already have a few 
-potential directions that would take it up a notch and give it more of the appeal that I'm after. The only issue is that
-deciding on which one of these approaches to take will require more time and experimentation. As I don't like holding 
-back on releasing things for the purpose of fitting extra features in, I decided to just go with what I have for now
-and improve it later when the details are settled.
+Ultimately, however, I would like the site to have a bit more of its own distinct look and style, and I have some ideas
+on directions I could take to do so. Among them is making use of the fact that the site is being statically generated to
+programmatically tweak aspects of the design and layout based on the content that will be shown. This is something that
+I've typically not had the chance to explore much in the past, primarily because of two factors:
+
+1.  **Client Side**: I do not like to programmatically alter major aspects of a website's layout or design at runtime. 
+    This is something I typically only find to be appropriate to do when in the context of a web application (rather 
+    than a content driven website), or as a result of a user requested action to change something about their view. In 
+    the case of the former, you are already committed to the client having a given set of capabilities for your web-app 
+    to do its job, and being able to dynamically alter the view is probably going to be a very basic requirement among 
+    these. In the case of the latter, you have a default view to fallback on should the client not be able to make the
+    requested change as expected.
+
+2.  **Server Side**: Using the properties of the page's contents to programmatically alter the design at request time 
+    sounds like another way of saying "unnecessary overhead" to me. Having the server be responsible for presentiation 
+    specific logic is typically less than ideal to begin with, but I think that aspect can be solved cleanly through a
+    variety of means. I just typically strive to create designs that do not require any server side logic primarily
+    because of efficiency considerations alone.
+
+Now, the neat thing about static site generation is that it can avoid both of those issues. Since the layout can be
+tweaked at build time there's no additional overhead during the request, and the client doesn't need to make any runtime
+changes to accommodate the content. This opens up a lot of design possibilities that I'd typically steer away from, and 
+I'm eager to try some of my ideas out in the future. I will most likely be posting updates on this subject once I've 
+gotten deeper into it.
 
 In the meantime, I'd like to give thanks to [unDraw](https://undraw.co/) for creating an amazing collection of 
 open-source graphics. They offer a comprehensive library of customizable vector-based illustrations that are created for
