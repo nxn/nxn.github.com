@@ -118,9 +118,9 @@ const Item = styled.li(({theme}) => ({
 
     [theme.mediaQueries.standard]: {
         whiteSpace: 'nowrap',
-        marginRight: '0.75rem',
-        '&:last-of-type': {
-            marginRight: 0
+        marginLeft: '0.5rem',
+        '&:first-of-type': {
+            marginLeft: 0
         },
         '& .icon': {
             display:        'inline-block',
