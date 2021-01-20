@@ -1,11 +1,12 @@
-https://nxn.io/
+# nxn.io
+Personal Portfolio -- https://nxn.io
 
-Issues:
+## Issues:
 -   [safari] OSD fullscreen mode: swiping down triggers exit fullscreen gesture (generated frame doesn't set no-scroll?)
 -   Fix button clicks so that scaling doesn't cancel click event
 -   ToC: Glitchy on hot module reload
 
-Roadmap:
+## Roadmap:
 -   Improve instructions and wording on vscode_remote
 -   Snackbar
     -   Unique constraint
