@@ -5,8 +5,8 @@ import { Interpolation, Theme } from "@emotion/react";
 import { PageHeading, Anchor as Link } from "./common";
 
 //import { Logo } from "../components/graphics";
-import welcomeGraphic from "../images/welcome.svg";
-import notFoundGraphic from "../images/error.svg";
+import welcomeGraphic   from "../images/welcome.svg";
+import errorGraphic     from "../images/error.svg";
 
 type BannerProps = {
     children?: React.ReactNode,
@@ -14,8 +14,7 @@ type BannerProps = {
     image?: React.ReactNode,
 };
 
-// Should probably do this via ref instead
-export function BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
+export function BannerBase(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     const { children, image, ...remaining } = props;
     return (
         <div { ...remaining }>
@@ -32,25 +31,36 @@ export function BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<Reac
 
 export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     return (
-        <BannerUnstyled image={ <Graphic src={ welcomeGraphic } /> } { ...props }>
+        <BannerBase image={ <Graphic src={ welcomeGraphic } /> } { ...props }>
             <PageHeading>Hello, I'm <span className="accent">Ernie</span>.</PageHeading>
-            <div className="intro">
+            <Text>
                 I am a Philadelphia based software developer who specializes in full stack web application 
                 development. You can find a few samples of my recent personal projects below.
-            </div>
-        </BannerUnstyled>
+            </Text>
+        </BannerBase>
     )
 }
 
 export function Error404BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     return (
-        <BannerUnstyled image={ <Graphic src={ notFoundGraphic } /> } { ...props }>
+        <BannerBase image={ <Graphic src={ errorGraphic } /> } { ...props }>
             <PageHeading id="heading">Page not found <span className="error">404</span></PageHeading>
-            <div className="intro">
+            <Text>
                 Sorry, there are no documents located at this URL. Check that you typed the address correctly, go back 
                 to your previous page, or <Link to="/">follow this link to return to the main page</Link>.
-            </div>
-        </BannerUnstyled>
+            </Text>
+        </BannerBase>
+    )
+}
+
+export function ErrorNoScriptUnstyled(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
+    return (
+        <BannerBase image={ <Graphic src={ errorGraphic } /> } { ...props }>
+            <PageHeading id="heading"><span className="error">Error:</span> JavaScript is required</PageHeading>
+            <Text>
+                Sorry, but to use this page you will need to enable JavaScript in your browser.
+            </Text>
+        </BannerBase>
     )
 }
 
@@ -80,21 +90,11 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) =>
 
     },
 
-    '& #image': {
-        padding:        '2rem 0',
-    },
+    '& #image': { padding: '2rem 0' },
 
     '& #banner-content': {
         textAlign: 'left',
         margin: '1rem',
-
-        '& .intro': {
-            maxWidth:   theme.typography.lineLength.short,
-            padding:  '1rem 0rem',
-            // paddingLeft: 0,
-            // backgroundColor:    'rgba(19,12,23,0.8)',
-            // borderRadius: '0.5rem',
-        }
     },
 
     [theme.mediaQueries.standard]: {
@@ -109,8 +109,14 @@ const bannerStyles: Interpolation<BannerProps & { theme: Theme }> = ({theme}) =>
     },
 });
 
-export const Banner         = styled(BannerUnstyled)(bannerStyles);
+const Text = styled.div(({theme}) => ({
+    maxWidth:   theme.typography.lineLength.short,
+    padding:    '1rem 0rem',
+}));
+
+export const Banner         = styled(BannerBase)(bannerStyles);
 export const WelcomeBanner  = styled(WelcomeBannerUnstyled)(bannerStyles);
 export const Error404Banner = styled(Error404BannerUnstyled)(bannerStyles);
+export const ErrorNoScript  = styled(ErrorNoScriptUnstyled)(bannerStyles);
 
 export default Banner;

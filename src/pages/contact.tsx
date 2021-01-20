@@ -5,12 +5,14 @@ import { graphql, PageProps }       from "gatsby";
 import { useDispatch, useSelector } from "react-redux";
 import email                        from "emailjs-com";
 import ReCAPTCHA                    from "react-google-recaptcha";
+import clsx                         from "clsx";
 
 import config                       from "../config";
 import Layout                       from "../components/layout";
 import { PageHeading }              from "../components/common";
 import { Button, ButtonGroup }      from "../components/controls/button";
 import { TextField }                from "../components/controls/textfield";
+import { ErrorNoScript }            from "../components/banner";
 
 import { alert, AlertData } from "../state/snackbar";
 import { 
@@ -125,11 +127,18 @@ export function ContactPage(props: PageProps<ContatPageData>) {
 
     const [autoSave, setAutoSave] = React.useState(0);
     const [disabled, setDisabled] = React.useState(false);
+    const [noScript, setNoScript] = React.useState(true);
 
     // If set true all error messages will be suppressed until the user attempts to submit an invalid form. At that
     // point `deferValidation` can be disabled to show instant error information as changes are being made. This is 
     // essentially a compromise to prevent displaying errors for inputs that have not yet been fully filled out.
     const [deferValidation, setDeferValidation] = React.useState(true);
+
+    // Use effect to determine if runtime JS is available. If it executes it will make the contact form visible,
+    // otherwise the `<noscript>`-wrapped error message will be shown instead.
+    React.useEffect(() => {
+        if (noScript) setNoScript(false)
+    }, [noScript]);
 
     // Syncs the form field values with the current message store state. Has to be done via useLayoutEffect since we'd 
     // like to avoid using controlled components. Setting `defaultValue` is also not an option as that results in 
@@ -282,7 +291,12 @@ export function ContactPage(props: PageProps<ContatPageData>) {
             <Helmet>
                 <title>Ernie Wieczorek: Contact · { meta.title }</title>
             </Helmet>
-            <Content>
+
+            <noscript>
+                <ErrorNoScript />
+            </noscript>
+
+            <Content className={ clsx(noScript && "no-display") }>
                 <PageHeading>Send <span className="accent">Ernie</span> a message:</PageHeading>
                 <br />
                 
