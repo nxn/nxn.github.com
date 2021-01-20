@@ -207,11 +207,12 @@ const FoldedCorner = styled.div(({theme}) => ({
     backgroundImage: `linear-gradient(
         45deg,
         ${ theme.palette.bgs.primary.light },
-        rgba(0,0,0,0.25) 50%
+        rgba(0,0,0,0.25) 100%
     )`,
 
+    borderBottom: `0.0625rem solid #170e19`,
     boxShadow: `
-        inset 0rem -0.125rem 0 0rem #1e1320,
+        inset 0rem -0.0625rem 0 0rem #1e1320,
         0 0.125rem 0.125rem rgba(0,0,0, 0.5), 
         0 0 0.5rem rgba(0,0,0, 0.125)
     `

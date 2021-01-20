@@ -117,10 +117,9 @@ const Alert = styled.div(({theme}) => ({
     margin:     '0.5rem 0',
     overflow:   'hidden',
 
-    display:        'grid',
-    alignItems:     'center',
-    justifyContent: 'center',
-    
+    display:    'grid',
+    alignItems: 'center',
+
     userSelect:         'none',
     borderRadius:       '0.5rem',
     boxShadow:          '0.0625rem 0.25rem 0.5rem black',
@@ -133,10 +132,7 @@ const Alert = styled.div(({theme}) => ({
 
     '&.minimal': {
         gridTemplateColumns:    'auto 1fr auto',
-        gridTemplateAreas:      '"icon message actions"',
-        '& .actions': {
-            //borderLeft: '0.0625rem solid rgba(0,0,0,0.25)'
-        },
+        gridTemplateAreas:      '"icon message actions"'
     },
 
     '&.full': {
@@ -144,20 +140,18 @@ const Alert = styled.div(({theme}) => ({
         gridTemplateAreas: `
             "icon       message"
             "actions    actions"
-        `,
-        '& .actions': {
-            //borderTop: '0.0625rem solid rgba(0,0,0,0.25)'
-        },
+        `
     },
 }));
 
 const Icon = styled.div({
     gridArea:   'icon',
     width:      '3rem',
-    textAlign:  'center',
     '& > svg.icon': {
-        height:         '1.5rem',
+        display:        'block',
+        margin:         '0 auto',
         width:          '1.5rem',
+        height:         '1.5rem',
         verticalAlign:  'middle',
     }
 });
@@ -178,11 +172,6 @@ const Title = styled.div({
 const Actions = styled(ButtonGroup)({
     gridArea:           'actions',
     backgroundColor:    'rgba(0,0,0,0.33)',
-    height:             '100%',
-
-    '& > .button': {
-        height: '100%'
-    }
 });
 
 export default Snackbar;
