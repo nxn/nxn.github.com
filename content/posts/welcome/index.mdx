@@ -1,0 +1,132 @@
+---
+title: "Hello and Welcome"
+date: "2021-01-14"
+toc: true
+style: "centered-title narrow"
+---
+
+import Image from "./image";
+
+import site     from "./site.svg";
+import design   from "./design.svg";
+import tech     from "./tech.svg";
+import gatsby   from "./gatsbyjs.svg";
+
+<Image src={ site } alt="Welcome to my site!" />
+
+<br />
+
+# Hello and Welcome
+
+<Summary>
+
+This website is a little project that I've been working on for the last few weeks. Initially, it was intended to serve 
+as a quick showcase of my recent work, however, I came to the realization that I would also like to occasionally 
+document and share insights regarding development and the technologies I work with. To that end, I will be updating the
+site on a periodic basis with my findings. 
+
+</Summary>
+
+As an example of the type of content that will be coming in the future, here's a brief overview of 
+[Gatsby](https://www.gatsbyjs.com/), the site's design, and a thank you to some of the projects that this site depends 
+on.
+
+<React.Fragment>
+    { props.toc }
+</React.Fragment>
+
+---
+
+<Image src={ gatsby } alt="Gatsby" />
+
+## On Gatsby
+
+This was my first experience with [Gatsby](https://www.gatsbyjs.com/), and overall I think it's pretty close to the 
+ideal tool for building portfolio style websites. In case you're not familiar, at its core Gatsby is a static site
+generator — it allows you to point to a source of content, write some [React](https://reactjs.org/) components for it, 
+and compile the mixture into browser-food. Of course, on top of this it also comes with tools for pre-fetching, 
+lazy-loading, code splitting, image optimization, etc.
+
+Though what I personally liked the most about it is that it gives you a solid starting point for your website or web
+application. I typically tend to set everything up manually since I've never really managed to find a starter template
+that had everything I wanted configured to my liking. Plus, every time that I have used one, I eventually found 
+myself tearing through config files to figure out why something that I just added refused to cooperate with everything
+else. Essentially, I value having the knowledge of how everything fits together after having assembled it myself.
+
+The difference with Gatsby is that it already comes with a ton of tech that has been configured and integrated to work
+well as one package. In fact, I suppose you could break Gatsby down and claim that fundamentally it is a mixture of
+React SSR, GraphQL, Webpack, Reach/React-Router, Babel, Sharp, and many other components. But really the key feature for
+me is how well all of these parts are integrated out of the box. There's nothing that immediately stands out as being 
+its own distinct entity and by default most things are kept out of sight unless you need to gain access to them for some 
+specific purpose. 
+
+---
+
+<Image src={ design } alt="Design" />
+
+## On the Design
+
+I wanted this website to feel somewhat unique so I opted to create my own design instead of using a pre-made theme or
+template. At the time of writing, I do not consider it to be finished — it's more along the lines of being functional 
+enough to serve as a basic foundation for things that I'll be gradually adding on to it in the future. In that regard, 
+I am pretty happy with it thus far; it adapts well to various text and screen sizes, and although somewhat basic, it 
+leaves me with a lot of freedom towards content presentation.
+
+Ultimately, however, I would like the site to have a bit more of its own distinct look and style, and I have some ideas
+on directions I could take to do so. Among them is making use of the fact that the site is being statically generated to
+programmatically tweak aspects of the design and layout based on the content that will be shown. This is something that
+I've typically not had the chance to explore much in the past, primarily because of two factors:
+
+1.  **Client Side**: I do not like to programmatically alter major aspects of a website's layout or design at runtime. 
+    This is something I typically only find to be appropriate to do when in the context of a web application (rather 
+    than a content driven website), or as a result of a user requested action to change something about their view. In 
+    the case of the former, you are already committed to the client having a given set of capabilities for your web-app 
+    to do its job, and being able to dynamically alter the view is probably going to be a very basic requirement among 
+    these. In the case of the latter, you have a default view to fallback on should the client not be able to make the
+    requested change as expected.
+
+2.  **Server Side**: Using the properties of the page's contents to programmatically alter the design at request time 
+    sounds like another way of saying "unnecessary overhead" to me. Having the server be responsible for presentation 
+    specific logic is typically less than ideal to begin with, but I think that aspect can be solved cleanly through a
+    variety of means. I just typically strive to create designs that do not require any server side logic primarily
+    because of efficiency considerations alone.
+
+Now, the neat thing about static site generation is that it can avoid both of those issues. Since the layout can be
+tweaked at build time there's no additional overhead during the request, and the client doesn't need to make any runtime
+changes to accommodate the content. This opens up a lot of design possibilities that I'd typically steer away from, and 
+I'm eager to try some of my ideas out in the future. I will most likely be posting updates on this subject once I've 
+gotten deeper into it.
+
+In the meantime, I'd like to give thanks to [unDraw](https://undraw.co/) for creating an amazing collection of 
+open-source graphics. They offer a comprehensive library of customizable vector-based illustrations that are created for
+websites and applications. They are free for use in both commercial and non-commercial projects and feature a very 
+non-restrictive [license](https://undraw.co/license). All the images found in this post originally came from unDraw's
+collection, though I have adapted them to fit the website's theme a bit better.
+
+---
+
+<Image src={ tech } alt="Tech Summary" />
+
+## Other Tech & Credits
+
+Besides [Gatsby](https://www.gatsbyjs.com/) and [unDraw](https://undraw.co/), this website also makes use of:
+
+<div className="dense">
+
+-   [Redux](https://redux.js.org/) — Used in contact form, snackbar alerts, image viewer, and general state management
+-   [redux-undo](https://redux-undo.js.org/) — Used in implementation of contact form message drafts
+-   [Emotion](https://emotion.sh/) — Used for all CSS style definitions
+-   [MDX](https://mdxjs.com/) — Used for content authoring
+-   [OpenSeadragon](https://openseadragon.github.io/) — Used as deep zoom image viewer
+-   [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer) — Used for syntax highlighting
+-   [React Helmet](https://github.com/nfl/react-helmet) — Used for metadata management
+-   [react-google-recaptcha](https://github.com/dozoisch/react-google-recaptcha) — Used in contact form
+-   [EmailJS](https://www.emailjs.com/) — Used for emailing
+-   [unist-util-visit](https://github.com/syntax-tree/unist-util-visit) — Used for MDX excerpt extraction
+-   [clsx](https://github.com/lukeed/clsx) — Used for dynamic class management
+
+</div>
+
+<br />
+
+Huge thank you to all the developers and contributors involved with these projects.

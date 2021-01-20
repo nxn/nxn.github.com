@@ -1,0 +1,266 @@
+---
+title: "VS Code Remote: WSL + SSH Agent Forwarding"
+date: "2021-01-15"
+style: "wide"
+toc: true
+---
+
+# VS Code Remote: WSL + SSH Agent Forwarding
+
+<Summary>
+
+A step by step guide for configuring tools necessary to develop remotely with Visual Studio Code over SSH. The
+documented setup enables connections to standard Windows environments as well as Windows Subsystem for Linux
+distributions. In addition, it also shows how to configure SSH Agent Forwarding for connecting to services like GitHub
+without having to store copies of privates keys or enter passphrases.
+
+</Summary>
+
+The code and scripts within this guide should be treated as reference only -- I do not advise executing anything without
+first fully understanding the intention and also verifying that proper modifications have been made to adapt it to your 
+specific system and needs.
+
+<React.Fragment>
+    { props.toc }
+</React.Fragment>
+
+------------------------------------------------------------------------------------------------------------------------
+
+## Windows Host SSH Configuration and Key Setup
+The first things we want to do is setup OpenSSH on Windows, generate keys for the host machine and/or any clients that 
+will be using it remotely, and glue it all together.
+
+1.  Install **OpenSSH Client** & **OpenSSH Server**
+    -   Settings > Apps & Features > Optional Features
+    -   Search for "OpenSSH"
+    -   Ensure Client and Server are installed
+
+2.  SSHD Configuration requirements: open `%programdata%/ssh/sshd_config` and ensure the following are configured as
+    follows:
+    -   `PasswordAuthentication no` (can be left enabled, but doing so reduces the security benefit of using pubkey
+        authentication)
+    -   `PubkeyAuthentication yes` (default)
+    -   `AllowAgentForwarding yes` (default)
+    -   `AuthorizedKeysFile .ssh/authorized_keys` (default)
+    -   If any of the accounts you will be using when connecting to the Windows Host have administrative privileges you
+        will either need to comment out the following setting, or be required to designate remote access for those users
+        through the global `administrators_authorized_keys` file. With the default configuration, user owned
+        `authorized_keys` files are ignored for administrators.
+        ``` bash
+        #Match Group administrators
+        #       AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+        ```
+
+3.  Start **OpenSSH Server** and **OpenSSH Agent** services and set them to start automatically:
+    ``` PowerShell
+    PS> Set-Service sshd -StartupType Automatic
+    PS> Start-Service sshd
+
+    PS> Set-Service ssh-agent -StartupType Automatic
+    PS> Start-Service ssh-agent
+    ```
+    or via GUI by running (Win+R) `services.msc`
+
+4.  Generate passphrase protected ssh-keys for the Windows host and any client systems that will be connecting to it
+    (ideally you should do this locally on each machine so that later you only need to transfer public keys over):
+    ``` PowerShell
+    PS> cd ~/.ssh
+    PS> ssh-keygen -t ed25519 -C "email@example.com"
+
+    > Enter passphrase (empty for no passphrase): [Type a passphrase]
+    > Enter same passphrase again: [Type passphrase again]
+    ```
+
+5.  Restrict security permissions for the created `id_ed25519` private keys:
+    -   Windows Host and/or Clients: 
+        -   Right click > Properties > Security Tab > Advanced
+        -   Click `Disable Inheritance`
+        -   Select `Convert inherited permissions into explicit permissions on this object.`
+        -   Remove any entries that are not `SYSTEM`, the `Administrators` group, or **your own user account**
+        -   See ["User private key files"](https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#user-private-key-files)
+            for more details
+          
+    -   POSIX Clients: Ensure ownership is restricted to your own account and the file permissions are set to **0600**, to
+        change either you can use something like the following:
+        ``` bash
+        # Set 'username' as owner
+        $ chown username:username ~/.ssh/id_ed25519
+
+        # Set file permission to -rw-------
+        $ chmod 0600 ~/.ssh/id_ed25519
+        ```
+
+6.  Let each machine's `ssh-agent` handle the private keys; on linux clients you may need to use something like 
+    `keychain` if your Desktop Environment or distribution doesn't automatically start `ssh-agent` for you and/or
+    doesn't provide any compatible alternatives.
+    ``` PowerShell
+    # List available keys (not required, but useful to confirm before proceeding)
+    PS> ssh-add -L
+
+    # Add the generated key
+    PS> ssh-add ~/.ssh/id_ed25519
+    ```
+    **Note:** On Windows machines it is recommended to move and store the private key off of the machine after it has 
+    been added to the SSH Agent service as the file itself is no longer necessary for the agent to operate. On Linux and
+    other OSes it may be necessary to keep the private key on the machine depending on the key storage mechanism being
+    used -- classic ssh-agent implementations are transient and only maintain added keys for the lifetime of their
+    process. 
+
+7.  Set Git for Windows to use the Windows *OpenSSH Client* (by default Git for Windows uses its own bundled ssh package
+    that is unaware of the Windows `ssh-agent` service):
+    ``` PowerShell
+    PS> git config --global core.sshcommand "C:/Windows/System32/OpenSSH/ssh.exe"
+    ```
+
+8.  Ensure the Windows Host's public key has been added to GitHub -- [instructions for adding keys](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account).
+    You may wish to also add the client public keys if you would like to use them to connect to GitHub directly.
+
+9.  Verify everything up to this point is working correctly by authenticating with GitHub from the Windows Host and from
+    any of the clients you intend to use directly. You should not be required to enter your passphrase if `ssh-agent` is
+    working as expected.
+    ``` PowerShell
+    PS> ssh -T git@github.com
+
+    > Hi <Account Name>! You've successfully authenticated, ...
+    ```
+
+10. Import client public keys into `~/.ssh/authorized_keys` (or `%programdata%/ssh/administrators_authorized_keys` if
+    the host account you'll be using is designated as an admin and you want to keep the default configuration scheme).
+    The following import scripts are copied from [VSCode's documentation](https://code.visualstudio.com/docs/remote/troubleshooting)
+    and will only work for modifying the user owned 
+    `~/.ssh/authorized_keys`.
+    -   Remote Unix-like client:
+        ``` bash
+        $ export USER_AT_HOST="your-user-name-on-host@hostname"
+        $ export PUBKEYPATH="$HOME/.ssh/id_rsa.pub"
+
+        $ ssh $USER_AT_HOST "powershell New-Item -Force -ItemType Directory -Path \"\$HOME\\.ssh\"; Add-Content -Force -Path \"\$HOME\\.ssh\\authorized_keys\" -Value '$(tr -d '\n\r' < "$PUBKEYPATH")'"
+        ```
+        **Note:** The above did not work as expected in my case -- the generated `authorized_keys` contained malformed
+        characters. I suggest double checking the file after it is created or simply performing this step manually.
+
+    -   Remote Windows client:
+        ``` PowerShell
+        PS> $USER_AT_HOST="your-user-name-on-host@hostname"
+        PS> $PUBKEYPATH="$HOME\.ssh\id_rsa.pub"
+
+        PS> Get-Content "$PUBKEYPATH" | Out-String | ssh $USER_AT_HOST "powershell `"New-Item -Force -ItemType Directory -Path `"`$HOME\.ssh`"; Add-Content -Force -Path `"`$HOME\.ssh\authorized_keys`" `""
+        ```
+
+    -   Alternatively, either use `ssh-id-copy` or manually insert the public key into `~/.ssh/authorized_keys` 
+        yourself:
+        ``` bash
+        ssh-copy-id -i ~/.ssh/client_public_key.pub your-user-name-on-host@hostname
+        ```
+
+11. Restrict security permissions for `authorized_keys`:
+    -   Right click > Properties > Security Tab > Advanced
+    -   Click `Disable Inheritance`
+    -   Select `Convert inherited permissions into explicit permissions on this object.`
+    -   Remove any entries that are not `SYSTEM`, the `Administrators` group, or **your own user account**
+    -   See ["authorized_keys"](https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#authorized_keys)
+        for more details.
+    
+    If using the `administrators_authorized_keys` file, its permissions should only allow access by `SYSTEM` and the
+    `Administrators` group; inheritance should be disabled. See ["administrators_authorized_keys"](https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#administrators_authorized_keys)
+    for specifics.
+
+12. With everything configured you should be able to `ssh` into your Windows Host from all of your clients.
+
+------------------------------------------------------------------------------------------------------------------------
+
+## Windows Host WSL Configuration
+The objective here is to setup a mechanism that will route the WSL ssh-agent communication over to the `ssh-agent`
+running on the Windows Host. To do this, a few tools are going to be required:
+
+1.  Install `socat` in the WSL distro (assuming Debian/Ubuntu):
+    ``` bash
+    sudo apt install socat
+    ```
+
+2.  Download [npiperelay](https://github.com/jstarks/npiperelay/releases) and put `npiperelay.exe` under the Windows 
+    portion of the file system. You can then symlink it to some location that's visible to your WSL's *PATH* environment
+    variable.
+    ``` bash
+    $ wget https://github.com/jstarks/npiperelay/releases/download/v0.1.0/npiperelay_windows_amd64.zip
+    $ unzip npiperelay_windows_amd64.zip
+    $ mv npiperelay_windows_amd64/npiperelay.exe /mnt/c/Users/[USER]/bin/npiperelay.exe
+    $ sudo ln -s /mnt/c/Users/[USER]/bin/npiperelay.exe /usr/local/bin/npiperelay.exe
+    ```
+
+3.  Add the following to your `~/.bashrc`, sources: [stuartleeks.com](https://stuartleeks.com/posts/wsl-ssh-key-forward-to-windows/)
+    and [rupor-github](https://github.com/rupor-github/wsl-ssh-agent#wsl-2-compatibility).
+    ``` bash
+    # Route SSH Agent Forwarding to Windows Host's ssh-agent
+    export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
+    ss -a | grep -q $SSH_AUTH_SOCK
+    if [ $? -ne 0 ]; then
+        rm -f $SSH_AUTH_SOCK
+        (setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &) > /dev/null 2>&1
+    fi
+    ```
+
+4.  Verify that you are able to authenticate to GitHub from your WSL distro when on the Windows Host and when connected
+    via SSH from a client:
+    ```bash
+    $ ssh -T git@github.com
+
+    > Hi <Account Name>! You've successfully authenticated, ...
+    ```
+
+------------------------------------------------------------------------------------------------------------------------
+
+## Client Configuration
+The last tricky part is to create two Host configurations for the Windows Host on each client. These will be mapped
+within VSCode to the standard Windows environment and the other to the WSL distro, allowing you the option of which
+specific environment you want to connect to for remote development.
+
+1.  Create two entries for the Windows host in the client's `~/.ssh/config`. Note that the second one's name is appended
+    with `-wsl` (the suffix is not important so long as the two names are different), otherwise they should be
+    identical.
+    ```
+    Host [ID or name used for connecting]
+        HostName        [A hostname or LAN ip]
+        User            [your username on the host]
+        IdentityFile    ~/.ssh/id_ed25519
+        ForwardAgent    yes
+
+    Host [ID or name used for connecting]-wsl
+        HostName        [A hostname or LAN ip]
+        User            [your username on the host]
+        IdentityFile    ~/.ssh/id_ed25519
+        ForwardAgent    yes
+    ```
+
+2.  Ensure proper permissions are applied to `~/.ssh/config`:
+    -   For Windows: similar to before, disable permission inheritance and restrict access to only allow `SYSTEM`, the
+        `Administrators` group, and **your own user account**; See ["ssh_config"](https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#ssh_config)
+        for more information.
+    -   For POSIX: ensure ownership is restricted to your own account and the file permissions are set to 0600:
+        ``` bash
+        # Set 'username' as owner
+        $ chown username:username ~/.ssh/config
+
+        # Set file permission to -rw-------
+        $ chmod 0600 ~/.ssh/config
+        ```
+
+3.  Install the VSCode `Remote - SSH` extension.
+
+4.  Edit VSCode's `settings.json` file and add the following JSON. This will map the Host to the desired platform so
+    that when connecting you will be able to specify if you want the regular windows environment or the WSL environment
+    contained within it. 
+    ``` json
+    "remote.SSH.remotePlatform": {
+      "[ID or name of windows host]": "windows",
+      "[ID or name of windows host]-wsl": "linux"
+    },
+    "remote.SSH.useLocalServer": false
+    ```
+
+5.  On the Windows Host you may want to install the `Remote - WSL` extension if you wish to develop using the local WSL
+    distro. 
+
+6.  You should now be able to establish a remote VSCode connection from any of your clients to your Windows Host's
+    standard environment or its WSL environment. From there you should also be able to authenticate with services like
+    GitHub without needing to provide any passphrases or needing to keep copies of private keys.
