@@ -32,7 +32,7 @@ export function Footer() {
                 </Item>
             </FooterMisc>
             <FooterInfo><Text>{ description }</Text></FooterInfo>
-            <FooterCopyright><Text>&#169; 2020 <strong>Ernie Wieczorek</strong></Text></FooterCopyright> 
+            <FooterCopyright><Text>&#169; 2021 <strong>Ernie Wieczorek</strong></Text></FooterCopyright> 
         </FooterContainer>
     );
 }
