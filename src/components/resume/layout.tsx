@@ -85,10 +85,10 @@ const Container = styled.div(({theme}) => ({
             display:                'grid',
             gridTemplateColumns:    '1fr 1fr',
             columnGap:              '2rem',
-            gridTemplateAreas: `
-                "summary        summary"
-                "specialties    tech-tags"
-            `,
+            gridTemplateAreas: [
+                '"summary        summary"',
+                '"specialties    tech-tags"'
+            ].join(' '),
             '& #summary':       { gridArea: 'summary' },
             '& #specialties':   { gridArea: 'specialties' },
             '& #tech-tags':     { gridArea: 'tech-tags' },
@@ -104,10 +104,10 @@ const Container = styled.div(({theme}) => ({
             display: 'grid',
             gridTemplateColumns:    '1fr auto',
             gridTemplateRows:       'auto 1fr',
-            gridTemplateAreas: `
-                "name   links"
-                "title  links"
-            `,
+            gridTemplateAreas: [
+                '"name   links"',
+                '"title  links"'
+            ].join(' '),
             '& h1': {
                 gridArea: "name",
             },

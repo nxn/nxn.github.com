@@ -124,15 +124,15 @@ const Container = styled.div({
     paddingBottom:          '1rem',
     display:                'grid',
     gridTemplateColumns:    '1rem auto auto 1rem',
-    gridTemplateAreas: `
-        "   .   hd-logo         hd-menu-button  hd-menu-button"
-        "hd-nav hd-nav          hd-nav          hd-nav"
-        "main   main            main            main"
-        "   .   ft-logo         ft-nav          .   "
-        "   .   ft-misc         ft-nav          .   "
-        "   .   ft-info         ft-info         .   "
-        "   .   ft-copyright    ft-copyright    .   "
-    `,
+    gridTemplateAreas: [
+        '"   .   hd-logo         hd-menu-button  hd-menu-button"',
+        '"hd-nav hd-nav          hd-nav          hd-nav"',
+        '"main   main            main            main"',
+        '"   .   ft-logo         ft-nav          .   "',
+        '"   .   ft-misc         ft-nav          .   "',
+        '"   .   ft-info         ft-info         .   "',
+        '"   .   ft-copyright    ft-copyright    .   "'
+    ].join(' '),
 
     [theme.mediaQueries.standard]: {
         paddingBottom: '2rem',
@@ -142,13 +142,13 @@ const Container = styled.div({
         //gridTemplateColumns:    `auto minmax(16rem, calc(${ theme.typography.lineLength.regular } * 0.9)) auto`,
         //gridTemplateRows:       '2.5rem auto 2.5rem',
         gridTemplateColumns: "minmax(2rem, 1fr) auto auto auto minmax(2rem, 1fr)",
-        gridTemplateAreas: `
-            "   .   hd-logo     hd-nav          hd-nav  .   "
-            "main   main        main            main    main"
-            "   .   ft-logo     ft-info         ft-nav  .   "
-            "   .   ft-misc     ft-info         ft-nav  .   "
-            "   .   ft-misc     ft-copyright    ft-nav  .   "
-        `   
+        gridTemplateAreas: [
+            '"   .   hd-logo     hd-nav          hd-nav  .   "',
+            '"main   main        main            main    main"',
+            '"   .   ft-logo     ft-info         ft-nav  .   "',
+            '"   .   ft-misc     ft-info         ft-nav  .   "',
+            '"   .   ft-misc     ft-copyright    ft-nav  .   "'
+        ].join(' ')
     },
 });
 

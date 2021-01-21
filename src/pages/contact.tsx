@@ -377,22 +377,22 @@ const Email = styled.form(({theme}) => ({
     display:    'grid',
     gap:        '1rem',
     gridTemplateRows: '1fr auto 1fr 0.5rem 1fr',
-    gridTemplateAreas: `
-        "subject"
-        "body"
-        "address"
-        "spacer"
-        "actions"
-    `,
+    gridTemplateAreas: [
+        '"subject"',
+        '"body"',
+        '"address"',
+        '"spacer"',
+        '"actions"'
+    ].join(' '),
 
     [theme.mediaQueries.standard]: {
         gridTemplateColumns: '1fr auto',
         gridTemplateRows: '1fr auto 1fr',
-        gridTemplateAreas: `
-            "subject    subject"
-            "body       body"
-            "address    actions"
-        `,
+        gridTemplateAreas: [
+            '"subject    subject"',
+            '"body       body"',
+            '"address    actions"'
+        ].join(' '),
     }
 }));
 

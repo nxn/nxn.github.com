@@ -137,10 +137,10 @@ const Alert = styled.div(({theme}) => ({
 
     '&.full': {
         gridTemplateColumns: 'auto 1fr',
-        gridTemplateAreas: `
-            "icon       message"
-            "actions    actions"
-        `
+        gridTemplateAreas: [
+            '"icon       message"',
+            '"actions    actions"'
+        ].join(' ')
     },
 }));
 
