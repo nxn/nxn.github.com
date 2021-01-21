@@ -8,6 +8,8 @@ import theme    from "../../themes/resume/theme";
 import common   from "../common";
 import Menu     from "./menu";
 
+import { asGridTemplate } from "../../util";
+
 import '../../stylesheets/reset.css';
 import '../../stylesheets/fonts.css';
 
@@ -85,10 +87,10 @@ const Container = styled.div(({theme}) => ({
             display:                'grid',
             gridTemplateColumns:    '1fr 1fr',
             columnGap:              '2rem',
-            gridTemplateAreas: [
-                '"summary        summary"',
-                '"specialties    tech-tags"'
-            ].join(' '),
+            gridTemplateAreas: asGridTemplate([
+                'summary        summary',
+                'specialties    tech-tags'
+            ]),
             '& #summary':       { gridArea: 'summary' },
             '& #specialties':   { gridArea: 'specialties' },
             '& #tech-tags':     { gridArea: 'tech-tags' },
@@ -104,10 +106,10 @@ const Container = styled.div(({theme}) => ({
             display: 'grid',
             gridTemplateColumns:    '1fr auto',
             gridTemplateRows:       'auto 1fr',
-            gridTemplateAreas: [
-                '"name   links"',
-                '"title  links"'
-            ].join(' '),
+            gridTemplateAreas: asGridTemplate([
+                'name   links',
+                'title  links'
+            ]),
             '& h1': {
                 gridArea: "name",
             },
