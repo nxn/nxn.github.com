@@ -1,31 +1,28 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { graphql, useStaticQuery } from "gatsby";
+import React    from "react";
+import styled   from "@emotion/styled";
+//import { graphql, useStaticQuery } from "gatsby";
 
-import createNavMenu from "./navmenu";
-import Logo from "./logo";
+import Logo             from "./logo";
+import createNavMenu    from "./navmenu";
 
-import {
-    //Logo,
-    MenuIcon
-} from "../graphics";
+import { MenuIcon } from "../graphics";
 
 type HeaderProps = {
     className?: string
 };
 
 export function Header(props: HeaderProps) {
-    const { site: { siteMetadata: { title } } } = useStaticQuery(graphql`query {
-        site {
-            siteMetadata {
-                title
-            }
-        }
-    }`);
+    // const { site: { siteMetadata: { title } } } = useStaticQuery(graphql`query {
+    //     site {
+    //         siteMetadata {
+    //             title
+    //         }
+    //     }
+    // }`);
 
     return (
         <HeaderContainer className={ props.className }>
-            <HeaderLogo title={ title } variant="outlined" />
+            <HeaderLogo variant="outlined" />
 
             <HeaderMenuButton htmlFor="menu-toggle">
                 <MenuIcon />
@@ -38,12 +35,12 @@ export function Header(props: HeaderProps) {
     );
 }
 
-const HeaderContainer = styled.header(({ theme }) => ({
+const HeaderContainer = styled.header({
     display: 'contents',
     '& #menu-toggle:checked + #header-nav': {
         display: 'initial'
     },
-}));
+});
 
 const HeaderLogo = styled(Logo)(({theme}) => ({
     gridArea:       'hd-logo',

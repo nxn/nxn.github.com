@@ -41,3 +41,8 @@ export function template(template: TemplateStringsArray, ...keys: string[]) {
         return result.join('');
     });
 }
+
+/// Removes all unnecessary whitespace, wraps each line with quotes, and joins into one string
+export const asGridTemplate = (template: string[]) => template.map(
+    ln => `"${ ln.split(/\s+/).filter(tk => tk !== '').join(' ') }"`
+).join(' ');

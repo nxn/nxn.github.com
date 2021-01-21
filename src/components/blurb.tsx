@@ -44,6 +44,7 @@ export function Blurb(props: BlurbProps) {
                 <ImageContainer>
                     { props.image && props.image.data && 
                     <Img 
+                        alt         = { props.title }
                         fixed       = { props.image.data } 
                         style       = {{ height: '100%', width: '100%', display: 'block' }} 
                         imgStyle    = {{
@@ -95,7 +96,7 @@ export function LatestPostsBlurb({ className, style }: { className?: string, sty
             <Header>
                 <Heading>Latest Posts</Heading>
                 <ImageContainer >
-                    <LatestPostsImage src={ latestPostsGraphic } />
+                    <LatestPostsImage src={ latestPostsGraphic } alt="Latest Posts" />
                 </ImageContainer>
                 <FoldedCorner />
             </Header>

@@ -1,5 +1,5 @@
-import React from "react";
-import Link from '../controls/link';
+import React    from "react";
+import Link     from '../controls/link';
 
 import {
     HomeIcon,
@@ -9,12 +9,12 @@ import {
 } from "../graphics";
 
 export function createNavMenu(
-    ListComponent: React.ComponentType,
-    ItemComponent: React.ComponentType,
+    ListComponent: React.ComponentType<React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>>,
+    ItemComponent: React.ComponentType<React.DetailedHTMLProps<React.HTMLAttributes<HTMLLIElement>, HTMLLIElement>>,
 ) {
     return (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>) => {
         return (
-            <nav { ...props }>
+            <nav { ...props } aria-label="Main Navigation">
                 <ListComponent>
                     <ItemComponent>
                         <Link to="/"><HomeIcon />Home</Link>

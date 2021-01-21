@@ -31,7 +31,7 @@ export function BannerBase(props: BannerProps & React.DetailedHTMLProps<React.HT
 
 export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     return (
-        <BannerBase image={ <Graphic src={ welcomeGraphic } /> } { ...props }>
+        <BannerBase image={ <Graphic src={ welcomeGraphic } alt="Welcome!" /> } { ...props }>
             <PageHeading>Hello, I'm <span className="accent">Ernie</span>.</PageHeading>
             <Text>
                 I am a Philadelphia based software developer who specializes in full stack web application 
@@ -43,7 +43,7 @@ export function WelcomeBannerUnstyled(props: BannerProps & React.DetailedHTMLPro
 
 export function Error404BannerUnstyled(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     return (
-        <BannerBase image={ <Graphic src={ errorGraphic } /> } { ...props }>
+        <BannerBase image={ <Graphic src={ errorGraphic } alt="The document you requested is not here" /> } { ...props }>
             <PageHeading id="heading">Page not found <span className="error">404</span></PageHeading>
             <Text>
                 Sorry, there are no documents located at this URL. Check that you typed the address correctly, go back 
@@ -55,7 +55,7 @@ export function Error404BannerUnstyled(props: BannerProps & React.DetailedHTMLPr
 
 export function ErrorNoScriptUnstyled(props: BannerProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
     return (
-        <BannerBase image={ <Graphic src={ errorGraphic } /> } { ...props }>
+        <BannerBase image={ <Graphic src={ errorGraphic } alt="Please enable JavaScript" /> } { ...props }>
             <PageHeading id="heading"><span className="error">Error:</span> JavaScript is required</PageHeading>
             <Text>
                 Sorry, but to use this page you will need to enable JavaScript in your browser.
