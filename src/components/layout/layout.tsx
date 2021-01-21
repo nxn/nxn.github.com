@@ -55,6 +55,7 @@ export function Layout(props: LayoutProps) {
         <ThemeProvider theme={ theme }>
             <Global styles={ globalStyles } />
             <Helmet>
+                <html lang="en" />
                 <title>
                     Ernie Wieczorek: Personal Portfolio · { meta.title }
                 </title>

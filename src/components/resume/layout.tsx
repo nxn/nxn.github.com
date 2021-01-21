@@ -29,6 +29,7 @@ export function Layout(props: LayoutProps) {
     return (
         <ThemeProvider theme={ theme }>
             <Helmet>
+                <html lang="en" />
                 <link rel="preload" href={ OpenSansRegularFont } as="font" type="font/woff2" crossOrigin="" />
                 <link rel="preload" href={ OswaldRegularFont } as="font"  type="font/woff2" crossOrigin="" />
                 <link rel="preload" href={ RobotoSlabRegularFont } as="font" type="font/woff2" crossOrigin="" />

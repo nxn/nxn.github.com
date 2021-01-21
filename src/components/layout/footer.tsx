@@ -5,6 +5,7 @@ import { graphql, useStaticQuery }  from "gatsby";
 import Link             from "../controls/link";
 import Logo             from "./logo";
 import createNavMenu    from "./navmenu";
+
 import {
     GithubIcon,
     GeoIcon
