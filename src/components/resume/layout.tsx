@@ -125,6 +125,12 @@ const Container = styled.div(({theme}) => ({
                 display: 'none'
             }
         },
+        '& article': {
+            pageBreakInside: 'avoid',
+        },
+        '& #overview': {
+            padding: '1rem 0'
+        },
         '& footer': {
             display: 'none'
         }

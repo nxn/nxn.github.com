@@ -4,6 +4,7 @@ Personal Portfolio -- https://nxn.io
 ## Issues:
 -   [safari] OSD fullscreen mode: swiping down while panning exits fullscreen mode
 -   Fix button clicks so that scaling doesn't cancel click event
+-   Buttons that span full width of containers often look janky when active due to percentage based scaling
 -   ToC: Glitchy on hot module reload
 
 ## Roadmap:
