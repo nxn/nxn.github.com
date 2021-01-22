@@ -40,8 +40,7 @@ export function GalleryItemUnstyled(props: GalleryItemProps) {
     return (
         <Link 
             className   = { props.className } 
-            to          = { props.image } 
-            target      = "_blank" 
+            to          = { props.image }
             data-dzi    = { props.dzi } 
             data-title  = { props.title } 
             onClick     = { handleClick }>

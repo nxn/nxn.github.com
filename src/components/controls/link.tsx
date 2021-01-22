@@ -33,7 +33,15 @@ export function Link({ children, to, href, activeClassName, partiallyActive, ...
         );
     }
 
-    if (internalUrlRx.test(url) && !fileRx.test(url)) {
+    if (fileRx.test(url)) {
+        return (
+            <a href={ url } target="_blank" { ...other }>
+                { children }
+            </a>
+        );
+    }
+
+    if (internalUrlRx.test(url)) {
         return (
             <GatsbyLink
                 to              = { url }

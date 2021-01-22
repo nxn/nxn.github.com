@@ -3,32 +3,22 @@ import styled   from "@emotion/styled";
 import Link     from "../controls/link";
 
 import {
-    DocIcon,
     MailIcon,
     LinkIcon,
     GeoIcon,
     EmailAddress,
 } from "../graphics"
 
-type MenuProps = {
-    className?: string
-}
 
-export function MenuUnstyled(props: MenuProps) {
+export function ListUnstyled(props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>) {
     return (
-        <ul className={ props.className }>
-            <li className="doc">
-                <Link className="pdf" to="/downloads/ewieczorek_resume.pdf" target="_blank">
-                    <DocIcon />
-                    Download PDF
-                </Link>
-            </li>
+        <ul { ...props }>
             <li className="email">
                 <MailIcon />
                 <EmailAddress className="address" />
             </li>
             <li className="web">
-                <Link to="/">
+                <Link to="/" title="Portfolio Website">
                     <LinkIcon />
                     www.nxn.io
                 </Link>
@@ -41,39 +31,19 @@ export function MenuUnstyled(props: MenuProps) {
     );
 }
 
-export const Menu = styled(MenuUnstyled)(({theme}) => ({
+export const List = styled(ListUnstyled)(({theme}) => ({
     display:        'flex',
     flexDirection:  'column',
     listStyle:      'none',
 
-    [`@media screen and (min-width: ${ theme.breakPoints.standard }rem)`]: {
-        flexDirection:  'row',
-        justifyContent: 'space-between'
-    },
-
-    [theme.mediaQueries.print]: {
-        border:     0,
-        padding:    0,
-        margin:     0,
-
-        '& li.doc': {
-            display: 'none'
-        }
-    },
-
     '& li': {
-        textAlign: 'left',
-        lineHeight: '2.5rem',
+        lineHeight: '1.66rem',
+        height: '1.66rem',
         padding: 0,
-
-        [theme.mediaQueries.print]: {
-            lineHeight: '1.66rem',
-            height: '1.66rem'
-        },
 
         '& .icon': {
             display: 'inline-block',
-            height: '2.5rem',
+            height: '1.66rem',
             width: '1.5rem',
             verticalAlign: 'top',
             fill: theme.palette.accents.light,
@@ -105,8 +75,8 @@ export const Menu = styled(MenuUnstyled)(({theme}) => ({
         width:          '6.4rem',
         marginTop:      '-0.0625rem',
         verticalAlign:  'middle',
-        fill:           theme.palette.nav.main
+        fill:           'currentcolor'
     }
 }));
 
-export default Menu;
+export default List;
