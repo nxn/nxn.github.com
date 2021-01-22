@@ -113,7 +113,7 @@ const Container = styled.div(({theme}) => ({
     // Splits select resume content into columns when the view is large enough or when printing
     [`@media print, (min-width: ${ theme.breakPoints.standard }in)`]: {
         '& header': {
-            gridTemplateColumns:    '2fr 1fr 1fr',
+            gridTemplateColumns:    'calc(50% - 1rem) 1fr 1fr',
             columnGap:              '2rem',
             gridTemplateAreas: gridTemplate(
                 'title          download    contact',
