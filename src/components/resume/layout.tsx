@@ -85,8 +85,8 @@ const Container = styled.div(({theme}) => ({
 
     ['@media screen']: {
         minWidth:           '17.5rem', /* ~280px with 20px of padding on each side */
-        padding:            'max(1.25rem, 6.5%)',
         backgroundColor:    theme.palette.bgs.standard.main,
+        padding: `max(${ theme.spacing.margins.standard.min }rem, ${ theme.spacing.margins.standard.percent }%)`,
 
         // Should be the same as the height of a <br /> (1.5rem lineHeight)
         '& .page':          { marginBottom: '1.5rem' },
@@ -101,12 +101,13 @@ const Container = styled.div(({theme}) => ({
         '& .page': {
             maxWidth:           '8.5in',
             minHeight:          '11in',
-            padding:            '0.5in',
             margin:             '0.25in auto',
             boxSizing:          'border-box',
             backgroundColor:    theme.palette.bgs.standard.main,
             borderRadius:       '0.25rem',
             boxShadow:          '0rem 0.125rem 0.125rem rgba(0,0,0,0.25), 0rem 0.25rem 0.5rem rgba(0,0,0,0.08)',
+            
+            padding: `${ theme.spacing.margins.print.vertical }in ${ theme.spacing.margins.print.horizontal }in`,
         },
     },
 
@@ -137,7 +138,7 @@ const Container = styled.div(({theme}) => ({
     ['@media print and (orientation: portrait)']:   { '& .page': { pageBreakInside: 'avoid' } },
     ['@page']: { 
         size: 'letter portrait',
-        margin: '0.5in'
+        margin: `${ theme.spacing.margins.print.vertical }in ${ theme.spacing.margins.print.horizontal }in`
     }
 }));
 
