@@ -76,14 +76,33 @@ export const styles: Styles = {
                 color: palette.nav.dim
             },
             // Auto-Generated anchors for headings
-            '&.anchor': {
-                marginLeft: '1rem',
-                display: 'none'
+            '&.anchor': {                
+                display:        'none',
+                lineHeight:     0,
+                verticalAlign:  'text-top',
+                margin:         '0.125rem 0 0 0.75rem',
+                '& > *': {
+                    fill:               palette.accents.dim,
+                    opacity:            0.75,
+                    width:              '1rem',
+                    height:             '1rem',
+                    padding:            '0.25rem',
+                    borderRadius:       '0.25rem',
+                    border:             `0.125rem solid ${ palette.accents.light }`,
+                },
+                '&:hover > *': {
+                    fill:               palette.nav.dim,
+                    borderColor:        palette.nav.light,
+                    backgroundColor:    palette.accents.white,
+                    opacity: 1
+                }
             },
-            // Only show them for h3s when they're hovered over
-            'h3:hover > &.anchor': {
-                display: 'inline-block'
-            },
+            // Only show them for h3s and only when viewing on screen
+            ['@media screen']: {
+                'h3 > &.anchor': {
+                    display: 'inline-block',
+                },
+            }
         },
         paragraph: {
             marginBottom: '1.0rem'

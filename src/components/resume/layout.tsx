@@ -51,15 +51,15 @@ const Container = styled.div(({theme}) => ({
         columnGap:              '2rem',
         gridTemplateColumns:    'auto 1fr',
         gridTemplateAreas:  gridTemplate(
-            'title          title',
-            'download       contact',
-            'summary        summary',
-            'specialties    specialties',
-            'tech-tags      tech-tags'
+            'title      title',
+            'download   contact',
+            'summary    summary',
+            'spec-list  spec-list',
+            'tech-tags  tech-tags'
         ),
         '& #title':         { gridArea: 'title', },
         '& #summary':       { gridArea: 'summary' },
-        '& #specialties':   { gridArea: 'specialties' },
+        '& #spec-list':     { gridArea: 'spec-list' },
         '& #tech-tags':     { gridArea: 'tech-tags' },
         '& #contact':       { gridArea: 'contact' },
         '& #download': { 
@@ -117,9 +117,9 @@ const Container = styled.div(({theme}) => ({
             gridTemplateColumns:    'calc(50% - 1rem) 1fr 1fr',
             columnGap:              '2rem',
             gridTemplateAreas: gridTemplate(
-                'title          download    contact',
-                'summary        summary     summary',
-                'specialties    tech-tags   tech-tags'
+                'title      download    contact',
+                'summary    summary     summary',
+                'spec-list  tech-tags   tech-tags'
             ),
             '& #download': {
                 justifySelf: 'self-end'
