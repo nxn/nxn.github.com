@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 import { Button, ButtonGroup } from './controls/button';
 import { selectAll, dismiss, timeoutUpdate, SnackbarItem, SnackbarAction } from '../state/snackbar'
-import { asGridTemplate } from "../util";
+import { gridTemplate } from "../util";
 
 import {
     SuccessIcon,
@@ -133,15 +133,15 @@ const Alert = styled.div(({theme}) => ({
 
     '&.minimal': {
         gridTemplateColumns:    'auto 1fr auto',
-        gridTemplateAreas:      asGridTemplate(['icon message actions'])
+        gridTemplateAreas:      gridTemplate('icon message actions')
     },
 
     '&.full': {
         gridTemplateColumns: 'auto 1fr',
-        gridTemplateAreas: asGridTemplate([
+        gridTemplateAreas: gridTemplate(
             'icon       message',
             'actions    actions'
-        ])
+        )
     },
 }));
 

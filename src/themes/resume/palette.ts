@@ -5,7 +5,10 @@ const empty = { };
 export const palette: Palette = {
     bgs: {
         standard: {
-            main: '#f7f7f7'
+            main:   '#f7f7f7',
+            dim:    '#ddd',
+            dark:   '#222',
+            light:  '#fff'
         },
         primary:    empty,
         secondary:  empty,
@@ -14,7 +17,8 @@ export const palette: Palette = {
     },
     text: {
         standard: {
-            main: '#000'
+            main:   '#000',
+            light:  '#222'
         },
         alternate: empty
     },
@@ -26,13 +30,12 @@ export const palette: Palette = {
     nav: {
         main:   '#000',
         light:  '#EF545F',
-        dim:   '#CD546C'
+        dim:    '#CD546C'
     },
     accents: {
-        dim:   '#222',
-        light:  '#c6c6c6',
+        dim:    '#222',
+        light:  '#bbb',
 
-        gray:   '#666',
         white:  '#fff',
         black:  '#000'
     },

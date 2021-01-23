@@ -1,79 +1,70 @@
 import { Styles } from '@emotion/react';
 import palette from './palette';
 import typography from './typography';
-import chevron from '../../images/chevron.svg';
-import {
-    breakPoints,
-    mediaQueries
-} from './mediaqueries';
+import { mediaQueries } from './mediaqueries';
+
+import bullet from '../../images/bullet.svg';
 
 const empty = { };
 
 export const styles: Styles = {
     body: {
         color:              palette.text.standard.main,
-        backgroundColor:    palette.bgs.standard.main,
+        backgroundColor:    palette.bgs.standard.dim,
         fontFamily:         typography.main.fontFamily,
         fontSize:           '1rem',
         lineHeight:         '1.5rem',
-        padding:            '6.5%',
-
-        [mediaQueries.print]: {
-            color:              palette.accents.black,
-            backgroundColor:    palette.accents.white,
-            // Padding needed otherwise list bullets (chevrons) not printed
-            padding:            '0 0 0 1rem'
-        },
-
-        [`@media screen and (min-width: ${ breakPoints.standard }rem)`]: {
-            padding: '3.125rem'
-        }
+        [mediaQueries.print]: { backgroundColor: palette.bgs.standard.light }
     },
     headings: {
         page: {
-            color:          palette.accents.dim,
+            color:          palette.text.standard.light,
             fontFamily:     typography.sans.fontFamily,
             fontSize:       '3rem',
-            lineHeight:     '1.0em'
+            lineHeight:     '1.0em',
+            [mediaQueries.print]: { color: palette.text.standard.main }
         },
         section: {
-            color:          palette.accents.dim,
+            color:          palette.text.standard.light,
             fontFamily:     typography.slab.fontFamily,
             fontSize:       '2rem',
-            marginTop:      '2rem',
-            textAlign:      'center' as 'center'
+            textAlign:      'center' as 'center',
+            margin:         '2rem 0 1rem 0',
+            [mediaQueries.print]: { color: palette.text.standard.main }
         },
         content: {
-            color:          palette.accents.dim,
+            color:          palette.text.standard.light,
             fontFamily:     typography.sans.fontFamily,
             fontSize:       '1.5rem',
             lineHeight:     '1.5em',
-            marginTop:      '1.5rem',
+            [mediaQueries.print]: { color: palette.text.standard.main }
         },
         sub1: {
-            color:          palette.accents.dim,
-            fontFamily:     typography.slab.fontFamily,
-            fontWeight:     700
-        },
-        sub2: {
-            color:          palette.accents.dim,
+            color:          palette.text.standard.light,
             fontFamily:     typography.slab.fontFamily,
             fontWeight:     700,
-            marginBottom:   '0.5rem',
+            [mediaQueries.print]: { color: palette.text.standard.main }
+        },
+        sub2: {
+            color:          palette.text.standard.light,
+            fontFamily:     typography.slab.fontFamily,
+            fontWeight:     700,
+            [mediaQueries.print]: { color: palette.text.standard.main }
         },
         sub3: {
-            color:          palette.accents.dim,
+            color:          palette.text.standard.light,
             fontFamily:     typography.slab.fontFamily,
             fontSize:       '1.25rem',
             lineHeight:     '2rem',
-            marginBottom:   '1rem'
+            [mediaQueries.print]: { color: palette.text.standard.main }
         }
     },
     text: {
         bold: {
-            color:      palette.accents.dim,
+            color:      palette.text.standard.light,
             fontFamily: typography.slab.fontFamily,
-            fontWeight: 700
+            fontWeight: 700,
+            [mediaQueries.print]: { color: palette.text.standard.main }
         },
         italic: {
             fontWeight: 400
@@ -85,14 +76,33 @@ export const styles: Styles = {
                 color: palette.nav.dim
             },
             // Auto-Generated anchors for headings
-            '&.anchor': {
-                marginLeft: '1rem',
-                display: 'none'
+            '&.anchor': {                
+                display:        'none',
+                lineHeight:     0,
+                verticalAlign:  'text-top',
+                margin:         '0.125rem 0 0 0.75rem',
+                '& > *': {
+                    fill:               palette.accents.dim,
+                    opacity:            0.75,
+                    width:              '1rem',
+                    height:             '1rem',
+                    padding:            '0.25rem',
+                    borderRadius:       '0.25rem',
+                    border:             `0.125rem solid ${ palette.accents.light }`,
+                },
+                '&:hover > *': {
+                    fill:               palette.nav.dim,
+                    borderColor:        palette.nav.light,
+                    backgroundColor:    palette.accents.white,
+                    opacity: 1
+                }
             },
-            // Only show them for h3s when they're hovered over
-            'h3:hover > &.anchor': {
-                display: 'inline-block'
-            },
+            // Only show them for h3s and only when viewing on screen
+            ['@media screen']: {
+                'h3 > &.anchor': {
+                    display: 'inline-block',
+                },
+            }
         },
         paragraph: {
             marginBottom: '1.0rem'
@@ -103,12 +113,20 @@ export const styles: Styles = {
     lists: {
         ordered: empty,
         unordered: {
-            listStyleType:  'disc',
-            listStyleImage: `url("${ chevron }")`,
+            listStyleType:      'none',
+            listStylePosition:  'inside',
+            '& li::before': {
+                content:        `url(${ bullet})`,
+                display:        'inline-block',
+                verticalAlign:  'text-top',
+                width:          '1rem',
+                height:         '1rem',
+                marginRight:    '0.5rem',
+            }
         },
         item: {
-            paddingBottom:  '0.5rem',
-            breakInside:    'avoid' as 'avoid'
+            paddingTop:  '0.5rem',
+            breakInside: 'avoid',
         }
     },
     controls: {

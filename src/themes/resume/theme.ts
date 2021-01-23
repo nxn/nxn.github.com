@@ -16,9 +16,15 @@ export const theme: Theme = {
     breakPoints,
     mediaQueries,
     spacing: {
-        // TODO: Define and use this
         margins: {
-            standard: { }
+            standard: {
+                min:        1.25,
+                percent:    6.5
+            },
+            print: {
+                vertical:   0.5,
+                horizontal: 0.5,
+            },
         }
     },
     zIndex: { }

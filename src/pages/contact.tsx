@@ -15,7 +15,7 @@ import { TextField }                from "../components/controls/textfield";
 import { ErrorNoScript }            from "../components/banner";
 
 import { alert, AlertData } from "../state/snackbar";
-import { asGridTemplate } from "../util";
+import { gridTemplate } from "../util";
 
 import { 
     selectAll, 
@@ -379,22 +379,22 @@ const Email = styled.form(({theme}) => ({
     display:    'grid',
     gap:        '1rem',
     gridTemplateRows: '1fr auto 1fr 0.5rem 1fr',
-    gridTemplateAreas: asGridTemplate([
+    gridTemplateAreas: gridTemplate(
         'subject',
         'body',
         'address',
         'spacer',
         'actions'
-    ]),
+    ),
 
     [theme.mediaQueries.standard]: {
         gridTemplateColumns: '1fr auto',
         gridTemplateRows: '1fr auto 1fr',
-        gridTemplateAreas: asGridTemplate([
+        gridTemplateAreas: gridTemplate(
             'subject    subject',
             'body       body',
             'address    actions'
-        ]),
+        ),
     }
 }));
 

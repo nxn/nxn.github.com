@@ -15,7 +15,7 @@ import Footer       from "./footer";
 import Snackbar     from "../snackbar";
 import ImageViewer  from "../imageviewer";
 
-import { asGridTemplate } from "../../util";
+import { gridTemplate } from "../../util";
 
 import '../../stylesheets/reset.css';
 import '../../stylesheets/fonts.css';
@@ -127,7 +127,7 @@ const Container = styled.div({
     paddingBottom:          '1rem',
     display:                'grid',
     gridTemplateColumns:    '1rem auto auto 1rem',
-    gridTemplateAreas: asGridTemplate([
+    gridTemplateAreas: gridTemplate(
         '   .   hd-logo         hd-menu-button  hd-menu-button',
         'hd-nav hd-nav          hd-nav          hd-nav',
         'main   main            main            main',
@@ -135,7 +135,7 @@ const Container = styled.div({
         '   .   ft-misc         ft-nav          .   ',
         '   .   ft-info         ft-info         .   ',
         '   .   ft-copyright    ft-copyright    .   '
-    ]),
+    ),
 
     [theme.mediaQueries.standard]: {
         paddingBottom: '2rem',
@@ -145,13 +145,13 @@ const Container = styled.div({
         //gridTemplateColumns:    `auto minmax(16rem, calc(${ theme.typography.lineLength.regular } * 0.9)) auto`,
         //gridTemplateRows:       '2.5rem auto 2.5rem',
         gridTemplateColumns: "minmax(2rem, 1fr) auto auto auto minmax(2rem, 1fr)",
-        gridTemplateAreas: asGridTemplate([
+        gridTemplateAreas: gridTemplate(
             '   .   hd-logo     hd-nav          hd-nav  .   ',
             'main   main        main            main    main',
             '   .   ft-logo     ft-info         ft-nav  .   ',
             '   .   ft-misc     ft-info         ft-nav  .   ',
             '   .   ft-misc     ft-copyright    ft-nav  .   '
-        ])
+        )
     },
 });
 
