@@ -18,7 +18,7 @@ export function ListUnstyled(props: React.DetailedHTMLProps<React.HTMLAttributes
                 <EmailAddress className="address" />
             </li>
             <li className="web">
-                <Link to="/" title="Portfolio Website">
+                <Link to="/" title="Portfolio">
                     <LinkIcon />
                     www.nxn.io
                 </Link>

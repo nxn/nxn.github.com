@@ -1,20 +1,23 @@
-import React from "react";
-import styled from "@emotion/styled";
+import React    from "react";
+import styled   from "@emotion/styled";
 
-import Link from '../controls/link';
-import { DownArrowIcon } from "../graphics/icons";
-import { DownloadIcon } from "../graphics/icons";
+import { Link, LinkProps }  from '../controls/link';
+import { DownArrowIcon }    from "../graphics/icons";
+import { DownloadIcon }     from "../graphics/icons";
+import { getFileExt }       from "../../util";
 
-export function Download(props: React.AnchorHTMLAttributes<HTMLAnchorElement> & { extension?: string }) {
+export function FileLink(props: LinkProps & { variant?: 'standard' | 'extension' }) {
+    const { variant, ...other } = props;
+    const ext = getFileExt(props.to || props.href || '')?.toUpperCase();
     return (
-        <DownloadLink { ...props } to="/downloads/ewieczorek_resume.pdf" title="Save PDF">
-            { props.extension ? (
+        <File title={ ext ? `Save ${ ext }` : 'Save' } { ...other }>
+            { variant === 'extension' && ext ? (
                 <React.Fragment>
                     <SmallIcon />
-                    <Text>{ props.extension }</Text>
+                    <Extension>{ ext }</Extension>
                 </React.Fragment>
             ) : <FullIcon /> }
-        </DownloadLink>
+        </File>
     );
 }
 
@@ -34,7 +37,7 @@ const SmallIcon = styled(DownArrowIcon)(({theme}) => ({
     backgroundColor:    theme.palette.bgs.standard.main,
 }));
 
-const DownloadLink = styled(Link)(({theme}) => ({
+const File = styled(Link)(({theme}) => ({
     boxSizing:      'border-box',
     color:          theme.palette.accents.light,
     border:         `0.125rem solid ${ theme.palette.accents.light }`,
@@ -75,8 +78,7 @@ const DownloadLink = styled(Link)(({theme}) => ({
     '&:focus':  { outline: 0 }
 }));
 
-const Text = styled.div(({theme}) => ({
-    textTransform:  'uppercase',
+const Extension = styled.div(({theme}) => ({
     textAlign:      'center',
     fontWeight:     'bold',
     fontSize:       '0.8rem',
@@ -85,4 +87,4 @@ const Text = styled.div(({theme}) => ({
     color: theme.palette.bgs.standard.main,
 }));
 
-export default Download;
+export default FileLink;

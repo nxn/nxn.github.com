@@ -1,16 +1,25 @@
 export const filenameRx = /\/([^/]+\.[0-9a-z]+$)/i;
+export const fileExtRx  = /\/[^/]+\.([0-9a-z]+$)/i;
 
-export function getFilename(path: string) {
-    if (!path) {
+function getRxGroup(rx: RegExp, text: string, group = 1) {
+    if (!text) {
         return null;
     }
 
-    const match = path.match(filenameRx);
-    if (match && match.length === 2) {
-        return match[1];
+    const match = text.match(rx);
+    if (match && match.length > group) {
+        return match[group];
     }
 
     return null;
+}
+
+export function getFilename(path: string) {
+    return getRxGroup(filenameRx, path);
+}
+
+export function getFileExt(path: string) {
+    return getRxGroup(fileExtRx, path);
 }
 
 export function getOrdinalIndicator(num: number) {

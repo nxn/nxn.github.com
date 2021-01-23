@@ -7,7 +7,7 @@ import { MDXProvider }              from '@mdx-js/react';
 import theme    from "../../themes/resume/theme";
 import common   from "../common";
 import List     from "./list";
-import Download from "./download";
+import FileLink from "./filelink";
 
 import { gridTemplate } from "../../util";
 
@@ -24,7 +24,7 @@ type LayoutProps = {
     className?: string
 }
 
-const components = { List, Download, ...common };
+const components = { List, FileLink, ...common };
 
 export function Layout(props: LayoutProps) {
     return (
