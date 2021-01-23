@@ -136,6 +136,12 @@ export const DownloadIcon = React.memo((props: SvgProps) => (
     </Svg>
 ));
 
+export const DownArrowIcon = React.memo((props: SvgProps) => (
+    <Svg { ...props } className={ clsx('icon', props.className) }>
+        <path d="M22,11.8h-5.7V3.2H7.7v8.6H2l10,10L22,11.8z"/>
+    </Svg>
+));
+
 export const CloseIcon = React.memo((props: SvgProps) => (
     <Svg { ...props } className={ clsx('icon', props.className) }>
         <polygon points="19.8,5.6 18.4,4.2 12,10.6 5.6,4.2 4.2,5.6 10.6,12 4.2,18.4 5.6,19.8 12,13.4 18.4,19.8 19.8,18.4 13.4,12 "/>
