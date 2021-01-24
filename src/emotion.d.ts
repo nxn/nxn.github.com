@@ -4,11 +4,6 @@ declare module '@emotion/react' {
     // TODO: Look through React/Emotion to see if a suitable type definition can be used here
     export type CSSProperties = any;
 
-    export interface Margins {
-        horizontal?:    string,
-        vertical?:      string,
-    }
-
     export interface AlertTypeColors {
         info?:      string,
         success?:   string,
@@ -68,6 +63,11 @@ declare module '@emotion/react' {
         },
     }
 
+    export interface Margins {
+        horizontal?:    string,
+        vertical?:      string,
+    }
+
     export interface Spacing {
         margins: Margins & { [P in keyof MediaQueries]?: Margins | Record<string, number> }, 
     }
@@ -119,7 +119,6 @@ declare module '@emotion/react' {
 
     export interface BreakPoints {
         standard:   number,
-        sidePanel?: number,
     }
 
     export type MediaQueries = { [P in keyof BreakPoints]: string } & {

@@ -17,6 +17,8 @@ export const theme: Theme = {
     mediaQueries,
     spacing: {
         margins: {
+            horizontal: 'max(1rem, 6.5%)',
+            vertical:   'max(1rem, 6.5%)',
             standard: {
                 horizontal: 'auto',
                 vertical:   '0.25in',
@@ -25,8 +27,6 @@ export const theme: Theme = {
                 vertical:   '0.5in',
                 horizontal: '0.5in',
             },
-            horizontal: 'max(1rem, 6.5%)',
-            vertical:   'max(1rem, 6.5%)',
         }
     },
     zIndex: { }

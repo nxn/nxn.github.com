@@ -107,7 +107,7 @@ const globalStyles = {
             - marginConfig.minHorizontal    // - 2)rem
         }rem)`,
         
-        // Same as above, but caps the maxium vertical margin to 4rem max
+        // Same as above, but caps the maximum vertical margin to 4rem max
         '--content-v-margin': `min(${ marginConfig.maxVertical }rem, var(--content-h-margin))`
     },
     body: theme.styles.body,

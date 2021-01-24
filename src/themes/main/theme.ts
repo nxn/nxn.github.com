@@ -17,6 +17,9 @@ export const theme: Theme = {
     mediaQueries,
     spacing: {
         margins: {
+            // These are calculated based on the above and the viewport size. Defined and saved in layout.tsx.
+            vertical:   'var(--content-v-margin)',
+            horizontal: 'var(--content-h-margin)',
             standard: {
                 // Minimum horizontal margin size (rem)
                 minHorizontal:  2,
@@ -25,10 +28,7 @@ export const theme: Theme = {
                 // Percentage of free space to use as margin after the `standard` breakpoint is met (wont use any
                 // additional space beyond the `minHorizontal` value prior to that point)
                 additional:     0.075
-            },
-            // These are calculated based on the above and the viewport size. Defined and saved in layout.tsx.
-            vertical:   'var(--content-v-margin)',
-            horizontal: 'var(--content-h-margin)',
+            }
         }
     },
     zIndex: {
