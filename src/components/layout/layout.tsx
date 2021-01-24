@@ -87,6 +87,13 @@ export function Layout(props: LayoutProps) {
     );
 }
 
+const marginConfig = {
+    additional:     0.075,
+    minHorizontal:  2,
+    maxVertical:    4,
+    ...theme.spacing.margins.standard as Record<string, number>
+};
+
 const globalStyles = {
     ':root': {
         // Equates to a minimum margin of 2rem plus an addition 7.5% of the available space left after meeting the
@@ -94,14 +101,14 @@ const globalStyles = {
 
         //`calc(7.5vw - ${ theme.breakPoints.standard * 0.075 - 2 }rem)`,
         '--content-h-margin': `calc(${ 
-            (theme.spacing.margins.standard.additional      || 0.075) * 100 // 7.5vw
-        }vw - ${ theme.breakPoints.standard                                 // - (40
-            * (theme.spacing.margins.standard.additional    || 0.075)       // * 0.075
-            - (theme.spacing.margins.standard.minHorizontal || 2)           // - 2)rem
+            marginConfig.additional * 100   // 7.5vw
+        }vw - ${ theme.breakPoints.standard // - (40
+            * marginConfig.additional       // * 0.075
+            - marginConfig.minHorizontal    // - 2)rem
         }rem)`,
         
         // Same as above, but caps the maxium vertical margin to 4rem max
-        '--content-v-margin': `min(${ theme.spacing.margins.standard.maxVertical }rem, var(--content-h-margin))`
+        '--content-v-margin': `min(${ marginConfig.maxVertical }rem, var(--content-h-margin))`
     },
     body: theme.styles.body,
 

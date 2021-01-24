@@ -44,103 +44,121 @@ export function Layout(props: LayoutProps) {
     );
 }
 
-const Container = styled.div(({theme}) => ({
-    '& header': {
-        display:                'grid',
-        rowGap:                 '1rem',
-        columnGap:              '2rem',
-        gridTemplateColumns:    'auto 1fr',
-        gridTemplateAreas:  gridTemplate(
-            'title      title',
-            'download   contact',
-            'summary    summary',
-            'spec-list  spec-list',
-            'tech-tags  tech-tags'
-        ),
-        '& #title':         { gridArea: 'title', },
-        '& #summary':       { gridArea: 'summary' },
-        '& #spec-list':     { gridArea: 'spec-list' },
-        '& #tech-tags':     { gridArea: 'tech-tags' },
-        '& #contact':       { gridArea: 'contact' },
-        '& #download': { 
-            gridArea:   'download',
-            alignSelf:  'center',
-            justifySelf: 'self-start'
-        },
-    },
-
-    '& #summary p': { marginBottom: 0 },
-
-    '& #tech-tags li': {
-        display:            'inline-block',
-        border:             `0.0625rem solid ${ theme.palette.accents.light }`,
-        padding:            '0.15rem 0.5rem',
-        marginTop:          '0.5rem',
-        marginRight:        '0.5rem',
-        borderRadius:       '0.25rem',
-        boxSizing:          'border-box',
-        listStyle:          'none',
-        '&::before':        { content: 'none' },
-    },
-
-    ['@media screen']: {
-        minWidth:           '17.5rem', /* ~280px with 20px of padding on each side */
-        backgroundColor:    theme.palette.bgs.standard.main,
-        padding: `max(${ theme.spacing.margins.standard.min }rem, ${ theme.spacing.margins.standard.percent }%)`,
-
-        // Should be the same as the height of a <br /> (1.5rem lineHeight)
-        '& .page':          { marginBottom: '1.5rem' },
-        '& #tech-tags li':  { color: theme.palette.text.standard.light }
-    },
-
-    // Creates distinct page styles when view is large enough (should not be applied when printing)
-    [`@media screen and (min-width: ${ theme.breakPoints.standard }in)`]: {
-        padding: 0,
-        backgroundColor: theme.palette.bgs.standard.dim,
-
-        '& .page': {
-            maxWidth:           '8.5in',
-            minHeight:          '11in',
-            margin:             '0.25in auto',
-            boxSizing:          'border-box',
-            backgroundColor:    theme.palette.bgs.standard.main,
-            borderRadius:       '0.25rem',
-            boxShadow:          '0rem 0.125rem 0.125rem rgba(0,0,0,0.25), 0rem 0.25rem 0.5rem rgba(0,0,0,0.08)',
-            
-            padding: `${ theme.spacing.margins.print.vertical }in ${ theme.spacing.margins.print.horizontal }in`,
-        },
-    },
-
-    // Splits select resume content into columns when the view is large enough or when printing
-    [`@media print, (min-width: ${ theme.breakPoints.standard }in)`]: {
-        '& header': {
-            gridTemplateColumns:    'calc(50% - 1rem) 1fr 1fr',
-            columnGap:              '2rem',
-            gridTemplateAreas: gridTemplate(
-                'title      download    contact',
-                'summary    summary     summary',
-                'spec-list  tech-tags   tech-tags'
-            ),
-            '& #download': {
-                justifySelf: 'self-end'
-            },
-            '& ul': { columns: 1 }
-        },
-
-        '& ul': {
-            columns:    2,
-            columnGap: '2rem'
-        },
-    },
-
-    // Print specific styles
-    ['@media print']: { '& #download':              { display: 'none' } },
-    ['@media print and (orientation: portrait)']:   { '& .page': { pageBreakInside: 'avoid' } },
-    ['@page']: { 
-        size: 'letter portrait',
-        margin: `${ theme.spacing.margins.print.vertical }in ${ theme.spacing.margins.print.horizontal }in`
+const Container = styled.div(({theme}) => {
+    const defaultMargins = {
+        horizontal: theme.spacing.margins.horizontal    || 'max(1rem, 6.5%)',
+        vertical:   theme.spacing.margins.vertical      || 'max(1rem, 6.5%)',
     }
-}));
+
+    const printMargins = {
+        horizontal: '0.5in',
+        vertical:   '0.5in',
+        ...theme.spacing.margins.print
+    }
+
+    const standardMargins = {
+        horizontal: 'auto',
+        vertical: '0.25in',
+        ...theme.spacing.margins.standard
+    }
+
+    return {
+        '& header': {
+            display:                'grid',
+            rowGap:                 '1rem',
+            columnGap:              '2rem',
+            gridTemplateColumns:    'auto 1fr',
+            gridTemplateAreas:  gridTemplate(
+                'title      title',
+                'download   contact',
+                'summary    summary',
+                'spec-list  spec-list',
+                'tech-tags  tech-tags'
+            ),
+            '& #title':         { gridArea: 'title', },
+            '& #summary':       { gridArea: 'summary' },
+            '& #spec-list':     { gridArea: 'spec-list' },
+            '& #tech-tags':     { gridArea: 'tech-tags' },
+            '& #contact':       { gridArea: 'contact' },
+            '& #download': { 
+                gridArea:   'download',
+                alignSelf:  'center',
+                justifySelf: 'self-start'
+            },
+        },
+
+        '& #summary p': { marginBottom: 0 },
+
+        '& #tech-tags li': {
+            display:            'inline-block',
+            border:             `0.0625rem solid ${ theme.palette.accents.light }`,
+            padding:            '0.15rem 0.5rem',
+            marginTop:          '0.5rem',
+            marginRight:        '0.5rem',
+            borderRadius:       '0.25rem',
+            boxSizing:          'border-box',
+            listStyle:          'none',
+            '&::before':        { content: 'none' },
+        },
+
+        ['@media screen']: {
+            minWidth:           '17.5rem', /* ~280px with 20px of padding on each side */
+            backgroundColor:    theme.palette.bgs.standard.main,
+            padding:            `${ defaultMargins.vertical } ${ defaultMargins.horizontal }`,
+
+            // Should be the same as the height of a <br /> (1.5rem lineHeight)
+            '& .page':          { marginBottom: '1.5rem' },
+            '& #tech-tags li':  { color: theme.palette.text.standard.light }
+        },
+
+        // Creates distinct page styles when view is large enough (should not be applied when printing)
+        [`@media screen and (min-width: ${ theme.breakPoints.standard }in)`]: {
+            padding: 0,
+            backgroundColor: theme.palette.bgs.standard.dim,
+
+            '& .page': {
+                maxWidth:           '8.5in',
+                minHeight:          '11in',
+                boxSizing:          'border-box',
+                backgroundColor:    theme.palette.bgs.standard.main,
+                borderRadius:       '0.25rem',
+                boxShadow:          '0rem 0.125rem 0.125rem rgba(0,0,0,0.25), 0rem 0.25rem 0.5rem rgba(0,0,0,0.08)',
+                margin:             `${ standardMargins.vertical } ${ standardMargins.horizontal }`,
+                padding:            `${ printMargins.vertical } ${ printMargins.horizontal }`,
+            },
+        },
+
+        // Splits select resume content into columns when the view is large enough or when printing
+        [`@media print, (min-width: ${ theme.breakPoints.standard }in)`]: {
+            '& header': {
+                gridTemplateColumns:    'calc(50% - 1rem) 1fr 1fr',
+                columnGap:              '2rem',
+                gridTemplateAreas: gridTemplate(
+                    'title      download    contact',
+                    'summary    summary     summary',
+                    'spec-list  tech-tags   tech-tags'
+                ),
+                '& #download': {
+                    justifySelf: 'self-end'
+                },
+                '& ul': { columns: 1 }
+            },
+
+            '& ul': {
+                columns:    2,
+                columnGap: '2rem'
+            },
+        },
+
+        // Print specific styles
+        ['@media print']: { '& #download':              { display: 'none' } },
+        ['@media print and (orientation: portrait)']:   { '& .page': { pageBreakInside: 'avoid' } },
+        ['@page']: { 
+            size: 'letter portrait',
+            margin: `${ printMargins.vertical } ${ printMargins.horizontal }`
+        }
+    }
+});
 
 export default Layout;
 

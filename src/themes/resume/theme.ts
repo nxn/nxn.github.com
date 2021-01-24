@@ -18,13 +18,15 @@ export const theme: Theme = {
     spacing: {
         margins: {
             standard: {
-                min:        1.25,
-                percent:    6.5
+                horizontal: 'auto',
+                vertical:   '0.25in',
             },
             print: {
-                vertical:   0.5,
-                horizontal: 0.5,
+                vertical:   '0.5in',
+                horizontal: '0.5in',
             },
+            horizontal: 'max(1rem, 6.5%)',
+            vertical:   'max(1rem, 6.5%)',
         }
     },
     zIndex: { }
