@@ -37,7 +37,7 @@ const extractSummary = () => (tree, file) => {
     // Aggregate summary text and store it as file data
     const text = []
     visit(tree, 'text', node => text.push(node.value));
-    file.data.text = text.join(' ').replaceAll('\n', ' ');
+    file.data.text = text.join(' ').replace(/\n/g, ' ');
 }
 
 const extractOptions = {
